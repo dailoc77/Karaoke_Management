@@ -6,5 +6,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="C:/HOCTAP/PhatTrienUngDung/on cuoi ky_Chep cho sv/sqljdbc4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
