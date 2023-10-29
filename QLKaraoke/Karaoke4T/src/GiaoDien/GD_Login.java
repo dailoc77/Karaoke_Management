@@ -111,7 +111,7 @@ public class GD_Login extends JFrame implements ActionListener{
 		            JOptionPane.showMessageDialog(this, "Vui lòng đăng nhập mật khẩu");
 		        } else if(textField.getText().equals("admin")){
 		                if(passwordField.getText().equals("123")){
-		                        GD_Main_NV mng =new GD_Main_NV();
+		                        GD_Main_QL mng =new GD_Main_QL();
 		                        mng.setVisible(true);
 		                        this.setVisible(false);
 		                }
