@@ -193,6 +193,6 @@ public class QuanLyKhachHang extends JFrame {
 		contentPane.add(lblNewLabel);
 		lblNewLabel.setBackground(new Color(240, 240, 240));
 		lblNewLabel.setForeground(new Color(255, 0, 0));
-		lblNewLabel.setIcon(new ImageIcon("D:\\git_duanlon\\PTUD_2023_Nhom07_DHKTPM17ATT\\QLKaraoke\\Karaoke4T\\src\\Imgs\\370.png"));
+		lblNewLabel.setIcon(new ImageIcon(QuanLyKhachHang.class.getResource("/Imgs/370.png")));
 	}
 }
