@@ -2,8 +2,10 @@ package GiaoDien;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-//import java.util.GregorianCalendar;
-
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -14,12 +16,17 @@ import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import java.awt.Font;
 import javax.swing.SwingConstants;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.SimpleDateFormat;
+import javax.swing.JButton;
 
 public class GD_Main_NV extends JFrame implements ActionListener{
-//	private JLabel lblclock;
-//	private JPanel box_clock;
+	private JLabel time = new JLabel ();
+    private SimpleDateFormat sdf = new SimpleDateFormat ("hh:mm:ss dd/MM/yyyy");
 	/**
 	 * 
 	 */
@@ -29,6 +36,7 @@ public class GD_Main_NV extends JFrame implements ActionListener{
 	/**
 	 * Launch the application.
 	 */
+	    
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -45,6 +53,7 @@ public class GD_Main_NV extends JFrame implements ActionListener{
 	/**
 	 * Create the frame.
 	 */
+	
 	public GD_Main_NV() {
 		setBackground(Color.WHITE);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -52,23 +61,45 @@ public class GD_Main_NV extends JFrame implements ActionListener{
 		setBounds(100, 100, 1175, 650);
 		contentPane = new JPanel();
 		contentPane.setBorder(null);
-
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		JPanel dangxuat = new JPanel();
+		LineBorder lineBorder =new LineBorder(Color.RED, 10, true);
+		dangxuat.setBorder(lineBorder );
+		dangxuat.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			}
+		});
+		dangxuat.setBorder(null);
+		dangxuat.setBackground(new Color(255, 0, 0));
+		dangxuat.setBounds(1011, 10, 140, 50);
+		contentPane.add(dangxuat);
+		dangxuat.setLayout(null);
+		
+		JLabel lblDangXuat = new JLabel("Đăng Xuất");
+		lblDangXuat.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblDangXuat.setForeground(new Color(255, 255, 255));
+		lblDangXuat.setBounds(0, 0, 140, 50);
+		lblDangXuat.setHorizontalAlignment(SwingConstants.CENTER);
+		dangxuat.add(lblDangXuat);
+		
 		JPanel box_clock = new JPanel();
 		box_clock.setBorder(null);
-		box_clock.setBackground(new Color(255, 255, 255, 50));
+		box_clock.setBackground(new Color(0, 0, 0));
 		box_clock.setBounds(34, 10, 260, 50);
 		contentPane.add(box_clock);
 		box_clock.setLayout(null);
+		start ();
 		
-		JLabel lblclock = new JLabel("");
-		lblclock.setHorizontalAlignment(SwingConstants.CENTER);
-		lblclock.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblclock.setBounds(10, 0, 240, 50);
-//		clock();
-		box_clock.add(lblclock);
+		
+		time.setHorizontalAlignment(SwingConstants.CENTER);
+		time.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		time.setForeground(new Color(255, 255, 255));
+		time.setBounds(10, 0, 240, 50);
+		box_clock.add(time);
+		
 		
 		JPanel datphong = new JPanel();
 		datphong.addMouseListener(new MouseAdapter() {
@@ -178,26 +209,12 @@ public class GD_Main_NV extends JFrame implements ActionListener{
 		// TODO Auto-generated method stub
 		
 	}
-//	private void clock() {
-//		new Thread() {
-//			public void run() {
-//				while(true) {
-//					GregorianCalendar ca = new GregorianCalendar();
-//					int hour = ca.get(GregorianCalendar.HOUR);
-//					int min = ca.get(GregorianCalendar.MINUTE);
-//					int AM_PM = ca.get(GregorianCalendar.AM_PM);
-//					int day = ca.get(GregorianCalendar.DATE);
-//					int mon = ca.get(GregorianCalendar.MONTH);
-//					int year = ca.get(GregorianCalendar.YEAR);
-//					String day_night;
-//					if(AM_PM == 1) {
-//						day_night = "PM";
-//					}else {
-//						day_night = "AM";
-//					}
-//				lblclock.setText(hour + ":" + min + day_night +" " + day + "/" + mon + "/" + year);
-//				}
-//			}
-//		}.start();
-//	}
+	public void start () {
+        Timer timer = new Timer ();
+        timer.scheduleAtFixedRate ( new TimerTask () {
+            public void run () {
+                time.setText ( sdf.format (new Date ()) );
+            }
+        }, 0, 1000 );
+    }
 }
