@@ -264,7 +264,7 @@ public class GD_DatPhong extends JFrame implements ActionListener {
         
         JButton btnChonPhongHat = new JButton("");
         btnChonPhongHat.setBackground(new Color(168, 168, 168));
-        btnChonPhongHat.setIcon(new ImageIcon(GD_DatPhong.class.getResource("/Imgs/micro_gray.png")));
+        btnChonPhongHat.setIcon(new ImageIcon(GD_DatPhong.class.getResource("/Imgs/micro.png")));
         btnChonPhongHat.setBounds(66, 110, 88, 85);
         pnl_danhsachphonghat.add(btnChonPhongHat);
         
@@ -275,7 +275,7 @@ public class GD_DatPhong extends JFrame implements ActionListener {
         
         JButton btnChonPhongHat3 = new JButton("");
         btnChonPhongHat3.setFont(new Font("Tahoma", Font.PLAIN, 11));
-        btnChonPhongHat3.setIcon(new ImageIcon(GD_DatPhong.class.getResource("/Imgs/micro_crown_gray.png")));
+        btnChonPhongHat3.setIcon(new ImageIcon(GD_DatPhong.class.getResource("/Imgs/micro.png")));
         btnChonPhongHat3.setBounds(360, 110, 88, 85);
         pnl_danhsachphonghat.add(btnChonPhongHat3);
         
@@ -295,7 +295,7 @@ public class GD_DatPhong extends JFrame implements ActionListener {
         pnl_danhsachphonghat.add(btnChonPhongHat6);
         
         JButton btnChonPhongHat7 = new JButton("");
-        btnChonPhongHat7.setIcon(new ImageIcon(GD_DatPhong.class.getResource("/Imgs/micro_with_crown.png")));
+        btnChonPhongHat7.setIcon(new ImageIcon(GD_DatPhong.class.getResource("/Imgs/micro.png")));
         btnChonPhongHat7.setBounds(213, 252, 88, 85);
         pnl_danhsachphonghat.add(btnChonPhongHat7);
         
