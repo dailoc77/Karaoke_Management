@@ -16,23 +16,39 @@ import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import java.awt.Font;
 import javax.swing.SwingConstants;
+
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
+
 import javax.swing.JButton;
+import java.time.Clock;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class GD_Main_NV extends JFrame implements ActionListener{
 	private JLabel time = new JLabel ();
     private SimpleDateFormat sdf = new SimpleDateFormat ("hh:mm:ss dd/MM/yyyy");
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+}
+
+
+
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-
+	private JLabel lblClock;
+	private Timer timer;
 	/**
 	 * Launch the application.
 	 */
@@ -49,13 +65,13 @@ public class GD_Main_NV extends JFrame implements ActionListener{
 			}
 		});
 	}
-
 	/**
 	 * Create the frame.
 	 */
 	
 	public GD_Main_NV() {
 		setBackground(Color.WHITE);
+		setTitle("Giao Diện Nhân Viên");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setBounds(100, 100, 1175, 650);
@@ -86,6 +102,7 @@ public class GD_Main_NV extends JFrame implements ActionListener{
 		dangxuat.add(lblDangXuat);
 		
 		JPanel box_clock = new JPanel();
+
 		box_clock.setBorder(null);
 		box_clock.setBackground(new Color(0, 0, 0));
 		box_clock.setBounds(34, 10, 260, 50);
@@ -100,6 +117,22 @@ public class GD_Main_NV extends JFrame implements ActionListener{
 		time.setBounds(10, 0, 240, 50);
 		box_clock.add(time);
 		
+
+        box_clock.setBackground(new Color(255, 255, 255));
+        box_clock.setBounds(34, 10, 260, 50);
+        contentPane.add(box_clock);
+        box_clock.setLayout(null);
+
+        lblClock = new JLabel();
+        lblClock.setHorizontalAlignment(SwingConstants.CENTER);
+        lblClock.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        lblClock.setBounds(10, 0, 240, 50);
+        lblClock.setForeground(Color.BLACK);
+        box_clock.add(lblClock);
+
+        timer = new Timer(0, this);
+        timer.start();
+
 		
 		JPanel datphong = new JPanel();
 		datphong.addMouseListener(new MouseAdapter() {
@@ -202,13 +235,17 @@ public class GD_Main_NV extends JFrame implements ActionListener{
 		lblNewLabel.setIcon(new ImageIcon(GD_Main_NV.class.getResource("/Imgs/370.png")));
 		lblNewLabel.setBounds(-95, -176, 1333, 957);
 		contentPane.add(lblNewLabel);
+		
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
+		if (e.getSource() == timer) {
+            // Cập nhật thời gian
+            updateClock();
+        }
 	}
+
 	public void start () {
         Timer timer = new Timer ();
         timer.scheduleAtFixedRate ( new TimerTask () {
@@ -216,5 +253,32 @@ public class GD_Main_NV extends JFrame implements ActionListener{
                 time.setText ( sdf.format (new Date ()) );
             }
         }, 0, 1000 );
+}
+
+    private void updateClock() {
+        Calendar cal = Calendar.getInstance();
+        int hour = cal.get(Calendar.HOUR_OF_DAY);
+        int minute = cal.get(Calendar.MINUTE);
+        int second = cal.get(Calendar.SECOND);
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+        int month = cal.get(Calendar.MONTH)+1;
+        int year = cal.get(Calendar.YEAR);
+        
+        String ampm;
+        if (hour >= 12) {
+            ampm = "PM";
+            if (hour > 24) {
+                hour -= 12;
+            }
+        } else {
+            ampm = "AM";
+            if (hour == 0) {
+                hour = 12;
+            }
+        }
+        
+        String time = String.format("%02d:%02d:%02d %s  %04d/%02d/%02d", hour, minute, second, ampm, year, month, day);
+        lblClock.setText(time);
+
     }
 }

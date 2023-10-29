@@ -32,7 +32,8 @@ public class GD_Login extends JFrame implements ActionListener{
 	 * Create the frame.
 	 */
 	public GD_Login() {
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setTitle("Đăng nhập");
 		setBounds(100, 100, 734, 505);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -43,7 +44,7 @@ public class GD_Login extends JFrame implements ActionListener{
 		
 		JPanel panel = new JPanel();
 		panel.setForeground(new Color(255, 255, 255));
-		panel.setBackground(new Color(255, 255, 255, 100));
+		panel.setBackground(new Color(255, 255, 255, 200));
 		panel.setBounds(201, 80, 323, 324);
 		contentPane.add(panel);
 		panel.setLayout(null);
