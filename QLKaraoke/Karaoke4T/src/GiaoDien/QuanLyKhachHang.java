@@ -296,9 +296,11 @@ public class QuanLyKhachHang extends JFrame {
 		lblNewLabel.setBackground(new Color(240, 240, 240));
 		lblNewLabel.setForeground(new Color(255, 0, 0));
 		lblNewLabel.setIcon(new ImageIcon(QuanLyKhachHang.class.getResource("/Imgs/370.png")));
+
 		
 		table_1 = new JTable();
 		table_1.setBounds(391, 261, -308, 77);
 		contentPane.add(table_1);
+
 	}
 }
