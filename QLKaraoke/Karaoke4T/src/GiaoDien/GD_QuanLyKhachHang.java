@@ -33,7 +33,7 @@ import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.SwingConstants;
 import javax.swing.JScrollBar;
-public class QuanLyKhachHang extends JFrame implements ActionListener {
+public class GD_QuanLyKhachHang extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
 	private JTextField textField;
@@ -53,7 +53,7 @@ public class QuanLyKhachHang extends JFrame implements ActionListener {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					QuanLyKhachHang frame = new QuanLyKhachHang();
+					GD_QuanLyKhachHang frame = new GD_QuanLyKhachHang();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -65,7 +65,7 @@ public class QuanLyKhachHang extends JFrame implements ActionListener {
 	/**
 	 * Create the frame.
 	 */
-	public QuanLyKhachHang() {
+	public GD_QuanLyKhachHang() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1175, 650);
 		contentPane = new JPanel();
@@ -436,7 +436,7 @@ public class QuanLyKhachHang extends JFrame implements ActionListener {
 		contentPane.add(lblNewLabel);
 		lblNewLabel.setBackground(new Color(240, 240, 240));
 		lblNewLabel.setForeground(new Color(255, 0, 0));
-		lblNewLabel.setIcon(new ImageIcon(QuanLyKhachHang.class.getResource("/Imgs/370.png")));
+		lblNewLabel.setIcon(new ImageIcon(GD_QuanLyKhachHang.class.getResource("/Imgs/370.png")));
 
 	}
 	

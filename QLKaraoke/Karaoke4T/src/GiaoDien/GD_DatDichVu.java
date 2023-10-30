@@ -10,6 +10,8 @@ import java.awt.Color;
 import java.awt.EventQueue;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import java.awt.Font;
 import javax.swing.SwingConstants;
@@ -190,18 +192,41 @@ public class GD_DatDichVu extends JFrame implements ActionListener{
 			public void mouseClicked(MouseEvent e) {
 			}
 		});
-		DangXuat.setBorder(null);
-		DangXuat.setBackground(new Color(255, 0, 0));
-		DangXuat.setBounds(988, 10, 150, 50);
-		contentPane.add(DangXuat);
-		DangXuat.setLayout(null);
+		JButton jButton_1 = new JButton("Đăng Xuất");
+		jButton_1.setBounds(990, 10, 150, 50);
+		jButton_1.setFont(new Font("Tahoma ", Font.BOLD, 14));
+		jButton_1.setBackground(new Color(255, 0, 0));
+		jButton_1.setForeground(Color.WHITE);
 		
-		JLabel lblDangXuat = new JLabel("Đăng Xuất");
-		lblDangXuat.setForeground(new Color(255, 255, 255));
-		lblDangXuat.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblDangXuat.setHorizontalAlignment(SwingConstants.CENTER);
-		lblDangXuat.setBounds(0, 0, 150, 50);
-		DangXuat.add(lblDangXuat);
+			jButton_1.setBorder(BorderFactory.createLineBorder(Color.RED, 2, true));
+			jButton_1.setBorder(BorderFactory.createLineBorder(Color.RED, 2, true));
+			jButton_1.setContentAreaFilled(false);
+			jButton_1.setFocusPainted(false);
+			jButton_1.setOpaque(true);
+			contentPane.add(jButton_1);
+			
+					jButton_1.addMouseListener(new MouseAdapter() {
+					    @Override
+					    public void mouseEntered(MouseEvent e) {
+					        jButton_1.setBackground(Color.BLACK);
+					    }
+			
+					    @Override
+					    public void mouseExited(MouseEvent e) {
+					        jButton_1.setBackground(new Color(255, 0, 0));
+					    }
+					});
+					
+							jButton_1.addActionListener(new ActionListener() {
+							    public void actionPerformed(ActionEvent e) {
+							        if (JOptionPane.showConfirmDialog(null, "Bạn có muốn đăng xuất!", null, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+							            GD_Login lg = new GD_Login();
+							            lg.setVisible(true);
+							            lg.setLocationRelativeTo(null);
+							            dispose();
+							        }
+							    }
+							});
 		
 		JPanel Left_DatDichVu = new JPanel();
 		Left_DatDichVu.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(192, 192, 192), null));
@@ -615,7 +640,25 @@ public class GD_DatDichVu extends JFrame implements ActionListener{
 		btnDatDV.setForeground(new Color(255, 255, 255));
 		btnDatDV.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnDatDV.setBounds(527, 26, 150, 50);
-		btnDatDV.setBorder(null);
+		btnDatDV.setBorder(BorderFactory.createLineBorder(Color.getColor(null, new Color(199, 56, 102)), 1, true));
+		btnDatDV.setContentAreaFilled(false);
+		btnDatDV.setFocusPainted(false);
+		btnDatDV.setOpaque(true);
+		btnDatDV.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+            	btnDatDV.setBackground(Color.BLACK);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+            	btnDatDV.setBackground(new Color(199, 56, 102));
+            }
+        });
+		btnDatDV.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		Right_DatDichVu.add(btnDatDV);
 		
 		JScrollPane scrollPane_DSDVdadat = new JScrollPane();
