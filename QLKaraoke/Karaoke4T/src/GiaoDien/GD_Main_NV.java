@@ -11,7 +11,11 @@ import java.awt.Color;
 import java.awt.EventQueue;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
@@ -60,6 +64,60 @@ public class GD_Main_NV extends JFrame implements ActionListener{
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
+		JLabel lblquanly = new JLabel("NV:");
+		lblquanly.setForeground(Color.WHITE);
+		lblquanly.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblquanly.setBounds(878, -20, 232, 80);
+		contentPane.add(lblquanly);
+		
+		JLabel lbltenql = new JLabel("Nguyễn Văn C");
+		lbltenql.setForeground(Color.WHITE);
+		lbltenql.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lbltenql.setBounds(833, 6, 232, 80);
+		contentPane.add(lbltenql);
+		
+		JButton jButton = new JButton("Đăng Xuất");
+		jButton.setBounds(980, 13, 135, 42);
+		jButton.setFont(new Font("Tahoma ", Font.BOLD, 14));
+		jButton.setBackground(new Color(255, 0, 0));
+		jButton.setForeground(Color.WHITE);
+		
+		jButton.setBorder(BorderFactory.createLineBorder(Color.RED, 2, true));
+        jButton.setBorder(BorderFactory.createLineBorder(Color.RED, 2, true));
+        jButton.setContentAreaFilled(false);
+        jButton.setFocusPainted(false);
+        jButton.setOpaque(true);
+		contentPane.add(jButton);
+
+		jButton.addMouseListener(new MouseAdapter() {
+		    @Override
+		    public void mouseEntered(MouseEvent e) {
+		        jButton.setBackground(Color.BLACK);
+		    }
+
+		    @Override
+		    public void mouseExited(MouseEvent e) {
+		        jButton.setBackground(new Color(255, 0, 0));
+		    }
+		});
+
+		jButton.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        if (JOptionPane.showConfirmDialog(null, "Bạn có muốn đăng xuất!", null, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+		            GD_Login lg = new GD_Login();
+		            lg.setVisible(true);
+		            lg.setLocationRelativeTo(null);
+		            dispose();
+		        }
+		    }
+		});
+		
+		JLabel lblavatar = new JLabel("");
+		lblavatar.setHorizontalAlignment(SwingConstants.CENTER);
+		lblavatar.setIcon(new ImageIcon(GD_Main_QL.class.getResource("/Imgs/t1 1.png")));
+		lblavatar.setBounds(90, -444, 1333, 957);
+		contentPane.add(lblavatar);
 		
 		JPanel box_clock = new JPanel();
         box_clock.setBackground(new Color(255, 255, 255));

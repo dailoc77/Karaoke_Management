@@ -280,7 +280,7 @@ public class GD_DatPhong extends JFrame implements ActionListener {
         pnl_danhsachphonghat.add(btnChonPhongHat3);
         
         JButton btnChonPhongHat4 = new JButton("");
-        btnChonPhongHat4.setIcon(new ImageIcon(GD_DatPhong.class.getResource("/Imgs/micro.png")));
+        btnChonPhongHat4.setIcon(new ImageIcon(GD_DatPhong.class.getResource("/Imgs/micro_with_crown.png")));
         btnChonPhongHat4.setBounds(518, 110, 88, 85);
         pnl_danhsachphonghat.add(btnChonPhongHat4);
         
