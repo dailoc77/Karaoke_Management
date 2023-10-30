@@ -213,6 +213,16 @@ public class GD_DatPhong extends JFrame implements ActionListener {
         btnDatPhong.setBounds(25, 410, 109, 23);
         pnl_thongtinkhachhang.add(btnDatPhong);
         
+        btnDatPhong.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				GD_PhieuDatPhong phieuDatPhong = new GD_PhieuDatPhong();
+				phieuDatPhong.setVisible(true);
+				phieuDatPhong.setLocationRelativeTo(null);
+	            dispose();
+			}
+		});
+        
         JButton btnHuyDatPhong = new JButton("Hủy Đặt");
         btnHuyDatPhong.setBackground(new Color(255, 85, 85));
         btnHuyDatPhong.setFont(new Font("Tahoma", Font.PLAIN, 13));
