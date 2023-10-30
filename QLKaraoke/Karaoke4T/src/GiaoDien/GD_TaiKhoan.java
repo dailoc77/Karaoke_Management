@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.LayoutStyle;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -16,10 +17,12 @@ import java.awt.EventQueue;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.BorderFactory;
+import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.LayoutManager;
 import java.awt.Panel;
 import java.awt.RenderingHints;
@@ -27,6 +30,7 @@ import java.awt.SystemColor;
 
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
+import javax.swing.GroupLayout.Alignment;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -36,6 +40,9 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
+
+
+import testbutton.Buttontest;
 
 
 public class GD_TaiKhoan extends JFrame implements ActionListener{
@@ -49,11 +56,30 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 	DefaultTableModel model;
 	private JLabel lblClock;
 	private Timer timer;
-	private JButton jButton;
+	private testbutton.Buttontest btnthem, btnxoa, btnlammoi, btnsua;
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(GD_TaiKhoan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(GD_TaiKhoan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(GD_TaiKhoan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(GD_TaiKhoan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -77,7 +103,6 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 		
 		contentPane = new JPanel();
 		contentPane.setBorder(null);
-
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
@@ -194,11 +219,19 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 		lblthongke.setBounds(0, 0, 232, 80);
 		thongke.add(lblthongke);
 		
-		JPanel panel = new JPanel();
+		//panel bg mờ
+		JPanel panel = new JPanel() {
+			protected void paintComponent(Graphics g) {
+				g.setColor(getBackground());
+				g.fillRect(0, 0, getWidth(), getHeight());
+				super.paintComponent(g);
+			}
+		};
 		panel.setBounds(-2, 151, 1173, 172);
-		panel.setBackground(new Color(255, 255, 255,150));
-		contentPane.add(panel);
+		panel.setBackground(new Color(255, 255, 255,180));
+		panel.setOpaque(false);
 		panel.setLayout(null);
+		contentPane.add(panel);
 
 		JLabel lblhoten = new JLabel("Nhập Họ Tên");
 		lblhoten.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -237,113 +270,71 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 		panel.add(txtTaiKhoan);
 		
 		//button them
-				JButton btnthem = new JButton("Thêm");
+				btnthem = new testbutton.Buttontest();
+				btnthem.setText("Thêm");
 				btnthem.setFont(new Font("Segoe UI", Font.BOLD, 16));
-				btnthem.setForeground(SystemColor.text);
+				btnthem.setForeground(new Color(245,245,245));
 				btnthem.setBackground(new Color(90, 167, 167));
+				btnthem.setRippleColor(new Color(255, 255, 255));
+				btnthem.setShadowColor(new Color(0,0,0));
 				btnthem.setBounds(822, 24, 128, 48);
-				btnthem.setBorder(BorderFactory.createLineBorder(Color.getColor(null, new Color(90,167,167)), 1, true));
-				btnthem.setContentAreaFilled(false);
-				btnthem.setFocusPainted(false);
-				btnthem.setOpaque(true);
-				btnthem.addMouseListener(new MouseAdapter() {
-		            @Override
-		            public void mouseEntered(MouseEvent e) {
-		            	btnthem.setBackground(Color.BLACK);
-		            }
-
-		            @Override
-		            public void mouseExited(MouseEvent e) {
-		            	btnthem.setBackground(new Color(90, 167, 167));
-		            }
-		        });
+				
 				btnthem.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						btnthemActionPerformed(e);
 					}
 				});
 				panel.add(btnthem);
 				
-				
 				//button xoa
-				JButton btnxoa = new JButton("Xóa");
+				btnxoa = new testbutton.Buttontest();
+				btnxoa.setText("Xóa");
 				btnxoa.setForeground(SystemColor.text);
 				btnxoa.setFont(new Font("Segoe UI", Font.BOLD, 16));
 				btnxoa.setBackground(new Color(254, 122, 21));
+				btnxoa.setRippleColor(new Color(255, 255, 255));
+				btnxoa.setShadowColor(new Color(0,0,0));
 				btnxoa.setBounds(822, 109, 128, 48);
-				btnxoa.setBorder(BorderFactory.createLineBorder(Color.getColor(null, new Color(254, 122, 21)), 1, true));
-				btnxoa.setContentAreaFilled(false);
-				btnxoa.setFocusPainted(false);
-				btnxoa.setOpaque(true);
-				btnxoa.addMouseListener(new MouseAdapter() {
-		            @Override
-		            public void mouseEntered(MouseEvent e) {
-		            	btnxoa.setBackground(Color.BLACK);
-		            }
-
-		            @Override
-		            public void mouseExited(MouseEvent e) {
-		            	btnxoa.setBackground(new Color(254, 122, 21));
-		            }
-		        });
+				
 				btnxoa.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						btnxoaActionPerformed(e);
 					}
 				});
 				panel.add(btnxoa);
 				
 				//button sua
-				JButton btnsua = new JButton("Sửa");
+				btnsua = new testbutton.Buttontest();
+				btnsua.setText("Sửa");
 				btnsua.setForeground(SystemColor.text);
 				btnsua.setFont(new Font("Segoe UI", Font.BOLD, 16));
 				btnsua.setBackground(new Color(226, 211, 107));
+				btnsua.setRippleColor(new Color(255, 255, 255));
+				btnsua.setShadowColor(new Color(0,0,0));
 				btnsua.setBounds(1009, 24, 128, 48);
-				btnsua.setBorder(BorderFactory.createLineBorder(Color.getColor(null, new Color(226, 211, 107)), 1, true));
-				btnsua.setContentAreaFilled(false);
-				btnsua.setFocusPainted(false);
-				btnsua.setOpaque(true);
-				btnsua.addMouseListener(new MouseAdapter() {
-		            @Override
-		            public void mouseEntered(MouseEvent e) {
-		            	btnsua.setBackground(Color.BLACK);
-		            }
 
-		            @Override
-		            public void mouseExited(MouseEvent e) {
-		            	btnsua.setBackground(new Color(226, 211, 107));
-		            }
-		        });
 				btnsua.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						btnsuaActionPerformed(e);
 					}
 				});
 				panel.add(btnsua);
 				
 				//button lammoi
-				JButton btnLmMi = new JButton("Làm mới");
-				btnLmMi.setForeground(SystemColor.text);
-				btnLmMi.setFont(new Font("Segoe UI", Font.BOLD, 16));
-				btnLmMi.setBackground(new Color(51, 83, 158));
-				btnLmMi.setBounds(1009, 109, 128, 48);
-				btnLmMi.setBorder(BorderFactory.createLineBorder(Color.getColor(null, new Color(51, 83, 158)), 1, true));
-				btnLmMi.setContentAreaFilled(false);
-				btnLmMi.setFocusPainted(false);
-				btnLmMi.setOpaque(true);
-				btnLmMi.addMouseListener(new MouseAdapter() {
-		            @Override
-		            public void mouseEntered(MouseEvent e) {
-		            	btnLmMi.setBackground(Color.BLACK);
-		            }
-
-		            @Override
-		            public void mouseExited(MouseEvent e) {
-		            	btnLmMi.setBackground(new Color(51, 83, 158));
-		            }
-		        });
-				btnLmMi.addActionListener(new ActionListener() {
+				btnlammoi = new testbutton.Buttontest();
+				btnlammoi.setText("Làm mới");
+				btnlammoi.setForeground(SystemColor.text);
+				btnlammoi.setFont(new Font("Segoe UI", Font.BOLD, 16));
+				btnlammoi.setBackground(new Color(51, 83, 158));
+				btnlammoi.setRippleColor(new Color(255, 255, 255));
+				btnlammoi.setShadowColor(new Color(0,0,0));
+				btnlammoi.setBounds(1009, 109, 128, 48);
+				btnlammoi.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						btnlammoiActionPerformed(e);
 					}
 				});
-				panel.add(btnLmMi);
+				panel.add(btnlammoi);
 		
 		table = new JTable();
 		JScrollPane scrollPane = new JScrollPane(table);
@@ -385,6 +376,7 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 		lblhinhnen.setBounds(-95, -176, 1333, 957);
 		contentPane.add(lblhinhnen);
 		
+		//button dang xuat
 		JButton jButton = new JButton("Đăng Xuất");
 		jButton.setBounds(980, 13, 135, 42);
 		jButton.setFont(new Font("Tahoma ", Font.BOLD, 14));
@@ -420,6 +412,22 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 		        }
 		    }
 		});
+	}
+	protected void btnlammoiActionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	protected void btnsuaActionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	protected void btnxoaActionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	private void btnthemActionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
