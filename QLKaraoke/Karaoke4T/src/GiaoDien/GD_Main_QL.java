@@ -2,26 +2,33 @@ package GiaoDien;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-//import java.util.GregorianCalendar;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import java.awt.Color;
+
 import java.awt.EventQueue;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+
 import java.awt.Font;
+
+
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.text.SimpleDateFormat;
-import java.time.Clock;
+
 import java.util.Calendar;
-import java.util.GregorianCalendar;
+
+import javax.swing.border.LineBorder;
+
 
 public class GD_Main_QL extends JFrame implements ActionListener{
 	/**
@@ -31,6 +38,7 @@ public class GD_Main_QL extends JFrame implements ActionListener{
 	private JPanel contentPane;
 	private JLabel lblClock;
 	private Timer timer;
+	private JButton jButton;
 	/**
 	 * Launch the application.
 	 */
@@ -55,104 +63,142 @@ public class GD_Main_QL extends JFrame implements ActionListener{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setBounds(100, 100, 1175, 650);
+		
 		contentPane = new JPanel();
 		contentPane.setBorder(null);
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		JButton jButton_1 = new JButton("Đăng Xuất");
+		jButton_1.setBounds(990, 10, 150, 50);
+		jButton_1.setFont(new Font("Tahoma ", Font.BOLD, 14));
+		jButton_1.setBackground(new Color(255, 0, 0));
+		jButton_1.setForeground(Color.WHITE);
+		
+			jButton_1.setBorder(BorderFactory.createLineBorder(Color.RED, 2, true));
+			jButton_1.setBorder(BorderFactory.createLineBorder(Color.RED, 2, true));
+			jButton_1.setContentAreaFilled(false);
+			jButton_1.setFocusPainted(false);
+			jButton_1.setOpaque(true);
+			contentPane.add(jButton_1);
+			
+					jButton_1.addMouseListener(new MouseAdapter() {
+					    @Override
+					    public void mouseEntered(MouseEvent e) {
+					        jButton_1.setBackground(Color.BLACK);
+					    }
+			
+					    @Override
+					    public void mouseExited(MouseEvent e) {
+					        jButton_1.setBackground(new Color(255, 0, 0));
+					    }
+					});
+					
+							jButton_1.addActionListener(new ActionListener() {
+							    public void actionPerformed(ActionEvent e) {
+							        if (JOptionPane.showConfirmDialog(null, "Bạn có muốn đăng xuất!", null, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+							            GD_Login lg = new GD_Login();
+							            lg.setVisible(true);
+							            lg.setLocationRelativeTo(null);
+							            dispose();
+							        }
+							    }
+							});
+
 		JPanel box_clock = new JPanel();
-        box_clock.setBackground(new Color(255, 255, 255));
         box_clock.setBounds(34, 10, 260, 50);
+        box_clock.setBorder(new LineBorder(Color.BLACK));
         contentPane.add(box_clock);
         box_clock.setLayout(null);
 
         lblClock = new JLabel();
         lblClock.setHorizontalAlignment(SwingConstants.CENTER);
         lblClock.setFont(new Font("Tahoma", Font.PLAIN, 20));
-        lblClock.setBounds(10, 0, 240, 50);
-        lblClock.setForeground(Color.BLACK);
+        lblClock.setBounds(0, 0, 260, 50);
+        lblClock.setOpaque(true);
+        lblClock.setBackground(Color.WHITE);
         box_clock.add(lblClock);
 
         timer = new Timer(0, this);
         timer.start();
 		
-		JPanel datphong = new JPanel();
-		datphong.addMouseListener(new MouseAdapter() {
+		JPanel phonghat = new JPanel();
+		phonghat.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 
 			}
 		});
-		datphong.setBorder(null);
-		datphong.setBackground(new Color(0, 0, 0, 150));
-		datphong.setBounds(0, 70, 232, 80);
-		contentPane.add(datphong);
-		datphong.setLayout(null);
+		phonghat.setBorder(null);
+		phonghat.setBackground(new Color(0, 0, 0, 150));
+		phonghat.setBounds(0, 70, 232, 80);
+		contentPane.add(phonghat);
+		phonghat.setLayout(null);
 		
-		JLabel lbldatphong = new JLabel("Phòng Hát");
-		lbldatphong.setForeground(Color.WHITE);
-		lbldatphong.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lbldatphong.setHorizontalAlignment(SwingConstants.CENTER);
-		lbldatphong.setBounds(0, 0, 232, 80);
-		datphong.add(lbldatphong);
+		JLabel lblphonghat = new JLabel("Phòng Hát");
+		lblphonghat.setForeground(Color.WHITE);
+		lblphonghat.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblphonghat.setHorizontalAlignment(SwingConstants.CENTER);
+		lblphonghat.setBounds(0, 0, 232, 80);
+		phonghat.add(lblphonghat);
 		
-		JPanel thuephong = new JPanel();
-		thuephong.addMouseListener(new MouseAdapter() {
+		JPanel dichvu = new JPanel();
+		dichvu.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 			}
 		});
-		thuephong.setLayout(null);
-		thuephong.setBorder(null);
-		thuephong.setBackground(new Color(0, 0, 0, 150));
-		thuephong.setBounds(229, 70, 232, 80);
-		contentPane.add(thuephong);
+		dichvu.setLayout(null);
+		dichvu.setBorder(null);
+		dichvu.setBackground(new Color(0, 0, 0, 150));
+		dichvu.setBounds(229, 70, 232, 80);
+		contentPane.add(dichvu);
 		
-		JLabel lblthuephong = new JLabel("Dịch Vụ");
-		lblthuephong.setHorizontalAlignment(SwingConstants.CENTER);
-		lblthuephong.setForeground(Color.WHITE);
-		lblthuephong.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblthuephong.setBounds(0, 0, 232, 80);
-		thuephong.add(lblthuephong);
+		JLabel lbldichvu = new JLabel("Dịch Vụ");
+		lbldichvu.setHorizontalAlignment(SwingConstants.CENTER);
+		lbldichvu.setForeground(Color.WHITE);
+		lbldichvu.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lbldichvu.setBounds(0, 0, 232, 80);
+		dichvu.add(lbldichvu);
 		
-		JPanel datdichvu = new JPanel();
-		datdichvu.addMouseListener(new MouseAdapter() {
+		JPanel nhanvien = new JPanel();
+		nhanvien.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 			}
 		});
-		datdichvu.setLayout(null);
-		datdichvu.setBorder(null);
-		datdichvu.setBackground(new Color(0, 0, 0, 150));
-		datdichvu.setBounds(462, 70, 232, 80);
-		contentPane.add(datdichvu);
+		nhanvien.setLayout(null);
+		nhanvien.setBorder(null);
+		nhanvien.setBackground(new Color(0, 0, 0, 150));
+		nhanvien.setBounds(462, 70, 232, 80);
+		contentPane.add(nhanvien);
 		
-		JLabel lbltdatdichvu = new JLabel("Nhân Viên");
-		lbltdatdichvu.setHorizontalAlignment(SwingConstants.CENTER);
-		lbltdatdichvu.setForeground(Color.WHITE);
-		lbltdatdichvu.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lbltdatdichvu.setBounds(0, 0, 232, 80);
-		datdichvu.add(lbltdatdichvu);
+		JLabel lblnhanvien = new JLabel("Nhân Viên");
+		lblnhanvien.setHorizontalAlignment(SwingConstants.CENTER);
+		lblnhanvien.setForeground(Color.WHITE);
+		lblnhanvien.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblnhanvien.setBounds(0, 0, 232, 80);
+		nhanvien.add(lblnhanvien);
 		
-		JPanel khachhang = new JPanel();
-		khachhang.addMouseListener(new MouseAdapter() {
+		JPanel taikhoan = new JPanel();
+		taikhoan.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 			}
 		});
-		khachhang.setLayout(null);
-		khachhang.setBorder(null);
-		khachhang.setBackground(new Color(0, 0, 0, 150));
-		khachhang.setBounds(695, 70, 232, 80);
-		contentPane.add(khachhang);
+		taikhoan.setLayout(null);
+		taikhoan.setBorder(null);
+		taikhoan.setBackground(new Color(0, 0, 0, 150));
+		taikhoan.setBounds(695, 70, 232, 80);
+		contentPane.add(taikhoan);
 		
-		JLabel lbltkhachhang = new JLabel("Tài Khoản");
-		lbltkhachhang.setHorizontalAlignment(SwingConstants.CENTER);
-		lbltkhachhang.setForeground(Color.WHITE);
-		lbltkhachhang.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lbltkhachhang.setBounds(0, 0, 232, 80);
-		khachhang.add(lbltkhachhang);
+		JLabel lbltaikhoan = new JLabel("Tài Khoản");
+		lbltaikhoan.setHorizontalAlignment(SwingConstants.CENTER);
+		lbltaikhoan.setForeground(Color.WHITE);
+		lbltaikhoan.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lbltaikhoan.setBounds(0, 0, 232, 80);
+		taikhoan.add(lbltaikhoan);
 		
 		JPanel thongke = new JPanel();
 		thongke.addMouseListener(new MouseAdapter() {
@@ -173,25 +219,6 @@ public class GD_Main_QL extends JFrame implements ActionListener{
 		lblthongke.setBounds(0, 0, 232, 80);
 		thongke.add(lblthongke);
 		
-		JPanel DangXuat = new JPanel();
-		DangXuat.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
-		DangXuat.setLayout(null);
-		DangXuat.setBorder(null);
-		DangXuat.setBackground(Color.RED);
-		DangXuat.setBounds(1001, 10, 150, 50);
-		contentPane.add(DangXuat);
-		
-		JLabel lblDangXuat = new JLabel("Đăng Xuất");
-		lblDangXuat.setHorizontalAlignment(SwingConstants.CENTER);
-		lblDangXuat.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblDangXuat.setForeground(new Color(255, 255, 255));
-		lblDangXuat.setBounds(0, 0, 150, 50);
-		DangXuat.add(lblDangXuat);
-		
 		JLabel lblChucVu = new JLabel("QL");
 		lblChucVu.setForeground(new Color(255, 255, 255));
 		lblChucVu.setFont(new Font("Tahoma", Font.BOLD, 20));
@@ -209,9 +236,32 @@ public class GD_Main_QL extends JFrame implements ActionListener{
 		lblNewLabel.setIcon(new ImageIcon(GD_Main_NV.class.getResource("/Imgs/370.png")));
 		lblNewLabel.setBounds(-95, -176, 1333, 957);
 		contentPane.add(lblNewLabel);
-		
-	}
 
+		JLabel lblquanly = new JLabel("QL:");
+		lblquanly.setForeground(Color.WHITE);
+		lblquanly.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblquanly.setBounds(878, -20, 232, 80);
+		contentPane.add(lblquanly);
+
+		
+		JLabel lbltenql = new JLabel("Nguyễn Văn A");
+		lbltenql.setForeground(Color.WHITE);
+		lbltenql.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lbltenql.setBounds(833, 6, 232, 80);
+		contentPane.add(lbltenql);
+		
+		JLabel lblavatar = new JLabel("");
+		lblavatar.setHorizontalAlignment(SwingConstants.CENTER);
+		lblavatar.setIcon(new ImageIcon(GD_Main_QL.class.getResource("/Imgs/t1 1.png")));
+		lblavatar.setBounds(90, -444, 1333, 957);
+		contentPane.add(lblavatar);
+	
+		JLabel lblhinhnen = new JLabel("");
+		lblhinhnen.setHorizontalAlignment(SwingConstants.CENTER);
+		lblhinhnen.setIcon(new ImageIcon(GD_Main_NV.class.getResource("/Imgs/370.png")));
+		lblhinhnen.setBounds(-95, -176, 1333, 957);
+		contentPane.add(lblhinhnen);
+	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == timer) {
@@ -219,6 +269,7 @@ public class GD_Main_QL extends JFrame implements ActionListener{
             updateClock();
         }
 	}
+	//dong ho
     private void updateClock() {
         Calendar cal = Calendar.getInstance();
         int hour = cal.get(Calendar.HOUR_OF_DAY);
@@ -241,7 +292,8 @@ public class GD_Main_QL extends JFrame implements ActionListener{
             }
         }
         
-        String time = String.format("%02d:%02d:%02d %s  %04d/%02d/%02d", hour, minute, second, ampm, year, month, day);
+        String time = String.format("%02d:%02d:%02d %s  %02d/%02d/%04d", hour, minute, second, ampm, day, month, year);
         lblClock.setText(time);
     }
 }
+

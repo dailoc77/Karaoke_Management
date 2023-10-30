@@ -637,6 +637,18 @@ public class GD_DatDichVu extends JFrame implements ActionListener{
 		model.addColumn("Xóa");
 		table_1.setModel(model);
 		
+		JLabel lblChucVu = new JLabel("QL");
+		lblChucVu.setForeground(Color.WHITE);
+		lblChucVu.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblChucVu.setBounds(894, 10, 45, 27);
+		contentPane.add(lblChucVu);
+		
+		JLabel lblten = new JLabel("Nguyễn Văn C");
+		lblten.setForeground(Color.WHITE);
+		lblten.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblten.setBounds(834, 33, 193, 27);
+		contentPane.add(lblten);
+		
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setIcon(new ImageIcon(GD_DatDichVu.class.getResource("/Imgs/370.png")));
