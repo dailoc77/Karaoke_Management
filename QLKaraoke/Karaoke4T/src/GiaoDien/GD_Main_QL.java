@@ -173,6 +173,37 @@ public class GD_Main_QL extends JFrame implements ActionListener{
 		lblthongke.setBounds(0, 0, 232, 80);
 		thongke.add(lblthongke);
 		
+		JPanel DangXuat = new JPanel();
+		DangXuat.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			}
+		});
+		DangXuat.setLayout(null);
+		DangXuat.setBorder(null);
+		DangXuat.setBackground(Color.RED);
+		DangXuat.setBounds(1001, 10, 150, 50);
+		contentPane.add(DangXuat);
+		
+		JLabel lblDangXuat = new JLabel("Đăng Xuất");
+		lblDangXuat.setHorizontalAlignment(SwingConstants.CENTER);
+		lblDangXuat.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblDangXuat.setForeground(new Color(255, 255, 255));
+		lblDangXuat.setBounds(0, 0, 150, 50);
+		DangXuat.add(lblDangXuat);
+		
+		JLabel lblChucVu = new JLabel("QL");
+		lblChucVu.setForeground(new Color(255, 255, 255));
+		lblChucVu.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblChucVu.setBounds(894, 10, 45, 27);
+		contentPane.add(lblChucVu);
+		
+		JLabel lblten = new JLabel("Nguyễn Văn C");
+		lblten.setForeground(new Color(255, 255, 255));
+		lblten.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblten.setBounds(834, 33, 193, 27);
+		contentPane.add(lblten);
+		
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setIcon(new ImageIcon(GD_Main_NV.class.getResource("/Imgs/370.png")));

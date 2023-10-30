@@ -2,10 +2,7 @@ package GiaoDien;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Timer;
-import java.util.TimerTask;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -16,32 +13,13 @@ import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import java.awt.Font;
 import javax.swing.SwingConstants;
-
-import javax.swing.border.Border;
-import javax.swing.border.LineBorder;
+import javax.swing.Timer;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.text.SimpleDateFormat;
-
-import javax.swing.JButton;
-import java.time.Clock;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 public class GD_Main_NV extends JFrame implements ActionListener{
-	private JLabel time = new JLabel ();
-    private SimpleDateFormat sdf = new SimpleDateFormat ("hh:mm:ss dd/MM/yyyy");
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-}
-
-
-
-
 	/**
 	 * 
 	 */
@@ -52,7 +30,6 @@ public class GD_Main_NV extends JFrame implements ActionListener{
 	/**
 	 * Launch the application.
 	 */
-	    
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -68,7 +45,6 @@ public class GD_Main_NV extends JFrame implements ActionListener{
 	/**
 	 * Create the frame.
 	 */
-	
 	public GD_Main_NV() {
 		setBackground(Color.WHITE);
 		setTitle("Giao Diện Nhân Viên");
@@ -77,47 +53,11 @@ public class GD_Main_NV extends JFrame implements ActionListener{
 		setBounds(100, 100, 1175, 650);
 		contentPane = new JPanel();
 		contentPane.setBorder(null);
+
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JPanel dangxuat = new JPanel();
-		LineBorder lineBorder =new LineBorder(Color.RED, 10, true);
-		dangxuat.setBorder(lineBorder );
-		dangxuat.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
-		dangxuat.setBorder(null);
-		dangxuat.setBackground(new Color(255, 0, 0));
-		dangxuat.setBounds(1011, 10, 140, 50);
-		contentPane.add(dangxuat);
-		dangxuat.setLayout(null);
-		
-		JLabel lblDangXuat = new JLabel("Đăng Xuất");
-		lblDangXuat.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblDangXuat.setForeground(new Color(255, 255, 255));
-		lblDangXuat.setBounds(0, 0, 140, 50);
-		lblDangXuat.setHorizontalAlignment(SwingConstants.CENTER);
-		dangxuat.add(lblDangXuat);
-		
 		JPanel box_clock = new JPanel();
-
-		box_clock.setBorder(null);
-		box_clock.setBackground(new Color(0, 0, 0));
-		box_clock.setBounds(34, 10, 260, 50);
-		contentPane.add(box_clock);
-		box_clock.setLayout(null);
-		start ();
-		
-		
-		time.setHorizontalAlignment(SwingConstants.CENTER);
-		time.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		time.setForeground(new Color(255, 255, 255));
-		time.setBounds(10, 0, 240, 50);
-		box_clock.add(time);
-		
-
         box_clock.setBackground(new Color(255, 255, 255));
         box_clock.setBounds(34, 10, 260, 50);
         contentPane.add(box_clock);
@@ -132,7 +72,6 @@ public class GD_Main_NV extends JFrame implements ActionListener{
 
         timer = new Timer(0, this);
         timer.start();
-
 		
 		JPanel datphong = new JPanel();
 		datphong.addMouseListener(new MouseAdapter() {
@@ -230,6 +169,25 @@ public class GD_Main_NV extends JFrame implements ActionListener{
 		lblthongke.setBounds(0, 0, 232, 80);
 		thongke.add(lblthongke);
 		
+		JPanel DangXuat = new JPanel();
+		DangXuat.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			}
+		});
+		DangXuat.setBorder(null);
+		DangXuat.setBackground(new Color(255, 0, 0));
+		DangXuat.setBounds(988, 10, 150, 50);
+		contentPane.add(DangXuat);
+		DangXuat.setLayout(null);
+		
+		JLabel lblDangXuat = new JLabel("Đăng Xuất");
+		lblDangXuat.setForeground(new Color(255, 255, 255));
+		lblDangXuat.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblDangXuat.setHorizontalAlignment(SwingConstants.CENTER);
+		lblDangXuat.setBounds(0, 0, 150, 50);
+		DangXuat.add(lblDangXuat);
+		
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setIcon(new ImageIcon(GD_Main_NV.class.getResource("/Imgs/370.png")));
@@ -245,16 +203,6 @@ public class GD_Main_NV extends JFrame implements ActionListener{
             updateClock();
         }
 	}
-
-	public void start () {
-        Timer timer = new Timer ();
-        timer.scheduleAtFixedRate ( new TimerTask () {
-            public void run () {
-                time.setText ( sdf.format (new Date ()) );
-            }
-        }, 0, 1000 );
-}
-
     private void updateClock() {
         Calendar cal = Calendar.getInstance();
         int hour = cal.get(Calendar.HOUR_OF_DAY);
@@ -279,6 +227,5 @@ public class GD_Main_NV extends JFrame implements ActionListener{
         
         String time = String.format("%02d:%02d:%02d %s  %04d/%02d/%02d", hour, minute, second, ampm, year, month, day);
         lblClock.setText(time);
-
     }
 }
