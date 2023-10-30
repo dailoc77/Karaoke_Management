@@ -7,8 +7,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
-
-import java.util.Timer;
+import java.util.Calendar;
+import javax.swing.Timer;
 import java.util.TimerTask;
 
 import javax.swing.JFrame;
@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -30,8 +31,9 @@ import java.awt.event.ActionEvent;
 import java.awt.SystemColor;
 import javax.swing.JTable;
 import javax.swing.UIManager;
-
-public class QuanLyKhachHang extends JFrame {
+import javax.swing.SwingConstants;
+import javax.swing.JScrollBar;
+public class QuanLyKhachHang extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
 	private JTextField textField;
@@ -41,6 +43,8 @@ public class QuanLyKhachHang extends JFrame {
 	private JTextField textField_4;
 	private JTable table;
 	DefaultTableModel model;
+	private JLabel lblClock;
+	private Timer timer;
 	
 	/**
 	 * Launch the application.
@@ -68,18 +72,58 @@ public class QuanLyKhachHang extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
 		
 		
 		
 		JPanel datphong = new JPanel();
 		datphong.setBounds(0, 70, 232, 80);
-//		datphong.addMouseListener(new MouseAdapter() {
-//			@Override
-//			public void mouseClicked(MouseEvent e) {
-//
-//			}
-//		});
+		contentPane.setLayout(null);
+		
+		
+//		Clock ---------------------------------
+		JPanel box_clock = new JPanel();
+		box_clock.setBounds(34, 10, 260, 50);
+        box_clock.setBorder(new LineBorder(Color.BLACK));
+        contentPane.add(box_clock);
+        box_clock.setLayout(null);
+
+        lblClock = new JLabel();
+        lblClock.setHorizontalAlignment(SwingConstants.CENTER);
+        lblClock.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        lblClock.setBounds(0, 0, 260, 50);
+        lblClock.setOpaque(true);
+        lblClock.setBackground(Color.WHITE);
+        box_clock.add(lblClock);
+
+        timer = new Timer(0, this);
+        timer.start();
+		
+//         -------------------------------
+		JLabel lblquanly = new JLabel("NV:");
+		lblquanly.setBounds(878, -20, 232, 80);
+		lblquanly.setForeground(Color.WHITE);
+		lblquanly.setFont(new Font("Tahoma", Font.BOLD, 16));
+		contentPane.add(lblquanly);
+		
+		JLabel lbltenql = new JLabel("Nguyễn Văn C");
+		lbltenql.setBounds(833, 6, 232, 80);
+		lbltenql.setForeground(Color.WHITE);
+		lbltenql.setFont(new Font("Tahoma", Font.BOLD, 16));
+		contentPane.add(lbltenql);
+		
+		JButton jButton = new JButton("Đăng Xuất");
+		jButton.setBounds(980, 13, 135, 42);
+		jButton.setFont(new Font("Tahoma ", Font.BOLD, 14));
+		jButton.setBackground(new Color(255, 0, 0));
+		jButton.setForeground(Color.WHITE);
+		
+		
+		jButton.setBorder(BorderFactory.createLineBorder(Color.RED, 2, true));
+        jButton.setBorder(BorderFactory.createLineBorder(Color.RED, 2, true));
+        jButton.setContentAreaFilled(false);
+        jButton.setFocusPainted(false);
+        jButton.setOpaque(true);
+		contentPane.add(jButton);
 		
 		datphong.setBorder(null);
 		datphong.setBackground(new Color(0, 0, 0, 150));
@@ -173,6 +217,7 @@ public class QuanLyKhachHang extends JFrame {
 		
 		JPanel panel = new JPanel();
 		panel.setBounds(-2, 151, 1173, 172);
+		panel.setBorder(null);
 		panel.setBackground(new Color(255, 255, 255,150));
 		contentPane.add(panel);
 		panel.setLayout(null);
@@ -218,20 +263,16 @@ public class QuanLyKhachHang extends JFrame {
 		rdbtnNewRadioButton.setBounds(520, 37, 21, 23);
 		rdbtnNewRadioButton.setContentAreaFilled(false);
 		rdbtnNewRadioButton.setFocusPainted(false);
-		panel.add(rdbtnNewRadioButton);
+		
 	
 		JLabel lblNewLabel_1_6 = new JLabel("Nữ");
 		lblNewLabel_1_6.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblNewLabel_1_6.setBounds(656, 37, 33, 23);
 		panel.add(lblNewLabel_1_6);
 		
-		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("");
-		rdbtnNewRadioButton_1.setBounds(615, 38, 21, 23);
-		panel.add(rdbtnNewRadioButton_1);
-		
 		ButtonGroup bg = new ButtonGroup();
-		bg.add(rdbtnNewRadioButton);bg.add(rdbtnNewRadioButton_1);
-		panel.add(rdbtnNewRadioButton);panel.add(rdbtnNewRadioButton_1);
+		bg.add(rdbtnNewRadioButton);
+		panel.add(rdbtnNewRadioButton);
 		//radbuton//
 		
 		textField_1 = new JTextField();
@@ -363,10 +404,16 @@ public class QuanLyKhachHang extends JFrame {
 		});
 		panel.add(btnLmMi);
 		
+		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("");
+		rdbtnNewRadioButton_1.setContentAreaFilled(false);
+		rdbtnNewRadioButton_1.setBackground(Color.LIGHT_GRAY);
+		rdbtnNewRadioButton_1.setBounds(629, 39, 21, 23);
+		panel.add(rdbtnNewRadioButton_1);
+		
 		//talbe
 		table = new JTable();
 		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.setBounds(0, 323, 1161, 290); // Adjust the position and size as needed
+		scrollPane.setBounds(0, 323, 1161, 290);
 		contentPane.add(scrollPane);
 		
 		DefaultTableModel model = new DefaultTableModel();
@@ -379,6 +426,9 @@ public class QuanLyKhachHang extends JFrame {
 		// Add data to the table
 		//model.addRow(new Object[]{"Data 1", "Data 2", "Data 3"});
 		table.setModel(model);
+		
+		JScrollBar scrollBar = new JScrollBar();
+		scrollPane.setRowHeaderView(scrollBar);
 
 		
 		JLabel lblNewLabel = new JLabel("");
@@ -389,4 +439,38 @@ public class QuanLyKhachHang extends JFrame {
 		lblNewLabel.setIcon(new ImageIcon(QuanLyKhachHang.class.getResource("/Imgs/370.png")));
 
 	}
+	
+	
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == timer) {
+            // Cập nhật thời gian
+            updateClock();
+        }
+	}
+	
+	private void updateClock() {
+        Calendar cal = Calendar.getInstance();
+        int hour = cal.get(Calendar.HOUR_OF_DAY);
+        int minute = cal.get(Calendar.MINUTE);
+        int second = cal.get(Calendar.SECOND);
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+        int month = cal.get(Calendar.MONTH)+1;
+        int year = cal.get(Calendar.YEAR);
+        
+        String ampm;
+        if (hour >= 12) {
+            ampm = "PM";
+            if (hour > 24) {
+                hour -= 12;
+            }
+        } else {
+            ampm = "AM";
+            if (hour == 0) {
+                hour = 12;
+            }
+        }
+        
+        String time = String.format("%02d:%02d:%02d %s  %04d/%02d/%02d", hour, minute, second, ampm, year, month, day);
+        lblClock.setText(time);
+    }
 }
