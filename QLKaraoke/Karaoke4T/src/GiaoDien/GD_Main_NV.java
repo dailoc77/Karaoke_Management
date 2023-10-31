@@ -31,6 +31,8 @@ public class GD_Main_NV extends JFrame implements ActionListener{
 	private JPanel contentPane;
 	private JLabel lblClock;
 	private Timer timer;
+	
+	
 	/**
 	 * Launch the application.
 	 */
@@ -232,6 +234,10 @@ public class GD_Main_NV extends JFrame implements ActionListener{
 		lblNewLabel.setIcon(new ImageIcon(GD_Main_NV.class.getResource("/Imgs/370.png")));
 		lblNewLabel.setBounds(-95, -176, 1333, 957);
 		contentPane.add(lblNewLabel);
+		
+		
+		
+	
 		
 	}
 
