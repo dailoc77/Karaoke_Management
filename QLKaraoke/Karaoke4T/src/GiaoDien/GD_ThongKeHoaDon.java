@@ -41,7 +41,7 @@ import com.toedter.calendar.JMonthChooser;
 import com.toedter.calendar.JYearChooser;
 import com.toedter.calendar.JDateChooser;
 import com.toedter.calendar.JCalendar;
-public class GD_ThongKeKhachHang extends JFrame implements ActionListener {
+public class GD_ThongKeHoaDon extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
 	private JTable table;
@@ -49,6 +49,7 @@ public class GD_ThongKeKhachHang extends JFrame implements ActionListener {
 	private JLabel lblClock;
 	private Timer timer;
 	private JTextField textField_1;
+	private JTextField textField;
 	
 	/**
 	 * Launch the application.
@@ -76,7 +77,7 @@ public class GD_ThongKeKhachHang extends JFrame implements ActionListener {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					GD_ThongKeKhachHang frame = new GD_ThongKeKhachHang();
+					GD_ThongKeHoaDon frame = new GD_ThongKeHoaDon();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -88,7 +89,7 @@ public class GD_ThongKeKhachHang extends JFrame implements ActionListener {
 	/**
 	 * Create the frame.
 	 */
-	public GD_ThongKeKhachHang() {
+	public GD_ThongKeHoaDon() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1175, 650);
 		contentPane = new JPanel();
@@ -271,7 +272,7 @@ public class GD_ThongKeKhachHang extends JFrame implements ActionListener {
 		btnNewButton.setBounds(778, 30, 142, 42);
 		panel.add(btnNewButton);
 		
-		JLabel lblNewLabel_1_1_1_1 = new JLabel("Tổng khách hàng");
+		JLabel lblNewLabel_1_1_1_1 = new JLabel("Tổng doanh thu");
 		lblNewLabel_1_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		lblNewLabel_1_1_1_1.setBounds(980, 15, 122, 21);
 		panel.add(lblNewLabel_1_1_1_1);
@@ -302,6 +303,16 @@ public class GD_ThongKeKhachHang extends JFrame implements ActionListener {
 		JYearChooser yearChooser = new JYearChooser();
 		panel_3.add(yearChooser);
 		
+		textField = new JTextField();
+		textField.setColumns(10);
+		textField.setBounds(980, 149, 142, 28);
+		panel.add(textField);
+		
+		JLabel lblNewLabel_1_1_1_1_1 = new JLabel("Tổng khách hàng");
+		lblNewLabel_1_1_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblNewLabel_1_1_1_1_1.setBounds(980, 111, 122, 21);
+		panel.add(lblNewLabel_1_1_1_1_1);
+		
 		ButtonGroup bg = new ButtonGroup();
 		
 		
@@ -314,10 +325,11 @@ public class GD_ThongKeKhachHang extends JFrame implements ActionListener {
 		contentPane.add(scrollPane);
 		
 		DefaultTableModel model = new DefaultTableModel();
-		model.addColumn("Mã Khách Hàng");
+		model.addColumn("Mã hóa đơn");
 		model.addColumn("Họ Tên Khách Hàng");
 		model.addColumn("Số Điện Thoại");
-		model.addColumn("Số Căn Cước");
+		model.addColumn("Ngày Lập");
+		model.addColumn("Nhân Viên Lập");
 		model.addColumn("Tổng Tiền");
 		// Add data to the table
 		//model.addRow(new Object[]{"Data 1", "Data 2", "Data 3"});
