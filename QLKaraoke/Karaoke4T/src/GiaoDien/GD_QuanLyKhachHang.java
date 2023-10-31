@@ -1,8 +1,11 @@
 package GiaoDien;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.ComponentOrientation;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Date;
@@ -50,6 +53,25 @@ public class GD_QuanLyKhachHang extends JFrame implements ActionListener {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(GD_QuanLyKhachHang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(GD_QuanLyKhachHang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(GD_QuanLyKhachHang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(GD_QuanLyKhachHang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -99,6 +121,12 @@ public class GD_QuanLyKhachHang extends JFrame implements ActionListener {
         timer.start();
 		
 //         -------------------------------
+        JLabel lblavatar = new JLabel("");
+		lblavatar.setHorizontalAlignment(SwingConstants.CENTER);
+		lblavatar.setIcon(new ImageIcon(GD_Main_QL.class.getResource("/Imgs/t1 1.png")));
+		lblavatar.setBounds(90, -444, 1333, 957);
+		contentPane.add(lblavatar);
+		
 		JLabel lblquanly = new JLabel("NV:");
 		lblquanly.setBounds(878, -20, 232, 80);
 		lblquanly.setForeground(Color.WHITE);
@@ -215,10 +243,16 @@ public class GD_QuanLyKhachHang extends JFrame implements ActionListener {
 		lblthongke.setBounds(0, 0, 232, 80);
 		thongke.add(lblthongke);
 		
-		JPanel panel = new JPanel();
+		JPanel panel = new JPanel() {
+			protected void paintComponent(Graphics g) {
+				g.setColor(getBackground());
+				g.fillRect(0, 0, getWidth(), getHeight());
+				super.paintComponent(g);
+			}
+		};
+		panel.setOpaque(false);
 		panel.setBounds(-2, 151, 1173, 172);
-		panel.setBorder(null);
-		panel.setBackground(new Color(255, 255, 255,150));
+		panel.setBackground(new Color(255, 255, 255,200));
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
@@ -253,26 +287,26 @@ public class GD_QuanLyKhachHang extends JFrame implements ActionListener {
 		textField.setColumns(10);
 		
 		//rad button
-		JLabel lblNewLabel_1_5 = new JLabel("Nam");
-		lblNewLabel_1_5.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_1_5.setBounds(561, 37, 33, 23);
-		panel.add(lblNewLabel_1_5);
-		
-		JRadioButton rdbtnNewRadioButton = new JRadioButton("");
-		rdbtnNewRadioButton.setBackground(new Color(192, 192, 192));
-		rdbtnNewRadioButton.setBounds(520, 37, 21, 23);
+		JRadioButton rdbtnNewRadioButton = new JRadioButton("Nam");
+		rdbtnNewRadioButton.setBounds(520, 37, 109, 23);
+		rdbtnNewRadioButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		rdbtnNewRadioButton.setOpaque(false);
 		rdbtnNewRadioButton.setContentAreaFilled(false);
 		rdbtnNewRadioButton.setFocusPainted(false);
-		
+		panel.add(rdbtnNewRadioButton);
 	
-		JLabel lblNewLabel_1_6 = new JLabel("Nữ");
-		lblNewLabel_1_6.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_1_6.setBounds(656, 37, 33, 23);
-		panel.add(lblNewLabel_1_6);
+		
+		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("Nữ");
+		rdbtnNewRadioButton_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		rdbtnNewRadioButton_1.setBounds(656, 38, 109, 23);
+		rdbtnNewRadioButton_1.setOpaque(false);
+		panel.add(rdbtnNewRadioButton_1);
 		
 		ButtonGroup bg = new ButtonGroup();
 		bg.add(rdbtnNewRadioButton);
+		bg.add(rdbtnNewRadioButton_1);
 		panel.add(rdbtnNewRadioButton);
+		panel.add(rdbtnNewRadioButton_1);
 		//radbuton//
 		
 		textField_1 = new JTextField();
@@ -296,124 +330,78 @@ public class GD_QuanLyKhachHang extends JFrame implements ActionListener {
 		panel.add(textField_4);
 		
 		//button them
-		JButton btnthem = new JButton("Thêm");
+		testbutton.Buttontest btnthem = new testbutton.Buttontest();
+		btnthem.setText("Thêm");
 		btnthem.setFont(new Font("Segoe UI", Font.BOLD, 16));
 		btnthem.setForeground(SystemColor.text);
 		btnthem.setBackground(new Color(90, 167, 167));
+		btnthem.setRippleColor(new Color(255, 255, 255));
+		btnthem.setShadowColor(new Color(0,0,0));
 		btnthem.setBounds(822, 24, 128, 48);
-		btnthem.setBorder(BorderFactory.createLineBorder(Color.getColor(null, new Color(90,167,167)), 1, true));
-		btnthem.setContentAreaFilled(false);
-		btnthem.setFocusPainted(false);
-		btnthem.setOpaque(true);
-		btnthem.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-            	btnthem.setBackground(Color.BLACK);
-            }
 
-            @Override
-            public void mouseExited(MouseEvent e) {
-            	btnthem.setBackground(new Color(90, 167, 167));
-            }
-        });
 		btnthem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				btnthemActionPerformed(e);
 			}
 		});
 		panel.add(btnthem);
 		
 		
 		//button xoa
-		JButton btnxoa = new JButton("Xóa");
+		testbutton.Buttontest btnxoa = new testbutton.Buttontest();
+		btnxoa.setText("Xóa");
 		btnxoa.setForeground(SystemColor.text);
 		btnxoa.setFont(new Font("Segoe UI", Font.BOLD, 16));
 		btnxoa.setBackground(new Color(254, 122, 21));
-		btnxoa.setBounds(822, 100, 128, 48);
-		btnxoa.setBorder(BorderFactory.createLineBorder(Color.getColor(null, new Color(254, 122, 21)), 1, true));
-		btnxoa.setContentAreaFilled(false);
-		btnxoa.setFocusPainted(false);
-		btnxoa.setOpaque(true);
-		btnxoa.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-            	btnxoa.setBackground(Color.BLACK);
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-            	btnxoa.setBackground(new Color(254, 122, 21));
-            }
-        });
+		btnxoa.setBounds(822, 109, 128, 48);
+		btnxoa.setRippleColor(new Color(255, 255, 255));
+		btnxoa.setShadowColor(new Color(0,0,0));
 		btnxoa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				btnxoaActionPerformed(e);
 			}
 		});
 		panel.add(btnxoa);
 		
 		//button sua
-		JButton btnsua = new JButton("Sửa");
+		testbutton.Buttontest btnsua = new testbutton.Buttontest();
+		btnsua.setText("Sửa");
 		btnsua.setForeground(SystemColor.text);
 		btnsua.setFont(new Font("Segoe UI", Font.BOLD, 16));
 		btnsua.setBackground(new Color(226, 211, 107));
 		btnsua.setBounds(1009, 24, 128, 48);
-		btnsua.setBorder(BorderFactory.createLineBorder(Color.getColor(null, new Color(226, 211, 107)), 1, true));
-		btnsua.setContentAreaFilled(false);
-		btnsua.setFocusPainted(false);
-		btnsua.setOpaque(true);
-		btnsua.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-            	btnsua.setBackground(Color.BLACK);
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-            	btnsua.setBackground(new Color(226, 211, 107));
-            }
-        });
+		btnsua.setRippleColor(new Color(255, 255, 255));
+		btnsua.setShadowColor(new Color(0,0,0));
 		btnsua.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				btnsuaActionPerformed(e);
 			}
 		});
 		panel.add(btnsua);
 		
 		//button lammoi
-		JButton btnLmMi = new JButton("Làm mới");
+		testbutton.Buttontest btnLmMi = new testbutton.Buttontest();
+	    btnLmMi.setText("Làm mới");
 		btnLmMi.setForeground(SystemColor.text);
 		btnLmMi.setFont(new Font("Segoe UI", Font.BOLD, 16));
 		btnLmMi.setBackground(new Color(51, 83, 158));
-		btnLmMi.setBounds(1010, 100, 128, 48);
-		btnLmMi.setBorder(BorderFactory.createLineBorder(Color.getColor(null, new Color(51, 83, 158)), 1, true));
-		btnLmMi.setContentAreaFilled(false);
-		btnLmMi.setFocusPainted(false);
-		btnLmMi.setOpaque(true);
-		btnLmMi.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-            	btnLmMi.setBackground(Color.BLACK);
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-            	btnLmMi.setBackground(new Color(51, 83, 158));
-            }
-        });
+		btnLmMi.setBounds(1010, 109, 128, 48);
+		btnLmMi.setRippleColor(new Color(255, 255, 255));
+		btnLmMi.setShadowColor(new Color(0,0,0));
 		btnLmMi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				btnLmMiActionPerformed(e);
 			}
 		});
 		panel.add(btnLmMi);
 		
-		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("");
-		rdbtnNewRadioButton_1.setContentAreaFilled(false);
-		rdbtnNewRadioButton_1.setBackground(Color.LIGHT_GRAY);
-		rdbtnNewRadioButton_1.setBounds(629, 39, 21, 23);
-		panel.add(rdbtnNewRadioButton_1);
 		
 		//talbe
 		table = new JTable();
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setBounds(0, 323, 1161, 290);
+		// Set the component orientation to RIGHT_TO_LEFT
+		scrollPane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		contentPane.add(scrollPane);
 		
 		DefaultTableModel model = new DefaultTableModel();
@@ -427,9 +415,8 @@ public class GD_QuanLyKhachHang extends JFrame implements ActionListener {
 		//model.addRow(new Object[]{"Data 1", "Data 2", "Data 3"});
 		table.setModel(model);
 		
-		JScrollBar scrollBar = new JScrollBar();
+		JScrollBar scrollBar = new JScrollBar(JScrollBar.VERTICAL, 30, 40, 0, 500);
 		scrollPane.setRowHeaderView(scrollBar);
-
 		
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setBounds(0, 0, 1161, 613);
@@ -441,6 +428,26 @@ public class GD_QuanLyKhachHang extends JFrame implements ActionListener {
 	}
 	
 	
+	protected void btnLmMiActionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	protected void btnsuaActionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	protected void btnxoaActionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	protected void btnthemActionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == timer) {
             // Cập nhật thời gian

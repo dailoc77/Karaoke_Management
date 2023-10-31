@@ -3,6 +3,7 @@ package GiaoDien;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,6 +19,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.UIManager;
 import java.awt.FlowLayout;
@@ -136,11 +138,20 @@ public class GD_DatPhong extends JFrame implements ActionListener {
         timer.start();
         
         //Giao dien thong tin khach hang`
-        JPanel pnl_thongtinkhachhang = new JPanel();
+        JPanel pnl_thongtinkhachhang = new JPanel() {
+          protected void paintComponent(Graphics g)
+          {
+              g.setColor( getBackground() );
+              g.fillRect(0, 0, getWidth(), getHeight());
+              super.paintComponent(g);
+          }
+        };
+        pnl_thongtinkhachhang.setOpaque(false);
         pnl_thongtinkhachhang.setBackground(new Color(255, 255, 255, 200));
         pnl_thongtinkhachhang.setBounds(0, 148, 329, 463);
         contentPane.add(pnl_thongtinkhachhang);
         pnl_thongtinkhachhang.setLayout(null);
+        
         
         textField = new JTextField();
         textField.setBounds(25, 55, 236, 25);
@@ -154,11 +165,21 @@ public class GD_DatPhong extends JFrame implements ActionListener {
         
         JRadioButton rdbtnNewRadioButton = new JRadioButton("Nam");
         rdbtnNewRadioButton.setBounds(25, 115, 109, 23);
+        rdbtnNewRadioButton.setOpaque(false);
+		rdbtnNewRadioButton.setContentAreaFilled(false);
+		rdbtnNewRadioButton.setFocusPainted(false);
+        contentPane.add(rdbtnNewRadioButton);
         pnl_thongtinkhachhang.add(rdbtnNewRadioButton);
         
         JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("Nữ");
         rdbtnNewRadioButton_1.setBounds(152, 115, 109, 23);
+        rdbtnNewRadioButton_1.setOpaque(false);
+        contentPane.add(rdbtnNewRadioButton_1);
         pnl_thongtinkhachhang.add(rdbtnNewRadioButton_1);
+        
+		ButtonGroup bg = new ButtonGroup();
+		bg.add(rdbtnNewRadioButton);bg.add(rdbtnNewRadioButton_1);
+		pnl_thongtinkhachhang.add(rdbtnNewRadioButton);pnl_thongtinkhachhang.add(rdbtnNewRadioButton_1);
         
         JLabel lblNewLabel_1 = new JLabel("Số Điện Thoại");
         lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 13));

@@ -237,6 +237,7 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 		lblhoten.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblhoten.setBounds(31, 10, 159, 28);
 		panel.add(lblhoten);
+		
 		txtHoTen = new JTextField();
 		txtHoTen.setBounds(31, 37, 202, 27);
 		panel.add(txtHoTen);
