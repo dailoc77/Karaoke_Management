@@ -113,7 +113,6 @@ public class GD_Login extends JFrame implements ActionListener{
 		                if(passwordField.getText().equals("123")){   
 		                        GD_Main_QL mng =new GD_Main_QL();
 		                        mng.setVisible(true);
-		                        mng.setLocationRelativeTo(null);
 		                        JOptionPane.showMessageDialog(null, "Chào mừng bạn đến với Karaoke4T!","Thông báo",JOptionPane.INFORMATION_MESSAGE);
 		                        dispose();
 		                }

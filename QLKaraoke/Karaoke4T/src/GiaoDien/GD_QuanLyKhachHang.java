@@ -16,6 +16,7 @@ import java.util.TimerTask;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
@@ -151,6 +152,29 @@ public class GD_QuanLyKhachHang extends JFrame implements ActionListener {
         jButton.setFocusPainted(false);
         jButton.setOpaque(true);
 		contentPane.add(jButton);
+		
+		jButton.addMouseListener(new MouseAdapter() {
+		    @Override
+		    public void mouseEntered(MouseEvent e) {
+		        jButton.setBackground(Color.BLACK);
+		    }
+
+		    @Override
+		    public void mouseExited(MouseEvent e) {
+		        jButton.setBackground(new Color(255, 0, 0));
+		    }
+		});
+
+		jButton.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        if (JOptionPane.showConfirmDialog(null, "Bạn có muốn đăng xuất!", null, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+		            GD_Login lg = new GD_Login();
+		            lg.setVisible(true);
+		            lg.setLocationRelativeTo(null);
+		            dispose();
+		        }
+		    }
+		});
 		
 		testbutton.Buttontest btndatphong1 = new testbutton.Buttontest();
         btndatphong1.addMouseListener(new MouseAdapter() {

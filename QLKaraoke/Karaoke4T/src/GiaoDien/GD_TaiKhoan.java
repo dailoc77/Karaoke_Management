@@ -164,7 +164,10 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
         btnnhanvien.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-
+				GD_QLNhanVien gdqlnv = new GD_QLNhanVien();
+				gdqlnv.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				gdqlnv.setVisible(true);
+				dispose();
 			}
 		});
         btnnhanvien.setBorder(null);

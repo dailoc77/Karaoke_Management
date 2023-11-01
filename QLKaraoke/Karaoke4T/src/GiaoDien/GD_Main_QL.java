@@ -77,7 +77,6 @@ public class GD_Main_QL extends JFrame implements ActionListener{
 		setBackground(Color.WHITE);
 		setTitle("Giao Diện Quản Lý");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setLocationRelativeTo(null);
 		setBounds(100, 100, 1175, 650);
 		
 		contentPane = new JPanel();
@@ -198,6 +197,10 @@ public class GD_Main_QL extends JFrame implements ActionListener{
         btnnhanvien.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				GD_QLNhanVien gdnv = new GD_QLNhanVien();
+				gdnv.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				gdnv.setVisible(true);
+				dispose();
 			}
 		});
         btnnhanvien.setBorder(null);
@@ -233,6 +236,10 @@ public class GD_Main_QL extends JFrame implements ActionListener{
         btnthongke.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				GD_ThongKeHoaDon gdtkhd = new GD_ThongKeHoaDon();
+				gdtkhd.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				gdtkhd.setVisible(true);
+				dispose();
 
 			}
 		});
