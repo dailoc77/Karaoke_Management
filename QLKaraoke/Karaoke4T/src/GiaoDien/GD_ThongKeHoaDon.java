@@ -198,9 +198,9 @@ public class GD_ThongKeHoaDon extends JFrame implements ActionListener {
         btnphonghat.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-//				GD_Phong gdphong = new GD_Phong();
-//				gdphong.setVisible(true);
-//				dispose();
+				GD_PhongHat gdphong = new GD_PhongHat();
+				gdphong.setVisible(true);
+				dispose();
 			}
 		});
         btnphonghat.setBorder(null);
