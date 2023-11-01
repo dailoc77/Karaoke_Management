@@ -121,6 +121,44 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 		btnNewButton.setBounds(304, 10, 49, 50);
 		contentPane.add(btnNewButton);
 		
+		JButton jButton = new JButton("Đăng Xuất");
+		jButton.setBounds(980, 13, 135, 42);
+		jButton.setFont(new Font("Tahoma ", Font.BOLD, 14));
+		jButton.setBackground(new Color(255, 0, 0));
+		jButton.setForeground(Color.WHITE);
+		
+		
+		jButton.setBorder(BorderFactory.createLineBorder(Color.RED, 2, true));
+        jButton.setBorder(BorderFactory.createLineBorder(Color.RED, 2, true));
+        jButton.setContentAreaFilled(false);
+        jButton.setFocusPainted(false);
+        jButton.setOpaque(true);
+		contentPane.add(jButton);
+		
+		jButton.addMouseListener(new MouseAdapter() {
+		    @Override
+		    public void mouseEntered(MouseEvent e) {
+		        jButton.setBackground(Color.BLACK);
+		    }
+
+		    @Override
+		    public void mouseExited(MouseEvent e) {
+		        jButton.setBackground(new Color(255, 0, 0));
+		    }
+		});
+
+		jButton.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        if (JOptionPane.showConfirmDialog(null, "Bạn có muốn đăng xuất!", null, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+		            GD_Login lg = new GD_Login();
+		            lg.setVisible(true);
+		            lg.setLocationRelativeTo(null);
+		            dispose();
+		        }
+		    }
+		});
+		
+		
 //		------------------------------------------
 		JPanel box_clock = new JPanel();
         box_clock.setBounds(34, 10, 260, 50);
@@ -386,42 +424,6 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 		lblhinhnen.setBounds(-95, -176, 1333, 957);
 		contentPane.add(lblhinhnen);
 		
-		//button dang xuat
-		JButton jButton = new JButton("Đăng Xuất");
-		jButton.setBounds(980, 13, 135, 42);
-		jButton.setFont(new Font("Tahoma ", Font.BOLD, 14));
-		jButton.setBackground(new Color(255, 0, 0));
-		jButton.setForeground(Color.WHITE);
-	
-		jButton.setBorder(BorderFactory.createLineBorder(Color.RED, 2, true));
-        jButton.setBorder(BorderFactory.createLineBorder(Color.RED, 2, true));
-        jButton.setContentAreaFilled(false);
-        jButton.setFocusPainted(false);
-        jButton.setOpaque(true);
-		contentPane.add(jButton);
-
-		jButton.addMouseListener(new MouseAdapter() {
-		    @Override
-		    public void mouseEntered(MouseEvent e) {
-		        jButton.setBackground(Color.BLACK);
-		    }
-
-		    @Override
-		    public void mouseExited(MouseEvent e) {
-		        jButton.setBackground(new Color(255, 0, 0));
-		    }
-		});
-
-		jButton.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        if (JOptionPane.showConfirmDialog(null, "Bạn có muốn đăng xuất!", null, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-		            GD_Login lg = new GD_Login();
-		            lg.setVisible(true);
-		            lg.setLocationRelativeTo(null);
-		            dispose();
-		        }
-		    }
-		});
 	}
 	protected void btnlammoiActionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
