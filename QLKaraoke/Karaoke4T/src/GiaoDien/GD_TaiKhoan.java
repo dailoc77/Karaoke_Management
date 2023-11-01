@@ -123,101 +123,91 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
         timer = new Timer(0, this);
         timer.start();
 		
-		JPanel phonghat = new JPanel();
-		phonghat.addMouseListener(new MouseAdapter() {
+        testbutton.Buttontest btnphonghat = new testbutton.Buttontest();
+        btnphonghat.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+//				GD_Phong gdphong = new GD_Phong();
+//				gdphong.setVisible(true);
+//				dispose();
+			}
+		});
+        btnphonghat.setBorder(null);
+        btnphonghat.setText("Phòng Hát");
+        btnphonghat.setForeground(Color.WHITE);
+        btnphonghat.setFont(new Font("Tahoma", Font.BOLD, 20));
+        btnphonghat.setBackground(new Color(0, 0, 0, 150));
+        btnphonghat.setBounds(0, 70, 232, 87);
+		contentPane.add(btnphonghat);
+		btnphonghat.setLayout(null);
+		
+		testbutton.Buttontest btndichvu = new testbutton.Buttontest();
+        btndichvu.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				GD_QLDichVu gdqldv = new GD_QLDichVu();
+				gdqldv.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				gdqldv.setVisible(true);
+				dispose();
+			}
+		});
+        btndichvu.setBorder(null);
+        btndichvu.setText("Dịch Vụ");
+        btndichvu.setForeground(Color.WHITE);
+        btndichvu.setFont(new Font("Tahoma", Font.BOLD, 20));
+        btndichvu.setBackground(new Color(0, 0, 0, 150));
+        btndichvu.setBounds(230, 70, 239, 87);
+		contentPane.add(btndichvu);
+		btndichvu.setLayout(null);
+		
+        testbutton.Buttontest btnnhanvien = new testbutton.Buttontest();
+        btnnhanvien.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 
 			}
 		});
-		phonghat.setBorder(null);
-		phonghat.setBackground(new Color(0, 0, 0, 150));
-		phonghat.setBounds(0, 70, 232, 80);
-		contentPane.add(phonghat);
-		phonghat.setLayout(null);
+        btnnhanvien.setBorder(null);
+        btnnhanvien.setText("Nhân Viên");
+        btnnhanvien.setForeground(Color.WHITE);
+        btnnhanvien.setFont(new Font("Tahoma", Font.BOLD, 20));
+        btnnhanvien.setBackground(new Color(0, 0, 0, 150));
+        btnnhanvien.setBounds(465, 70, 232, 87);
+		contentPane.add(btnnhanvien);
+		btnnhanvien.setLayout(null);
 		
-		JLabel lblphonghat = new JLabel("Phòng Hát");
-		lblphonghat.setForeground(Color.WHITE);
-		lblphonghat.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblphonghat.setHorizontalAlignment(SwingConstants.CENTER);
-		lblphonghat.setBounds(0, 0, 232, 80);
-		phonghat.add(lblphonghat);
-		
-		JPanel dichvu = new JPanel();
-		dichvu.addMouseListener(new MouseAdapter() {
+        testbutton.Buttontest btntaikhoan = new testbutton.Buttontest();
+        btntaikhoan.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 			}
 		});
-		dichvu.setLayout(null);
-		dichvu.setBorder(null);
-		dichvu.setBackground(new Color(0, 0, 0, 150));
-		dichvu.setBounds(229, 70, 232, 80);
-		contentPane.add(dichvu);
+        btntaikhoan.setBorder(null);
+        btntaikhoan.setText("Tài Khoản");
+        btntaikhoan.setForeground(Color.WHITE);
+        btntaikhoan.setFont(new Font("Tahoma", Font.BOLD, 20));
+        btntaikhoan.setBackground(new Color(128, 128, 128, 150));
+        btntaikhoan.setBounds(695, 70, 232, 87);
+		contentPane.add(btntaikhoan);
+		btntaikhoan.setLayout(null);
 		
-		JLabel lbldichvu = new JLabel("Dịch Vụ");
-		lbldichvu.setHorizontalAlignment(SwingConstants.CENTER);
-		lbldichvu.setForeground(Color.WHITE);
-		lbldichvu.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lbldichvu.setBounds(0, 0, 232, 80);
-		dichvu.add(lbldichvu);
-		
-		JPanel nhanvien = new JPanel();
-		nhanvien.addMouseListener(new MouseAdapter() {
+        testbutton.Buttontest btnthongke = new testbutton.Buttontest();
+        btnthongke.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+	            GD_ThongKeHoaDon thongkehoadon = new GD_ThongKeHoaDon();
+	            thongkehoadon.setVisible(true);
+	            dispose();
 			}
 		});
-		nhanvien.setLayout(null);
-		nhanvien.setBorder(null);
-		nhanvien.setBackground(new Color(0, 0, 0, 150));
-		nhanvien.setBounds(462, 70, 232, 80);
-		contentPane.add(nhanvien);
-		
-		JLabel lblnhanvien = new JLabel("Nhân Viên");
-		lblnhanvien.setHorizontalAlignment(SwingConstants.CENTER);
-		lblnhanvien.setForeground(Color.WHITE);
-		lblnhanvien.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblnhanvien.setBounds(0, 0, 232, 80);
-		nhanvien.add(lblnhanvien);
-		
-		JPanel taikhoan = new JPanel();
-		taikhoan.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
-		taikhoan.setLayout(null);
-		taikhoan.setBorder(null);
-		taikhoan.setBackground(new Color(0, 0, 0, 150));
-		taikhoan.setBounds(695, 70, 232, 80);
-		contentPane.add(taikhoan);
-		
-		JLabel lbltaikhoan = new JLabel("Tài Khoản");
-		lbltaikhoan.setHorizontalAlignment(SwingConstants.CENTER);
-		lbltaikhoan.setForeground(Color.WHITE);
-		lbltaikhoan.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lbltaikhoan.setBounds(0, 0, 232, 80);
-		taikhoan.add(lbltaikhoan);
-		
-		JPanel thongke = new JPanel();
-		thongke.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
-		thongke.setLayout(null);
-		thongke.setBorder(null);
-		thongke.setBackground(new Color(0, 0, 0, 150));
-		thongke.setBounds(928, 70, 233, 80);
-		contentPane.add(thongke);
-		
-		JLabel lblthongke = new JLabel("Thống Kê");
-		lblthongke.setHorizontalAlignment(SwingConstants.CENTER);
-		lblthongke.setForeground(Color.WHITE);
-		lblthongke.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblthongke.setBounds(0, 0, 232, 80);
-		thongke.add(lblthongke);
+        btnthongke.setBorder(null);
+        btnthongke.setText("Thống Kê");
+        btnthongke.setForeground(Color.WHITE);
+        btnthongke.setFont(new Font("Tahoma", Font.BOLD, 20));
+        btnthongke.setBackground(new Color(0, 0, 0, 150));
+        btnthongke.setBounds(925, 70, 232, 87);
+		contentPane.add(btnthongke);
+		btnthongke.setLayout(null);
 		
 		//panel bg mờ
 		JPanel panel = new JPanel() {

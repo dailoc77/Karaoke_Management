@@ -110,10 +110,12 @@ public class GD_Login extends JFrame implements ActionListener{
 		        } else if(passwordField.getText().equals("")){
 		            JOptionPane.showMessageDialog(this, "Vui lòng đăng nhập mật khẩu");
 		        } else if(textField.getText().equals("admin")){
-		                if(passwordField.getText().equals("123")){
+		                if(passwordField.getText().equals("123")){   
 		                        GD_Main_QL mng =new GD_Main_QL();
 		                        mng.setVisible(true);
-		                        this.setVisible(false);
+		                        mng.setLocationRelativeTo(null);
+		                        JOptionPane.showMessageDialog(null, "Chào mừng bạn đến với Karaoke4T!","Thông báo",JOptionPane.INFORMATION_MESSAGE);
+		                        dispose();
 		                }
 		                else{
 		                    JOptionPane.showMessageDialog(this, "sai mật khẩu");
@@ -125,6 +127,22 @@ public class GD_Login extends JFrame implements ActionListener{
 	        
 		}
 	public static void main(String[] args) {
+		try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(GD_DatPhong.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(GD_DatPhong.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(GD_DatPhong.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(GD_DatPhong.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
 		GD_Login run = new GD_Login();
 		run.setVisible(true);
 	}

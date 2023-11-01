@@ -90,15 +90,14 @@ public class GD_QuanLyKhachHang extends JFrame implements ActionListener {
 	public GD_QuanLyKhachHang() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1175, 650);
+		setTitle("Giao Diện Khách Hàng");
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
 		
-		
-		
-		JPanel datphong = new JPanel();
-		datphong.setBounds(0, 70, 232, 80);
+		JPanel jpanel = new JPanel();
+		jpanel.setBounds(0, 70, 232, 80);
 		contentPane.setLayout(null);
 		
 		
@@ -153,95 +152,96 @@ public class GD_QuanLyKhachHang extends JFrame implements ActionListener {
         jButton.setOpaque(true);
 		contentPane.add(jButton);
 		
-		datphong.setBorder(null);
-		datphong.setBackground(new Color(0, 0, 0, 150));
-		contentPane.add(datphong);
-		datphong.setLayout(null);
+		testbutton.Buttontest btndatphong1 = new testbutton.Buttontest();
+        btndatphong1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				GD_DatPhong gddatphong = new GD_DatPhong();
+				gddatphong.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				gddatphong.setVisible(true);
+				dispose();
+			}
+		});
+        btndatphong1.setBorder(null);
+        btndatphong1.setText("Đặt Phòng");
+        btndatphong1.setForeground(Color.WHITE);
+        btndatphong1.setFont(new Font("Tahoma", Font.BOLD, 20));
+        btndatphong1.setBackground(new Color(0,0,0,150));
+        btndatphong1.setBounds(0, 70, 232, 87);
+		contentPane.add(btndatphong1);
+		btndatphong1.setLayout(null);
 		
-		JLabel lbldatphong = new JLabel("Đặt Phòng");
-		lbldatphong.setForeground(Color.WHITE);
-		lbldatphong.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lbldatphong.setHorizontalAlignment(SwingConstants.CENTER);
-		lbldatphong.setBounds(0, 0, 232, 80);
-		datphong.add(lbldatphong);
+        testbutton.Buttontest btnthuephong = new testbutton.Buttontest();
+        btnthuephong.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				GD_ThuePhong gdthuephong = new GD_ThuePhong();
+				gdthuephong.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				gdthuephong.setVisible(true);
+				dispose();
+			}
+		});
+        btnthuephong.setBorder(null);
+        btnthuephong.setText("Thuê Phòng");
+        btnthuephong.setForeground(Color.WHITE);
+        btnthuephong.setFont(new Font("Tahoma", Font.BOLD, 20));
+        btnthuephong.setBackground(new Color(0, 0, 0, 150));
+        btnthuephong.setBounds(230, 70, 239, 87);
+		contentPane.add(btnthuephong);
+		btnthuephong.setLayout(null);
 		
-		JPanel thuephong = new JPanel();
-		thuephong.setBounds(229, 70, 232, 80);
-		thuephong.addMouseListener(new MouseAdapter() {
+        testbutton.Buttontest btndatdichvu = new testbutton.Buttontest();
+        btndatdichvu.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				GD_DatDichVu gddv = new GD_DatDichVu();
+				gddv.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				gddv.setVisible(true);
+				dispose();
+			}
+		});
+        btndatdichvu.setBorder(null);
+        btndatdichvu.setText("Đặt Dịch Vụ");
+        btndatdichvu.setForeground(Color.WHITE);
+        btndatdichvu.setFont(new Font("Tahoma", Font.BOLD, 20));
+        btndatdichvu.setBackground(new Color(0,0,0, 150));
+        btndatdichvu.setBounds(465, 70, 232, 87);
+		contentPane.add(btndatdichvu);
+		btndatdichvu.setLayout(null);
+		
+        testbutton.Buttontest btnkhachhang = new testbutton.Buttontest();
+        btnkhachhang.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 			}
 		});
-		thuephong.setLayout(null);
-		thuephong.setBorder(null);
-		thuephong.setBackground(new Color(0, 0, 0, 150));
-		contentPane.add(thuephong);
+        btnkhachhang.setBorder(null);
+        btnkhachhang.setText("Khách Hàng");
+        btnkhachhang.setForeground(Color.WHITE);
+        btnkhachhang.setFont(new Font("Tahoma", Font.BOLD, 20));
+        btnkhachhang.setBackground(new Color(128,128,128, 150));
+        btnkhachhang.setBounds(695, 70, 232, 87);
+		contentPane.add(btnkhachhang);
+		btnkhachhang.setLayout(null);
 		
-		JLabel lblthuephong = new JLabel("Thuê Phòng");
-		lblthuephong.setHorizontalAlignment(SwingConstants.CENTER);
-		lblthuephong.setForeground(Color.WHITE);
-		lblthuephong.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblthuephong.setBounds(0, 0, 232, 80);
-		thuephong.add(lblthuephong);
-		
-		JPanel datdichvu = new JPanel();
-		datdichvu.setBounds(462, 70, 232, 80);
-		datdichvu.addMouseListener(new MouseAdapter() {
+        testbutton.Buttontest btnthongke = new testbutton.Buttontest();
+        btnthongke.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				GD_ThongKeKhachHang thongkekh = new GD_ThongKeKhachHang();
+				thongkekh.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				thongkekh.setVisible(true);
+				dispose();
 			}
 		});
-		datdichvu.setLayout(null);
-		datdichvu.setBorder(null);
-		datdichvu.setBackground(new Color(0, 0, 0, 150));
-		contentPane.add(datdichvu);
-		
-		JLabel lbltdatdichvu = new JLabel("Đặt Dịch Vụ");
-		lbltdatdichvu.setHorizontalAlignment(SwingConstants.CENTER);
-		lbltdatdichvu.setForeground(Color.WHITE);
-		lbltdatdichvu.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lbltdatdichvu.setBounds(0, 0, 232, 80);
-		datdichvu.add(lbltdatdichvu);
-		
-		JPanel khachhang = new JPanel();
-		khachhang.setBounds(695, 70, 232, 80);
-		khachhang.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
-		khachhang.setLayout(null);
-		khachhang.setBorder(null);
-		khachhang.setBackground(new Color(0, 0, 0, 150));
-		contentPane.add(khachhang);
-		
-		JLabel lbltkhachhang = new JLabel("Khách Hàng");
-		lbltkhachhang.setHorizontalAlignment(SwingConstants.CENTER);
-		lbltkhachhang.setForeground(Color.WHITE);
-		lbltkhachhang.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lbltkhachhang.setBounds(0, 0, 232, 80);
-		khachhang.add(lbltkhachhang);
-		
-		JPanel thongke = new JPanel();
-		thongke.setBounds(928, 70, 233, 80);
-		thongke.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
-		thongke.setLayout(null);
-		thongke.setBorder(null);
-		thongke.setBackground(new Color(0, 0, 0, 150));
-		contentPane.add(thongke);
-		
-		JLabel lblthongke = new JLabel("Thống Kê");
-		lblthongke.setHorizontalAlignment(SwingConstants.CENTER);
-		lblthongke.setForeground(Color.WHITE);
-		
-		
-		lblthongke.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblthongke.setBounds(0, 0, 232, 80);
-		thongke.add(lblthongke);
+        btnthongke.setBorder(null);
+        btnthongke.setText("Thống Kê");
+        btnthongke.setForeground(Color.WHITE);
+        btnthongke.setFont(new Font("Tahoma", Font.BOLD, 20));
+        btnthongke.setBackground(new Color(0, 0, 0, 150));
+        btnthongke.setBounds(925, 70, 232, 87);
+		contentPane.add(btnthongke);
+		btnthongke.setLayout(null);
 		
 		JPanel panel = new JPanel() {
 			protected void paintComponent(Graphics g) {
