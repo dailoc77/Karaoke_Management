@@ -663,6 +663,7 @@ public class GD_DatDichVu extends JFrame implements ActionListener{
 		
 		JScrollPane scrollPane_DSDVdadat = new JScrollPane();
 		scrollPane_DSDVdadat.setBounds(0, 86, 699, 371);
+		scrollPane_DSDVdadat.setBackground(new Color(255, 255, 255));
 		Right_DatDichVu.add(scrollPane_DSDVdadat);
 		
 		table_1 = new JTable();
