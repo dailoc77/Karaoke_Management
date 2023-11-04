@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 
@@ -17,14 +18,14 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 import java.awt.Font;
-
+import java.awt.Graphics;
 
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
+import java.net.URL;
 import java.util.Calendar;
 
 import javax.swing.border.LineBorder;
@@ -50,6 +51,22 @@ public class GD_QLDichVu extends JFrame implements ActionListener{
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(GD_QLDichVu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(GD_QLDichVu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(GD_QLDichVu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(GD_QLDichVu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -66,7 +83,7 @@ public class GD_QLDichVu extends JFrame implements ActionListener{
 	 */
 	public GD_QLDichVu() {
 		setBackground(Color.WHITE);
-		setTitle("Giao Diện Quản Lý");
+		setTitle("Giao Diện Quản Lý Dịch Vụ");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setBounds(100, 100, 1175, 650);
@@ -77,10 +94,32 @@ public class GD_QLDichVu extends JFrame implements ActionListener{
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JPanel left_QLDV = new JPanel();
-		left_QLDV.setBorder(null);
-		left_QLDV.setBackground(new Color(255, 255, 255, 100));
+//		 Ho tro -----------------------
+		JButton btnNewButton = new JButton("");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					Desktop.getDesktop().browse(new URL("https://thach1311.github.io/huongDan/").toURI());
+				}
+				catch(Exception ex){}
+			}
+		});
+		btnNewButton.setIcon(new ImageIcon(GD_Main_NV.class.getResource("/Imgs/iconHoTro.png")));
+		btnNewButton.setBounds(304, 10, 49, 50);
+		contentPane.add(btnNewButton);
+		
+//		------------------------------------------
+		
+		JPanel left_QLDV = new JPanel() {
+			protected void paintComponent(Graphics g) {
+				g.setColor(getBackground());
+				g.fillRect(0, 0, getWidth(), getHeight());
+				super.paintComponent(g);
+			}
+		};
+		left_QLDV.setBackground(new Color(255, 255, 255, 180));
 		left_QLDV.setBounds(0, 148, 294, 465);
+		left_QLDV.setOpaque(false);
 		contentPane.add(left_QLDV);
 		left_QLDV.setLayout(null);
 		
@@ -132,110 +171,66 @@ public class GD_QLDichVu extends JFrame implements ActionListener{
 		lblchuthich.setBounds(10, 285, 85, 13);
 		left_QLDV.add(lblchuthich);
 		
-		JButton btnthem = new JButton("Thêm");
+		testbutton.Buttontest btnthem = new testbutton.Buttontest();
+		btnthem.setText("Thêm");
 		btnthem.setForeground(new Color(255, 255, 255));
-		btnthem.setFont(new Font("Tahoma", Font.BOLD, 15));
+		btnthem.setFont(new Font("Segoe UI", Font.BOLD, 16));
 		btnthem.setBackground(new Color(90, 167, 167));
-		btnthem.setBounds(10, 359, 100, 30);
-		btnthem.setBorder(null);
-		btnthem.setBorder(BorderFactory.createLineBorder(Color.getColor(null, new Color(90, 167, 167)), 1, true));
-		btnthem.setContentAreaFilled(false);
-		btnthem.setFocusPainted(false);
-		btnthem.setOpaque(true);
-		btnthem.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-            	btnthem.setBackground(Color.BLACK);
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-            	btnthem.setBackground(new Color(90, 167, 167));
-            }
-        });
+		btnthem.setBounds(10, 359, 100, 48);
+		btnthem.setRippleColor(new Color(255, 255, 255));
+		btnthem.setShadowColor(new Color(0,0,0));
+		
 		btnthem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				btnthemActionPerformed(e);
 			}
 		});
 		left_QLDV.add(btnthem);
 		
-		JButton btnsua = new JButton("Sửa");
+		testbutton.Buttontest btnsua = new testbutton.Buttontest();
+		btnsua.setText("Sửa");
 		btnsua.setForeground(Color.WHITE);
-		btnsua.setFont(new Font("Tahoma", Font.BOLD, 15));
+		btnsua.setFont(new Font("Segoe UI", Font.BOLD, 16));
 		btnsua.setBackground(new Color(226, 211, 107));
-		btnsua.setBounds(164, 359, 100, 30);
-		btnsua.setBorder(null);
-		btnsua.setBorder(BorderFactory.createLineBorder(Color.getColor(null, new Color(226, 211, 107)), 1, true));
-		btnsua.setContentAreaFilled(false);
-		btnsua.setFocusPainted(false);
-		btnsua.setOpaque(true);
-		btnsua.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-            	btnsua.setBackground(Color.BLACK);
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-            	btnsua.setBackground(new Color(226, 211, 107));
-            }
-        });
+		btnsua.setBounds(164, 359, 100, 48);
+		btnsua.setRippleColor(new Color(255, 255, 255));
+		btnsua.setShadowColor(new Color(0,0,0));
+		
 		btnsua.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				btnsuaActionPerformed(e);
 			}
 		});
 		left_QLDV.add(btnsua);
 		
-		JButton btnlammoi = new JButton("Làm mới");
+		testbutton.Buttontest btnlammoi = new testbutton.Buttontest();
+		btnlammoi.setText("Làm mới");
 		btnlammoi.setForeground(Color.WHITE);
-		btnlammoi.setFont(new Font("Tahoma", Font.BOLD, 15));
+		btnlammoi.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnlammoi.setBackground(new Color(51, 83, 158));
-		btnlammoi.setBounds(164, 413, 100, 30);
-		btnlammoi.setBorder(null);
-		btnlammoi.setBorder(BorderFactory.createLineBorder(Color.getColor(null, new Color(51, 83, 158)), 1, true));
-		btnlammoi.setContentAreaFilled(false);
-		btnlammoi.setFocusPainted(false);
-		btnlammoi.setOpaque(true);
-		btnlammoi.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-            	btnlammoi.setBackground(Color.BLACK);
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-            	btnlammoi.setBackground(new Color(51, 83, 158));
-            }
-        });
+		btnlammoi.setBounds(164, 413, 100, 48);
+		btnlammoi.setRippleColor(new Color(255, 255, 255));
+		btnlammoi.setShadowColor(new Color(0,0,0));
+		
 		btnlammoi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				btnlammoiActionPerformed(e);
 			}
 		});
 		left_QLDV.add(btnlammoi);
 		
-		JButton btnxoa = new JButton("Xóa");
+		testbutton.Buttontest btnxoa = new testbutton.Buttontest();
+		btnxoa.setText("Xóa");
 		btnxoa.setForeground(Color.WHITE);
-		btnxoa.setFont(new Font("Tahoma", Font.BOLD, 15));
+		btnxoa.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnxoa.setBackground(new Color(254, 122, 21));
-		btnxoa.setBounds(10, 413, 100, 30);
-		btnxoa.setBorder(null);
-		btnxoa.setBorder(BorderFactory.createLineBorder(Color.getColor(null, new Color(254, 122, 21)), 1, true));
-		btnxoa.setContentAreaFilled(false);
-		btnxoa.setFocusPainted(false);
-		btnxoa.setOpaque(true);
-		btnxoa.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-            	btnxoa.setBackground(Color.BLACK);
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-            	btnxoa.setBackground(new Color(254, 122, 21));
-            }
-        });
+		btnxoa.setBounds(10, 413, 100, 48);
+		btnxoa.setRippleColor(new Color(255, 255, 255));
+		btnxoa.setShadowColor(new Color(0,0,0));
+		
 		btnxoa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				btnxoaActionPerformed(e);
 			}
 		});
 		left_QLDV.add(btnxoa);
@@ -673,126 +668,101 @@ public class GD_QLDichVu extends JFrame implements ActionListener{
         timer = new Timer(0, this);
         timer.start();
 		
-		JPanel phonghat = new JPanel();
-		phonghat.addMouseListener(new MouseAdapter() {
+        testbutton.Buttontest btnphonghat = new testbutton.Buttontest();
+        btnphonghat.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-
+				GD_PhongHat gdphonghat = new GD_PhongHat();
+				gdphonghat.setVisible(true);
+				dispose();
 			}
 		});
-		phonghat.setBorder(null);
-		phonghat.setBackground(new Color(0, 0, 0, 150));
-		phonghat.setBounds(0, 70, 232, 80);
-		contentPane.add(phonghat);
-		phonghat.setLayout(null);
+        btnphonghat.setBorder(null);
+        btnphonghat.setText("Phòng Hát");
+        btnphonghat.setForeground(Color.WHITE);
+        btnphonghat.setFont(new Font("Tahoma", Font.BOLD, 20));
+        btnphonghat.setBackground(new Color(0, 0, 0, 150));
+        btnphonghat.setBounds(0, 70, 232, 87);
+		contentPane.add(btnphonghat);
+		btnphonghat.setLayout(null);
 		
-		JLabel lblphonghat = new JLabel("Phòng Hát");
-		lblphonghat.setForeground(Color.WHITE);
-		lblphonghat.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblphonghat.setHorizontalAlignment(SwingConstants.CENTER);
-		lblphonghat.setBounds(0, 0, 232, 80);
-		phonghat.add(lblphonghat);
-		
-		JPanel dichvu = new JPanel();
-		dichvu.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
-		dichvu.setLayout(null);
-		dichvu.setBorder(null);
-		dichvu.setBackground(new Color(0, 0, 0, 150));
-		dichvu.setBounds(229, 70, 232, 80);
-		contentPane.add(dichvu);
-		
-		JLabel lbldichvu = new JLabel("Dịch Vụ");
-		lbldichvu.setHorizontalAlignment(SwingConstants.CENTER);
-		lbldichvu.setForeground(Color.WHITE);
-		lbldichvu.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lbldichvu.setBounds(0, 0, 232, 80);
-		dichvu.add(lbldichvu);
-		
-		JPanel nhanvien = new JPanel();
-		nhanvien.addMouseListener(new MouseAdapter() {
+		testbutton.Buttontest btndichvu = new testbutton.Buttontest();
+        btndichvu.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 			}
 		});
-		nhanvien.setLayout(null);
-		nhanvien.setBorder(null);
-		nhanvien.setBackground(new Color(0, 0, 0, 150));
-		nhanvien.setBounds(462, 70, 232, 80);
-		contentPane.add(nhanvien);
+        btndichvu.setBorder(null);
+        btndichvu.setText("Dịch Vụ");
+        btndichvu.setForeground(Color.WHITE);
+        btndichvu.setFont(new Font("Tahoma", Font.BOLD, 20));
+        btndichvu.setBackground(new Color(128, 128,128, 150));
+        btndichvu.setBounds(230, 70, 239, 87);
+		contentPane.add(btndichvu);
+		btndichvu.setLayout(null);
 		
-		JLabel lblnhanvien = new JLabel("Nhân Viên");
-		lblnhanvien.setHorizontalAlignment(SwingConstants.CENTER);
-		lblnhanvien.setForeground(Color.WHITE);
-		lblnhanvien.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblnhanvien.setBounds(0, 0, 232, 80);
-		nhanvien.add(lblnhanvien);
-		
-		JPanel taikhoan = new JPanel();
-		taikhoan.addMouseListener(new MouseAdapter() {
+        testbutton.Buttontest btnnhanvien = new testbutton.Buttontest();
+        btnnhanvien.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				GD_QLNhanVien gdqlnv = new GD_QLNhanVien();
+				gdqlnv.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				gdqlnv.setVisible(true);
+				dispose();
 			}
 		});
-		taikhoan.setLayout(null);
-		taikhoan.setBorder(null);
-		taikhoan.setBackground(new Color(0, 0, 0, 150));
-		taikhoan.setBounds(695, 70, 232, 80);
-		contentPane.add(taikhoan);
+        btnnhanvien.setBorder(null);
+        btnnhanvien.setText("Nhân Viên");
+        btnnhanvien.setForeground(Color.WHITE);
+        btnnhanvien.setFont(new Font("Tahoma", Font.BOLD, 20));
+        btnnhanvien.setBackground(new Color(0, 0, 0, 150));
+        btnnhanvien.setBounds(465, 70, 232, 87);
+		contentPane.add(btnnhanvien);
+		btnnhanvien.setLayout(null);
 		
-		JLabel lbltaikhoan = new JLabel("Tài Khoản");
-		lbltaikhoan.setHorizontalAlignment(SwingConstants.CENTER);
-		lbltaikhoan.setForeground(Color.WHITE);
-		lbltaikhoan.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lbltaikhoan.setBounds(0, 0, 232, 80);
-		taikhoan.add(lbltaikhoan);
-		
-		JPanel thongke = new JPanel();
-		thongke.addMouseListener(new MouseAdapter() {
+        testbutton.Buttontest btntaikhoan = new testbutton.Buttontest();
+        btntaikhoan.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				GD_TaiKhoan gdtk = new GD_TaiKhoan();
+				gdtk.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				gdtk.setVisible(true);
+				dispose();
 			}
 		});
-		thongke.setLayout(null);
-		thongke.setBorder(null);
-		thongke.setBackground(new Color(0, 0, 0, 150));
-		thongke.setBounds(928, 70, 233, 80);
-		contentPane.add(thongke);
+        btntaikhoan.setBorder(null);
+        btntaikhoan.setText("Tài Khoản");
+        btntaikhoan.setForeground(Color.WHITE);
+        btntaikhoan.setFont(new Font("Tahoma", Font.BOLD, 20));
+        btntaikhoan.setBackground(new Color(0, 0, 0, 150));
+        btntaikhoan.setBounds(695, 70, 232, 87);
+		contentPane.add(btntaikhoan);
+		btntaikhoan.setLayout(null);
 		
-		JLabel lblthongke = new JLabel("Thống Kê");
-		lblthongke.setHorizontalAlignment(SwingConstants.CENTER);
-		lblthongke.setForeground(Color.WHITE);
-		lblthongke.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblthongke.setBounds(0, 0, 232, 80);
-		thongke.add(lblthongke);
+        testbutton.Buttontest btnthongke = new testbutton.Buttontest();
+        btnthongke.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				GD_ThongKeHoaDon gdtk = new GD_ThongKeHoaDon();
+				gdtk.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				gdtk.setVisible(true);
+				dispose();
+			}
+		});
+        btnthongke.setBorder(null);
+        btnthongke.setText("Thống Kê");
+        btnthongke.setForeground(Color.WHITE);
+        btnthongke.setFont(new Font("Tahoma", Font.BOLD, 20));
+        btnthongke.setBackground(new Color(0, 0, 0, 150));
+        btnthongke.setBounds(925, 70, 232, 87);
+		contentPane.add(btnthongke);
+		btnthongke.setLayout(null);
 		
-		JLabel lblChucVu = new JLabel("QL");
-		lblChucVu.setForeground(new Color(255, 255, 255));
-		lblChucVu.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblChucVu.setBounds(894, 10, 45, 27);
-		contentPane.add(lblChucVu);
-		
-		JLabel lblten = new JLabel("Nguyễn Văn C");
-		lblten.setForeground(new Color(255, 255, 255));
-		lblten.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblten.setBounds(834, 33, 193, 27);
-		contentPane.add(lblten);
-		
-		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setIcon(new ImageIcon(GD_Main_NV.class.getResource("/Imgs/370.png")));
-		lblNewLabel.setBounds(-95, -176, 1333, 957);
-		contentPane.add(lblNewLabel);
-
 		JLabel lblquanly = new JLabel("QL:");
 		lblquanly.setForeground(Color.WHITE);
 		lblquanly.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblquanly.setBounds(878, -20, 232, 80);
 		contentPane.add(lblquanly);
-
 		
 		JLabel lbltenql = new JLabel("Nguyễn Văn A");
 		lbltenql.setForeground(Color.WHITE);
@@ -802,15 +772,37 @@ public class GD_QLDichVu extends JFrame implements ActionListener{
 		
 		JLabel lblavatar = new JLabel("");
 		lblavatar.setHorizontalAlignment(SwingConstants.CENTER);
-		lblavatar.setIcon(new ImageIcon(GD_QLDichVu.class.getResource("/Imgs/t1 1.png")));
+		lblavatar.setIcon(new ImageIcon(GD_TaiKhoan.class.getResource("/Imgs/t1 1.png")));
 		lblavatar.setBounds(90, -444, 1333, 957);
 		contentPane.add(lblavatar);
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setIcon(new ImageIcon(GD_Main_NV.class.getResource("/Imgs/370.png")));
+		lblNewLabel.setBounds(-95, -176, 1333, 957);
+		contentPane.add(lblNewLabel);
 	
 		JLabel lblhinhnen = new JLabel("");
 		lblhinhnen.setHorizontalAlignment(SwingConstants.CENTER);
 		lblhinhnen.setIcon(new ImageIcon(GD_Main_NV.class.getResource("/Imgs/370.png")));
 		lblhinhnen.setBounds(-95, -176, 1333, 957);
 		contentPane.add(lblhinhnen);
+	}
+	protected void btnxoaActionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	protected void btnlammoiActionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	protected void btnsuaActionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	protected void btnthemActionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {

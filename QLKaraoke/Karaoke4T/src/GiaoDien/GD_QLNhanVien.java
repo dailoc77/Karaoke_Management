@@ -1,6 +1,6 @@
 package GiaoDien;
 
-
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.ComponentOrientation;
 import java.awt.Desktop;
@@ -10,10 +10,12 @@ import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.net.URL;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import javax.swing.Timer;
-
+import java.util.TimerTask;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -23,6 +25,11 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
+
+import DAO.QLKH_DAO;
+import Entity.KhachHang;
+import Entity.NhanVien;
+
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
@@ -35,23 +42,24 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.SystemColor;
 import javax.swing.JTable;
-import DAO.*;
-import Entity.*;
-import connectDB.*;
+import javax.swing.UIManager;
+import javax.swing.SwingConstants;
 import javax.swing.JScrollBar;
-public class GD_QuanLyKhachHang extends JFrame implements ActionListener {
+import javax.swing.JComboBox;
+public class GD_QLNhanVien extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
-	private JTextField txtten;
-	private JTextField txtmakh;
-	private JTextField txtsdt;
-	private JTextField txtcmnd;
-	private JTextField txtdc;
+	private JTextField textField;
+	private JTextField textField_1;
+	private JTextField textField_2;
+	private JTextField textField_3;
+	private JTextField textField_4;
 	private JTable table;
 	DefaultTableModel model;
 	private JLabel lblClock;
 	private Timer timer;
-	QLKH_DAO dskh = new QLKH_DAO();
+	private JTextField textField_5;
+	private JTextField textField_6;
 	
 	/**
 	 * Launch the application.
@@ -65,13 +73,13 @@ public class GD_QuanLyKhachHang extends JFrame implements ActionListener {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GD_QuanLyKhachHang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GD_QLNhanVien.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GD_QuanLyKhachHang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GD_QLNhanVien.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GD_QuanLyKhachHang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GD_QLNhanVien.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GD_QuanLyKhachHang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GD_QLNhanVien.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -79,7 +87,7 @@ public class GD_QuanLyKhachHang extends JFrame implements ActionListener {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					GD_QuanLyKhachHang frame = new GD_QuanLyKhachHang();
+					GD_QLNhanVien frame = new GD_QLNhanVien();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -91,10 +99,10 @@ public class GD_QuanLyKhachHang extends JFrame implements ActionListener {
 	/**
 	 * Create the frame.
 	 */
-	public GD_QuanLyKhachHang() {
+	public GD_QLNhanVien() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1175, 650);
-		setTitle("Giao Diện Khách Hàng");
+		setTitle("Giao Diện Nhân Viên");
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -104,7 +112,7 @@ public class GD_QuanLyKhachHang extends JFrame implements ActionListener {
 		jpanel.setBounds(0, 70, 232, 80);
 		contentPane.setLayout(null);
 		
-
+//		 Ho tro -----------------------
 		JButton btnNewButton = new JButton("");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -117,7 +125,9 @@ public class GD_QuanLyKhachHang extends JFrame implements ActionListener {
 		btnNewButton.setIcon(new ImageIcon(GD_Main_NV.class.getResource("/Imgs/iconHoTro.png")));
 		btnNewButton.setBounds(304, 10, 49, 50);
 		contentPane.add(btnNewButton);
-
+		
+//		------------------------------------------
+//		Clock ---------------------------------
 		JPanel box_clock = new JPanel();
 		box_clock.setBounds(34, 10, 260, 50);
         box_clock.setBorder(new LineBorder(Color.BLACK));
@@ -135,23 +145,23 @@ public class GD_QuanLyKhachHang extends JFrame implements ActionListener {
         timer = new Timer(0, this);
         timer.start();
 		
-
-        JLabel lblavatar = new JLabel("");
+//         -------------------------------
+		JLabel lblavatar = new JLabel("");
 		lblavatar.setHorizontalAlignment(SwingConstants.CENTER);
-		lblavatar.setIcon(new ImageIcon(GD_Main_QL.class.getResource("/Imgs/t1 1.png")));
+		lblavatar.setIcon(new ImageIcon(GD_TaiKhoan.class.getResource("/Imgs/t1 1.png")));
 		lblavatar.setBounds(90, -444, 1333, 957);
 		contentPane.add(lblavatar);
 		
-		JLabel lblquanly = new JLabel("NV:");
-		lblquanly.setBounds(878, -20, 232, 80);
+		JLabel lblquanly = new JLabel("QL:");
 		lblquanly.setForeground(Color.WHITE);
 		lblquanly.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblquanly.setBounds(878, -20, 232, 80);
 		contentPane.add(lblquanly);
 		
-		JLabel lbltenql = new JLabel("Nguyễn Văn C");
-		lbltenql.setBounds(833, 6, 232, 80);
+		JLabel lbltenql = new JLabel("Nguyễn Văn A");
 		lbltenql.setForeground(Color.WHITE);
 		lbltenql.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lbltenql.setBounds(833, 6, 232, 80);
 		contentPane.add(lbltenql);
 		
 		JButton jButton = new JButton("Đăng Xuất");
@@ -191,86 +201,86 @@ public class GD_QuanLyKhachHang extends JFrame implements ActionListener {
 		    }
 		});
 		
-		testbutton.Buttontest btndatphong1 = new testbutton.Buttontest();
-        btndatphong1.addMouseListener(new MouseAdapter() {
+		
+        testbutton.Buttontest btnphonghat = new testbutton.Buttontest();
+        btnphonghat.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				GD_DatPhong gddatphong = new GD_DatPhong();
-				gddatphong.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-				gddatphong.setVisible(true);
+				GD_PhongHat gdphonghat = new GD_PhongHat();
+				gdphonghat.setVisible(true);
 				dispose();
 			}
 		});
-        btndatphong1.setBorder(null);
-        btndatphong1.setText("Đặt Phòng");
-        btndatphong1.setForeground(Color.WHITE);
-        btndatphong1.setFont(new Font("Tahoma", Font.BOLD, 20));
-        btndatphong1.setBackground(new Color(0,0,0,150));
-        btndatphong1.setBounds(0, 70, 232, 87);
-		contentPane.add(btndatphong1);
-		btndatphong1.setLayout(null);
+        btnphonghat.setBorder(null);
+        btnphonghat.setText("Phòng Hát");
+        btnphonghat.setForeground(Color.WHITE);
+        btnphonghat.setFont(new Font("Tahoma", Font.BOLD, 20));
+        btnphonghat.setBackground(new Color(0, 0, 0, 150));
+        btnphonghat.setBounds(0, 70, 232, 87);
+		contentPane.add(btnphonghat);
+		btnphonghat.setLayout(null);
 		
-        testbutton.Buttontest btnthuephong = new testbutton.Buttontest();
-        btnthuephong.addMouseListener(new MouseAdapter() {
+		testbutton.Buttontest btndichvu = new testbutton.Buttontest();
+        btndichvu.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				GD_ThuePhong gdthuephong = new GD_ThuePhong();
-				gdthuephong.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-				gdthuephong.setVisible(true);
+				GD_QLDichVu gdqldv = new GD_QLDichVu();
+				gdqldv.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				gdqldv.setVisible(true);
 				dispose();
 			}
 		});
-        btnthuephong.setBorder(null);
-        btnthuephong.setText("Thuê Phòng");
-        btnthuephong.setForeground(Color.WHITE);
-        btnthuephong.setFont(new Font("Tahoma", Font.BOLD, 20));
-        btnthuephong.setBackground(new Color(0, 0, 0, 150));
-        btnthuephong.setBounds(230, 70, 239, 87);
-		contentPane.add(btnthuephong);
-		btnthuephong.setLayout(null);
+        btndichvu.setBorder(null);
+        btndichvu.setText("Dịch Vụ");
+        btndichvu.setForeground(Color.WHITE);
+        btndichvu.setFont(new Font("Tahoma", Font.BOLD, 20));
+        btndichvu.setBackground(new Color(0, 0, 0, 150));
+        btndichvu.setBounds(230, 70, 239, 87);
+		contentPane.add(btndichvu);
+		btndichvu.setLayout(null);
 		
-        testbutton.Buttontest btndatdichvu = new testbutton.Buttontest();
-        btndatdichvu.addMouseListener(new MouseAdapter() {
+		testbutton.Buttontest btnnhanvien = new testbutton.Buttontest();
+        btnnhanvien.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				GD_DatDichVu gddv = new GD_DatDichVu();
-				gddv.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-				gddv.setVisible(true);
+
+			}
+		});
+        btnnhanvien.setBorder(null);
+        btnnhanvien.setText("Nhân Viên");
+        btnnhanvien.setForeground(Color.WHITE);
+        btnnhanvien.setFont(new Font("Tahoma", Font.BOLD, 20));
+        btnnhanvien.setBackground(new Color(128, 128, 128, 150));
+        btnnhanvien.setBounds(465, 70, 232, 87);
+		contentPane.add(btnnhanvien);
+		btnnhanvien.setLayout(null);
+		
+        testbutton.Buttontest btntaikhoan = new testbutton.Buttontest();
+        btntaikhoan.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				GD_TaiKhoan taikhoan = new GD_TaiKhoan();
+				taikhoan.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				taikhoan.setVisible(true);
 				dispose();
 			}
 		});
-        btndatdichvu.setBorder(null);
-        btndatdichvu.setText("Đặt Dịch Vụ");
-        btndatdichvu.setForeground(Color.WHITE);
-        btndatdichvu.setFont(new Font("Tahoma", Font.BOLD, 20));
-        btndatdichvu.setBackground(new Color(0,0,0, 150));
-        btndatdichvu.setBounds(465, 70, 232, 87);
-		contentPane.add(btndatdichvu);
-		btndatdichvu.setLayout(null);
-		
-        testbutton.Buttontest btnkhachhang = new testbutton.Buttontest();
-        btnkhachhang.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
-        btnkhachhang.setBorder(null);
-        btnkhachhang.setText("Khách Hàng");
-        btnkhachhang.setForeground(Color.WHITE);
-        btnkhachhang.setFont(new Font("Tahoma", Font.BOLD, 20));
-        btnkhachhang.setBackground(new Color(128,128,128, 150));
-        btnkhachhang.setBounds(695, 70, 232, 87);
-		contentPane.add(btnkhachhang);
-		btnkhachhang.setLayout(null);
+        btntaikhoan.setBorder(null);
+        btntaikhoan.setText("Tài Khoản");
+        btntaikhoan.setForeground(Color.WHITE);
+        btntaikhoan.setFont(new Font("Tahoma", Font.BOLD, 20));
+        btntaikhoan.setBackground(new Color(0,0,0, 150));
+        btntaikhoan.setBounds(695, 70, 232, 87);
+		contentPane.add(btntaikhoan);
+		btntaikhoan.setLayout(null);
 		
         testbutton.Buttontest btnthongke = new testbutton.Buttontest();
         btnthongke.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				GD_ThongKeKhachHang thongkekh = new GD_ThongKeKhachHang();
-				thongkekh.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-				thongkekh.setVisible(true);
-				dispose();
+	            GD_ThongKeHoaDon thongkehoadon = new GD_ThongKeHoaDon();
+	            thongkehoadon.setVisible(true);
+	            dispose();
 			}
 		});
         btnthongke.setBorder(null);
@@ -300,73 +310,63 @@ public class GD_QuanLyKhachHang extends JFrame implements ActionListener {
 		lblNewLabel_1.setBounds(31, 10, 159, 28);
 		panel.add(lblNewLabel_1);
 		
-		JLabel lblNewLabel_1_1 = new JLabel("Mã Khách Hàng");
+		JLabel lblNewLabel_1_1 = new JLabel("Số Điện Thoại");
 		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblNewLabel_1_1.setBounds(31, 90, 145, 23);
 		panel.add(lblNewLabel_1_1);
 		
-		JLabel lblNewLabel_1_2 = new JLabel("Số Điện Thoại");
-		lblNewLabel_1_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_1_2.setBounds(296, 10, 135, 28);
-		panel.add(lblNewLabel_1_2);
-		
 		JLabel lblNewLabel_1_3 = new JLabel("Số CMND");
 		lblNewLabel_1_3.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_1_3.setBounds(296, 90, 92, 23);
+		lblNewLabel_1_3.setBounds(241, 90, 92, 23);
 		panel.add(lblNewLabel_1_3);
 		
 		JLabel lblNewLabel_1_4 = new JLabel("Địa Chỉ");
 		lblNewLabel_1_4.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_1_4.setBounds(520, 91, 55, 20);
+		lblNewLabel_1_4.setBounds(422, 90, 55, 20);
 		panel.add(lblNewLabel_1_4);
 		
-		txtten = new JTextField();
-		txtten.setBounds(31, 37, 202, 27);
-		panel.add(txtten);
-		txtten.setColumns(10);
+		textField = new JTextField();
+		textField.setBounds(31, 37, 173, 27);
+		panel.add(textField);
+		textField.setColumns(10);
 		
 		//rad button
-		JRadioButton rdbtnNAM = new JRadioButton("Nam");
-		rdbtnNAM.setBounds(520, 37, 109, 23);
-		rdbtnNAM.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		rdbtnNAM.setOpaque(false);
-		rdbtnNAM.setContentAreaFilled(false);
-		rdbtnNAM.setFocusPainted(false);
-		panel.add(rdbtnNAM);
+		JRadioButton rdbtnNewRadioButton = new JRadioButton("Nam");
+		rdbtnNewRadioButton.setBounds(241, 37, 67, 23);
+		rdbtnNewRadioButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		rdbtnNewRadioButton.setOpaque(false);
+		rdbtnNewRadioButton.setContentAreaFilled(false);
+		rdbtnNewRadioButton.setFocusPainted(false);
+		panel.add(rdbtnNewRadioButton);
 	
 		
-		JRadioButton rdbtnNU = new JRadioButton("Nữ");
-		rdbtnNU.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		rdbtnNU.setBounds(656, 38, 109, 23);
-		rdbtnNU.setOpaque(false);
-		panel.add(rdbtnNU);
+		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("Nữ");
+		rdbtnNewRadioButton_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		rdbtnNewRadioButton_1.setBounds(350, 37, 55, 23);
+		rdbtnNewRadioButton_1.setOpaque(false);
+		panel.add(rdbtnNewRadioButton_1);
 		
 		ButtonGroup bg = new ButtonGroup();
-		bg.add(rdbtnNAM);
-		bg.add(rdbtnNU);
-		panel.add(rdbtnNAM);
-		panel.add(rdbtnNU);
+		bg.add(rdbtnNewRadioButton);
+		bg.add(rdbtnNewRadioButton_1);
+		panel.add(rdbtnNewRadioButton);
+		panel.add(rdbtnNewRadioButton_1);
 		//radbuton//
 		
-		txtmakh = new JTextField();
-		txtmakh.setColumns(10);
-		txtmakh.setBounds(31, 123, 202, 27);
-		panel.add(txtmakh);
+		textField_1 = new JTextField();
+		textField_1.setColumns(10);
+		textField_1.setBounds(31, 123, 173, 27);
+		panel.add(textField_1);
 		
-		txtsdt = new JTextField();
-		txtsdt.setColumns(10);
-		txtsdt.setBounds(296, 37, 164, 27);
-		panel.add(txtsdt);
+		textField_3 = new JTextField();
+		textField_3.setColumns(10);
+		textField_3.setBounds(241, 123, 164, 27);
+		panel.add(textField_3);
 		
-		txtcmnd = new JTextField();
-		txtcmnd.setColumns(10);
-		txtcmnd.setBounds(296, 123, 164, 27);
-		panel.add(txtcmnd);
-		
-		txtdc = new JTextField();
-		txtdc.setColumns(10);
-		txtdc.setBounds(520, 121, 241, 27);
-		panel.add(txtdc);
+		textField_4 = new JTextField();
+		textField_4.setColumns(10);
+		textField_4.setBounds(422, 123, 220, 27);
+		panel.add(textField_4);
 		
 		//button them
 		testbutton.Buttontest btnthem = new testbutton.Buttontest();
@@ -376,7 +376,7 @@ public class GD_QuanLyKhachHang extends JFrame implements ActionListener {
 		btnthem.setBackground(new Color(90, 167, 167));
 		btnthem.setRippleColor(new Color(255, 255, 255));
 		btnthem.setShadowColor(new Color(0,0,0));
-		btnthem.setBounds(822, 24, 128, 48);
+		btnthem.setBounds(859, 26, 128, 48);
 
 		btnthem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -392,7 +392,7 @@ public class GD_QuanLyKhachHang extends JFrame implements ActionListener {
 		btnxoa.setForeground(SystemColor.text);
 		btnxoa.setFont(new Font("Segoe UI", Font.BOLD, 16));
 		btnxoa.setBackground(new Color(254, 122, 21));
-		btnxoa.setBounds(822, 109, 128, 48);
+		btnxoa.setBounds(859, 112, 128, 48);
 		btnxoa.setRippleColor(new Color(255, 255, 255));
 		btnxoa.setShadowColor(new Color(0,0,0));
 		btnxoa.addActionListener(new ActionListener() {
@@ -408,7 +408,7 @@ public class GD_QuanLyKhachHang extends JFrame implements ActionListener {
 		btnsua.setForeground(SystemColor.text);
 		btnsua.setFont(new Font("Segoe UI", Font.BOLD, 16));
 		btnsua.setBackground(new Color(226, 211, 107));
-		btnsua.setBounds(1009, 24, 128, 48);
+		btnsua.setBounds(1018, 26, 128, 48);
 		btnsua.setRippleColor(new Color(255, 255, 255));
 		btnsua.setShadowColor(new Color(0,0,0));
 		btnsua.addActionListener(new ActionListener() {
@@ -419,20 +419,58 @@ public class GD_QuanLyKhachHang extends JFrame implements ActionListener {
 		panel.add(btnsua);
 		
 		//button lammoi
-		testbutton.Buttontest btnlammoi = new testbutton.Buttontest();
-	    btnlammoi.setText("Làm mới");
-		btnlammoi.setForeground(SystemColor.text);
-		btnlammoi.setFont(new Font("Segoe UI", Font.BOLD, 16));
-		btnlammoi.setBackground(new Color(51, 83, 158));
-		btnlammoi.setBounds(1010, 109, 128, 48);
-		btnlammoi.setRippleColor(new Color(255, 255, 255));
-		btnlammoi.setShadowColor(new Color(0,0,0));
-		btnlammoi.addActionListener(new ActionListener() {
+		testbutton.Buttontest btnLmMi = new testbutton.Buttontest();
+	    btnLmMi.setText("Làm mới");
+		btnLmMi.setForeground(SystemColor.text);
+		btnLmMi.setFont(new Font("Segoe UI", Font.BOLD, 16));
+		btnLmMi.setBackground(new Color(51, 83, 158));
+		btnLmMi.setBounds(1018, 112, 128, 48);
+		btnLmMi.setRippleColor(new Color(255, 255, 255));
+		btnLmMi.setShadowColor(new Color(0,0,0));
+		btnLmMi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btnLmMiActionPerformed(e);
 			}
 		});
-		panel.add(btnlammoi);
+		panel.add(btnLmMi);
+		
+		textField_5 = new JTextField();
+		textField_5.setColumns(10);
+		textField_5.setBounds(422, 37, 67, 27);
+		panel.add(textField_5);
+		
+		JLabel lblNewLabel_1_2 = new JLabel("Năm Sinh");
+		lblNewLabel_1_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblNewLabel_1_2.setBounds(422, 10, 79, 28);
+		panel.add(lblNewLabel_1_2);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(538, 37, 104, 27);
+		panel.add(comboBox);
+		
+		JLabel lblNewLabel_1_2_1 = new JLabel("Loại NV");
+		lblNewLabel_1_2_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblNewLabel_1_2_1.setBounds(538, 10, 79, 28);
+		panel.add(lblNewLabel_1_2_1);
+		
+		textField_6 = new JTextField();
+		textField_6.setColumns(10);
+		textField_6.setBounds(674, 123, 159, 27);
+		panel.add(textField_6);
+		
+		JLabel lblNewLabel_1_4_1 = new JLabel("Chú Thích");
+		lblNewLabel_1_4_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblNewLabel_1_4_1.setBounds(674, 90, 85, 20);
+		panel.add(lblNewLabel_1_4_1);
+		
+		JComboBox comboBox_1 = new JComboBox();
+		comboBox_1.setBounds(674, 37, 159, 27);
+		panel.add(comboBox_1);
+		
+		JLabel lblNewLabel_1_2_1_1 = new JLabel("Trạng Thái Làm Việc");
+		lblNewLabel_1_2_1_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblNewLabel_1_2_1_1.setBounds(674, 10, 159, 28);
+		panel.add(lblNewLabel_1_2_1_1);
 		
 		
 		//talbe
@@ -443,13 +481,17 @@ public class GD_QuanLyKhachHang extends JFrame implements ActionListener {
 		scrollPane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		contentPane.add(scrollPane);
 		
-		model = new DefaultTableModel();
+		DefaultTableModel model = new DefaultTableModel();
 		model.addColumn("Mã KH");
 		model.addColumn("Họ Tên");
 		model.addColumn("Giới tính");
+		model.addColumn("Năm Sinh");
 		model.addColumn("Số Điện Thoại");
 		model.addColumn("Số CMND");
 		model.addColumn("Địa chỉ");
+		model.addColumn("Loại Nhân Viên");
+		model.addColumn("Trạng Thái");
+		model.addColumn("Chú Thích");
 		// Add data to the table
 		//model.addRow(new Object[]{"Data 1", "Data 2", "Data 3"});
 		table.setModel(model);
@@ -463,56 +505,28 @@ public class GD_QuanLyKhachHang extends JFrame implements ActionListener {
 		lblNewLabel.setBackground(new Color(240, 240, 240));
 		lblNewLabel.setForeground(new Color(255, 0, 0));
 		lblNewLabel.setIcon(new ImageIcon(GD_QuanLyKhachHang.class.getResource("/Imgs/370.png")));
-		
-		Database.getInstance().connect();
-		updateTableData();
 
 	}
 	
 	
 	protected void btnLmMiActionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		lammoi();
+		
 	}
 
 	protected void btnsuaActionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		int row = table.getSelectedRow();
-		if(row >= 0) {
-			KhachHang kh = reverSPFromTextField();
-			if(dskh.update(kh)) {
-				table.setValueAt(txtmakh.getText(), row, 1);
-				table.setValueAt(txtten.getText(), row, 3);
-				table.setValueAt(txtsdt.getText(), row, 4);
-				table.setValueAt(txtcmnd.getText(), row, 5);
-				table.setValueAt(txtdc.getText(), row, 6);
-			}
-			
-		}
-		table.setModel(model);
+		
 	}
 
 	protected void btnxoaActionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		int row = table.getSelectedRow();
-		if(row >= 0) {
-			String makh = (String) table.getValueAt(row, 1);
-			if(dskh.delete(makh)) {
-				model.removeRow(row);
-				lammoi();
-			}
-		}
-		table.setModel(model);
+		
 	}
 
 	protected void btnthemActionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		KhachHang kh = reverSPFromTextField();
-		if(dskh.create(kh)) {
-			Object [] rowData = {txtmakh.getText(), txtten.getText(), txtsdt.getText(), txtcmnd.getText(), txtdc.getText()};
-			model.addRow(rowData);
-		}
-		table.setModel(model);
+		
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -547,42 +561,14 @@ public class GD_QuanLyKhachHang extends JFrame implements ActionListener {
         String time = String.format("%02d:%02d:%02d %s  %04d/%02d/%02d", hour, minute, second, ampm, year, month, day);
         lblClock.setText(time);
     }
-	
-	private KhachHang reverSPFromTextField() {
-		String makh = txtmakh.getText().toString();
-		String ten = txtten.getText().toString();
-		int sdt = Integer.parseInt(txtsdt.getText());
-		int cccd = Integer.parseInt(txtcmnd.getText());
-		String dch = txtdc.getText().toString();
-		return new KhachHang(makh, "", ten, sdt, cccd, dch);
-		
-	}
-	
-	private void updateTableData() {
-		QLKH_DAO ds = new QLKH_DAO();
-		ArrayList<KhachHang> ls = ds.doctubang();
-		for(KhachHang s : ls) {
-			String [] rowData = {s.getMaKH(), s.getTenKH(), "", s.getSDT()+"", s.getCMND()+"", s.getDiaChi()};
-			model.addRow(rowData);
-			table.setModel(model);
-		}
-		
-	}
-	public void mouseClicked(MouseEvent e) {
-		int row = table.getSelectedRow();
-		txtmakh.setText(table.getValueAt(row, 1).toString());
-		
-		txtten.setText(table.getValueAt(row, 3).toString());
-		txtsdt.setText(table.getValueAt(row, 4).toString());
-		txtcmnd.setText(table.getValueAt(row, 5).toString());
-		txtdc.setText(table.getValueAt(row, 6).toString());
-	}
-	public void lammoi() {
-		txtcmnd.setText("");
-		txtten.setText("");
-		txtmakh.setText("");
-		txtsdt.setText("");
-		txtdc.setText("");
-		txtmakh.requestFocus();
-	}
+//	private void updateTableData() {
+//		QLKH_DAO ds = new QLKH_DAO();
+//		ArrayList<NhanVien> ls = ds.doctubang();
+//		for(NhanVien s : ls) {
+//			String [] rowData = {s.getMaKH(), s.getTenKH(), "", s.getSDT()+"", s.getCMND()+"", s.getDiaChi()};
+//			model.addRow(rowData);
+//			table.setModel(model);
+//		}
+//		
+//	}
 }

@@ -31,9 +31,9 @@ import javax.swing.JTextField;
 import javax.swing.JRadioButton;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
+import testbutton.Buttontest;
 
-public class GD_DatPhong extends JFrame implements ActionListener {
-
+public class GD_PhongHat extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JLabel lblClock;
@@ -54,18 +54,18 @@ public class GD_DatPhong extends JFrame implements ActionListener {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GD_DatPhong.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GD_PhongHat.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GD_DatPhong.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GD_PhongHat.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GD_DatPhong.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GD_PhongHat.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GD_DatPhong.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GD_PhongHat.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					GD_DatPhong frame = new GD_DatPhong();
+					GD_PhongHat frame = new GD_PhongHat();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -77,41 +77,15 @@ public class GD_DatPhong extends JFrame implements ActionListener {
 	/**
 	 * Create the frame.
 	 */
-	public GD_DatPhong() {
+	public GD_PhongHat() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1175, 650);
-		setTitle("Giao Diện Đặt Phòng");
+		setTitle("Giao Diện Phòng Hát");
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblquanly = new JLabel("NV:");
-		lblquanly.setForeground(Color.WHITE);
-		lblquanly.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblquanly.setBounds(878, -20, 232, 80);
-		contentPane.add(lblquanly);
-		
-		JLabel lbltenql = new JLabel("Nguyễn Văn C");
-		lbltenql.setForeground(Color.WHITE);
-		lbltenql.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lbltenql.setBounds(833, 6, 232, 80);
-		contentPane.add(lbltenql);
-		
-		JButton jButton = new JButton("Đăng Xuất");
-		jButton.setBounds(980, 13, 135, 42);
-		jButton.setFont(new Font("Tahoma ", Font.BOLD, 14));
-		jButton.setBackground(new Color(255, 0, 0));
-		jButton.setForeground(Color.WHITE);
-		
-		jButton.setBorder(BorderFactory.createLineBorder(Color.RED, 2, true));
-        jButton.setBorder(BorderFactory.createLineBorder(Color.RED, 2, true));
-        jButton.setContentAreaFilled(false);
-        jButton.setFocusPainted(false);
-        jButton.setOpaque(true);
-		contentPane.add(jButton);
-
 //		 Ho tro -----------------------
 		JButton btnNewButton = new JButton("");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -126,8 +100,37 @@ public class GD_DatPhong extends JFrame implements ActionListener {
 		btnNewButton.setBounds(304, 10, 49, 50);
 		contentPane.add(btnNewButton);
 		
-//		------------------------------------------
+		JLabel lblquanly = new JLabel("QL:");
+		lblquanly.setForeground(Color.WHITE);
+		lblquanly.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblquanly.setBounds(878, -20, 232, 80);
+		contentPane.add(lblquanly);
 		
+		JLabel lbltenql = new JLabel("Nguyễn Văn A");
+		lbltenql.setForeground(Color.WHITE);
+		lbltenql.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lbltenql.setBounds(833, 6, 232, 80);
+		contentPane.add(lbltenql);
+		
+		JLabel lblavatar = new JLabel("");
+		lblavatar.setHorizontalAlignment(SwingConstants.CENTER);
+		lblavatar.setIcon(new ImageIcon(GD_TaiKhoan.class.getResource("/Imgs/t1 1.png")));
+		lblavatar.setBounds(90, -444, 1333, 957);
+		contentPane.add(lblavatar);
+		
+		JButton jButton = new JButton("Đăng Xuất");
+		jButton.setBounds(980, 13, 135, 42);
+		jButton.setFont(new Font("Tahoma ", Font.BOLD, 14));
+		jButton.setBackground(new Color(255, 0, 0));
+		jButton.setForeground(Color.WHITE);
+		
+		jButton.setBorder(BorderFactory.createLineBorder(Color.RED, 2, true));
+        jButton.setBorder(BorderFactory.createLineBorder(Color.RED, 2, true));
+        jButton.setContentAreaFilled(false);
+        jButton.setFocusPainted(false);
+        jButton.setOpaque(true);
+		contentPane.add(jButton);
+
 		jButton.addMouseListener(new MouseAdapter() {
 		    @Override
 		    public void mouseEntered(MouseEvent e) {
@@ -150,12 +153,6 @@ public class GD_DatPhong extends JFrame implements ActionListener {
 		        }
 		    }
 		});
-		
-		JLabel lblavatar = new JLabel("");
-		lblavatar.setHorizontalAlignment(SwingConstants.CENTER);
-		lblavatar.setIcon(new ImageIcon(GD_Main_QL.class.getResource("/Imgs/t1 1.png")));
-		lblavatar.setBounds(90, -444, 1333, 957);
-		contentPane.add(lblavatar);
 		
 		JPanel box_clock = new JPanel();
         box_clock.setBackground(new Color(255, 255, 255));
@@ -190,134 +187,136 @@ public class GD_DatPhong extends JFrame implements ActionListener {
         
         
         textField = new JTextField();
-        textField.setBounds(25, 55, 236, 25);
+        textField.setBounds(25, 37, 236, 25);
         pnl_thongtinkhachhang.add(textField);
         textField.setColumns(10);
         
-        JLabel lblNewLabel = new JLabel("Tên Khách Hàng");
+        JLabel lblNewLabel = new JLabel("Nhập Mã Phòng");
         lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
-        lblNewLabel.setBounds(27, 24, 107, 33);
+        lblNewLabel.setBounds(25, 10, 107, 33);
         pnl_thongtinkhachhang.add(lblNewLabel);
         
-        JRadioButton rdbtnNewRadioButton = new JRadioButton("Nam");
-        rdbtnNewRadioButton.setBounds(25, 115, 109, 23);
-        rdbtnNewRadioButton.setOpaque(false);
-		rdbtnNewRadioButton.setContentAreaFilled(false);
-		rdbtnNewRadioButton.setFocusPainted(false);
-        pnl_thongtinkhachhang.add(rdbtnNewRadioButton);
-        
-        JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("Nữ");
-        rdbtnNewRadioButton_1.setBounds(152, 115, 109, 23);
-        rdbtnNewRadioButton_1.setOpaque(false);
-        pnl_thongtinkhachhang.add(rdbtnNewRadioButton_1);
-        
-		ButtonGroup bg = new ButtonGroup();
-		bg.add(rdbtnNewRadioButton);bg.add(rdbtnNewRadioButton_1);
-		pnl_thongtinkhachhang.add(rdbtnNewRadioButton);pnl_thongtinkhachhang.add(rdbtnNewRadioButton_1);
-        
-        JLabel lblNewLabel_1 = new JLabel("Số Điện Thoại");
+        JLabel lblNewLabel_1 = new JLabel("Nhập Tên Phòng");
         lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 13));
-        lblNewLabel_1.setBounds(25, 164, 93, 14);
+        lblNewLabel_1.setBounds(25, 72, 121, 14);
         pnl_thongtinkhachhang.add(lblNewLabel_1);
         
         textField_1 = new JTextField();
-        textField_1.setBounds(25, 187, 236, 25);
+        textField_1.setBounds(25, 89, 236, 25);
         pnl_thongtinkhachhang.add(textField_1);
         textField_1.setColumns(10);
         
-        textField_2 = new JTextField();
-        textField_2.setBounds(25, 238, 236, 25);
-        pnl_thongtinkhachhang.add(textField_2);
-        textField_2.setColumns(10);
-        
         textField_3 = new JTextField();
-        textField_3.setBounds(25, 291, 236, 25);
+        textField_3.setBounds(25, 317, 236, 25);
         pnl_thongtinkhachhang.add(textField_3);
         textField_3.setColumns(10);
         
-        JLabel lblNewLabel_2 = new JLabel("CMND");
+        JLabel lblNewLabel_2 = new JLabel("Loại Phòng");
         lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 13));
-        lblNewLabel_2.setBounds(25, 219, 60, 14);
+        lblNewLabel_2.setBounds(25, 124, 93, 25);
         pnl_thongtinkhachhang.add(lblNewLabel_2);
         
-        JLabel lblNewLabel_3 = new JLabel("Địa chỉ");
-        lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 13));
-        lblNewLabel_3.setBounds(25, 274, 60, 14);
-        pnl_thongtinkhachhang.add(lblNewLabel_3);
-        
-        JComboBox comboBox = new JComboBox();
-        comboBox.setBounds(25, 362, 53, 22);
-        comboBox.setModel(new DefaultComboBoxModel(new String[] {"", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"
-        		, "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24",}));
-        pnl_thongtinkhachhang.add(comboBox);
-        
-        JComboBox comboBox_1 = new JComboBox();
-        comboBox_1.setBounds(129, 362, 53, 22);
-        comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"
-        		, "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24","25", "26", "27", "28", "29", "30",
-        		"31", "32", "33", "34", "35", "36", "37", "38", "39", "40",
-        		"41", "42", "43", "44", "45", "46", "47", "48", "49", "50",
-        		"51", "52", "53", "54", "55", "56", "57", "58", "59", "60",}));
-        pnl_thongtinkhachhang.add(comboBox_1);
-        
-        JLabel lblNewLabel_4 = new JLabel("Giờ");
-        lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 13));
-        lblNewLabel_4.setBounds(81, 362, 46, 22);
-        pnl_thongtinkhachhang.add(lblNewLabel_4);
-        
-        JLabel lblNewLabel_5 = new JLabel("Phút");
-        lblNewLabel_5.setBounds(185, 362, 46, 22);
-        pnl_thongtinkhachhang.add(lblNewLabel_5);
-        
-        testbutton.Buttontest btnDatPhong = new testbutton.Buttontest();
-        btnDatPhong.setText("Đặt Phòng");
-        btnDatPhong.setForeground(new Color(245,245,245));
-        btnDatPhong.setBackground(new Color(90, 167, 167));
-        btnDatPhong.setFont(new Font("Tahoma", Font.PLAIN, 13));
-        btnDatPhong.setRippleColor(new Color(255, 255, 255));
-        btnDatPhong.setShadowColor(new Color(0,0,0));
-        btnDatPhong.setBounds(25, 410, 109, 43);
-        pnl_thongtinkhachhang.add(btnDatPhong);
-        
-        btnDatPhong.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				GD_PhieuDatPhong phieuDatPhong = new GD_PhieuDatPhong();
-				phieuDatPhong.setVisible(true);
-				phieuDatPhong.setLocationRelativeTo(null);
-	            dispose();
+        testbutton.Buttontest btnxoa = new testbutton.Buttontest();
+		btnxoa.setText("Xóa");
+		btnxoa.setForeground(SystemColor.text);
+		btnxoa.setFont(new Font("Segoe UI", Font.BOLD, 16));
+		btnxoa.setBackground(new Color(254, 122, 21));
+		btnxoa.setRippleColor(new Color(255, 255, 255));
+		btnxoa.setShadowColor(new Color(0,0,0));
+		btnxoa.setBounds(23, 410, 109, 43);
+		btnxoa.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnxoaActionPerformed(e);
 			}
 		});
+        pnl_thongtinkhachhang.add(btnxoa);
         
-        testbutton.Buttontest btnHuyDatPhong = new testbutton.Buttontest();
-        btnHuyDatPhong.setText("Hủy Đặt");
-        btnHuyDatPhong.setForeground(new Color(245,245,245));
-        btnHuyDatPhong.setBackground(new Color(255, 85, 85));
-        btnHuyDatPhong.setFont(new Font("Tahoma", Font.PLAIN, 13));
-        btnHuyDatPhong.setBounds(168, 410, 109, 43);
-        btnHuyDatPhong.setRippleColor(new Color(255, 255, 255));
-        btnHuyDatPhong.setShadowColor(new Color(0,0,0));
-        pnl_thongtinkhachhang.add(btnHuyDatPhong);
+		testbutton.Buttontest btnLmMi = new testbutton.Buttontest();
+	    btnLmMi.setText("Làm mới");
+		btnLmMi.setForeground(SystemColor.text);
+		btnLmMi.setFont(new Font("Segoe UI", Font.BOLD, 16));
+		btnLmMi.setBackground(new Color(51, 83, 158));
+		btnLmMi.setRippleColor(new Color(255, 255, 255));
+		btnLmMi.setShadowColor(new Color(0,0,0));
+		btnLmMi.setBounds(168, 410, 109, 43);
+		btnLmMi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnLmMiActionPerformed(e);
+			}
+		});
+        pnl_thongtinkhachhang.add(btnLmMi);
         
-        JLabel lblNewLabel_3_1 = new JLabel("Giờ nhận phòng\r\n");
+        JLabel lblNewLabel_3_1 = new JLabel("Chú thích");
         lblNewLabel_3_1.setFont(new Font("Tahoma", Font.PLAIN, 13));
-        lblNewLabel_3_1.setBounds(25, 327, 93, 25);
+        lblNewLabel_3_1.setBounds(25, 293, 93, 25);
         pnl_thongtinkhachhang.add(lblNewLabel_3_1);
+        
+        JComboBox comboBox_2 = new JComboBox();
+        comboBox_2.setBounds(25, 147, 121, 25);
+        pnl_thongtinkhachhang.add(comboBox_2);
+        
+        JLabel lblNewLabel_2_1 = new JLabel("Giá Phòng");
+        lblNewLabel_2_1.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        lblNewLabel_2_1.setBounds(25, 182, 93, 19);
+        pnl_thongtinkhachhang.add(lblNewLabel_2_1);
+        
+        JComboBox comboBox_2_1 = new JComboBox();
+        comboBox_2_1.setBounds(25, 200, 121, 25);
+        pnl_thongtinkhachhang.add(comboBox_2_1);
+        
+        JLabel lblNewLabel_2_1_1 = new JLabel("Trạng Thái Phòng");
+        lblNewLabel_2_1_1.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        lblNewLabel_2_1_1.setBounds(25, 233, 121, 25);
+        pnl_thongtinkhachhang.add(lblNewLabel_2_1_1);
+        
+        JComboBox comboBox_2_1_1 = new JComboBox();
+        comboBox_2_1_1.setBounds(25, 258, 121, 25);
+        pnl_thongtinkhachhang.add(comboBox_2_1_1);
+        
+        testbutton.Buttontest btnthem = new testbutton.Buttontest();
+        btnthem.setText("Thêm");
+		btnthem.setRippleColor(new Color(255, 255, 255));
+		btnthem.setShadowColor(new Color(0,0,0));
+		btnthem.setFont(new Font("Segoe UI", Font.BOLD, 16));
+		btnthem.setForeground(SystemColor.text);
+		btnthem.setBackground(new Color(90, 167, 167));
+		btnthem.setBounds(23, 357, 109, 43);
+		btnthem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnthemActionPerformed(e);
+			}
+		});
+        pnl_thongtinkhachhang.add(btnthem);
+        
+        testbutton.Buttontest btnsua = new testbutton.Buttontest();
+        btnsua.setText("Sửa");
+		btnsua.setRippleColor(new Color(255, 255, 255));
+		btnsua.setShadowColor(new Color(0,0,0));
+		btnsua.setForeground(SystemColor.text);
+		btnsua.setFont(new Font("Segoe UI", Font.BOLD, 16));
+		btnsua.setBackground(new Color(226, 211, 107));
+		btnsua.setBounds(168, 357, 109, 43);
+		btnsua.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnsuaActionPerformed(e);
+			}
+		});
+        pnl_thongtinkhachhang.add(btnsua);
 		
-        testbutton.Buttontest btndatphong1 = new testbutton.Buttontest();
-        btndatphong1.addMouseListener(new MouseAdapter() {
+        testbutton.Buttontest btnphonghat = new testbutton.Buttontest();
+        btnphonghat.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 			}
 		});
-        btndatphong1.setBorder(null);
-        btndatphong1.setText("Đặt Phòng");
-        btndatphong1.setForeground(Color.WHITE);
-        btndatphong1.setFont(new Font("Tahoma", Font.BOLD, 20));
-        btndatphong1.setBackground(new Color(128,128,128, 150));
-        btndatphong1.setBounds(0, 70, 232, 87);
-		contentPane.add(btndatphong1);
-		btndatphong1.setLayout(null);
+        btnphonghat.setBorder(null);
+        btnphonghat.setText("Phòng Hát");
+        btnphonghat.setForeground(Color.WHITE);
+        btnphonghat.setFont(new Font("Tahoma", Font.BOLD, 20));
+        btnphonghat.setBackground(new Color(128, 128, 128, 150));
+        btnphonghat.setBounds(0, 70, 232, 87);
+		contentPane.add(btnphonghat);
+		btnphonghat.setLayout(null);
 		
 		//Danh sach phong hat
 		
@@ -326,16 +325,6 @@ public class GD_DatPhong extends JFrame implements ActionListener {
 		pnl_danhsachphonghat.setBounds(322, 148, 839, 463);
         contentPane.add(pnl_danhsachphonghat);
         pnl_danhsachphonghat.setLayout(null);
-        
-        JLabel lblNewLabel_6 = new JLabel("Phòng VIP: 200k/h");
-        lblNewLabel_6.setFont(new Font("Tahoma", Font.BOLD, 16));
-        lblNewLabel_6.setBounds(258, 11, 163, 28);
-        pnl_danhsachphonghat.add(lblNewLabel_6);
-        
-        JLabel lblNewLabel_7 = new JLabel("Phòng thường: 100k/h");
-        lblNewLabel_7.setFont(new Font("Tahoma", Font.BOLD, 16));
-        lblNewLabel_7.setBounds(448, 16, 197, 19);
-        pnl_danhsachphonghat.add(lblNewLabel_7);
         
         JLabel lblNewLabel_8 = new JLabel("Tầng 1:");
         lblNewLabel_8.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -454,91 +443,129 @@ public class GD_DatPhong extends JFrame implements ActionListener {
         lbl_p1010.setBounds(689, 337, 69, 28);
         pnl_danhsachphonghat.add(lbl_p1010);
         
-        JPanel pnl_chuthichdadat = new JPanel();
-        pnl_chuthichdadat.setLayout(null);
-        pnl_chuthichdadat.setBackground(new Color(128, 128, 128));
-        pnl_chuthichdadat.setBounds(413, 426, 32, 26);
-        pnl_danhsachphonghat.add(pnl_chuthichdadat);
+        JLabel lbl_p101_1 = new JLabel("Phòng Thường");
+        lbl_p101_1.setHorizontalAlignment(SwingConstants.CENTER);
+        lbl_p101_1.setFont(new Font("Tahoma", Font.BOLD, 14));
+        lbl_p101_1.setBounds(54, 214, 118, 28);
+        pnl_danhsachphonghat.add(lbl_p101_1);
         
-        JLabel lblNewLabel_9 = new JLabel("Phòng trống");
-        lblNewLabel_9.setBounds(321, 426, 93, 26);
-        pnl_danhsachphonghat.add(lblNewLabel_9);
+        JLabel lbl_p101_1_1 = new JLabel("Phòng Thường");
+        lbl_p101_1_1.setHorizontalAlignment(SwingConstants.CENTER);
+        lbl_p101_1_1.setFont(new Font("Tahoma", Font.BOLD, 14));
+        lbl_p101_1_1.setBounds(201, 214, 118, 28);
+        pnl_danhsachphonghat.add(lbl_p101_1_1);
         
-        JLabel lblNewLabel_10 = new JLabel("Phòng đã đặt");
-        lblNewLabel_10.setBounds(464, 426, 93, 26);
-        pnl_danhsachphonghat.add(lblNewLabel_10);
+        JLabel lbl_p101_1_1_1 = new JLabel("Phòng Thường");
+        lbl_p101_1_1_1.setHorizontalAlignment(SwingConstants.CENTER);
+        lbl_p101_1_1_1.setFont(new Font("Tahoma", Font.BOLD, 14));
+        lbl_p101_1_1_1.setBounds(351, 214, 118, 28);
+        pnl_danhsachphonghat.add(lbl_p101_1_1_1);
         
-        JPanel pnl_chuthichphongtrong = new JPanel();
-        pnl_chuthichphongtrong.setBackground(new Color(255, 255, 255, 200));
-        pnl_chuthichphongtrong.setBounds(599, 574, 32, 26);
-        contentPane.add(pnl_chuthichphongtrong);
-        pnl_chuthichphongtrong.setLayout(null);
+        JLabel lbl_p101_1_1_1_1 = new JLabel("Phòng VIP");
+        lbl_p101_1_1_1_1.setHorizontalAlignment(SwingConstants.CENTER);
+        lbl_p101_1_1_1_1.setFont(new Font("Tahoma", Font.BOLD, 14));
+        lbl_p101_1_1_1_1.setBounds(505, 214, 118, 28);
+        pnl_danhsachphonghat.add(lbl_p101_1_1_1_1);
         
-        testbutton.Buttontest btnthuephong = new testbutton.Buttontest();
-        btnthuephong.addMouseListener(new MouseAdapter() {
+        JLabel lbl_p101_1_1_1_1_1 = new JLabel("Phòng Thường");
+        lbl_p101_1_1_1_1_1.setHorizontalAlignment(SwingConstants.CENTER);
+        lbl_p101_1_1_1_1_1.setFont(new Font("Tahoma", Font.BOLD, 14));
+        lbl_p101_1_1_1_1_1.setBounds(665, 214, 118, 28);
+        pnl_danhsachphonghat.add(lbl_p101_1_1_1_1_1);
+        
+        JLabel lbl_p101_1_2 = new JLabel("Phòng Thường");
+        lbl_p101_1_2.setHorizontalAlignment(SwingConstants.CENTER);
+        lbl_p101_1_2.setFont(new Font("Tahoma", Font.BOLD, 14));
+        lbl_p101_1_2.setBounds(56, 354, 118, 28);
+        pnl_danhsachphonghat.add(lbl_p101_1_2);
+        
+        JLabel lbl_p101_1_2_1 = new JLabel("Phòng Thường");
+        lbl_p101_1_2_1.setHorizontalAlignment(SwingConstants.CENTER);
+        lbl_p101_1_2_1.setFont(new Font("Tahoma", Font.BOLD, 14));
+        lbl_p101_1_2_1.setBounds(203, 354, 118, 28);
+        pnl_danhsachphonghat.add(lbl_p101_1_2_1);
+        
+        JLabel lbl_p101_1_2_1_1 = new JLabel("Phòng Thường");
+        lbl_p101_1_2_1_1.setHorizontalAlignment(SwingConstants.CENTER);
+        lbl_p101_1_2_1_1.setFont(new Font("Tahoma", Font.BOLD, 14));
+        lbl_p101_1_2_1_1.setBounds(347, 354, 118, 28);
+        pnl_danhsachphonghat.add(lbl_p101_1_2_1_1);
+        
+        JLabel lbl_p101_1_2_1_1_1 = new JLabel("Phòng Thường");
+        lbl_p101_1_2_1_1_1.setHorizontalAlignment(SwingConstants.CENTER);
+        lbl_p101_1_2_1_1_1.setFont(new Font("Tahoma", Font.BOLD, 14));
+        lbl_p101_1_2_1_1_1.setBounds(505, 354, 118, 28);
+        pnl_danhsachphonghat.add(lbl_p101_1_2_1_1_1);
+        
+        JLabel lbl_p101_1_2_1_1_1_1 = new JLabel("Phòng Thường");
+        lbl_p101_1_2_1_1_1_1.setHorizontalAlignment(SwingConstants.CENTER);
+        lbl_p101_1_2_1_1_1_1.setFont(new Font("Tahoma", Font.BOLD, 14));
+        lbl_p101_1_2_1_1_1_1.setBounds(665, 354, 118, 28);
+        pnl_danhsachphonghat.add(lbl_p101_1_2_1_1_1_1);
+       
+		testbutton.Buttontest btndichvu = new testbutton.Buttontest();
+        btndichvu.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				GD_ThuePhong gdthuephong = new GD_ThuePhong();
-				gdthuephong.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-				gdthuephong.setVisible(true);
+				GD_QLDichVu gdqldv = new GD_QLDichVu();
+				gdqldv.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				gdqldv.setVisible(true);
 				dispose();
 			}
 		});
-        btnthuephong.setBorder(null);
-        btnthuephong.setText("Thuê Phòng");
-        btnthuephong.setForeground(Color.WHITE);
-        btnthuephong.setFont(new Font("Tahoma", Font.BOLD, 20));
-        btnthuephong.setBackground(new Color(0, 0, 0, 150));
-        btnthuephong.setBounds(230, 70, 239, 87);
-		contentPane.add(btnthuephong);
-		btnthuephong.setLayout(null);
+        btndichvu.setBorder(null);
+        btndichvu.setText("Dịch Vụ");
+        btndichvu.setForeground(Color.WHITE);
+        btndichvu.setFont(new Font("Tahoma", Font.BOLD, 20));
+        btndichvu.setBackground(new Color(0, 0, 0, 150));
+        btndichvu.setBounds(230, 70, 239, 87);
+		contentPane.add(btndichvu);
+		btndichvu.setLayout(null);
 		
-        testbutton.Buttontest btndatdichvu = new testbutton.Buttontest();
-        btndatdichvu.addMouseListener(new MouseAdapter() {
+        testbutton.Buttontest btnnhanvien = new testbutton.Buttontest();
+        btnnhanvien.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				GD_DatDichVu gddatdv = new GD_DatDichVu();
-				gddatdv.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-				gddatdv.setVisible(true);
+				GD_QLNhanVien gdqlnv = new GD_QLNhanVien();
+				gdqlnv.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				gdqlnv.setVisible(true);
 				dispose();
 			}
 		});
-        btndatdichvu.setBorder(null);
-        btndatdichvu.setText("Đặt Dịch Vụ");
-        btndatdichvu.setForeground(Color.WHITE);
-        btndatdichvu.setFont(new Font("Tahoma", Font.BOLD, 20));
-        btndatdichvu.setBackground(new Color(0, 0, 0, 150));
-        btndatdichvu.setBounds(465, 70, 232, 87);
-		contentPane.add(btndatdichvu);
-		btndatdichvu.setLayout(null);
+        btnnhanvien.setBorder(null);
+        btnnhanvien.setText("Nhân Viên");
+        btnnhanvien.setForeground(Color.WHITE);
+        btnnhanvien.setFont(new Font("Tahoma", Font.BOLD, 20));
+        btnnhanvien.setBackground(new Color(0, 0, 0, 150));
+        btnnhanvien.setBounds(465, 70, 232, 87);
+		contentPane.add(btnnhanvien);
+		btnnhanvien.setLayout(null);
 		
-        testbutton.Buttontest btnkhachhang = new testbutton.Buttontest();
-        btnkhachhang.addMouseListener(new MouseAdapter() {
+        testbutton.Buttontest btntaikhoan = new testbutton.Buttontest();
+        btntaikhoan.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				GD_QuanLyKhachHang gdkhachhang = new GD_QuanLyKhachHang();
-				gdkhachhang.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-				gdkhachhang.setVisible(true);
+				GD_TaiKhoan gdtk = new GD_TaiKhoan();
+				gdtk.setVisible(true);
 				dispose();
 			}
 		});
-        btnkhachhang.setBorder(null);
-        btnkhachhang.setText("Khách Hàng");
-        btnkhachhang.setForeground(Color.WHITE);
-        btnkhachhang.setFont(new Font("Tahoma", Font.BOLD, 20));
-        btnkhachhang.setBackground(new Color(0, 0, 0, 150));
-        btnkhachhang.setBounds(695, 70, 232, 87);
-		contentPane.add(btnkhachhang);
-		btnkhachhang.setLayout(null);
+        btntaikhoan.setBorder(null);
+        btntaikhoan.setText("Tài Khoản");
+        btntaikhoan.setForeground(Color.WHITE);
+        btntaikhoan.setFont(new Font("Tahoma", Font.BOLD, 20));
+        btntaikhoan.setBackground(new Color(0,0,0, 150));
+        btntaikhoan.setBounds(695, 70, 232, 87);
+		contentPane.add(btntaikhoan);
+		btntaikhoan.setLayout(null);
 		
         testbutton.Buttontest btnthongke = new testbutton.Buttontest();
         btnthongke.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				GD_ThongKeKhachHang thongkekhachhang = new GD_ThongKeKhachHang();
-				thongkekhachhang.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-				thongkekhachhang.setVisible(true);
-				dispose();
+	            GD_ThongKeHoaDon thongkehoadon = new GD_ThongKeHoaDon();
+	            thongkehoadon.setVisible(true);
+	            dispose();
 			}
 		});
         btnthongke.setBorder(null);
@@ -556,6 +583,26 @@ public class GD_DatPhong extends JFrame implements ActionListener {
 		contentPane.add(lb_hinhnen);
 		
 	}
+	protected void btnLmMiActionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	protected void btnxoaActionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	protected void btnsuaActionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	protected void btnthemActionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == timer) {
             // Cập nhật thời gian

@@ -21,6 +21,22 @@ public class GD_PhieuDatPhong extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(GD_PhieuDatPhong.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(GD_PhieuDatPhong.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(GD_PhieuDatPhong.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(GD_PhieuDatPhong.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -45,7 +61,7 @@ public class GD_PhieuDatPhong extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("SỐ PHÒNG : ");
+		JLabel lblNewLabel = new JLabel("SỐ PHÒNG: ");
 		lblNewLabel.setBounds(188, 11, 152, 29);
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 24));
 		contentPane.add(lblNewLabel);
@@ -80,13 +96,13 @@ public class GD_PhieuDatPhong extends JFrame {
 		lbl_GiaTien.setBounds(420, 129, 76, 16);
 		contentPane.add(lbl_GiaTien);
 		
-		JButton btn_quayLai = new JButton("Quay lại");
+		JButton btn_quayLai = new JButton("Đóng");
 		btn_quayLai.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				GD_DatPhong datphong = new GD_DatPhong();
-	            datphong.setVisible(true);
-	            datphong.setLocationRelativeTo(null);
+				GD_Main_NV mainnv = new GD_Main_NV();
+				mainnv.setVisible(true);
+				mainnv.setLocationRelativeTo(null);
 	            dispose();
 			}
 		});
@@ -101,9 +117,9 @@ public class GD_PhieuDatPhong extends JFrame {
 		btn_xacNhan.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				GD_DatPhong datphong = new GD_DatPhong();
-	            datphong.setVisible(true);
-	            datphong.setLocationRelativeTo(null);
+				GD_Main_NV mainnv = new GD_Main_NV();
+				mainnv.setVisible(true);
+				mainnv.setLocationRelativeTo(null);
 	            dispose();
 			}
 		});
