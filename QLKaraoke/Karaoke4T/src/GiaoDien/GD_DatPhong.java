@@ -304,20 +304,6 @@ public class GD_DatPhong extends JFrame implements ActionListener {
         lblNewLabel_3_1.setBounds(25, 327, 93, 25);
         pnl_thongtinkhachhang.add(lblNewLabel_3_1);
 		
-        testbutton.Buttontest btndatphong1 = new testbutton.Buttontest();
-        btndatphong1.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
-        btndatphong1.setBorder(null);
-        btndatphong1.setText("Đặt Phòng");
-        btndatphong1.setForeground(Color.WHITE);
-        btndatphong1.setFont(new Font("Tahoma", Font.BOLD, 20));
-        btndatphong1.setBackground(new Color(128,128,128, 150));
-        btndatphong1.setBounds(0, 70, 232, 87);
-		contentPane.add(btndatphong1);
-		btndatphong1.setLayout(null);
 		
 		//Danh sach phong hat
 		
@@ -342,10 +328,12 @@ public class GD_DatPhong extends JFrame implements ActionListener {
         lblNewLabel_8.setBounds(38, 61, 69, 14);
         pnl_danhsachphonghat.add(lblNewLabel_8);
         
-        JButton btnChonPhongHat = new JButton("");
+        testbutton.Buttontest btnChonPhongHat = new testbutton.Buttontest();
         btnChonPhongHat.setBackground(new Color(168, 168, 168));
         btnChonPhongHat.setIcon(new ImageIcon(GD_DatPhong.class.getResource("/Imgs/micro.png")));
         btnChonPhongHat.setBounds(66, 110, 88, 85);
+        btnChonPhongHat.setRippleColor(new Color(255, 255, 255));
+        btnChonPhongHat.setShadowColor(new Color(0,0,0));
         pnl_danhsachphonghat.add(btnChonPhongHat);
         
         JButton btnChonPhongHat2 = new JButton("");
@@ -474,7 +462,25 @@ public class GD_DatPhong extends JFrame implements ActionListener {
         contentPane.add(pnl_chuthichphongtrong);
         pnl_chuthichphongtrong.setLayout(null);
         
-        testbutton.Buttontest btnthuephong = new testbutton.Buttontest();
+        // Thanh Menu
+        
+        testbutton.Buttontest btndatphong1 = new testbutton.Buttontest();
+        btndatphong1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+			}
+		});
+        btndatphong1.setBorder(null);
+        btndatphong1.setText("Đặt Phòng");
+        btndatphong1.setForeground(Color.WHITE);
+        btndatphong1.setFont(new Font("Tahoma", Font.BOLD, 20));
+        btndatphong1.setBackground(new Color(128,128,128, 150));
+        btndatphong1.setBounds(0, 70, 185, 87);
+		contentPane.add(btndatphong1);
+		btndatphong1.setLayout(null);
+		
+		testbutton.Buttontest btnthuephong = new testbutton.Buttontest();
         btnthuephong.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -489,7 +495,7 @@ public class GD_DatPhong extends JFrame implements ActionListener {
         btnthuephong.setForeground(Color.WHITE);
         btnthuephong.setFont(new Font("Tahoma", Font.BOLD, 20));
         btnthuephong.setBackground(new Color(0, 0, 0, 150));
-        btnthuephong.setBounds(230, 70, 239, 87);
+        btnthuephong.setBounds(195, 70, 185, 87);
 		contentPane.add(btnthuephong);
 		btnthuephong.setLayout(null);
 		
@@ -508,9 +514,28 @@ public class GD_DatPhong extends JFrame implements ActionListener {
         btndatdichvu.setForeground(Color.WHITE);
         btndatdichvu.setFont(new Font("Tahoma", Font.BOLD, 20));
         btndatdichvu.setBackground(new Color(0, 0, 0, 150));
-        btndatdichvu.setBounds(465, 70, 232, 87);
+        btndatdichvu.setBounds(390, 70, 185, 87);
 		contentPane.add(btndatdichvu);
 		btndatdichvu.setLayout(null);
+		
+		testbutton.Buttontest btntraphong = new testbutton.Buttontest();
+		btntraphong.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				GD_TraPhong gdtraphong = new GD_TraPhong();
+				gdtraphong.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				gdtraphong.setVisible(true);
+				dispose();
+			}
+		});
+		btntraphong.setBorder(null);
+		btntraphong.setText("Trả Phòng");
+		btntraphong.setForeground(Color.WHITE);
+		btntraphong.setFont(new Font("Tahoma", Font.BOLD, 20));
+		btntraphong.setBackground(new Color(0,0,0, 150));
+		btntraphong.setBounds(585, 70, 185, 87);
+		contentPane.add(btntraphong);
+		btntraphong.setLayout(null);
 		
         testbutton.Buttontest btnkhachhang = new testbutton.Buttontest();
         btnkhachhang.addMouseListener(new MouseAdapter() {
@@ -527,7 +552,7 @@ public class GD_DatPhong extends JFrame implements ActionListener {
         btnkhachhang.setForeground(Color.WHITE);
         btnkhachhang.setFont(new Font("Tahoma", Font.BOLD, 20));
         btnkhachhang.setBackground(new Color(0, 0, 0, 150));
-        btnkhachhang.setBounds(695, 70, 232, 87);
+        btnkhachhang.setBounds(777, 70, 185, 87);
 		contentPane.add(btnkhachhang);
 		btnkhachhang.setLayout(null);
 		
@@ -546,7 +571,7 @@ public class GD_DatPhong extends JFrame implements ActionListener {
         btnthongke.setForeground(Color.WHITE);
         btnthongke.setFont(new Font("Tahoma", Font.BOLD, 20));
         btnthongke.setBackground(new Color(0, 0, 0, 150));
-        btnthongke.setBounds(925, 70, 232, 87);
+        btnthongke.setBounds(972, 70, 185, 87);
 		contentPane.add(btnthongke);
 		btnthongke.setLayout(null);
 		

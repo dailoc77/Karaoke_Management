@@ -12,7 +12,7 @@ public class Database {
 	public void connect() {
 		String url = "jdbc:sqlserver://localhost:1433;;databasename=Karaoke4T";
 		String user = "sa";
-		String password = "123";
+		String password = "lockuteqn2003";
 		try {
 			con = DriverManager.getConnection(url, user, password);
 		} catch (Exception e) {
