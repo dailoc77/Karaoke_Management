@@ -38,12 +38,17 @@ import java.awt.event.MouseEvent;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.time.Clock;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
-
+import DAO.QLNV_DAO;
+import DAO.QLTK_DAO;
+import Entity.NhanVien;
+import Entity.TaiKhoanNhanVien;
+import connectDB.connectDB;
 import testbutton.Buttontest;
 
 
@@ -389,16 +394,16 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 		scrollPane.setBounds(0, 323, 1161, 290); // Adjust the position and size as needed
 		contentPane.add(scrollPane);
 		
-		DefaultTableModel model = new DefaultTableModel();
-		model.addColumn("ID");
-		model.addColumn("Họ Tên");
-		model.addColumn("Số Điện Thoại");
-		model.addColumn("Tên Tài Khoản");
-		model.addColumn("Mật Khẩu");
+	    model = new DefaultTableModel();
+		model.addColumn("Mã tài khoản");
+		model.addColumn("Tên tài khoản");
+		model.addColumn("Mật khẩu");
+//		model.addColumn("Tên Tài Khoản");
+//		model.addColumn("Mật Khẩu");
 		// Add data to the table
-		model.addRow(new Object[]{"1", "Nguyễn Văn A", "09999999", "aaabb@gmail.com", "aaaa"});
-		model.addRow(new Object[]{"", "", "", "", ""});
-		table.setModel(model);
+//		model.addRow(new Object[]{"1", "Nguyễn Văn A", "09999999", "aaabb@gmail.com", "aaaa"});
+//		model.addRow(new Object[]{"", "", "", "", ""});
+//		table.setModel(model);
 		
 		JLabel lblquanly = new JLabel("QL:");
 		lblquanly.setForeground(Color.WHITE);
@@ -423,6 +428,9 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 		lblhinhnen.setIcon(new ImageIcon(GD_TaiKhoan.class.getResource("/Imgs/370.png")));
 		lblhinhnen.setBounds(-95, -176, 1333, 957);
 		contentPane.add(lblhinhnen);
+		
+		connectDB.getInstance().connect();
+		updateTableData();
 		
 	}
 	protected void btnlammoiActionPerformed(ActionEvent e) {
@@ -474,5 +482,17 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
         String time = String.format("%02d:%02d:%02d %s  %02d/%02d/%04d", hour, minute, second, ampm, day, month, year);
         lblClock.setText(time);
     }
+    
+    
+    private void updateTableData() {
+		QLTK_DAO ds = new QLTK_DAO();
+		ArrayList<TaiKhoanNhanVien> ls = ds.doctubang();
+		for(TaiKhoanNhanVien s : ls) {
+			String [] rowData = {s.getMaTaiKhoan(),s.getTenTaiKhoan(),s.getMatKhau()};
+			model.addRow(rowData);
+			table.setModel(model);
+		}
+		
+	}
 }
 

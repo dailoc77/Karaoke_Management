@@ -464,7 +464,7 @@ public class GD_QuanLyKhachHang extends JFrame implements ActionListener {
 		lblNewLabel.setForeground(new Color(255, 0, 0));
 		lblNewLabel.setIcon(new ImageIcon(GD_QuanLyKhachHang.class.getResource("/Imgs/370.png")));
 		
-		Database.getInstance().connect();
+		connectDB.getInstance().connect();
 		updateTableData();
 
 	}

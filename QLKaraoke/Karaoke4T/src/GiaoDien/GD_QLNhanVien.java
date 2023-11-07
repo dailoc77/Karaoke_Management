@@ -27,8 +27,10 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
 import DAO.QLKH_DAO;
+import DAO.QLNV_DAO;
 import Entity.KhachHang;
 import Entity.NhanVien;
+import connectDB.connectDB;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -60,7 +62,7 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 	private Timer timer;
 	private JTextField textField_5;
 	private JTextField textField_6;
-	
+	QLNV_DAO ds = new QLNV_DAO();
 	/**
 	 * Launch the application.
 	 */
@@ -481,19 +483,19 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 		scrollPane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		contentPane.add(scrollPane);
 		
-		DefaultTableModel model = new DefaultTableModel();
-		model.addColumn("Mã KH");
+	    model = new DefaultTableModel();
+		model.addColumn("Mã NV");
 		model.addColumn("Họ Tên");
 		model.addColumn("Giới tính");
 		model.addColumn("Năm Sinh");
-		model.addColumn("Số Điện Thoại");
+		
 		model.addColumn("Số CMND");
-		model.addColumn("Địa chỉ");
-		model.addColumn("Loại Nhân Viên");
-		model.addColumn("Trạng Thái");
-		model.addColumn("Chú Thích");
-		// Add data to the table
-		//model.addRow(new Object[]{"Data 1", "Data 2", "Data 3"});
+		model.addColumn("Số Điện Thoại");
+		model.addColumn("Trạng Thái Làm Việc");
+		model.addColumn("Địa Chỉ");
+		model.addColumn("Loại nhân viên");
+		model.addColumn("Mã tài khoản");
+
 		table.setModel(model);
 		
 		JScrollBar scrollBar = new JScrollBar(JScrollBar.VERTICAL, 30, 40, 0, 500);
@@ -506,6 +508,9 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 		lblNewLabel.setForeground(new Color(255, 0, 0));
 		lblNewLabel.setIcon(new ImageIcon(GD_QuanLyKhachHang.class.getResource("/Imgs/370.png")));
 
+		
+		connectDB.getInstance().connect();
+		updateTableData();
 	}
 	
 	
@@ -561,14 +566,20 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
         String time = String.format("%02d:%02d:%02d %s  %04d/%02d/%02d", hour, minute, second, ampm, year, month, day);
         lblClock.setText(time);
     }
-//	private void updateTableData() {
-//		QLKH_DAO ds = new QLKH_DAO();
-//		ArrayList<NhanVien> ls = ds.doctubang();
-//		for(NhanVien s : ls) {
-//			String [] rowData = {s.getMaKH(), s.getTenKH(), "", s.getSDT()+"", s.getCMND()+"", s.getDiaChi()};
-//			model.addRow(rowData);
-//			table.setModel(model);
-//		}
-//		
-//	}
+
+	
+	
+	private void updateTableData() {
+		QLNV_DAO ds = new QLNV_DAO();
+		ArrayList<NhanVien> ls = ds.doctubang();
+		for(NhanVien s : ls) {
+			String [] rowData = {s.getMaNV(), s.getTenNV(),s.getGioiTinh(), s.getNgaySinh(), s.getCMND(),s.getSDT(), s.getTrangThaiLamViec() , s.getMaDC(), s.getMaLNV(),s.getMaTK()};
+			model.addRow(rowData);
+			table.setModel(model);
+		}
+		
+	}
+	
+
+	
 }

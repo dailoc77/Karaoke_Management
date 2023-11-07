@@ -14,7 +14,7 @@ public class QLKH_DAO {
 	}
 	public ArrayList<Entity.KhachHang> doctubang(){
 		try {
-			Connection con = Database.getInstance().getConnection();
+			Connection con = connectDB.getInstance().getConnection();
 			String sql = "Select * from KhachHang";
 			Statement sta = con.createStatement();
 			ResultSet rs = sta.executeQuery(sql);
@@ -34,7 +34,7 @@ public class QLKH_DAO {
 		return dskh;
 	}
 	public ArrayList<Entity.KhachHang> laytheomakh(String makh){
-		Connection con = Database.getInstance().getConnection();
+		Connection con = connectDB.getInstance().getConnection();
 		PreparedStatement stm = null;
 		try {
 			
@@ -59,7 +59,7 @@ public class QLKH_DAO {
 		return dskh;
 	}
 	public boolean create(KhachHang kh) {
-		Connection con = Database.getInstance().getConnection();
+		Connection con = connectDB.getInstance().getConnection();
 		PreparedStatement smt = null;
 		int n = 0;
 		try {
@@ -77,7 +77,7 @@ public class QLKH_DAO {
 		return n>0;
 	}
 	public boolean update(KhachHang kh) {
-		Connection con = Database.getInstance().getConnection();
+		Connection con = connectDB.getInstance().getConnection();
 		PreparedStatement smt = null;
 		int n = 0;
 		try {
@@ -97,7 +97,7 @@ public class QLKH_DAO {
 	}
 	
 	public boolean delete(String makh) {
-		Connection con = Database.getInstance().getConnection();
+		Connection con = connectDB.getInstance().getConnection();
 		PreparedStatement smt = null;
 		int n = 0;
 		try {

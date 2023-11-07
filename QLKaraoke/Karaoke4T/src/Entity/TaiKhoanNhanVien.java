@@ -3,7 +3,7 @@ package Entity;
 public class TaiKhoanNhanVien {
 	private String maTaiKhoan;
 	private String tenTaiKhoan;
-	private String matKhau;
+	private String matKhau;	
 	private String tenNV;
 	
 	public TaiKhoanNhanVien(String maTaiKhoan, String tenTaiKhoan, String matKhau, String tenNV) {

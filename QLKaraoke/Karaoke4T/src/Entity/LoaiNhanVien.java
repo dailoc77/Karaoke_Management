@@ -1,29 +1,30 @@
 package Entity;
 
 public class LoaiNhanVien {
-	private String maLoaiNhanVien;
-	private String tenLoaiNhanVien;
+	private String maLNV;
+	private String tenLNV;
+	public LoaiNhanVien() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public LoaiNhanVien(String maLNV, String tenLNV) {
+		super();
+		this.maLNV = maLNV;
+		this.tenLNV = tenLNV;
+	}
+	public String getMaLNV() {
+		return maLNV;
+	}
+	public void setMaLNV(String maLNV) {
+		this.maLNV = maLNV;
+	}
+	public String getTenLNV() {
+		return tenLNV;
+	}
+	public void setTenLNV(String tenLNV) {
+		this.tenLNV = tenLNV;
+	}
 	
-	public LoaiNhanVien(String maLoaiNhanVien, String tenLoaiNhanVien) {
-		setMaLoaiNhanVien(maLoaiNhanVien);
-		setTenLoaiNhanVien(tenLoaiNhanVien);
-	}
-
-	public String getMaLoaiNhanVien() {
-		return maLoaiNhanVien;
-	}
-
-	public void setMaLoaiNhanVien(String maLoaiNhanVien) {
-		this.maLoaiNhanVien = maLoaiNhanVien;
-	}
-
-	public String getTenLoaiNhanVien() {
-		return tenLoaiNhanVien;
-	}
-
-	public void setTenLoaiNhanVien(String tenLoaiNhanVien) {
-		this.tenLoaiNhanVien = tenLoaiNhanVien;
-	}
 	
 	
 }
