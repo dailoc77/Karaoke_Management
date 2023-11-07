@@ -13,7 +13,11 @@ public class connectDB {
 	public void connect() {
 		String url = "jdbc:sqlserver://localhost:1433;databasename=Karaoke4T";
 		String user = "sa";
+<<<<<<< HEAD:QLKaraoke/Karaoke4T/src/connectDB/connectDB.java
 		String password = "13112003";
+=======
+		String password = "lockuteqn2003";
+>>>>>>> f058d8e9c72f1a67cca62bf881acb53a1f13d1e8:QLKaraoke/Karaoke4T/src/connectDB/Database.java
 		try {
 			con = DriverManager.getConnection(url, user, password);
 		} catch (Exception e) {
