@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import connectDB.*;
 import Entity.*;
+
 public class QLKH_DAO {
 	ArrayList<KhachHang> dskh;
 	public QLKH_DAO() {
@@ -20,11 +21,11 @@ public class QLKH_DAO {
 			ResultSet rs = sta.executeQuery(sql);
 			while(rs.next()) {
 				String ma = rs.getString(1);
-				String gt = rs.getString(2);
+				Boolean gt = rs.getBoolean(2);
 				String ten = rs.getString(3);
-				int sdt = rs.getInt(4);
-				int cccd = rs.getInt(5);
-				String dc = rs.getString(6);
+				String sdt = rs.getString(4);
+				String cccd = rs.getString(5);
+				String dc = rs.getString(6);		
 				KhachHang kh = new KhachHang(ma, gt, ten, sdt, cccd, dc);
 				dskh.add(kh);
 			}
@@ -45,12 +46,12 @@ public class QLKH_DAO {
 			while(rs.next()) {
 				String ma = rs.getString(1);
 				System.out.println(makh);
-				String gt = rs.getString(2);
+				Boolean gt = rs.getBoolean(2);
 				String ten = rs.getString(3);
-				int sdt = rs.getInt(4);
-				int cccd = rs.getInt(5);
+				String sdt = rs.getString(4);
+				String cccd = rs.getString(5);
 				String dc = rs.getString(6);
-				KhachHang kh = new KhachHang(ma, gt, ten, sdt, cccd, dc);
+				KhachHang kh = new KhachHang(makh, gt, ten, sdt, cccd, dc);
 				dskh.add(kh);
 			}
 		} catch (Exception e) {
@@ -65,12 +66,13 @@ public class QLKH_DAO {
 		try {
 			smt = con.prepareStatement("insert into KhachHang values(?, ?, ?, ?, ?, ?)");
 			smt.setString(1, kh.getMaKH());
-			//thiu gioi tinh
+			smt.setBoolean(2, kh.isGioiTinh());
 			smt.setString(3, kh.getTenKH());
-			smt.setInt(4, kh.getSDT());
-			smt.setInt(5, kh.getCMND());
+			smt.setString(4, kh.getSDT());
+			smt.setString(5, kh.getCMND());
 			smt.setString(6, kh.getDiaChi());
 			n = smt.executeUpdate();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -86,8 +88,8 @@ public class QLKH_DAO {
 			smt.setString(1, kh.getMaKH());
 			//thiu gioi tinh
 			smt.setString(3, kh.getTenKH());
-			smt.setInt(4, kh.getSDT());
-			smt.setInt(5, kh.getCMND());
+			smt.setString(4, kh.getSDT());
+			smt.setString(5, kh.getCMND());
 			smt.setString(6, kh.getDiaChi());
 			n = smt.executeUpdate();
 		} catch (Exception e) {
@@ -95,18 +97,26 @@ public class QLKH_DAO {
 		}
 		return n>0;
 	}
-	
+	public KhachHang getKH(int index) {
+		return dskh.get(index);
+	}
 	public boolean delete(String makh) {
 		Connection con = connectDB.getInstance().getConnection();
 		PreparedStatement smt = null;
+		
 		int n = 0;
 		try {
 			smt = con.prepareStatement("delete from KhachHang where maKH = ?");
 			smt.setString(1, makh);
 			n = smt.executeUpdate();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return n>0;
+	}
+	
+	public ArrayList<KhachHang> getDs(){
+		return dskh;
 	}
 }

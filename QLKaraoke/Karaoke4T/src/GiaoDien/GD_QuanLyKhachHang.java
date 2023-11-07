@@ -2,7 +2,6 @@ package GiaoDien;
 
 
 import java.awt.Color;
-import java.awt.ComponentOrientation;
 import java.awt.Desktop;
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -38,20 +37,24 @@ import javax.swing.JTable;
 import DAO.*;
 import Entity.*;
 import connectDB.*;
+
+
 import javax.swing.JScrollBar;
 public class GD_QuanLyKhachHang extends JFrame implements ActionListener {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField txtten;
-	private JTextField txtmakh;
-	private JTextField txtsdt;
-	private JTextField txtcmnd;
-	private JTextField txtdc;
+	private JTextField txtten, txtdc, txtmakh, txtsdt, txtcmnd;
 	private JTable table;
 	DefaultTableModel model;
 	private JLabel lblClock;
 	private Timer timer;
+	private JRadioButton rdbtnNAM, rdbtnNU;
 	QLKH_DAO dskh = new QLKH_DAO();
+	private ButtonGroup bg;
 	
 	/**
 	 * Launch the application.
@@ -283,6 +286,11 @@ public class GD_QuanLyKhachHang extends JFrame implements ActionListener {
 		btnthongke.setLayout(null);
 		
 		JPanel panel = new JPanel() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
 			protected void paintComponent(Graphics g) {
 				g.setColor(getBackground());
 				g.fillRect(0, 0, getWidth(), getHeight());
@@ -326,7 +334,7 @@ public class GD_QuanLyKhachHang extends JFrame implements ActionListener {
 		txtten.setColumns(10);
 		
 		//rad button
-		JRadioButton rdbtnNAM = new JRadioButton("Nam");
+		rdbtnNAM = new JRadioButton("Nam");
 		rdbtnNAM.setBounds(520, 37, 109, 23);
 		rdbtnNAM.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		rdbtnNAM.setOpaque(false);
@@ -335,13 +343,13 @@ public class GD_QuanLyKhachHang extends JFrame implements ActionListener {
 		panel.add(rdbtnNAM);
 	
 		
-		JRadioButton rdbtnNU = new JRadioButton("Nữ");
+		rdbtnNU = new JRadioButton("Nữ");
 		rdbtnNU.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		rdbtnNU.setBounds(656, 38, 109, 23);
 		rdbtnNU.setOpaque(false);
 		panel.add(rdbtnNU);
 		
-		ButtonGroup bg = new ButtonGroup();
+		bg = new ButtonGroup();
 		bg.add(rdbtnNAM);
 		bg.add(rdbtnNU);
 		panel.add(rdbtnNAM);
@@ -440,18 +448,18 @@ public class GD_QuanLyKhachHang extends JFrame implements ActionListener {
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setBounds(0, 323, 1161, 290);
 		// Set the component orientation to RIGHT_TO_LEFT
-		scrollPane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+//		scrollPane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		contentPane.add(scrollPane);
 		
 		model = new DefaultTableModel();
 		model.addColumn("Mã KH");
-		model.addColumn("Họ Tên");
 		model.addColumn("Giới tính");
+		model.addColumn("Họ Tên");
 		model.addColumn("Số Điện Thoại");
 		model.addColumn("Số CMND");
 		model.addColumn("Địa chỉ");
 		// Add data to the table
-		//model.addRow(new Object[]{"Data 1", "Data 2", "Data 3"});
+
 		table.setModel(model);
 		
 		JScrollBar scrollBar = new JScrollBar(JScrollBar.VERTICAL, 30, 40, 0, 500);
@@ -466,6 +474,7 @@ public class GD_QuanLyKhachHang extends JFrame implements ActionListener {
 		
 		connectDB.getInstance().connect();
 		updateTableData();
+//		loadTable();
 
 	}
 	
@@ -482,6 +491,7 @@ public class GD_QuanLyKhachHang extends JFrame implements ActionListener {
 			KhachHang kh = reverSPFromTextField();
 			if(dskh.update(kh)) {
 				table.setValueAt(txtmakh.getText(), row, 1);
+//				table.setValueAt(txtgt.get, row, 2);
 				table.setValueAt(txtten.getText(), row, 3);
 				table.setValueAt(txtsdt.getText(), row, 4);
 				table.setValueAt(txtcmnd.getText(), row, 5);
@@ -496,23 +506,39 @@ public class GD_QuanLyKhachHang extends JFrame implements ActionListener {
 		// TODO Auto-generated method stub
 		int row = table.getSelectedRow();
 		if(row >= 0) {
-			String makh = (String) table.getValueAt(row, 1);
+			String makh = (String) table.getValueAt(row, 0);
 			if(dskh.delete(makh)) {
 				model.removeRow(row);
 				lammoi();
 			}
 		}
-		table.setModel(model);
+		JOptionPane.showMessageDialog(this, "Xóa Khách Hàng Thành Công");
+
 	}
 
 	protected void btnthemActionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		KhachHang kh = reverSPFromTextField();
-		if(dskh.create(kh)) {
-			Object [] rowData = {txtmakh.getText(), txtten.getText(), txtsdt.getText(), txtcmnd.getText(), txtdc.getText()};
-			model.addRow(rowData);
+		if(txtten.getText().equals("") || txtsdt.getText().equals("") || txtcmnd.getText().equals("")||
+				txtdc.getText().equals("") ) {
+			JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin!");
+		}else {
+			KhachHang kh = reverSPFromTextField();
+			Boolean gt = null;
+			if(dskh.create(kh)) {
+				if(rdbtnNAM.isSelected()) {
+					gt = true;
+				}
+				if(rdbtnNU.isSelected()) {
+					gt = false;
+				}
+				Object [] rowData = {txtmakh.getText(), gt, txtten.getText(), txtsdt.getText(), txtcmnd.getText(), txtdc.getText()};
+				model.addRow(rowData);
+				JOptionPane.showMessageDialog(this, "Thêm Khách Hàng Thành Công");
+			}
+			table.setModel(model);
+			lammoi();
+			updateTableData();
 		}
-		table.setModel(model);
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -551,31 +577,54 @@ public class GD_QuanLyKhachHang extends JFrame implements ActionListener {
 	private KhachHang reverSPFromTextField() {
 		String makh = txtmakh.getText().toString();
 		String ten = txtten.getText().toString();
-		int sdt = Integer.parseInt(txtsdt.getText());
-		int cccd = Integer.parseInt(txtcmnd.getText());
+		String sdt = txtsdt.getText().toString();
+		String cccd = txtcmnd.getText().toString();
 		String dch = txtdc.getText().toString();
-		return new KhachHang(makh, "", ten, sdt, cccd, dch);
+		Boolean gt = null;
+		if(rdbtnNAM.isSelected()) {
+			gt = true;
+		}
+		if(rdbtnNU.isSelected()) {
+			gt = false;
+		}
+		return new KhachHang(makh, gt, ten, sdt, cccd, dch);
 		
 	}
 	
 	private void updateTableData() {
 		QLKH_DAO ds = new QLKH_DAO();
 		ArrayList<KhachHang> ls = ds.doctubang();
+		String gt = "";
 		for(KhachHang s : ls) {
-			String [] rowData = {s.getMaKH(), s.getTenKH(), "", s.getSDT()+"", s.getCMND()+"", s.getDiaChi()};
+			if(s.isGioiTinh()) {
+				gt = "Nam";
+			}else {
+				gt = "Nữ";
+			}
+			String [] rowData = {s.getMaKH(), gt, s.getTenKH(), s.getSDT()+"", s.getCMND()+"", s.getDiaChi()};
 			model.addRow(rowData);
 			table.setModel(model);
 		}
 		
 	}
+	public void loadTable() {
+		model.setRowCount(0);
+		QLKH_DAO ds = new QLKH_DAO();
+		ArrayList<KhachHang> ls = ds.getDs();
+		ls.forEach(x->{
+			model.addRow(new Object[] {x.getMaKH(), x.isGioiTinh(), x.getTenKH(), x.getSDT(), x.getCMND(), x.getDiaChi()});
+			table.setModel(model);
+		});
+	}
 	public void mouseClicked(MouseEvent e) {
 		int row = table.getSelectedRow();
-		txtmakh.setText(table.getValueAt(row, 1).toString());
+		txtmakh.setText(table.getValueAt(row, 0).toString());
 		
-		txtten.setText(table.getValueAt(row, 3).toString());
-		txtsdt.setText(table.getValueAt(row, 4).toString());
-		txtcmnd.setText(table.getValueAt(row, 5).toString());
-		txtdc.setText(table.getValueAt(row, 6).toString());
+		txtten.setText(table.getValueAt(row, 2).toString());
+		txtsdt.setText(table.getValueAt(row, 3).toString());
+		txtcmnd.setText(table.getValueAt(row, 4).toString());
+		txtdc.setText(table.getValueAt(row, 5).toString());
+		
 	}
 	public void lammoi() {
 		txtcmnd.setText("");
@@ -583,6 +632,8 @@ public class GD_QuanLyKhachHang extends JFrame implements ActionListener {
 		txtmakh.setText("");
 		txtsdt.setText("");
 		txtdc.setText("");
+		rdbtnNAM.setSelected(true);
 		txtmakh.requestFocus();
 	}
+	
 }

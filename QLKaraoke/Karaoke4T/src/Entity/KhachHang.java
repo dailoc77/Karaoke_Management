@@ -3,7 +3,14 @@ package Entity;
 import java.util.Objects;
 
 public class KhachHang {
-	@Override
+
+	private String maKH;
+	private String tenKH;
+	private String diaChi;
+	private String SDT;
+	private String CMND;
+	private Boolean gioiTinh;
+	
 	public int hashCode() {
 		return Objects.hash(CMND, SDT, diaChi, gioiTinh, maKH, tenKH);
 	}
@@ -21,14 +28,9 @@ public class KhachHang {
 				&& gioiTinh == other.gioiTinh && Objects.equals(maKH, other.maKH) && Objects.equals(tenKH, other.tenKH);
 	}
 
-	private String maKH;
-	private String tenKH;
-	private String diaChi;
-	private int SDT;
-	private int CMND;
-	private String gioiTinh;
-	
-	public KhachHang(String maKH, String gioiTinh, String tenKH, int SDT, int CMND, String diaChi) {
+
+	public KhachHang(String maKH, Boolean gioiTinh, String tenKH, String SDT, String CMND, String diaChi) {
+		super();
 		setCMND(CMND);
 		setDiaChi(diaChi);
 		setGioiTinh(gioiTinh);
@@ -61,29 +63,33 @@ public class KhachHang {
 		this.diaChi = diaChi;
 	}
 
-	public int getSDT() {
+	public String getSDT() {
 		return SDT;
 	}
 
-	public void setSDT(int sDT) {
+	public void setSDT(String sDT) {
 		SDT = sDT;
 	}
 
-	public int getCMND() {
+	public String getCMND() {
 		return CMND;
 	}
 
-	public void setCMND(int cMND) {
+	public void setCMND(String cMND) {
 		CMND = cMND;
 	}
 
-	public String isGioiTinh() {
+	public Boolean isGioiTinh() {
 		return gioiTinh;
 	}
 
-	public void setGioiTinh(String gioiTinh) {
+	public void setGioiTinh(Boolean gioiTinh) {
 		this.gioiTinh = gioiTinh;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "KhachHang [maKH=" + maKH + ", tenKH=" + tenKH + ", diaChi=" + diaChi + ", SDT=" + SDT + ", CMND=" + CMND
+				+ ", gioiTinh=" + gioiTinh + "]";
+	}
 }
