@@ -1,38 +1,47 @@
 package GiaoDien;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-
 import java.awt.Color;
 import java.awt.Desktop;
 import java.awt.EventQueue;
-
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-
 import java.awt.Font;
-import javax.swing.SwingConstants;
-import javax.swing.Timer;
-
+import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.net.URL;
 import java.util.Calendar;
 
-public class GD_Main_NV extends JFrame implements ActionListener{
-	/**
-	 * 
-	 */
+import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.Timer;
+import javax.swing.border.EmptyBorder;
+
+import testbutton.Buttontest;
+
+public class GD_TraPhong extends JFrame implements ActionListener {
+
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JLabel lblClock;
 	private Timer timer;
+	private JTextField textField;
+	private JTextField textField_1;
+	private JTextField textField_2;
+	private JTextField textField_3;
+	private testbutton.Buttontest btnthuephong, btnhuyphong;
+
 	/**
 	 * Launch the application.
 	 */
@@ -45,18 +54,21 @@ public class GD_Main_NV extends JFrame implements ActionListener{
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GD_Main_NV.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GD_TraPhong.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GD_Main_NV.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GD_TraPhong.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GD_Main_NV.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GD_TraPhong.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GD_Main_NV.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GD_TraPhong.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+
+        /* Create and display the form */
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					GD_Main_NV frame = new GD_Main_NV();
+					GD_TraPhong frame = new GD_TraPhong();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -64,21 +76,19 @@ public class GD_Main_NV extends JFrame implements ActionListener{
 			}
 		});
 	}
+//
 	/**
 	 * Create the frame.
 	 */
-	public GD_Main_NV() {
-		setBackground(Color.WHITE);
-		setTitle("Giao Diện Nhân Viên");
+	public GD_TraPhong (){
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setLocationRelativeTo(null);
+		setTitle("Giao Diện Trả Phòng");
 		setBounds(100, 100, 1175, 650);
 		contentPane = new JPanel();
-		contentPane.setBorder(null);
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
 //		 Ho tro -----------------------
 		JButton btnNewButton = new JButton("");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -94,21 +104,20 @@ public class GD_Main_NV extends JFrame implements ActionListener{
 		contentPane.add(btnNewButton);
 		
 //		------------------------------------------
+		JLabel lblquanly = new JLabel("NV:");
+		lblquanly.setForeground(Color.WHITE);
+		lblquanly.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblquanly.setBounds(878, -20, 232, 80);
+		contentPane.add(lblquanly);
 		
-		JLabel lblnhanvien = new JLabel("NV:");
-		lblnhanvien.setForeground(Color.WHITE);
-		lblnhanvien.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblnhanvien.setBounds(878, -20, 232, 80);
-		contentPane.add(lblnhanvien);
-		
-		JLabel lbltennv = new JLabel("Nguyễn Văn C");
-		lbltennv.setForeground(Color.WHITE);
-		lbltennv.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lbltennv.setBounds(833, 6, 232, 80);
-		contentPane.add(lbltennv);
+		JLabel lbltenql = new JLabel("Nguyễn Văn C");
+		lbltenql.setForeground(Color.WHITE);
+		lbltenql.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lbltenql.setBounds(833, 6, 232, 80);
+		contentPane.add(lbltenql);
 		
 		JButton jButton = new JButton("Đăng Xuất");
-		jButton.setBounds(990, 10, 150, 50);
+		jButton.setBounds(980, 13, 135, 42);
 		jButton.setFont(new Font("Tahoma ", Font.BOLD, 14));
 		jButton.setBackground(new Color(255, 0, 0));
 		jButton.setForeground(Color.WHITE);
@@ -145,7 +154,7 @@ public class GD_Main_NV extends JFrame implements ActionListener{
 		
 		JLabel lblavatar = new JLabel("");
 		lblavatar.setHorizontalAlignment(SwingConstants.CENTER);
-		lblavatar.setIcon(new ImageIcon(GD_Main_NV.class.getResource("/Imgs/t1 1.png")));
+		lblavatar.setIcon(new ImageIcon(GD_Main_QL.class.getResource("/Imgs/t1 1.png")));
 		lblavatar.setBounds(90, -444, 1333, 957);
 		contentPane.add(lblavatar);
 		
@@ -162,9 +171,145 @@ public class GD_Main_NV extends JFrame implements ActionListener{
         lblClock.setForeground(Color.BLACK);
         box_clock.add(lblClock);
 
-        timer = new Timer(0, this);
+        timer = new Timer(0,this);
         timer.start();
 		
+		//Danh sach phong hat
+		
+		JPanel pnl_danhsachphonghat = new JPanel() {
+			protected void paintComponent(Graphics g) {
+				g.setColor(getBackground());
+				g.fillRect(0, 0, getWidth(), getHeight());
+				super.paintComponent(g);
+			}
+		};
+		pnl_danhsachphonghat.setBackground(new Color(255, 255, 255, 200));
+		pnl_danhsachphonghat.setBounds(0, 148, 1170, 463);
+		pnl_danhsachphonghat.setOpaque(false);
+        contentPane.add(pnl_danhsachphonghat);
+        pnl_danhsachphonghat.setLayout(null);
+        
+        
+        JLabel lblNewLabel_8 = new JLabel("Tầng 1:");
+        lblNewLabel_8.setFont(new Font("Tahoma", Font.BOLD, 24));
+        lblNewLabel_8.setBounds(56, 62, 116, 28);
+        pnl_danhsachphonghat.add(lblNewLabel_8);
+        
+        //button
+        
+        JButton btnChonPhongHat = new JButton();
+        btnChonPhongHat.setText("");
+        btnChonPhongHat.setBackground(new Color(168, 168, 168));
+        btnChonPhongHat.setIcon(new ImageIcon(GD_DatPhong.class.getResource("/Imgs/micro.png")));
+        btnChonPhongHat.setBounds(228, 111, 88, 85);
+        pnl_danhsachphonghat.add(btnChonPhongHat);
+        
+        JButton btnChonPhongHat2 = new JButton("");
+        btnChonPhongHat2.setIcon(new ImageIcon(GD_DatPhong.class.getResource("/Imgs/micro.png")));
+        btnChonPhongHat2.setBounds(375, 111, 88, 85);
+        pnl_danhsachphonghat.add(btnChonPhongHat2);
+        
+        JButton btnChonPhongHat3 = new JButton("");
+        btnChonPhongHat3.setFont(new Font("Tahoma", Font.PLAIN, 11));
+        btnChonPhongHat3.setIcon(new ImageIcon(GD_DatPhong.class.getResource("/Imgs/micro.png")));
+        btnChonPhongHat3.setBounds(522, 111, 88, 85);
+        pnl_danhsachphonghat.add(btnChonPhongHat3);
+        
+        JButton btnChonPhongHat4 = new JButton("");
+        btnChonPhongHat4.setIcon(new ImageIcon(GD_DatPhong.class.getResource("/Imgs/micro_with_crown.png")));
+        btnChonPhongHat4.setBounds(680, 111, 88, 85);
+        pnl_danhsachphonghat.add(btnChonPhongHat4);
+        
+        JButton btnChonPhongHat5 = new JButton("");
+        btnChonPhongHat5.setIcon(new ImageIcon(GD_DatPhong.class.getResource("/Imgs/micro.png")));
+        btnChonPhongHat5.setBounds(841, 111, 88, 85);
+        pnl_danhsachphonghat.add(btnChonPhongHat5);
+        
+        JButton btnChonPhongHat6 = new JButton("");
+        btnChonPhongHat6.setIcon(new ImageIcon(GD_DatPhong.class.getResource("/Imgs/micro.png")));
+        btnChonPhongHat6.setBounds(228, 253, 88, 85);
+        pnl_danhsachphonghat.add(btnChonPhongHat6);
+        
+        JButton btnChonPhongHat7 = new JButton("");
+        btnChonPhongHat7.setIcon(new ImageIcon(GD_DatPhong.class.getResource("/Imgs/micro.png")));
+        btnChonPhongHat7.setBounds(375, 253, 88, 85);
+        pnl_danhsachphonghat.add(btnChonPhongHat7);
+        
+        JButton btnChonPhongHat8 = new JButton("");
+        btnChonPhongHat8.setIcon(new ImageIcon(GD_DatPhong.class.getResource("/Imgs/micro.png")));
+        btnChonPhongHat8.setBounds(522, 253, 88, 85);
+        pnl_danhsachphonghat.add(btnChonPhongHat8);
+        
+        JButton btnChonPhongHat9 = new JButton("");
+        btnChonPhongHat9.setIcon(new ImageIcon(GD_DatPhong.class.getResource("/Imgs/micro.png")));
+        btnChonPhongHat9.setBounds(680, 253, 88, 85);
+        pnl_danhsachphonghat.add(btnChonPhongHat9);
+        
+        JButton btnChonPhongHat10 = new JButton("");
+        btnChonPhongHat10.setIcon(new ImageIcon(GD_DatPhong.class.getResource("/Imgs/micro.png")));
+        btnChonPhongHat10.setBounds(841, 253, 88, 85);
+        pnl_danhsachphonghat.add(btnChonPhongHat10);
+        
+        JLabel lbl_p101 = new JLabel("P101");
+        lbl_p101.setHorizontalAlignment(SwingConstants.CENTER);
+        lbl_p101.setFont(new Font("Tahoma", Font.BOLD, 14));
+        lbl_p101.setBounds(238, 196, 69, 28);
+        pnl_danhsachphonghat.add(lbl_p101);
+        
+        JLabel lbl_p102 = new JLabel("P102");
+        lbl_p102.setHorizontalAlignment(SwingConstants.CENTER);
+        lbl_p102.setFont(new Font("Tahoma", Font.BOLD, 14));
+        lbl_p102.setBounds(385, 196, 69, 28);
+        pnl_danhsachphonghat.add(lbl_p102);
+        
+        JLabel lbl_p103 = new JLabel("P103");
+        lbl_p103.setHorizontalAlignment(SwingConstants.CENTER);
+        lbl_p103.setFont(new Font("Tahoma", Font.BOLD, 14));
+        lbl_p103.setBounds(532, 196, 69, 28);
+        pnl_danhsachphonghat.add(lbl_p103);
+        
+        JLabel lbl_p104 = new JLabel("P104");
+        lbl_p104.setHorizontalAlignment(SwingConstants.CENTER);
+        lbl_p104.setFont(new Font("Tahoma", Font.BOLD, 14));
+        lbl_p104.setBounds(690, 196, 69, 28);
+        pnl_danhsachphonghat.add(lbl_p104);
+        
+        JLabel lbl_p105 = new JLabel("P105");
+        lbl_p105.setHorizontalAlignment(SwingConstants.CENTER);
+        lbl_p105.setFont(new Font("Tahoma", Font.BOLD, 14));
+        lbl_p105.setBounds(851, 196, 69, 28);
+        pnl_danhsachphonghat.add(lbl_p105);
+        
+        JLabel lbl_p106 = new JLabel("P106");
+        lbl_p106.setHorizontalAlignment(SwingConstants.CENTER);
+        lbl_p106.setFont(new Font("Tahoma", Font.BOLD, 14));
+        lbl_p106.setBounds(238, 338, 69, 28);
+        pnl_danhsachphonghat.add(lbl_p106);
+        
+        JLabel lbl_p107 = new JLabel("P107");
+        lbl_p107.setHorizontalAlignment(SwingConstants.CENTER);
+        lbl_p107.setFont(new Font("Tahoma", Font.BOLD, 14));
+        lbl_p107.setBounds(385, 338, 69, 28);
+        pnl_danhsachphonghat.add(lbl_p107);
+        
+        JLabel lbl_p108 = new JLabel("P108");
+        lbl_p108.setHorizontalAlignment(SwingConstants.CENTER);
+        lbl_p108.setFont(new Font("Tahoma", Font.BOLD, 14));
+        lbl_p108.setBounds(532, 338, 69, 28);
+        pnl_danhsachphonghat.add(lbl_p108);
+        
+        JLabel lbl_p109 = new JLabel("P109");
+        lbl_p109.setHorizontalAlignment(SwingConstants.CENTER);
+        lbl_p109.setFont(new Font("Tahoma", Font.BOLD, 14));
+        lbl_p109.setBounds(690, 338, 69, 28);
+        pnl_danhsachphonghat.add(lbl_p109);
+        
+        JLabel lbl_p1010 = new JLabel("P101");
+        lbl_p1010.setHorizontalAlignment(SwingConstants.CENTER);
+        lbl_p1010.setFont(new Font("Tahoma", Font.BOLD, 14));
+        lbl_p1010.setBounds(851, 338, 69, 28);
+        pnl_danhsachphonghat.add(lbl_p1010);
+ 
         testbutton.Buttontest btndatphong1 = new testbutton.Buttontest();
         btndatphong1.addMouseListener(new MouseAdapter() {
 			@Override
@@ -224,16 +369,13 @@ public class GD_Main_NV extends JFrame implements ActionListener{
         btntstTrPhng.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				GD_TraPhong gdtraphong = new GD_TraPhong();
-				gdtraphong.setVisible(true);
-				dispose();
 			}
 		});
         btntstTrPhng.setBorder(null);
         btntstTrPhng.setText("Trả Phòng");
         btntstTrPhng.setForeground(Color.WHITE);
         btntstTrPhng.setFont(new Font("Tahoma", Font.BOLD, 20));
-        btntstTrPhng.setBackground(new Color(0,0,0, 150));
+        btntstTrPhng.setBackground(new Color(128, 128, 128, 150));
         btntstTrPhng.setBounds(577, 70, 196, 87);
         contentPane.add(btntstTrPhng);
         btntstTrPhng.setLayout(null);
@@ -276,15 +418,12 @@ public class GD_Main_NV extends JFrame implements ActionListener{
 		contentPane.add(btnthongke);
 		btnthongke.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setIcon(new ImageIcon(GD_Main_NV.class.getResource("/Imgs/370.png")));
-		lblNewLabel.setBounds(-95, -176, 1333, 957);
-		contentPane.add(lblNewLabel);
+		JLabel lb_hinhnen = new JLabel("");
+		lb_hinhnen.setIcon(new ImageIcon(GD_DatPhong.class.getResource("/Imgs/370.png")));
+		lb_hinhnen.setBounds(-40, -176, 1333, 957);
+		contentPane.add(lb_hinhnen);
 		
 	}
-
-	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == timer) {
             // Cập nhật thời gian
@@ -315,5 +454,5 @@ public class GD_Main_NV extends JFrame implements ActionListener{
         
         String time = String.format("%02d:%02d:%02d %s  %04d/%02d/%02d", hour, minute, second, ampm, year, month, day);
         lblClock.setText(time);
-    }
+	}
 }

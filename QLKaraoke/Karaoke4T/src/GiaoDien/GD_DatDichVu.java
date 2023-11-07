@@ -141,7 +141,7 @@ public class GD_DatDichVu extends JFrame implements ActionListener{
         btndatphong1.setForeground(Color.WHITE);
         btndatphong1.setFont(new Font("Tahoma", Font.BOLD, 20));
         btndatphong1.setBackground(new Color(0,0,0,150));
-        btndatphong1.setBounds(0, 70, 232, 87);
+        btndatphong1.setBounds(0, 70, 199, 87);
 		contentPane.add(btndatphong1);
 		btndatphong1.setLayout(null);
 		
@@ -160,7 +160,7 @@ public class GD_DatDichVu extends JFrame implements ActionListener{
         btnthuephong.setForeground(Color.WHITE);
         btnthuephong.setFont(new Font("Tahoma", Font.BOLD, 20));
         btnthuephong.setBackground(new Color(0, 0, 0, 150));
-        btnthuephong.setBounds(230, 70, 239, 87);
+        btnthuephong.setBounds(195, 70, 196, 87);
 		contentPane.add(btnthuephong);
 		btnthuephong.setLayout(null);
 		
@@ -176,9 +176,27 @@ public class GD_DatDichVu extends JFrame implements ActionListener{
         btndatdichvu.setForeground(Color.WHITE);
         btndatdichvu.setFont(new Font("Tahoma", Font.BOLD, 20));
         btndatdichvu.setBackground(new Color(128,128,128, 150));
-        btndatdichvu.setBounds(465, 70, 232, 87);
+        btndatdichvu.setBounds(385, 70, 196, 87);
 		contentPane.add(btndatdichvu);
 		btndatdichvu.setLayout(null);
+		
+		testbutton.Buttontest btntstTrPhng = new testbutton.Buttontest();
+        btntstTrPhng.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				GD_TraPhong gdtraphong = new GD_TraPhong();
+				gdtraphong.setVisible(true);
+				dispose();
+			}
+		});
+        btntstTrPhng.setBorder(null);
+        btntstTrPhng.setText("Trả Phòng");
+        btntstTrPhng.setForeground(Color.WHITE);
+        btntstTrPhng.setFont(new Font("Tahoma", Font.BOLD, 20));
+        btntstTrPhng.setBackground(new Color(0,0,0, 150));
+        btntstTrPhng.setBounds(577, 70, 196, 87);
+        contentPane.add(btntstTrPhng);
+        btntstTrPhng.setLayout(null);
 		
         testbutton.Buttontest btnkhachhang = new testbutton.Buttontest();
         btnkhachhang.addMouseListener(new MouseAdapter() {
@@ -195,7 +213,7 @@ public class GD_DatDichVu extends JFrame implements ActionListener{
         btnkhachhang.setForeground(Color.WHITE);
         btnkhachhang.setFont(new Font("Tahoma", Font.BOLD, 20));
         btnkhachhang.setBackground(new Color(0, 0, 0, 150));
-        btnkhachhang.setBounds(695, 70, 232, 87);
+        btnkhachhang.setBounds(770, 70, 196, 87);
 		contentPane.add(btnkhachhang);
 		btnkhachhang.setLayout(null);
 		
@@ -214,7 +232,7 @@ public class GD_DatDichVu extends JFrame implements ActionListener{
         btnthongke.setForeground(Color.WHITE);
         btnthongke.setFont(new Font("Tahoma", Font.BOLD, 20));
         btnthongke.setBackground(new Color(0, 0, 0, 150));
-        btnthongke.setBounds(925, 70, 232, 87);
+        btnthongke.setBounds(963, 70, 196, 87);
 		contentPane.add(btnthongke);
 		btnthongke.setLayout(null);
 		
