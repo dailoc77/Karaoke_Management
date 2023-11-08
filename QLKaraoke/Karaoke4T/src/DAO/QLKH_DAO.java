@@ -21,7 +21,7 @@ public class QLKH_DAO {
 			ResultSet rs = sta.executeQuery(sql);
 			while(rs.next()) {
 				String ma = rs.getString(1);
-				Boolean gt = rs.getBoolean(2);
+				String gt = rs.getString(2);
 				String ten = rs.getString(3);
 				String sdt = rs.getString(4);
 				String cccd = rs.getString(5);
@@ -46,7 +46,7 @@ public class QLKH_DAO {
 			while(rs.next()) {
 				String ma = rs.getString(1);
 				System.out.println(makh);
-				Boolean gt = rs.getBoolean(2);
+				String gt = rs.getString(2);
 				String ten = rs.getString(3);
 				String sdt = rs.getString(4);
 				String cccd = rs.getString(5);
@@ -66,7 +66,7 @@ public class QLKH_DAO {
 		try {
 			smt = con.prepareStatement("insert into KhachHang values(?, ?, ?, ?, ?, ?)");
 			smt.setString(1, kh.getMaKH());
-			smt.setBoolean(2, kh.isGioiTinh());
+			smt.setString(2, kh.getGioiTinh());
 			smt.setString(3, kh.getTenKH());
 			smt.setString(4, kh.getSDT());
 			smt.setString(5, kh.getCMND());

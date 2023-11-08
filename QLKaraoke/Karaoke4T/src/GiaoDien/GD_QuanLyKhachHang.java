@@ -598,13 +598,13 @@ public class GD_QuanLyKhachHang extends JFrame implements ActionListener {
 		String sdt = txtsdt.getText().toString();
 		String cccd = txtcmnd.getText().toString();
 		String dch = txtdc.getText().toString();
-		Boolean gt = null;
-		if(rdbtnNAM.isSelected()) {
-			gt = true;
-		}
-		if(rdbtnNU.isSelected()) {
-			gt = false;
-		}
+		String gt = null;
+//		if(rdbtnNAM.isSelected()) {
+//			gt = true;
+//		}
+//		if(rdbtnNU.isSelected()) {
+//			gt = false;
+//		}
 		return new KhachHang(makh, gt, ten, sdt, cccd, dch);
 		
 	}
@@ -614,12 +614,12 @@ public class GD_QuanLyKhachHang extends JFrame implements ActionListener {
 		ArrayList<KhachHang> ls = ds.doctubang();
 		String gt = "";
 		for(KhachHang s : ls) {
-			if(s.isGioiTinh()) {
-				gt = "Nam";
-			}else {
-				gt = "Nữ";
-			}
-			String [] rowData = {s.getMaKH(), gt, s.getTenKH(), s.getSDT()+"", s.getCMND()+"", s.getDiaChi()};
+//			if(s.isGioiTinh()) {
+//				gt = "Nam";
+//			}else {
+//				gt = "Nữ";
+//			}
+			String [] rowData = {s.getMaKH(), s.getGioiTinh(), s.getTenKH(), s.getSDT()+"", s.getCMND()+"", s.getDiaChi()};
 			model.addRow(rowData);
 			table.setModel(model);
 		}
@@ -630,7 +630,7 @@ public class GD_QuanLyKhachHang extends JFrame implements ActionListener {
 		QLKH_DAO ds = new QLKH_DAO();
 		ArrayList<KhachHang> ls = ds.getDs();
 		ls.forEach(x->{
-			model.addRow(new Object[] {x.getMaKH(), x.isGioiTinh(), x.getTenKH(), x.getSDT(), x.getCMND(), x.getDiaChi()});
+			model.addRow(new Object[] {x.getMaKH(), x.getGioiTinh(), x.getTenKH(), x.getSDT(), x.getCMND(), x.getDiaChi()});
 			table.setModel(model);
 		});
 	}
