@@ -463,10 +463,26 @@ public class GD_QuanLyKhachHang extends JFrame implements ActionListener {
 		
 		//talbe
 		table = new JTable();
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int row = table.getSelectedRow();
+				txtmakh.setText(model.getValueAt(row, 0).toString());
+				txtten.setText(model.getValueAt(row, 2).toString());
+				txtsdt.setText(model.getValueAt(row, 3).toString());
+				txtcmnd.setText(model.getValueAt(row, 4).toString());
+				if(model.getValueAt(row, 1).equals("Nam")) {
+					rdbtnNAM.setSelected(true);
+				}
+				else {
+					rdbtnNU.setSelected(true);
+				}
+
+				txtdc.setText(model.getValueAt(row, 5).toString());
+			}
+		});
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setBounds(0, 323, 1161, 290);
-		// Set the component orientation to RIGHT_TO_LEFT
-//		scrollPane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		contentPane.add(scrollPane);
 		
 		model = new DefaultTableModel();
@@ -490,6 +506,8 @@ public class GD_QuanLyKhachHang extends JFrame implements ActionListener {
 		lblNewLabel.setForeground(new Color(255, 0, 0));
 		lblNewLabel.setIcon(new ImageIcon(GD_QuanLyKhachHang.class.getResource("/Imgs/370.png")));
 		
+		
+		
 		connectDB.getInstance().connect();
 		updateTableData();
 //		loadTable();
@@ -505,19 +523,28 @@ public class GD_QuanLyKhachHang extends JFrame implements ActionListener {
 	protected void btnsuaActionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		int row = table.getSelectedRow();
+		
 		if(row >= 0) {
 			KhachHang kh = reverSPFromTextField();
 			if(dskh.update(kh)) {
-				table.setValueAt(txtmakh.getText(), row, 1);
-//				table.setValueAt(txtgt.get, row, 2);
-				table.setValueAt(txtten.getText(), row, 3);
-				table.setValueAt(txtsdt.getText(), row, 4);
-				table.setValueAt(txtcmnd.getText(), row, 5);
-				table.setValueAt(txtdc.getText(), row, 6);
+				String gt = "";
+				if(rdbtnNAM.isSelected()) {
+					gt = "Nam";
+				}
+				if(rdbtnNU.isSelected()) {
+					gt = "Nu";
+				}
+				table.setValueAt(gt, row, 1);
+				table.setValueAt(txtten.getText(), row, 2);
+				table.setValueAt(txtsdt.getText(), row, 3);
+				table.setValueAt(txtcmnd.getText(), row, 4);
+				table.setValueAt(txtdc.getText(), row, 5);
+				JOptionPane.showMessageDialog(this, "Sửa thông tin khách hàng thành công!");
+//				table.setModel(model);
 			}
-			
 		}
-		table.setModel(model);
+		
+		updateTableData();
 	}
 
 	protected void btnxoaActionPerformed(ActionEvent e) {
@@ -536,28 +563,33 @@ public class GD_QuanLyKhachHang extends JFrame implements ActionListener {
 
 	protected void btnthemActionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		if(txtten.getText().equals("") || txtsdt.getText().equals("") || txtcmnd.getText().equals("")||
+		if(txtten.getText().equals("")|| txtsdt.getText().equals("")|| txtcmnd.getText().equals("")||
 				txtdc.getText().equals("") ) {
-			JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin!");
+			
+				JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin!");
+				
 		}else {
 			KhachHang kh = reverSPFromTextField();
-			Boolean gt = null;
+			String gt = "";
 			if(dskh.create(kh)) {
 				if(rdbtnNAM.isSelected()) {
-					gt = true;
+					gt = "Nam";
 				}
 				if(rdbtnNU.isSelected()) {
-					gt = false;
+					gt = "Nu";
 				}
 				Object [] rowData = {txtmakh.getText(), gt, txtten.getText(), txtsdt.getText(), txtcmnd.getText(), txtdc.getText()};
 				model.addRow(rowData);
 				JOptionPane.showMessageDialog(this, "Thêm Khách Hàng Thành Công");
+				
+				lammoi();
 			}
+			JOptionPane.showMessageDialog(this, "Thêm Khách Hàng không Thành Công");
 			table.setModel(model);
-			lammoi();
 			updateTableData();
 		}
 	}
+	
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == timer) {
@@ -598,6 +630,15 @@ public class GD_QuanLyKhachHang extends JFrame implements ActionListener {
 		String sdt = txtsdt.getText().toString();
 		String cccd = txtcmnd.getText().toString();
 		String dch = txtdc.getText().toString();
+<<<<<<< HEAD
+		String gt = "";
+		if(rdbtnNAM.isSelected()) {
+			gt = "Nam";
+		}
+		if(rdbtnNU.isSelected()) {
+			gt = "Nu";
+		}
+=======
 		String gt = null;
 //		if(rdbtnNAM.isSelected()) {
 //			gt = true;
@@ -605,6 +646,7 @@ public class GD_QuanLyKhachHang extends JFrame implements ActionListener {
 //		if(rdbtnNU.isSelected()) {
 //			gt = false;
 //		}
+>>>>>>> 82029ac62cd9fe537372b5c295d450fdf3875e49
 		return new KhachHang(makh, gt, ten, sdt, cccd, dch);
 		
 	}
@@ -612,14 +654,19 @@ public class GD_QuanLyKhachHang extends JFrame implements ActionListener {
 	private void updateTableData() {
 		QLKH_DAO ds = new QLKH_DAO();
 		ArrayList<KhachHang> ls = ds.doctubang();
-		String gt = "";
+		
 		for(KhachHang s : ls) {
+<<<<<<< HEAD
+			
+			String [] rowData = {s.getMaKH(), s.isGioiTinh(), s.getTenKH(), s.getSDT()+"", s.getCMND()+"", s.getDiaChi()};
+=======
 //			if(s.isGioiTinh()) {
 //				gt = "Nam";
 //			}else {
 //				gt = "Nữ";
 //			}
 			String [] rowData = {s.getMaKH(), s.getGioiTinh(), s.getTenKH(), s.getSDT()+"", s.getCMND()+"", s.getDiaChi()};
+>>>>>>> 82029ac62cd9fe537372b5c295d450fdf3875e49
 			model.addRow(rowData);
 			table.setModel(model);
 		}
@@ -637,7 +684,12 @@ public class GD_QuanLyKhachHang extends JFrame implements ActionListener {
 	public void mouseClicked(MouseEvent e) {
 		int row = table.getSelectedRow();
 		txtmakh.setText(table.getValueAt(row, 0).toString());
-		
+		if(table.getValueAt(row, 1).equals("Nam")) {
+			rdbtnNAM.setSelected(true);
+		}
+		else {
+			rdbtnNU.setSelected(true);
+		}
 		txtten.setText(table.getValueAt(row, 2).toString());
 		txtsdt.setText(table.getValueAt(row, 3).toString());
 		txtcmnd.setText(table.getValueAt(row, 4).toString());
@@ -650,7 +702,7 @@ public class GD_QuanLyKhachHang extends JFrame implements ActionListener {
 		txtmakh.setText("");
 		txtsdt.setText("");
 		txtdc.setText("");
-		rdbtnNAM.setSelected(true);
+		bg.clearSelection();
 		txtmakh.requestFocus();
 	}
 	

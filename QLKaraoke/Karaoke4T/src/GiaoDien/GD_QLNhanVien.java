@@ -480,7 +480,7 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setBounds(0, 323, 1161, 290);
 		// Set the component orientation to RIGHT_TO_LEFT
-		scrollPane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+		
 		contentPane.add(scrollPane);
 		
 	    model = new DefaultTableModel();
