@@ -584,10 +584,10 @@ public class GD_QuanLyKhachHang extends JFrame implements ActionListener {
 				
 				lammoi();
 			}
-			JOptionPane.showMessageDialog(this, "Thêm Khách Hàng không Thành Công");
 			table.setModel(model);
-			updateTableData();
+			
 		}
+		updateTableData();
 	}
 	
 
@@ -630,7 +630,7 @@ public class GD_QuanLyKhachHang extends JFrame implements ActionListener {
 		String sdt = txtsdt.getText().toString();
 		String cccd = txtcmnd.getText().toString();
 		String dch = txtdc.getText().toString();
-<<<<<<< HEAD
+
 		String gt = "";
 		if(rdbtnNAM.isSelected()) {
 			gt = "Nam";
@@ -638,15 +638,6 @@ public class GD_QuanLyKhachHang extends JFrame implements ActionListener {
 		if(rdbtnNU.isSelected()) {
 			gt = "Nu";
 		}
-=======
-		String gt = null;
-//		if(rdbtnNAM.isSelected()) {
-//			gt = true;
-//		}
-//		if(rdbtnNU.isSelected()) {
-//			gt = false;
-//		}
->>>>>>> 82029ac62cd9fe537372b5c295d450fdf3875e49
 		return new KhachHang(makh, gt, ten, sdt, cccd, dch);
 		
 	}
@@ -656,17 +647,9 @@ public class GD_QuanLyKhachHang extends JFrame implements ActionListener {
 		ArrayList<KhachHang> ls = ds.doctubang();
 		
 		for(KhachHang s : ls) {
-<<<<<<< HEAD
 			
-			String [] rowData = {s.getMaKH(), s.isGioiTinh(), s.getTenKH(), s.getSDT()+"", s.getCMND()+"", s.getDiaChi()};
-=======
-//			if(s.isGioiTinh()) {
-//				gt = "Nam";
-//			}else {
-//				gt = "Nữ";
-//			}
 			String [] rowData = {s.getMaKH(), s.getGioiTinh(), s.getTenKH(), s.getSDT()+"", s.getCMND()+"", s.getDiaChi()};
->>>>>>> 82029ac62cd9fe537372b5c295d450fdf3875e49
+
 			model.addRow(rowData);
 			table.setModel(model);
 		}

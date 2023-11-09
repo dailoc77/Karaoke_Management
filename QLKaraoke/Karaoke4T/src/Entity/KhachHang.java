@@ -9,26 +9,12 @@ public class KhachHang {
 	private String tenKH;
 	private String SDT;
 	private String CMND;
-<<<<<<< HEAD
-	private String gioiTinh;
-	
-=======
 	private String diaChi;
 	public KhachHang() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public KhachHang(String maKH, String gioiTinh, String tenKH, String sDT, String cMND, String diaChi) {
-		super();
-		this.maKH = maKH;
-		this.gioiTinh = gioiTinh;
-		this.tenKH = tenKH;
-		SDT = sDT;
-		CMND = cMND;
-		this.diaChi = diaChi;
-	}
 	@Override
->>>>>>> 82029ac62cd9fe537372b5c295d450fdf3875e49
 	public int hashCode() {
 		return Objects.hash(CMND, SDT, diaChi, gioiTinh, maKH, tenKH);
 	}
@@ -45,9 +31,6 @@ public class KhachHang {
 				&& Objects.equals(diaChi, other.diaChi) && Objects.equals(gioiTinh, other.gioiTinh)
 				&& Objects.equals(maKH, other.maKH) && Objects.equals(tenKH, other.tenKH);
 	}
-<<<<<<< HEAD
-
-
 	public KhachHang(String maKH, String gioiTinh, String tenKH, String SDT, String CMND, String diaChi) {
 		super();
 		setCMND(CMND);
@@ -58,8 +41,7 @@ public class KhachHang {
 		setTenKH(tenKH);
 	}
 
-=======
->>>>>>> 82029ac62cd9fe537372b5c295d450fdf3875e49
+
 	public String getMaKH() {
 		return maKH;
 	}
@@ -90,27 +72,18 @@ public class KhachHang {
 	public void setCMND(String cMND) {
 		CMND = cMND;
 	}
-<<<<<<< HEAD
-
-	public String isGioiTinh() {
-		return gioiTinh;
-	}
-
-	public void setGioiTinh(String gioiTinh) {
-		this.gioiTinh = gioiTinh;
-	}
 
 	@Override
 	public String toString() {
 		return "KhachHang [maKH=" + maKH + ", tenKH=" + tenKH + ", diaChi=" + diaChi + ", SDT=" + SDT + ", CMND=" + CMND
 				+ ", gioiTinh=" + gioiTinh + "]";
-=======
+	}
 	public String getDiaChi() {
 		return diaChi;
 	}
 	public void setDiaChi(String diaChi) {
 		this.diaChi = diaChi;
->>>>>>> 82029ac62cd9fe537372b5c295d450fdf3875e49
+
 	}
 	
 	

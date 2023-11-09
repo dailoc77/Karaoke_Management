@@ -66,11 +66,7 @@ public class QLKH_DAO {
 		try {
 			smt = con.prepareStatement("insert into KhachHang values(?, ?, ?, ?, ?, ?)");
 			smt.setString(1, kh.getMaKH());
-<<<<<<< HEAD
-			smt.setString(2, kh.isGioiTinh());
-=======
 			smt.setString(2, kh.getGioiTinh());
->>>>>>> 82029ac62cd9fe537372b5c295d450fdf3875e49
 			smt.setString(3, kh.getTenKH());
 			smt.setString(4, kh.getSDT());
 			smt.setString(5, kh.getCMND());
@@ -89,7 +85,7 @@ public class QLKH_DAO {
 		try {
 			smt = con.prepareStatement("UPDATE KhachHang SET gioiTinh = ?, tenKH = ?, SDT = ?, CMND = ? , maDC = ? where maKH = ?");
 
-			smt.setString(1, kh.isGioiTinh());
+			smt.setString(1, kh.getGioiTinh());
 			smt.setString(2, kh.getTenKH());
 			smt.setString(3, kh.getSDT());
 			smt.setString(4, kh.getCMND());
