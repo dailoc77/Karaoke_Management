@@ -2,20 +2,34 @@ package Entity;
 
 public class Phong {
 	private String maPhong;
+	private String soNguoi;
 	private String tenPhong;
 	private LoaiPhong loaiPhong;
 	private double giaPhong;
 	private TrangThaiPhong trangThaiPhong;
 	private String chuThichPhong;
 	
-	public Phong(String maPhong, String tenPhong, LoaiPhong loaiPhong, double giaPhong, TrangThaiPhong trangThaiPhong, String chuThichPhong) {
+	public Phong(String maPhong,String soNguoi, String tenPhong, LoaiPhong loaiPhong, double giaPhong, TrangThaiPhong trangThaiPhong, String chuThichPhong) {
 		setChuThichPhong(chuThichPhong);
+		setSoNguoi(soNguoi);
 		setGiaPhong(giaPhong);
 		setLoaiPhong(loaiPhong);
 		setMaPhong(maPhong);
 		setTenPhong(tenPhong);
 		setTrangThaiPhong(trangThaiPhong);
 	}
+	
+	
+
+	public Phong(String maPhong, String soNguoi, String tenPhong,TrangThaiPhong trangThaiPhong, LoaiPhong loaiPhong) {
+		setMaPhong(maPhong);
+		setSoNguoi(soNguoi);
+		setTenPhong(tenPhong);
+		setTrangThaiPhong(trangThaiPhong);
+		setLoaiPhong(loaiPhong);
+	}
+
+
 
 	public String getMaPhong() {
 		return maPhong;
@@ -23,6 +37,14 @@ public class Phong {
 
 	public void setMaPhong(String maPhong) {
 		this.maPhong = maPhong;
+	}
+	
+	public String getSoNguoi() {
+		return soNguoi;
+	}
+
+	public void setSoNguoi(String soNguoi) {
+		this.soNguoi = soNguoi;
 	}
 
 	public String getTenPhong() {

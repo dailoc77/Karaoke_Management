@@ -451,17 +451,17 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 		panel.add(lblNewLabel_1_2);
 		
 		
-		LoaiNhanVien_DAO dslnv = new LoaiNhanVien_DAO();
-		List<LoaiNhanVien> danhSachLoaiNV = dslnv.getAllLoaiNhanVien();
-		    for (LoaiNhanVien loaiNhanVien : danhSachLoaiNV) {
-		        ((MutableComboBoxModel<LoaiNhanVien>) model).addElement(loaiNhanVien);
-		    }
-
-		JComboBox<LoaiNhanVien> cbLoaiNhanVien = new JComboBox<>(data);
-		cbLoaiNhanVien.setBounds(538, 37, 104, 27);
-		cbLoaiNhanVien.setEditable(true);
-		    
-		panel.add(cbLoaiNhanVien);
+//		LoaiNhanVien_DAO dslnv = new LoaiNhanVien_DAO();
+//		List<LoaiNhanVien> danhSachLoaiNV = dslnv.getAllLoaiNhanVien();
+//		    for (LoaiNhanVien loaiNhanVien : danhSachLoaiNV) {
+//		        ((MutableComboBoxModel<LoaiNhanVien>) model).addElement(loaiNhanVien);
+//		    }
+//
+//		JComboBox<LoaiNhanVien> cbLoaiNhanVien = new JComboBox<>(data);
+//		cbLoaiNhanVien.setBounds(538, 37, 104, 27);
+//		cbLoaiNhanVien.setEditable(true);
+//		    
+//		panel.add(cbLoaiNhanVien);
 		
 		JLabel lblNewLabel_1_2_1 = new JLabel("Loại NV");
 		lblNewLabel_1_2_1.setFont(new Font("Tahoma", Font.PLAIN, 16));

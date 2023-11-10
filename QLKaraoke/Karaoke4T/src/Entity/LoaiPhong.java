@@ -6,8 +6,8 @@ public class LoaiPhong {
 	private double giaTien;
 	
 	public LoaiPhong(String maLoaiPhong, String tenLoaiPhong, double giaTien) {
-		setTenLoaiPhong(tenLoaiPhong);
 		setMaLoaiPhong(maLoaiPhong);
+		setTenLoaiPhong(tenLoaiPhong);
 		setGiaTien(giaTien);
 	}
 
