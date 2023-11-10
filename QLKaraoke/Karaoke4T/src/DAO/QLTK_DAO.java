@@ -137,4 +137,23 @@ public class QLTK_DAO {
     public ArrayList<TaiKhoanNhanVien> getDs(){
 		return dstk;
 	}
+    public int getMaxMaTaiKhoan() {
+        int maxMaTK = 0;
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+            conn = connectDB.getInstance().getConnection();
+            String query = "SELECT MAX(CONVERT(INT, SUBSTRING(maTK, 3, LEN(maTK)))) FROM TaiKhoan";
+            pstmt = conn.prepareStatement(query);
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                maxMaTK = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return maxMaTK;
+    }
 }
