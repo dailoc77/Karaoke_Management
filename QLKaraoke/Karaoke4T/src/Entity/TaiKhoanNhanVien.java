@@ -7,10 +7,10 @@ public class TaiKhoanNhanVien {
 	private String tenNV;
 	
 	public TaiKhoanNhanVien(String maTaiKhoan, String tenTaiKhoan, String matKhau, String tenNV) {
-		setTenTaiKhoan(tenTaiKhoan);
-		setTenNV(tenNV);
-		setMatKhau(matKhau);
 		setMaTaiKhoan(maTaiKhoan);
+		setTenTaiKhoan(tenTaiKhoan);
+		setMatKhau(matKhau);
+		setTenNV(tenNV);
 	}
 
 	public String getMaTaiKhoan() {

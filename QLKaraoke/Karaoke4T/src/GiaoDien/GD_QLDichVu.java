@@ -82,6 +82,7 @@ public class GD_QLDichVu extends JFrame implements ActionListener{
 	 * Create the frame.
 	 */
 	public GD_QLDichVu() {
+		initComponents();
 		setBackground(Color.WHITE);
 		setTitle("Giao Diện Quản Lý Dịch Vụ");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -811,6 +812,35 @@ public class GD_QLDichVu extends JFrame implements ActionListener{
             updateClock();
         }
 	}
+	
+	private void initComponents() {
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+
+        pack();
+    }
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+         GD_Main_QL mainql=new GD_Main_QL();
+         mainql.setVisible(true);
+    }
+	
 	//dong ho
     private void updateClock() {
         Calendar cal = Calendar.getInstance();

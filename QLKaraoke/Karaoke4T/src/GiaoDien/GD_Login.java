@@ -3,6 +3,9 @@ package GiaoDien;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import DAO.QLTK_DAO;
+
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
@@ -98,33 +101,44 @@ public class GD_Login extends JFrame implements ActionListener{
 		lblNewLabel.setIcon(new ImageIcon(GD_Login.class.getResource("/Imgs/BG_login.jpg")));
 		lblNewLabel.setBounds(0, 0, 728, 468);
 		contentPane.add(lblNewLabel);
-
-	
 	}
 	@SuppressWarnings("deprecation")
 	@Override
 	public void actionPerformed(ActionEvent e) {
-			if(e.getSource().equals(btnDangNhap)) {
-				if(textField.getText().equals("")){
-		            JOptionPane.showMessageDialog(this, "Vui lòng đăng nhập tài khoản");
-		        } else if(passwordField.getText().equals("")){
-		            JOptionPane.showMessageDialog(this, "Vui lòng đăng nhập mật khẩu");
-		        } else if(textField.getText().equals("admin")){
-		                if(passwordField.getText().equals("123")){   
-		                        GD_Main_QL mng =new GD_Main_QL();
-		                        mng.setVisible(true);
-		                        JOptionPane.showMessageDialog(null, "Chào mừng bạn đến với Karaoke4T!","Thông báo",JOptionPane.INFORMATION_MESSAGE);
-		                        dispose();
-		                }
-		                else{
-		                    JOptionPane.showMessageDialog(this, "sai mật khẩu");
-		                }
-		        }else{
-		            JOptionPane.showMessageDialog(this, "đăng nhập thất bại");
-		        }
-			}
-	        
-		}
+        if (e.getSource().equals(btnDangNhap)) {
+            if (textField.getText().equals("")) {
+                JOptionPane.showMessageDialog(this, "Vui lòng đăng nhập tài khoản");
+            } else if (passwordField.getText().equals("")) {
+                JOptionPane.showMessageDialog(this, "Vui lòng đăng nhập mật khẩu");
+            } else {
+                String username = textField.getText();
+                String password = passwordField.getText();
+                
+                if (username.equals("admin")) {
+                    if (password.equals("karaoke4t")) {
+                        GD_Main_QL mng = new GD_Main_QL();
+                        mng.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                        mng.setVisible(true);
+                        JOptionPane.showMessageDialog(null, "Chào mừng bạn đến với Karaoke4T!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                        dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Sai mật khẩu");
+                    }
+                } else {
+                    // Kiểm tra đăng nhập từ cơ sở dữ liệu sử dụng DAO
+                    if (QLTK_DAO.checkLogin(username, password)) {
+                        GD_Main_NV employeeMain = new GD_Main_NV();
+                        employeeMain.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                        employeeMain.setVisible(true);
+                        JOptionPane.showMessageDialog(null, "Chào mừng bạn đến với Karaoke4T!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                        dispose(); // Đóng giao diện đăng nhập
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Sai mật khẩu");
+                    }
+                }
+            }
+        }
+    }
 	public static void main(String[] args) {
 		try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -134,13 +148,13 @@ public class GD_Login extends JFrame implements ActionListener{
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GD_DatPhong.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GD_Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GD_DatPhong.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GD_Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GD_DatPhong.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GD_Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GD_DatPhong.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GD_Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
 		GD_Login run = new GD_Login();
 		run.setVisible(true);
