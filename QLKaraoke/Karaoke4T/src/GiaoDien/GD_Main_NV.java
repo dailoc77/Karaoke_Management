@@ -70,7 +70,7 @@ public class GD_Main_NV extends JFrame implements ActionListener{
 	public GD_Main_NV() {
 		setBackground(Color.WHITE);
 		setTitle("Giao Diện Nhân Viên");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setBounds(100, 100, 1175, 650);
 		contentPane = new JPanel();
@@ -170,6 +170,7 @@ public class GD_Main_NV extends JFrame implements ActionListener{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				GD_DatPhong gddatphong = new GD_DatPhong();
+				gddatphong.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				gddatphong.setVisible(true);
 				dispose();
 			}
@@ -188,6 +189,7 @@ public class GD_Main_NV extends JFrame implements ActionListener{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				GD_ThuePhong gdthuephong = new GD_ThuePhong();
+				gdthuephong.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				gdthuephong.setVisible(true);
 				dispose();
 			}
@@ -225,6 +227,7 @@ public class GD_Main_NV extends JFrame implements ActionListener{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				GD_TraPhong gdtraphong = new GD_TraPhong();
+				gdtraphong.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				gdtraphong.setVisible(true);
 				dispose();
 			}
