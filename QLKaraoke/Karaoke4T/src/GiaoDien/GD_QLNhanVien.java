@@ -488,13 +488,12 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 		model.addColumn("Họ Tên");
 		model.addColumn("Giới tính");
 		model.addColumn("Năm Sinh");
-		
 		model.addColumn("Số CMND");
 		model.addColumn("Số Điện Thoại");
 		model.addColumn("Trạng Thái Làm Việc");
 		model.addColumn("Địa Chỉ");
 		model.addColumn("Loại nhân viên");
-		model.addColumn("Mã tài khoản");
+//		model.addColumn("Mã tài khoản");
 
 		table.setModel(model);
 		

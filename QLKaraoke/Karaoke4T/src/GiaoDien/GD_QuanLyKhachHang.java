@@ -95,6 +95,15 @@ public class GD_QuanLyKhachHang extends JFrame implements ActionListener {
 	 * Create the frame.
 	 */
 	public GD_QuanLyKhachHang() {
+		
+		try {
+			connectDB.getInstance().connect();
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		QLKH_DAO dskh = new QLKH_DAO();
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1175, 650);
 		setTitle("Giao Diện Khách Hàng");
@@ -510,7 +519,7 @@ public class GD_QuanLyKhachHang extends JFrame implements ActionListener {
 		
 		connectDB.getInstance().connect();
 		updateTableData();
-//		loadTable();
+
 
 	}
 	
@@ -562,13 +571,7 @@ public class GD_QuanLyKhachHang extends JFrame implements ActionListener {
 	}
 
 	protected void btnthemActionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		if(txtten.getText().equals("")|| txtsdt.getText().equals("")|| txtcmnd.getText().equals("")||
-				txtdc.getText().equals("") ) {
-			
-				JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ thông tin!");
-				
-		}else {
+		
 			KhachHang kh = reverSPFromTextField();
 			String gt = "";
 			if(dskh.create(kh)) {
@@ -581,16 +584,14 @@ public class GD_QuanLyKhachHang extends JFrame implements ActionListener {
 				Object [] rowData = {txtmakh.getText(), gt, txtten.getText(), txtsdt.getText(), txtcmnd.getText(), txtdc.getText()};
 				model.addRow(rowData);
 				JOptionPane.showMessageDialog(this, "Thêm Khách Hàng Thành Công");
-				
 				lammoi();
 			}
-			table.setModel(model);
-			
-		}
-		updateTableData();
+//			table.setModel(model);
+//			updateTableData();
+			loadTable();
+		
 	}
 	
-
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == timer) {
             // Cập nhật thời gian
@@ -656,13 +657,15 @@ public class GD_QuanLyKhachHang extends JFrame implements ActionListener {
 		
 	}
 	public void loadTable() {
+		QLKH_DAO dskh = new QLKH_DAO();
 		model.setRowCount(0);
-		QLKH_DAO ds = new QLKH_DAO();
-		ArrayList<KhachHang> ls = ds.getDs();
-		ls.forEach(x->{
-			model.addRow(new Object[] {x.getMaKH(), x.getGioiTinh(), x.getTenKH(), x.getSDT(), x.getCMND(), x.getDiaChi()});
-			table.setModel(model);
-		});
+			for(KhachHang s : dskh.doctubang()) {
+			
+			Object  rowData[] = {s.getMaKH(), s.getGioiTinh(), s.getTenKH(), s.getSDT()+"", s.getCMND()+"", s.getDiaChi()};
+
+			model.addRow(rowData);
+
+		}
 	}
 	public void mouseClicked(MouseEvent e) {
 		int row = table.getSelectedRow();
@@ -677,7 +680,6 @@ public class GD_QuanLyKhachHang extends JFrame implements ActionListener {
 		txtsdt.setText(table.getValueAt(row, 3).toString());
 		txtcmnd.setText(table.getValueAt(row, 4).toString());
 		txtdc.setText(table.getValueAt(row, 5).toString());
-		
 	}
 	public void lammoi() {
 		txtcmnd.setText("");
