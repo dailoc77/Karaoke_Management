@@ -102,20 +102,17 @@ public class QLTK_DAO {
 		PreparedStatement smt = null;
 		int n = 0;
 		try {
-<<<<<<< HEAD
 			smt = con.prepareStatement("UPDATE TaiKhoan SET maTK = ?, tenTK = ?, MK = ? , tenNV = ? where maTK = ?");
 			smt.setString(1, tk.getMaTaiKhoan());
 			smt.setString(2, tk.getTenTaiKhoan());
 			smt.setString(3, tk.getMatKhau());
 			smt.setString(4, tk.getTenNV());
 	        smt.setString(5, tk.getMaTaiKhoan()); // Mã Tài Khoản cũ để xác định dòng cần cập nhật
-=======
 			smt = con.prepareStatement("UPDATE TaiKhoan SET tenTK = ?, MK = ? , tenNV = ? where maTK = ?");
 			smt.setString(1, tk.getTenTaiKhoan());
 			smt.setString(2, tk.getMatKhau());
 			smt.setString(3, tk.getTenNV());
 			smt.setString(4, tk.getMaTaiKhoan());
->>>>>>> 0f816065c14d4554a228ec24d67278c11f812306
 			
 			n = smt.executeUpdate();
 		} catch (Exception e) {
