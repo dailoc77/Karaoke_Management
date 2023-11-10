@@ -2,7 +2,7 @@ package GiaoDien;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.ComponentOrientation;
+
 import java.awt.Desktop;
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -10,12 +10,12 @@ import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.net.URL;
-import java.sql.Date;
-import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
+
 import javax.swing.Timer;
-import java.util.TimerTask;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -26,16 +26,18 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
-import DAO.QLKH_DAO;
-import DAO.QLNV_DAO;
-import Entity.KhachHang;
-import Entity.NhanVien;
+import DAO.*;
+import Entity.*;
 import connectDB.connectDB;
+import test.dao;
+import test.en;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
+import javax.swing.MutableComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -44,25 +46,33 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.SystemColor;
 import javax.swing.JTable;
-import javax.swing.UIManager;
-import javax.swing.SwingConstants;
+
 import javax.swing.JScrollBar;
 import javax.swing.JComboBox;
 public class GD_QLNhanVien extends JFrame implements ActionListener {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
+	private JTextField txtten;
+	private JTextField txtsdt;
+//	private JTextField textField_2;
+	private JTextField txtcmnd;
+	private JTextField txtdc;
 	private JTable table;
 	DefaultTableModel model;
 	private JLabel lblClock;
 	private Timer timer;
-	private JTextField textField_5;
-	private JTextField textField_6;
+	private JTextField txtns;
+	private JTextField txtmatk;
+	private JComboBox<LoaiNhanVien> cbLoaiNhanVien;
+	private JComboBox<String> cbtrangthai;
 	QLNV_DAO ds = new QLNV_DAO();
+	LoaiNhanVien_DAO dslnv = new LoaiNhanVien_DAO();
+	DefaultComboBoxModel<LoaiNhanVien> data = new DefaultComboBoxModel<>();
+
 	/**
 	 * Launch the application.
 	 */
@@ -104,6 +114,7 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 	public GD_QLNhanVien() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1175, 650);
+		setResizable(false);
 		setTitle("Giao Diện Nhân Viên");
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -146,13 +157,6 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 
         timer = new Timer(0, this);
         timer.start();
-		
-//         -------------------------------
-		JLabel lblavatar = new JLabel("");
-		lblavatar.setHorizontalAlignment(SwingConstants.CENTER);
-		lblavatar.setIcon(new ImageIcon(GD_TaiKhoan.class.getResource("/Imgs/t1 1.png")));
-		lblavatar.setBounds(90, -444, 1333, 957);
-		contentPane.add(lblavatar);
 		
 		JLabel lblquanly = new JLabel("QL:");
 		lblquanly.setForeground(Color.WHITE);
@@ -327,48 +331,48 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 		lblNewLabel_1_4.setBounds(422, 90, 55, 20);
 		panel.add(lblNewLabel_1_4);
 		
-		textField = new JTextField();
-		textField.setBounds(31, 37, 173, 27);
-		panel.add(textField);
-		textField.setColumns(10);
+		txtten = new JTextField();
+		txtten.setBounds(31, 37, 173, 27);
+		panel.add(txtten);
+		txtten.setColumns(10);
 		
 		//rad button
-		JRadioButton rdbtnNewRadioButton = new JRadioButton("Nam");
-		rdbtnNewRadioButton.setBounds(241, 37, 67, 23);
-		rdbtnNewRadioButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		rdbtnNewRadioButton.setOpaque(false);
-		rdbtnNewRadioButton.setContentAreaFilled(false);
-		rdbtnNewRadioButton.setFocusPainted(false);
-		panel.add(rdbtnNewRadioButton);
+		JRadioButton rdbtnNAM = new JRadioButton("Nam");
+		rdbtnNAM.setBounds(241, 37, 67, 23);
+		rdbtnNAM.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		rdbtnNAM.setOpaque(false);
+		rdbtnNAM.setContentAreaFilled(false);
+		rdbtnNAM.setFocusPainted(false);
+		panel.add(rdbtnNAM);
 	
 		
-		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("Nữ");
-		rdbtnNewRadioButton_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		rdbtnNewRadioButton_1.setBounds(350, 37, 55, 23);
-		rdbtnNewRadioButton_1.setOpaque(false);
-		panel.add(rdbtnNewRadioButton_1);
+		JRadioButton rdbtnNU = new JRadioButton("Nữ");
+		rdbtnNU.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		rdbtnNU.setBounds(350, 37, 55, 23);
+		rdbtnNU.setOpaque(false);
+		panel.add(rdbtnNU);
 		
 		ButtonGroup bg = new ButtonGroup();
-		bg.add(rdbtnNewRadioButton);
-		bg.add(rdbtnNewRadioButton_1);
-		panel.add(rdbtnNewRadioButton);
-		panel.add(rdbtnNewRadioButton_1);
+		bg.add(rdbtnNAM);
+		bg.add(rdbtnNU);
+		panel.add(rdbtnNAM);
+		panel.add(rdbtnNU);
 		//radbuton//
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(31, 123, 173, 27);
-		panel.add(textField_1);
+		txtsdt = new JTextField();
+		txtsdt.setColumns(10);
+		txtsdt.setBounds(31, 123, 173, 27);
+		panel.add(txtsdt);
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		textField_3.setBounds(241, 123, 164, 27);
-		panel.add(textField_3);
+		txtcmnd = new JTextField();
+		txtcmnd.setColumns(10);
+		txtcmnd.setBounds(241, 123, 164, 27);
+		panel.add(txtcmnd);
 		
-		textField_4 = new JTextField();
-		textField_4.setColumns(10);
-		textField_4.setBounds(422, 123, 220, 27);
-		panel.add(textField_4);
+		txtdc = new JTextField();
+		txtdc.setColumns(10);
+		txtdc.setBounds(422, 123, 220, 27);
+		panel.add(txtdc);
 		
 		//button them
 		testbutton.Buttontest btnthem = new testbutton.Buttontest();
@@ -436,38 +440,47 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 		});
 		panel.add(btnLmMi);
 		
-		textField_5 = new JTextField();
-		textField_5.setColumns(10);
-		textField_5.setBounds(422, 37, 67, 27);
-		panel.add(textField_5);
+		txtns = new JTextField();
+		txtns.setColumns(10);
+		txtns.setBounds(422, 37, 67, 27);
+		panel.add(txtns);
 		
 		JLabel lblNewLabel_1_2 = new JLabel("Năm Sinh");
 		lblNewLabel_1_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblNewLabel_1_2.setBounds(422, 10, 79, 28);
 		panel.add(lblNewLabel_1_2);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(538, 37, 104, 27);
-		panel.add(comboBox);
+		
+		LoaiNhanVien_DAO dslnv = new LoaiNhanVien_DAO();
+		List<LoaiNhanVien> danhSachLoaiNV = dslnv.getAllLoaiNhanVien();
+		    for (LoaiNhanVien loaiNhanVien : danhSachLoaiNV) {
+		        ((MutableComboBoxModel<LoaiNhanVien>) model).addElement(loaiNhanVien);
+		    }
+
+		JComboBox<LoaiNhanVien> cbLoaiNhanVien = new JComboBox<>(data);
+		cbLoaiNhanVien.setBounds(538, 37, 104, 27);
+		cbLoaiNhanVien.setEditable(true);
+		    
+		panel.add(cbLoaiNhanVien);
 		
 		JLabel lblNewLabel_1_2_1 = new JLabel("Loại NV");
 		lblNewLabel_1_2_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblNewLabel_1_2_1.setBounds(538, 10, 79, 28);
 		panel.add(lblNewLabel_1_2_1);
 		
-		textField_6 = new JTextField();
-		textField_6.setColumns(10);
-		textField_6.setBounds(674, 123, 159, 27);
-		panel.add(textField_6);
+		txtmatk = new JTextField();
+		txtmatk.setColumns(10);
+		txtmatk.setBounds(674, 123, 159, 27);
+		panel.add(txtmatk);
 		
 		JLabel lblNewLabel_1_4_1 = new JLabel("Chú Thích");
 		lblNewLabel_1_4_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblNewLabel_1_4_1.setBounds(674, 90, 85, 20);
 		panel.add(lblNewLabel_1_4_1);
 		
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setBounds(674, 37, 159, 27);
-		panel.add(comboBox_1);
+		JComboBox cbtrangthai = new JComboBox();
+		cbtrangthai.setBounds(674, 37, 159, 27);
+		panel.add(cbtrangthai);
 		
 		JLabel lblNewLabel_1_2_1_1 = new JLabel("Trạng Thái Làm Việc");
 		lblNewLabel_1_2_1_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -500,6 +513,13 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 		JScrollBar scrollBar = new JScrollBar(JScrollBar.VERTICAL, 30, 40, 0, 500);
 		scrollPane.setRowHeaderView(scrollBar);
 		
+//         -------------------------------
+		JLabel lblavatar = new JLabel("");
+		lblavatar.setHorizontalAlignment(SwingConstants.CENTER);
+		lblavatar.setIcon(new ImageIcon(GD_TaiKhoan.class.getResource("/Imgs/t1 1.png")));
+		lblavatar.setBounds(90, -444, 1333, 957);
+		contentPane.add(lblavatar);
+		
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setBounds(0, 0, 1161, 613);
 		contentPane.add(lblNewLabel);
@@ -510,6 +530,8 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 		
 		connectDB.getInstance().connect();
 		updateTableData();
+			
+		
 	}
 	
 	
@@ -572,7 +594,7 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 		QLNV_DAO ds = new QLNV_DAO();
 		ArrayList<NhanVien> ls = ds.doctubang();
 		for(NhanVien s : ls) {
-			String [] rowData = {s.getMaNV(), s.getTenNV(),s.getGioiTinh(), s.getNgaySinh(), s.getCMND(),s.getSDT(), s.getTrangThaiLamViec() , s.getMaDC(), s.getMaLNV(),s.getMaTK()};
+			String [] rowData = {s.getMaNV(), s.getTenNV(),s.getGioiTinh(), s.getNgaySinh(), s.getCMND(),s.getSDT(), s.getTrangThaiLamViec() , s.getMaDC(), s.getTenLNV()+"" ,s.getMaTK()+""};
 			model.addRow(rowData);
 			table.setModel(model);
 		}
@@ -580,5 +602,8 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 	}
 	
 
+
+   
+   
 	
 }

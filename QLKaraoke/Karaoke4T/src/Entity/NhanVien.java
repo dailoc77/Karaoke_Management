@@ -12,14 +12,14 @@ public class NhanVien {
 	private String SDT;
 	private String trangThaiLamViec;
 	private String maDC;
-	private String maLNV;
-	private String maTK;
+	private LoaiNhanVien tenLNV;
+	private TaiKhoanNhanVien maTK;
 	public NhanVien() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	public NhanVien(String maNV, String tenNV, String gioiTinh, String ngaySinh, String cMND, String sDT,
-			String trangThaiLamViec, String maDC, String maLNV,String maTK) {
+			String trangThaiLamViec, String maDC, LoaiNhanVien tenLNV, TaiKhoanNhanVien maTK) {
 		setMaNV(maNV);
 		setTenNV(tenNV);
 		setGioiTinh(gioiTinh);
@@ -28,7 +28,7 @@ public class NhanVien {
 		setSDT(sDT);
 		setTrangThaiLamViec(trangThaiLamViec);
 		setMaDC(maDC);
-		setMaLNV(maLNV);
+		setTenLNV(tenLNV);
 		setMaTK(maTK);
 	}
 	public String getMaNV() {
@@ -79,21 +79,21 @@ public class NhanVien {
 	public void setMaDC(String maDC) {
 		this.maDC = maDC;
 	}
-	public String getMaLNV() {
-		return maLNV;
+	public LoaiNhanVien getTenLNV() {
+		return tenLNV;
 	}
-	public void setMaLNV(String maLNV) {
-		this.maLNV = maLNV;
+	public void setTenLNV(LoaiNhanVien tenLNV) {
+		this.tenLNV = tenLNV;
 	}
-	public String getMaTK() {
+	public TaiKhoanNhanVien getMaTK() {
 		return maTK;
 	}
-	public void setMaTK(String maTK) {
+	public void setMaTK(TaiKhoanNhanVien maTK) {
 		this.maTK = maTK;
 	}
 	@Override
 	public int hashCode() {
-		return Objects.hash(CMND, SDT, gioiTinh, maDC, maLNV, maNV, maTK, ngaySinh, tenNV, trangThaiLamViec);
+		return Objects.hash(CMND, SDT, gioiTinh, maDC, tenLNV, maNV, maTK, ngaySinh, tenNV, trangThaiLamViec);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -106,7 +106,7 @@ public class NhanVien {
 		NhanVien other = (NhanVien) obj;
 		return Objects.equals(CMND, other.CMND) && Objects.equals(SDT, other.SDT)
 				&& Objects.equals(gioiTinh, other.gioiTinh) && Objects.equals(maDC, other.maDC)
-				&& Objects.equals(maLNV, other.maLNV) && Objects.equals(maNV, other.maNV)
+				&& Objects.equals(tenLNV, other.tenLNV) && Objects.equals(maNV, other.maNV)
 				&& Objects.equals(maTK, other.maTK) && Objects.equals(ngaySinh, other.ngaySinh)
 				&& Objects.equals(tenNV, other.tenNV) && Objects.equals(trangThaiLamViec, other.trangThaiLamViec);
 	}
@@ -114,7 +114,7 @@ public class NhanVien {
 	public String toString() {
 		return "NhanVien [maNV=" + maNV + ", tenNV=" + tenNV + ", gioiTinh=" + gioiTinh + ", ngaySinh=" + ngaySinh
 				+ ", CMND=" + CMND + ", SDT=" + SDT + ", trangThaiLamViec=" + trangThaiLamViec + ", maDC=" + maDC
-				+ ", maLNV=" + maLNV + ", maTK=" + maTK + "]";
+				+ ", maLNV=" + tenLNV + ", maTK=" + maTK + "]";
 	}
 	
 	
