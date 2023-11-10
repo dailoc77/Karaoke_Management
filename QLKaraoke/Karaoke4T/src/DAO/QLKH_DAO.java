@@ -83,7 +83,7 @@ public class QLKH_DAO {
 		PreparedStatement smt = null;
 		int n = 0;
 		try {
-			smt = con.prepareStatement("UPDATE KhachHang SET gioiTinh = ?, tenKH = ?, SDT = ?, CMND = ? , maDC = ? where maKH = ?");
+			smt = con.prepareStatement("UPDATE KhachHang SET gioiTinh = ?, tenKH = ?, SDT = ?, CMND = ? , diaChi = ? where maKH = ?");
 
 			smt.setString(1, kh.getGioiTinh());
 			smt.setString(2, kh.getTenKH());

@@ -1,15 +1,15 @@
-package Entity;
+package test;
 
 import java.util.Objects;
 
-public class LoaiNhanVien {
+public class en {
 	private String maLNV;
 	private String tenLNV;
-	public LoaiNhanVien() {
+	public en() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public LoaiNhanVien(String maLNV, String tenLNV) {
+	public en(String maLNV, String tenLNV) {
 		super();
 		this.maLNV = maLNV;
 		this.tenLNV = tenLNV;
@@ -42,10 +42,9 @@ public class LoaiNhanVien {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		LoaiNhanVien other = (LoaiNhanVien) obj;
+		en other = (en) obj;
 		return Objects.equals(maLNV, other.maLNV) && Objects.equals(tenLNV, other.tenLNV);
 	}
 	
-	
-	
 }
+
