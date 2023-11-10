@@ -42,6 +42,7 @@ import javax.swing.JScrollBar;
 import com.toedter.calendar.JDayChooser;
 import com.toedter.calendar.JMonthChooser;
 import com.toedter.calendar.JYearChooser;
+
 import com.toedter.calendar.JDateChooser;
 import com.toedter.calendar.JCalendar;
 public class GD_ThongKeKhachHang extends JFrame implements ActionListener {
@@ -92,6 +93,7 @@ public class GD_ThongKeKhachHang extends JFrame implements ActionListener {
 	 * Create the frame.
 	 */
 	public GD_ThongKeKhachHang() {
+		initComponents();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1175, 650);
 		contentPane = new JPanel();
@@ -396,6 +398,34 @@ public class GD_ThongKeKhachHang extends JFrame implements ActionListener {
 		lblNewLabel.setIcon(new ImageIcon(GD_QuanLyKhachHang.class.getResource("/Imgs/370.png")));
 
 	}
+	
+    private void initComponents() {
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+
+        pack();
+    }
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+         GD_Main_NV mainnv=new GD_Main_NV();
+         mainnv.setVisible(true);
+    }
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == timer) {

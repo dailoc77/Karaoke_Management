@@ -83,6 +83,7 @@ public class GD_DatDichVu extends JFrame implements ActionListener{
 	 * Create the frame.
 	 */
 	public GD_DatDichVu() {
+		initComponents();
 		setBackground(Color.WHITE);
 		setTitle("Đặt Dịch Vụ");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -760,6 +761,35 @@ public class GD_DatDichVu extends JFrame implements ActionListener{
 		// TODO Auto-generated method stub
 		
 	}
+	
+	private void initComponents() {
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+
+        pack();
+    }
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+         GD_Main_NV mainnv=new GD_Main_NV();
+         mainnv.setVisible(true);
+    }
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == timer) {
