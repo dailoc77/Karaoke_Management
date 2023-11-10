@@ -719,17 +719,22 @@ public class GD_PhongHat extends JFrame implements ActionListener {
         lblClock.setText(time);
     }
     
+    
+    
     private void loadData() {
 		QLPH_DAO ds = new QLPH_DAO();
 		ArrayList<Phong> listPhong = ds.docbang();
 		int x = 66;
 		int x2 = 66;
-		
-		for(Phong ph : listPhong) {
+		draw(listPhong,x,x2);
+	}
+    
+    private void draw(ArrayList<Phong> list , int x , int x2) {
+    	for(Phong ph : list) {
 			testbutton.Buttontest btn_icon_phonghat = new Buttontest();
-//			testbutton.Buttontest btn_icon_phongvip = new Buttontest();
-			if(listPhong.indexOf(ph) >= 5) {
-				if(ph.getLoaiPhong().getTenLoaiPhong().equals("Phòng thường")) {
+			System.out.println(list.indexOf(ph));
+			if(list.indexOf(ph) >= 5) {
+				if(ph.getLoaiPhong().getTenLoaiPhong().equals("Phòng Thường")) {
 					btn_icon_phonghat.setIcon(new ImageIcon(GD_PhongHat.class.getResource("/Imgs/micro.png")));
 					btn_icon_phonghat.setBounds(x2, 252, 88, 85);
 					pnl_danhsachphonghat.add(btn_icon_phonghat);
@@ -740,8 +745,8 @@ public class GD_PhongHat extends JFrame implements ActionListener {
 					pnl_danhsachphonghat.add(btn_icon_phonghat);
 					x2 += 147;
 				}
-			}else {
-				if(ph.getLoaiPhong().getTenLoaiPhong().equals("Phòng thường")) {
+			}else { 
+				if(ph.getLoaiPhong().getTenLoaiPhong().equals("Phòng Thường")) {
 					btn_icon_phonghat.setIcon(new ImageIcon(GD_PhongHat.class.getResource("/Imgs/micro.png")));
 					btn_icon_phonghat.setBounds(x, 110, 88, 85);
 					pnl_danhsachphonghat.add(btn_icon_phonghat);
@@ -753,8 +758,10 @@ public class GD_PhongHat extends JFrame implements ActionListener {
 					x += 147;
 				}
 			}
-			
+			// Notes:
+			// Phòng Thường
+			// nen xai Enum: enum loaiphong { thuong,vip }
+			// uu tien xai so: 0 (nam), 1 (nu)
 		}
-		
-	}
+    }
 }
