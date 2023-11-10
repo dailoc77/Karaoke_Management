@@ -44,13 +44,11 @@ import java.util.GregorianCalendar;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
-import DAO.QLNV_DAO;
 import DAO.QLTK_DAO;
-import Entity.NhanVien;
-import Entity.TaiKhoanNhanVien;
+import Entity.*;
 import connectDB.connectDB;
 import testbutton.Buttontest;
-
+ 
 
 public class GD_TaiKhoan extends JFrame implements ActionListener{
 	/**
@@ -58,12 +56,13 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField txtHoTen, txtMaKH, txtDiaChi, txtTaiKhoan;
+	private JTextField txtMaTK, txtmk, txtTaiKhoan, txtTenNV;
 	private JTable table;
 	DefaultTableModel model;
 	private JLabel lblClock;
 	private Timer timer;
 	private testbutton.Buttontest btnthem, btnxoa, btnlammoi, btnsua;
+	QLTK_DAO dstk = new QLTK_DAO();
 	/**
 	 * Launch the application.
 	 */
@@ -102,6 +101,15 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 	 * Create the frame.
 	 */
 	public GD_TaiKhoan() {
+		initComponents();
+		try {
+			connectDB.getInstance().connect();
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		QLTK_DAO dstk = new QLTK_DAO();
+		
 		setBackground(Color.WHITE);
 		setTitle("Giao Diện Tài Khoản");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -285,33 +293,33 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 		panel.setLayout(null);
 		contentPane.add(panel);
 
-		JLabel lblhoten = new JLabel("Nhập Họ Tên");
+		JLabel lblhoten = new JLabel("Mã Tài Khoản");
 		lblhoten.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblhoten.setBounds(31, 10, 159, 28);
 		panel.add(lblhoten);
 		
-		txtHoTen = new JTextField();
-		txtHoTen.setBounds(31, 37, 202, 27);
-		panel.add(txtHoTen);
-		txtHoTen.setColumns(10);
+		txtMaTK = new JTextField();
+		txtMaTK.setBounds(31, 37, 202, 27);
+		panel.add(txtMaTK);
+		txtMaTK.setColumns(10);
 
-		JLabel lblmakh = new JLabel("Số Điện Thoại");
+		JLabel lblmakh = new JLabel("Tên Nhân Viên");
 		lblmakh.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblmakh.setBounds(31, 90, 145, 23);
 		panel.add(lblmakh);
-		txtMaKH = new JTextField();
-		txtMaKH.setColumns(10);
-		txtMaKH.setBounds(31, 123, 202, 27);
-		panel.add(txtMaKH);
+		txtTenNV = new JTextField();
+		txtTenNV.setColumns(10);
+		txtTenNV.setBounds(31, 123, 202, 27);
+		panel.add(txtTenNV);
 		
 		JLabel lbldiachi = new JLabel("Mật Khẩu");
 		lbldiachi.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lbldiachi.setBounds(520, 91, 145, 20);
 		panel.add(lbldiachi);
-		txtDiaChi = new JTextField();
-		txtDiaChi.setColumns(10);
-		txtDiaChi.setBounds(520, 121, 241, 27);
-		panel.add(txtDiaChi);
+		txtmk = new JTextField();
+		txtmk.setColumns(10);
+		txtmk.setBounds(520, 121, 241, 27);
+		panel.add(txtmk);
 		
 		JLabel lbltentk = new JLabel("Tên Tài Khoản");
 		lbltentk.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -390,6 +398,16 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 				panel.add(btnlammoi);
 		
 		table = new JTable();
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int row = table.getSelectedRow();
+				txtMaTK.setText(model.getValueAt(row, 0).toString());
+				txtTaiKhoan.setText(model.getValueAt(row, 1).toString());
+				txtmk.setText(model.getValueAt(row, 2).toString());
+				txtTenNV.setText(model.getValueAt(row, 3).toString());
+			}
+		});
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setBounds(0, 323, 1161, 290); // Adjust the position and size as needed
 		contentPane.add(scrollPane);
@@ -398,12 +416,13 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 		model.addColumn("Mã tài khoản");
 		model.addColumn("Tên tài khoản");
 		model.addColumn("Mật khẩu");
+		model.addColumn("Tên nhân viên");
 //		model.addColumn("Tên Tài Khoản");
 //		model.addColumn("Mật Khẩu");
 		// Add data to the table
 //		model.addRow(new Object[]{"1", "Nguyễn Văn A", "09999999", "aaabb@gmail.com", "aaaa"});
 //		model.addRow(new Object[]{"", "", "", "", ""});
-//		table.setModel(model);
+		table.setModel(model);
 		
 		JLabel lblquanly = new JLabel("QL:");
 		lblquanly.setForeground(Color.WHITE);
@@ -435,19 +454,51 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 	}
 	protected void btnlammoiActionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		
+		lammoi();		
 	}
 	protected void btnsuaActionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
+		int row = table.getSelectedRow();
 		
+		if(row >= 0) {
+			TaiKhoanNhanVien tk = reverSPFromTextField();
+			if(dstk.update(tk)) {
+//				table.setValueAt(txtMaTK.getText(), row, 1);
+				table.setValueAt(txtTaiKhoan.getText(), row, 1);
+				table.setValueAt(txtmk.getText(), row, 2);
+				table.setValueAt(txtTenNV.getText(), row, 3);
+				JOptionPane.showMessageDialog(this, "Sửa thông tin tài khoản nhân viên thành công!");
+//				table.setModel(model);
+			}
+		}
+		
+		updateTableData();
 	}
 	protected void btnxoaActionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		
+		int row = table.getSelectedRow();
+		if(row >= 0) {
+			String matk = (String) table.getValueAt(row, 0);
+			if(dstk.delete(matk)) {
+				model.removeRow(row);
+				lammoi();
+			}
+		}
+		JOptionPane.showMessageDialog(this, "Xóa Tài Khoản Thành Công");
+
 	}
 	private void btnthemActionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		
+		TaiKhoanNhanVien tk = reverSPFromTextField();
+		if(dstk.create(tk)) {
+			Object [] rowData = {txtMaTK.getText(), txtTaiKhoan.getText(), txtmk.getText(), txtTenNV.getText()};
+			model.addRow(rowData);
+			JOptionPane.showMessageDialog(this, "Thêm Tài Khoản Thành Công");
+			lammoi();
+		}
+//		table.setModel(model);
+//		updateTableData();
+		loadTable();
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -483,16 +534,77 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
         lblClock.setText(time);
     }
     
-    
+    private TaiKhoanNhanVien reverSPFromTextField() {
+		String matk = txtMaTK.getText().toString();
+		String tentk = txtTaiKhoan.getText().toString();
+		String mk = txtmk.getText().toString();
+		String tennv = txtTenNV.getText().toString();
+		return new TaiKhoanNhanVien(matk, tentk, mk, tennv);
+	}
+//    
     private void updateTableData() {
 		QLTK_DAO ds = new QLTK_DAO();
 		ArrayList<TaiKhoanNhanVien> ls = ds.doctubang();
 		for(TaiKhoanNhanVien s : ls) {
-			String [] rowData = {s.getMaTaiKhoan(),s.getTenTaiKhoan(),s.getMatKhau()};
+			String [] rowData = {s.getMaTaiKhoan(),s.getTenTaiKhoan(),s.getMatKhau(), s.getTenNV()};
 			model.addRow(rowData);
 			table.setModel(model);
 		}
-		
 	}
+//    
+    public void loadTable() {
+    	QLTK_DAO dstk = new QLTK_DAO();
+		model.setRowCount(0);
+			for(TaiKhoanNhanVien s : dstk.doctubang()) {
+			
+			Object  rowData[] = {s.getMaTaiKhoan(),s.getTenTaiKhoan(),s.getMatKhau(), s.getTenNV()};
+
+			model.addRow(rowData);
+
+		}
+	}
+    
+    public void mouseClicked(MouseEvent e) {
+		int row = table.getSelectedRow();
+		txtMaTK.setText(table.getValueAt(row, 0).toString());
+		txtTaiKhoan.setText(table.getValueAt(row,2).toString());
+		txtTenNV.setText(table.getValueAt(row, 3).toString());
+		txtmk.setText(table.getValueAt(row, 4).toString());
+	}
+	public void lammoi() {
+		txtMaTK.setText("");
+		txtmk.setText("");
+		txtTaiKhoan.setText("");
+		txtTenNV.setText("");
+		txtMaTK.requestFocus();
+	}
+	
+	private void initComponents() {
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+
+        pack();
+    }
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+         GD_Main_QL mainql=new GD_Main_QL();
+         mainql.setVisible(true);
+    }
 }
 
