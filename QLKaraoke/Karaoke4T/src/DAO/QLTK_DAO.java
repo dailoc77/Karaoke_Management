@@ -102,11 +102,11 @@ public class QLTK_DAO {
 		PreparedStatement smt = null;
 		int n = 0;
 		try {
-			smt = con.prepareStatement("UPDATE TaiKhoan SET maTK = ?, tenTK = ?, MK = ? , tenNV = ? where maTK = ?");
-			smt.setString(1, tk.getMaTaiKhoan());
-			smt.setString(2, tk.getTenTaiKhoan());
-			smt.setString(3, tk.getMatKhau());
-			smt.setString(4, tk.getTenNV());
+			smt = con.prepareStatement("UPDATE TaiKhoan SET tenTK = ?, MK = ? , tenNV = ? where maTK = ?");
+			smt.setString(1, tk.getTenTaiKhoan());
+			smt.setString(2, tk.getMatKhau());
+			smt.setString(3, tk.getTenNV());
+			smt.setString(4, tk.getMaTaiKhoan());
 			
 			n = smt.executeUpdate();
 		} catch (Exception e) {

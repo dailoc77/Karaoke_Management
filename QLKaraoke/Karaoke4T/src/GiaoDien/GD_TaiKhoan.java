@@ -463,10 +463,10 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 		if(row >= 0) {
 			TaiKhoanNhanVien tk = reverSPFromTextField();
 			if(dstk.update(tk)) {
-				table.setValueAt(txtMaTK.getText(), row, 1);
-				table.setValueAt(txtTaiKhoan.getText(), row, 2);
-				table.setValueAt(txtmk.getText(), row, 3);
-				table.setValueAt(txtTenNV.getText(), row, 4);
+//				table.setValueAt(txtMaTK.getText(), row, 1);
+				table.setValueAt(txtTaiKhoan.getText(), row, 1);
+				table.setValueAt(txtmk.getText(), row, 2);
+				table.setValueAt(txtTenNV.getText(), row, 3);
 				JOptionPane.showMessageDialog(this, "Sửa thông tin tài khoản nhân viên thành công!");
 //				table.setModel(model);
 			}
