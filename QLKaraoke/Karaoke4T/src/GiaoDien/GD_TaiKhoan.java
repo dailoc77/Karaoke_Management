@@ -41,12 +41,16 @@ import java.time.Clock;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
 import DAO.QLTK_DAO;
 import Entity.*;
 import connectDB.connectDB;
+import test.CustomerCodeGenerator;
 import testbutton.Buttontest;
  
 
@@ -299,6 +303,7 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 		panel.add(lblhoten);
 		
 		txtMaTK = new JTextField();
+		txtMaTK.setEditable(false);
 		txtMaTK.setBounds(31, 37, 202, 27);
 		panel.add(txtMaTK);
 		txtMaTK.setColumns(10);
@@ -489,6 +494,14 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 	}
 	private void btnthemActionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
+	    int maxMaTK = dstk.getMaxMaTaiKhoan();
+	    
+	    // Tăng mã tài khoản lên 1 để có mã mới
+	    maxMaTK++;
+	    
+	    // Gán giá trị mới cho ô nhập liệu mã tài khoản
+	    txtMaTK.setText("TK" + String.format("%03d", maxMaTK));
+	    
 		TaiKhoanNhanVien tk = reverSPFromTextField();
 		if(dstk.create(tk)) {
 			Object [] rowData = {txtMaTK.getText(), txtTaiKhoan.getText(), txtmk.getText(), txtTenNV.getText()};
@@ -496,8 +509,6 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 			JOptionPane.showMessageDialog(this, "Thêm Tài Khoản Thành Công");
 			lammoi();
 		}
-//		table.setModel(model);
-//		updateTableData();
 		loadTable();
 	}
 	@Override

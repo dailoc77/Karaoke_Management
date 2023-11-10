@@ -107,6 +107,7 @@ public class QLTK_DAO {
 			smt.setString(2, tk.getTenTaiKhoan());
 			smt.setString(3, tk.getMatKhau());
 			smt.setString(4, tk.getTenNV());
+	        smt.setString(5, tk.getMaTaiKhoan()); // Mã Tài Khoản cũ để xác định dòng cần cập nhật
 			
 			n = smt.executeUpdate();
 		} catch (Exception e) {
@@ -137,4 +138,23 @@ public class QLTK_DAO {
     public ArrayList<TaiKhoanNhanVien> getDs(){
 		return dstk;
 	}
+    public int getMaxMaTaiKhoan() {
+        int maxMaTK = 0;
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+            conn = connectDB.getInstance().getConnection();
+            String query = "SELECT MAX(CONVERT(INT, SUBSTRING(maTK, 3, LEN(maTK)))) FROM TaiKhoan";
+            pstmt = conn.prepareStatement(query);
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                maxMaTK = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return maxMaTK;
+    }
 }

@@ -2,6 +2,7 @@ package DAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -120,4 +121,24 @@ public class QLKH_DAO {
 	public ArrayList<KhachHang> getDs(){
 		return dskh;
 	}
+	
+	public int getMaxMaKH() {
+        int maxMaKH = 0;
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+            conn = connectDB.getInstance().getConnection();
+            String query = "SELECT MAX(CONVERT(INT, SUBSTRING(maKH, 5, LEN(maKH)))) FROM KhachHang";
+            pstmt = conn.prepareStatement(query);
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+            	maxMaKH = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return maxMaKH;
+    }
 }
