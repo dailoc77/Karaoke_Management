@@ -40,6 +40,7 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JTextField textField_3;
+	private JTextField textField_4;
 	private testbutton.Buttontest btnthuephong, btnhuyphong;
 
 	/**
@@ -81,8 +82,7 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
 	 * Create the frame.
 	 */
 	public GD_ThuePhong (){
-		initComponents();
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Giao Diện Thuê Phòng");
 		setBounds(100, 100, 1175, 650);
 		contentPane = new JPanel();
@@ -248,30 +248,16 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
         lblNewLabel_3.setBounds(25, 274, 60, 14);
         pnl_thongtinkhachhang.add(lblNewLabel_3);
         
-        JComboBox comboBox = new JComboBox();
-        comboBox.setBounds(25, 362, 53, 22);
-        comboBox.setModel(new DefaultComboBoxModel(new String[] {"", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"
-        		, "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24",}));
-        pnl_thongtinkhachhang.add(comboBox);
+        JLabel lblNewLabel_11 = new JLabel("Số lượng người :");
+        lblNewLabel_11.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        lblNewLabel_11.setBounds(25, 333, 109, 21);
+        pnl_thongtinkhachhang.add(lblNewLabel_11);
         
-        JComboBox comboBox_1 = new JComboBox();
-        comboBox_1.setBounds(129, 362, 53, 22);
-        comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"
-        		, "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24","25", "26", "27", "28", "29", "30",
-        		"31", "32", "33", "34", "35", "36", "37", "38", "39", "40",
-        		"41", "42", "43", "44", "45", "46", "47", "48", "49", "50",
-        		"51", "52", "53", "54", "55", "56", "57", "58", "59", "60",}));
-        pnl_thongtinkhachhang.add(comboBox_1);
-        
-        JLabel lblNewLabel_4 = new JLabel("Giờ");
-        lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 13));
-        lblNewLabel_4.setBounds(81, 362, 46, 22);
-        pnl_thongtinkhachhang.add(lblNewLabel_4);
-        
-        JLabel lblNewLabel_5 = new JLabel("Phút");
-        lblNewLabel_5.setFont(new Font("Tahoma", Font.PLAIN, 13));
-        lblNewLabel_5.setBounds(185, 362, 46, 22);
-        pnl_thongtinkhachhang.add(lblNewLabel_5);
+        textField_4 = new JTextField();
+        textField_4.setColumns(10);
+        textField_4.setBounds(150, 332, 79, 25);
+        pnl_thongtinkhachhang.add(textField_4);
+               
         
         //button thue phong
         btnthuephong = new testbutton.Buttontest();
@@ -304,10 +290,6 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
         btnhuyphong.setShadowColor(new Color(0,0,0));
         pnl_thongtinkhachhang.add(btnhuyphong);
         
-        JLabel lblNewLabel_3_1 = new JLabel("Giờ nhận phòng\r\n");
-        lblNewLabel_3_1.setFont(new Font("Tahoma", Font.PLAIN, 13));
-        lblNewLabel_3_1.setBounds(25, 327, 93, 25);
-        pnl_thongtinkhachhang.add(lblNewLabel_3_1);
 		
         testbutton.Buttontest btndatphong1 = new testbutton.Buttontest();
         btndatphong1.addMouseListener(new MouseAdapter() {
@@ -414,61 +396,61 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
         JLabel lbl_p101 = new JLabel("P101");
         lbl_p101.setHorizontalAlignment(SwingConstants.CENTER);
         lbl_p101.setFont(new Font("Tahoma", Font.BOLD, 14));
-        lbl_p101.setBounds(76, 195, 69, 28);
+        lbl_p101.setBounds(76, 213, 69, 28);
         pnl_danhsachphonghat.add(lbl_p101);
         
         JLabel lbl_p102 = new JLabel("P102");
         lbl_p102.setHorizontalAlignment(SwingConstants.CENTER);
         lbl_p102.setFont(new Font("Tahoma", Font.BOLD, 14));
-        lbl_p102.setBounds(223, 195, 69, 28);
+        lbl_p102.setBounds(223, 213, 69, 28);
         pnl_danhsachphonghat.add(lbl_p102);
         
         JLabel lbl_p103 = new JLabel("P103");
         lbl_p103.setHorizontalAlignment(SwingConstants.CENTER);
         lbl_p103.setFont(new Font("Tahoma", Font.BOLD, 14));
-        lbl_p103.setBounds(370, 195, 69, 28);
+        lbl_p103.setBounds(370, 213, 69, 28);
         pnl_danhsachphonghat.add(lbl_p103);
         
         JLabel lbl_p104 = new JLabel("P104");
         lbl_p104.setHorizontalAlignment(SwingConstants.CENTER);
         lbl_p104.setFont(new Font("Tahoma", Font.BOLD, 14));
-        lbl_p104.setBounds(528, 195, 69, 28);
+        lbl_p104.setBounds(528, 213, 69, 28);
         pnl_danhsachphonghat.add(lbl_p104);
         
         JLabel lbl_p105 = new JLabel("P105");
         lbl_p105.setHorizontalAlignment(SwingConstants.CENTER);
         lbl_p105.setFont(new Font("Tahoma", Font.BOLD, 14));
-        lbl_p105.setBounds(689, 195, 69, 28);
+        lbl_p105.setBounds(689, 213, 69, 28);
         pnl_danhsachphonghat.add(lbl_p105);
         
         JLabel lbl_p106 = new JLabel("P106");
         lbl_p106.setHorizontalAlignment(SwingConstants.CENTER);
         lbl_p106.setFont(new Font("Tahoma", Font.BOLD, 14));
-        lbl_p106.setBounds(76, 337, 69, 28);
+        lbl_p106.setBounds(76, 361, 69, 28);
         pnl_danhsachphonghat.add(lbl_p106);
         
         JLabel lbl_p107 = new JLabel("P107");
         lbl_p107.setHorizontalAlignment(SwingConstants.CENTER);
         lbl_p107.setFont(new Font("Tahoma", Font.BOLD, 14));
-        lbl_p107.setBounds(223, 337, 69, 28);
+        lbl_p107.setBounds(223, 361, 69, 28);
         pnl_danhsachphonghat.add(lbl_p107);
         
         JLabel lbl_p108 = new JLabel("P108");
         lbl_p108.setHorizontalAlignment(SwingConstants.CENTER);
         lbl_p108.setFont(new Font("Tahoma", Font.BOLD, 14));
-        lbl_p108.setBounds(370, 337, 69, 28);
+        lbl_p108.setBounds(370, 361, 69, 28);
         pnl_danhsachphonghat.add(lbl_p108);
         
         JLabel lbl_p109 = new JLabel("P109");
         lbl_p109.setHorizontalAlignment(SwingConstants.CENTER);
         lbl_p109.setFont(new Font("Tahoma", Font.BOLD, 14));
-        lbl_p109.setBounds(528, 337, 69, 28);
+        lbl_p109.setBounds(528, 361, 69, 28);
         pnl_danhsachphonghat.add(lbl_p109);
         
-        JLabel lbl_p1010 = new JLabel("P101");
+        JLabel lbl_p1010 = new JLabel("P110");
         lbl_p1010.setHorizontalAlignment(SwingConstants.CENTER);
         lbl_p1010.setFont(new Font("Tahoma", Font.BOLD, 14));
-        lbl_p1010.setBounds(689, 337, 69, 28);
+        lbl_p1010.setBounds(689, 361, 69, 28);
         pnl_danhsachphonghat.add(lbl_p1010);
         
         JPanel pnl_chuthichdadat = new JPanel();
@@ -484,6 +466,66 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
         JLabel lblNewLabel_10 = new JLabel("Phòng đã đặt");
         lblNewLabel_10.setBounds(464, 426, 93, 26);
         pnl_danhsachphonghat.add(lblNewLabel_10);
+        
+        JLabel lbl_succhua1 = new JLabel("Sức chứa : 10");
+        lbl_succhua1.setForeground(new Color(255, 0, 0));
+        lbl_succhua1.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        lbl_succhua1.setBounds(66, 200, 93, 14);
+        pnl_danhsachphonghat.add(lbl_succhua1);
+        
+        JLabel lbl_succhua2 = new JLabel("Sức chứa : 10");
+        lbl_succhua2.setForeground(Color.RED);
+        lbl_succhua2.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        lbl_succhua2.setBounds(213, 201, 93, 14);
+        pnl_danhsachphonghat.add(lbl_succhua2);
+        
+        JLabel lbl_succhua3 = new JLabel("Sức chứa : 10");
+        lbl_succhua3.setForeground(Color.RED);
+        lbl_succhua3.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        lbl_succhua3.setBounds(355, 201, 93, 14);
+        pnl_danhsachphonghat.add(lbl_succhua3);
+        
+        JLabel lbl_succhua4 = new JLabel("Sức chứa : 20");
+        lbl_succhua4.setForeground(Color.RED);
+        lbl_succhua4.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        lbl_succhua4.setBounds(518, 201, 93, 14);
+        pnl_danhsachphonghat.add(lbl_succhua4);
+        
+        JLabel lbl_succhua5 = new JLabel("Sức chứa : 10");
+        lbl_succhua5.setForeground(Color.RED);
+        lbl_succhua5.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        lbl_succhua5.setBounds(674, 201, 93, 14);
+        pnl_danhsachphonghat.add(lbl_succhua5);
+        
+        JLabel lbl_succhua6 = new JLabel("Sức chứa : 10");
+        lbl_succhua6.setForeground(Color.RED);
+        lbl_succhua6.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        lbl_succhua6.setBounds(61, 347, 93, 14);
+        pnl_danhsachphonghat.add(lbl_succhua6);
+        
+        JLabel lbl_succhua7 = new JLabel("Sức chứa : 10");
+        lbl_succhua7.setForeground(Color.RED);
+        lbl_succhua7.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        lbl_succhua7.setBounds(208, 348, 93, 14);
+        pnl_danhsachphonghat.add(lbl_succhua7);
+        
+        JLabel lbl_succhua8 = new JLabel("Sức chứa : 10");
+        lbl_succhua8.setForeground(Color.RED);
+        lbl_succhua8.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        lbl_succhua8.setBounds(355, 348, 93, 14);
+        pnl_danhsachphonghat.add(lbl_succhua8);
+        
+        JLabel lbl_succhua9 = new JLabel("Sức chứa : 10");
+        lbl_succhua9.setForeground(Color.RED);
+        lbl_succhua9.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        lbl_succhua9.setBounds(513, 348, 93, 14);
+        pnl_danhsachphonghat.add(lbl_succhua9);
+        
+        JLabel lbl_succhua10 = new JLabel("Sức chứa : 10");
+        lbl_succhua10.setForeground(Color.RED);
+        lbl_succhua10.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        lbl_succhua10.setBounds(674, 348, 93, 14);
+        pnl_danhsachphonghat.add(lbl_succhua10);
         
         JPanel pnl_chuthichphongtrong = new JPanel();
         pnl_chuthichphongtrong.setBackground(new Color(255, 255, 255, 200));
@@ -587,35 +629,6 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
 		contentPane.add(lb_hinhnen);
 		
 	}
-	
-	private void initComponents() {
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                formWindowClosing(evt);
-            }
-        });
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
-
-        pack();
-    }
-
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-         GD_Main_NV mainnv=new GD_Main_NV();
-         mainnv.setVisible(true);
-    }
-	
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == timer) {
             // Cập nhật thời gian
