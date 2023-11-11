@@ -23,8 +23,8 @@ public class QLDV_DAO {
 			ResultSet rs = sta.executeQuery(sql);
 			while(rs.next()) {
 				String maDichVu = rs.getString(1);
-				Float donGia = rs.getFloat(2);
-				Integer soLuong = rs.getInt(3);
+				double donGia = rs.getDouble(2);
+				int soLuong = rs.getInt(3);
 				String tenDichVu = rs.getString(4);
 				DichVu dv = new DichVu(maDichVu, tenDichVu, donGia, soLuong);
 				dsdv.add(dv);

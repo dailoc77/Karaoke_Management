@@ -6,6 +6,7 @@ import java.awt.Desktop;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
@@ -24,8 +25,10 @@ import javax.swing.Timer;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import DAO.QLDV_DAO;
 import DAO.QLNV_DAO;
 import DAO.QLPH_DAO;
+import Entity.DichVu;
 import Entity.LoaiPhong;
 import Entity.NhanVien;
 import Entity.Phong;
@@ -755,92 +758,66 @@ public class GD_PhongHat extends JFrame implements ActionListener {
         lblClock.setText(time);
     }
     
-//    private void btnHienThongTin() {
-//    	QLPH_DAO ds = new QLPH_DAO();
-//    	ArrayList<Phong> listPhong = ds.docbang();
-//    	
-//    	for(Phong ph : listPhong) {
-//    		if()
-//    	}
-//    }
-    
     private void loadData() {
 		QLPH_DAO ds = new QLPH_DAO();
 		ArrayList<Phong> listPhong = ds.docbang();
-		int x_button = 66;
-		int x2_button = 66;
-		int x_tenphong = 76;
-		int x2_tenphong = 76;
-		int x_succhua = 66;
-		int x2_succhua = 66;
-		
-		draw(listPhong,x_button,x2_button,x_tenphong,x2_tenphong,x_succhua,x2_succhua);
+		draw(listPhong);
 	}
-    
-    private void draw(ArrayList<Phong> list , int x_button , int x2_button , int x_tenphong , int x2_tenphong , int x_succhua , int x2_succhua) {
-    	for(Phong ph : list) {
-    		//tao nut
-			testbutton.Buttontest btn_icon_phonghat = new Buttontest();
-			
-			// tao ten phong
-			JLabel lbl_tenPhong = new JLabel(ph.getTenPhong());
-			lbl_tenPhong.setHorizontalAlignment(SwingConstants.CENTER);
-			lbl_tenPhong.setFont(new Font("Tahoma", Font.BOLD, 14));
-			
-			//tao label suc chua
-			JLabel lbl_succhua = new JLabel("Sức chứa : " + ph.getSoNguoi());
-			lbl_succhua.setForeground(new Color(255, 0, 0));
-			lbl_succhua.setFont(new Font("Tahoma", Font.PLAIN, 13));
-			if(list.indexOf(ph) >= 5) {
-				if(ph.getLoaiPhong().getTenLoaiPhong().equals("Phòng Thường")) {
-					btn_icon_phonghat.setIcon(new ImageIcon(GD_PhongHat.class.getResource("/Imgs/micro.png")));
-					btn_icon_phonghat.setBounds(x2_button, 252, 88, 85);
-					lbl_tenPhong.setBounds(x2_tenphong, 361, 69, 28);
-					lbl_succhua.setBounds(x2_succhua,347, 93, 14);
-					pnl_danhsachphonghat.add(btn_icon_phonghat);
-					pnl_danhsachphonghat.add(lbl_tenPhong);
-					pnl_danhsachphonghat.add(lbl_succhua);
-					x2_button += 147;
-					x2_tenphong += 147;
-					x2_succhua += 147;
-				}else {
-					btn_icon_phonghat.setIcon(new ImageIcon(GD_PhongHat.class.getResource("/Imgs/micro_with_crown.png")));
-					btn_icon_phonghat.setBounds(x2_button, 252, 88, 85);
-					lbl_tenPhong.setBounds(x2_tenphong, 361, 69, 28);
-					lbl_succhua.setBounds(x2_succhua,347, 93, 14);
-					pnl_danhsachphonghat.add(btn_icon_phonghat);
-					pnl_danhsachphonghat.add(lbl_tenPhong);
-					pnl_danhsachphonghat.add(lbl_succhua);
-					x2_button += 147;
-					x2_tenphong += 147;
-					x2_succhua += 147;
-				}
-			}else { 
-				if(ph.getLoaiPhong().getTenLoaiPhong().equals("Phòng Thường")) {
-					btn_icon_phonghat.setIcon(new ImageIcon(GD_PhongHat.class.getResource("/Imgs/micro.png")));
-					btn_icon_phonghat.setBounds(x_button, 110, 88, 85);
-					lbl_tenPhong.setBounds(x_tenphong, 213, 69, 28);
-					lbl_succhua.setBounds(x_succhua,200, 93, 14);
-					pnl_danhsachphonghat.add(btn_icon_phonghat);
-					pnl_danhsachphonghat.add(lbl_tenPhong);
-					pnl_danhsachphonghat.add(lbl_succhua);
-					x_button += 147;
-					x_tenphong += 147;
-					x_succhua += 147;
-				}else {
-					btn_icon_phonghat.setIcon(new ImageIcon(GD_PhongHat.class.getResource("/Imgs/micro_with_crown.png")));
-					btn_icon_phonghat.setBounds(x_button, 110, 88, 85);
-					lbl_tenPhong.setBounds(x_tenphong, 213, 69, 28);
-					lbl_succhua.setBounds(x_succhua,200, 93, 14);
-					pnl_danhsachphonghat.add(btn_icon_phonghat);
-					pnl_danhsachphonghat.add(lbl_tenPhong);
-					pnl_danhsachphonghat.add(lbl_succhua);
-					x_button += 147;
-					x_tenphong += 147;
-					x_succhua += 147;
-				}
-			}
-			btn_icon_phonghat.addMouseListener(new MouseAdapter() {
+	
+	private void draw(ArrayList<Phong> listph) {
+		JPanel Right_QL_PHONG = new JPanel();
+		Right_QL_PHONG.setBorder(null);
+		Right_QL_PHONG.setBackground(new Color(255, 255, 255, 150));
+		Right_QL_PHONG.setBounds(332, 148, 829, 465);
+		contentPane.add(Right_QL_PHONG);
+		Right_QL_PHONG.setLayout(null);
+		
+		JScrollPane scrollPane_DSPH = new JScrollPane();
+		scrollPane_DSPH.setBounds(0, 25, 870, 440);
+		scrollPane_DSPH.setBackground(new Color(255, 255, 255, 0));
+		Right_QL_PHONG.add(scrollPane_DSPH);
+		
+		JPanel panel_dsph = new JPanel();
+		panel_dsph.setBackground(new Color(192, 192, 192));
+		scrollPane_DSPH.setViewportView(panel_dsph);
+		panel_dsph.setLayout(new GridLayout(0, 5, -50, -50));
+    	for(Phong ph : listph) {
+    		//load label cha
+    		JLabel lbl_phonghat = new JLabel();
+    		lbl_phonghat.setBackground(new Color(255, 255, 255));
+    		panel_dsph.add(lbl_phonghat);
+    		lbl_phonghat.setLayout(null);
+//
+//    		
+//    		//load suc chua
+    		JLabel lbl_succhua = new JLabel("Sức chứa : " + ph.getSoNguoi());
+    		lbl_succhua.setHorizontalAlignment(SwingConstants.CENTER);
+    		lbl_succhua.setFont(new Font("Tahoma", Font.BOLD, 11));
+    		lbl_succhua.setForeground(new Color(255,0,0));
+    		lbl_succhua.setBounds(55, 130, 85, 35);
+    		lbl_phonghat.add(lbl_succhua);
+    		
+    		//load ten phong
+    		JLabel lbl_tenphong = new JLabel(ph.getTenPhong());
+    		lbl_tenphong.setFont(new Font("Tahoma", Font.BOLD, 13));
+    		lbl_tenphong.setHorizontalAlignment(SwingConstants.CENTER);
+    		lbl_tenphong.setBounds(55, 145, 85, 35);
+    		lbl_phonghat.add(lbl_tenphong);
+    		
+    		//load hinh anh
+    		JLabel lbl_hinhanh = new JLabel("");
+    		lbl_hinhanh.setHorizontalAlignment(SwingConstants.CENTER);
+    		lbl_hinhanh.setBounds(50, 50, 88, 85);
+    		lbl_phonghat.add(lbl_hinhanh);
+    		
+    		//phan loai phong
+    		if(ph.getLoaiPhong().getTenLoaiPhong().equals("Phòng Thường")) {
+    			lbl_hinhanh.setIcon(new ImageIcon(GD_PhongHat.class.getResource("/Imgs/micro.png")));
+    		}else {
+    			lbl_hinhanh.setIcon(new ImageIcon(GD_PhongHat.class.getResource("/Imgs/micro_with_crown.png")));
+    		}
+    		
+    		lbl_phonghat.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					txtMaPhong.setText(ph.getMaPhong());
@@ -849,6 +826,7 @@ public class GD_PhongHat extends JFrame implements ActionListener {
 					txt_chuThich.setText(ph.getChuThichPhong());
 				}
 			});
-		}
-    }
+    	}
+	}
+
 }
