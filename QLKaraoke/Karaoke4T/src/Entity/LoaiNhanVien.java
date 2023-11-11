@@ -10,9 +10,8 @@ public class LoaiNhanVien {
 		// TODO Auto-generated constructor stub
 	}
 	public LoaiNhanVien(String maLNV, String tenLNV) {
-		super();
-		this.maLNV = maLNV;
-		this.tenLNV = tenLNV;
+		setMaLNV(maLNV);
+		setTenLNV(tenLNV);
 	}
 	public String getMaLNV() {
 		return maLNV;

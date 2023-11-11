@@ -10,10 +10,15 @@ import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.net.URL;
-
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Vector;
 
 import javax.swing.Timer;
 
@@ -59,6 +64,8 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 	private JTextField txtten;
 	private JTextField txtsdt;
 //	private JTextField textField_2;
+	private JRadioButton rdbtnNAM;
+	private JRadioButton rdbtnNU;
 	private JTextField txtcmnd;
 	private JTextField txtdc;
 	private JTable table;
@@ -66,16 +73,14 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 	private JLabel lblClock;
 	private Timer timer;
 	private JTextField txtns;
-	private JTextField txtmatk;
-	private JComboBox<LoaiNhanVien> cbLoaiNhanVien;
+	private JTextField textFieldTrangThaiLamViec;
+	private String TrangThaiLamViec[] = {"Đang làm","Nghĩ việc","Tạm nghĩ việc"};
+	private JComboBox<String> cbLoaiNhanVien;
 	private JComboBox<String> cbtrangthai;
+	private LoaiNhanVien_DAO dslnv;
 	QLNV_DAO ds = new QLNV_DAO();
-	LoaiNhanVien_DAO dslnv = new LoaiNhanVien_DAO();
-	DefaultComboBoxModel<LoaiNhanVien> data = new DefaultComboBoxModel<>();
+	private JTextField txtMaNV;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -112,7 +117,16 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 	 * Create the frame.
 	 */
 	public GD_QLNhanVien() {
-		initComponents();
+		
+		try {
+			connectDB.getInstance().connect();
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		dslnv = new LoaiNhanVien_DAO();
+		
+//		initComponents();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1175, 650);
 		setResizable(false);
@@ -329,7 +343,7 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 		
 		JLabel lblNewLabel_1_4 = new JLabel("Địa Chỉ");
 		lblNewLabel_1_4.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_1_4.setBounds(422, 90, 55, 20);
+		lblNewLabel_1_4.setBounds(538, 91, 55, 20);
 		panel.add(lblNewLabel_1_4);
 		
 		txtten = new JTextField();
@@ -367,12 +381,12 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 		
 		txtcmnd = new JTextField();
 		txtcmnd.setColumns(10);
-		txtcmnd.setBounds(241, 123, 164, 27);
+		txtcmnd.setBounds(241, 123, 248, 27);
 		panel.add(txtcmnd);
 		
 		txtdc = new JTextField();
 		txtdc.setColumns(10);
-		txtdc.setBounds(422, 123, 220, 27);
+		txtdc.setBounds(538, 123, 311, 27);
 		panel.add(txtdc);
 		
 		//button them
@@ -436,14 +450,14 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 		btnLmMi.setShadowColor(new Color(0,0,0));
 		btnLmMi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				btnLmMiActionPerformed(e);
+				lammoi();
 			}
 		});
 		panel.add(btnLmMi);
 		
 		txtns = new JTextField();
 		txtns.setColumns(10);
-		txtns.setBounds(422, 37, 67, 27);
+		txtns.setBounds(422, 37, 92, 27);
 		panel.add(txtns);
 		
 		JLabel lblNewLabel_1_2 = new JLabel("Năm Sinh");
@@ -452,41 +466,35 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 		panel.add(lblNewLabel_1_2);
 		
 		
-//		LoaiNhanVien_DAO dslnv = new LoaiNhanVien_DAO();
-//		List<LoaiNhanVien> danhSachLoaiNV = dslnv.getAllLoaiNhanVien();
-//		    for (LoaiNhanVien loaiNhanVien : danhSachLoaiNV) {
-//		        ((MutableComboBoxModel<LoaiNhanVien>) model).addElement(loaiNhanVien);
-//		    }
-//
-//		JComboBox<LoaiNhanVien> cbLoaiNhanVien = new JComboBox<>(data);
-//		cbLoaiNhanVien.setBounds(538, 37, 104, 27);
-//		cbLoaiNhanVien.setEditable(true);
-//		    
-//		panel.add(cbLoaiNhanVien);
+
+		
+		cbLoaiNhanVien = new JComboBox<>();
+		cbLoaiNhanVien.setBounds(538, 37, 104, 27);
+		panel.add(cbLoaiNhanVien);
+		loadComBoBox();
+		
+		
+		
 		
 		JLabel lblNewLabel_1_2_1 = new JLabel("Loại NV");
 		lblNewLabel_1_2_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblNewLabel_1_2_1.setBounds(538, 10, 79, 28);
 		panel.add(lblNewLabel_1_2_1);
 		
-		txtmatk = new JTextField();
-		txtmatk.setColumns(10);
-		txtmatk.setBounds(674, 123, 159, 27);
-		panel.add(txtmatk);
-		
-		JLabel lblNewLabel_1_4_1 = new JLabel("Chú Thích");
-		lblNewLabel_1_4_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_1_4_1.setBounds(674, 90, 85, 20);
-		panel.add(lblNewLabel_1_4_1);
-		
-		JComboBox cbtrangthai = new JComboBox();
-		cbtrangthai.setBounds(674, 37, 159, 27);
-		panel.add(cbtrangthai);
-		
 		JLabel lblNewLabel_1_2_1_1 = new JLabel("Trạng Thái Làm Việc");
 		lblNewLabel_1_2_1_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblNewLabel_1_2_1_1.setBounds(674, 10, 159, 28);
 		panel.add(lblNewLabel_1_2_1_1);
+		
+		textFieldTrangThaiLamViec = new JTextField();
+		textFieldTrangThaiLamViec.setColumns(10);
+		textFieldTrangThaiLamViec.setBounds(676, 40, 173, 27);
+		panel.add(textFieldTrangThaiLamViec);
+		
+		txtMaNV = new JTextField();
+		txtMaNV.setBounds(200, 16, 79, 20);
+		panel.add(txtMaNV);
+		txtMaNV.setColumns(10);
 		
 		
 		//talbe
@@ -515,11 +523,11 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 		scrollPane.setRowHeaderView(scrollBar);
 		
 //         -------------------------------
-		JLabel lblavatar = new JLabel("");
-		lblavatar.setHorizontalAlignment(SwingConstants.CENTER);
-		lblavatar.setIcon(new ImageIcon(GD_TaiKhoan.class.getResource("/Imgs/t1 1.png")));
-		lblavatar.setBounds(90, -444, 1333, 957);
-		contentPane.add(lblavatar);
+//		JLabel lblavatar = new JLabel("");
+//		lblavatar.setHorizontalAlignment(SwingConstants.CENTER);
+//		lblavatar.setIcon(new ImageIcon(GD_TaiKhoan.class.getResource("/Imgs/t1 1.png")));
+//		lblavatar.setBounds(90, -444, 1333, 957);
+//		contentPane.add(lblavatar);
 		
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setBounds(0, 0, 1161, 613);
@@ -536,11 +544,7 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 	}
 	
 	
-	protected void btnLmMiActionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
+	
 	protected void btnsuaActionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		
@@ -553,31 +557,52 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 
 	protected void btnthemActionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		
+		NhanVien nv = reverSPFromTextField();
+		String gt = "";
+		if(ds.create(nv)) {
+			if(rdbtnNAM.isSelected()) {
+				gt = "Nam";
+			}
+			if(rdbtnNU.isSelected()) {
+				gt = "Nữ";
+			}
+			Object [] rowData = {txtMaNV.getText(),txtten.getText(),gt,txtns.getText(),txtcmnd.getText(),txtsdt.getText(),textFieldTrangThaiLamViec.getText(),txtdc.getText()};
+			model.addRow(rowData);
+			JOptionPane.showMessageDialog(this, "Thêm Khách Hàng Thành Công");
+			lammoi();
+		}
+//		table.setModel(model);
+//		updateTableData();
+		loadTable();
 	}
 
-	private void initComponents() {
+	private NhanVien reverSPFromTextField() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                formWindowClosing(evt);
-            }
-        });
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
-
-        pack();
-    }
+//	private void initComponents() {
+//
+//        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+//        addWindowListener(new java.awt.event.WindowAdapter() {
+//            public void windowClosing(java.awt.event.WindowEvent evt) {
+//                formWindowClosing(evt);
+//            }
+//        });
+//
+//        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+//        getContentPane().setLayout(layout);
+//        layout.setHorizontalGroup(
+//            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+//            .addGap(0, 400, Short.MAX_VALUE)
+//        );
+//        layout.setVerticalGroup(
+//            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+//            .addGap(0, 300, Short.MAX_VALUE)
+//        );
+//
+//        pack();
+//    }
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
          GD_Main_QL mainql=new GD_Main_QL();
@@ -631,8 +656,61 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 	}
 	
 
+	public void loadComBoBox() {
 
-   
-   
+		// Thông tin kết nối đến cơ sở dữ liệu
+        String url = "jdbc:sqlserver://localhost:1433;databasename=Karaoke4T";
+        String username = "sa";
+        String password = "123";
+
+        try {
+            // Kết nối đến cơ sở dữ liệu
+            Connection connection = DriverManager.getConnection(url, username, password);
+
+            // Truy vấn SQL để lấy dữ liệu
+            String sql = "SELECT * FROM LoaiNhanVien";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+
+            // Lặp qua các dòng kết quả và thêm vào JComboBox
+            while (resultSet.next()) {
+                String columnName = resultSet.getString("tenLNV");
+                cbLoaiNhanVien.addItem(columnName);
+            }
+
+            // Đóng các tài nguyên
+            resultSet.close();
+            statement.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+	}
+	
+	
+	public void loadTable() {
+		QLNV_DAO dsnv = new QLNV_DAO();
+		model.setRowCount(0);
+			for(NhanVien s : dsnv.doctubang()) {
+			
+			Object  rowData[] = {s.getMaNV(), s.getTenNV(),s.getGioiTinh(), s.getNgaySinh(), s.getCMND(),s.getSDT(), s.getTrangThaiLamViec() , s.getMaDC(), s.getTenLNV()+"" ,s.getMaTK()+""};
+
+			model.addRow(rowData);
+
+		}
+	}
+	
+	
+	public void lammoi() {
+		txtcmnd.setText("");
+		txtten.setText("");
+		txtns.setText("");
+		txtsdt.setText("");
+		txtdc.setText("");
+		textFieldTrangThaiLamViec.setText("");
+//		bg.clearSelection();
+
+	}
+	
 	
 }

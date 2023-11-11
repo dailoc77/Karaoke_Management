@@ -39,23 +39,22 @@ public class QLNV_DAO {
 		}
 		return dsnv;
 	}
-	public boolean create(NhanVien kh) {
+	public boolean create(NhanVien nv) {
 		Connection con = connectDB.getInstance().getConnection();
 		PreparedStatement smt = null;
 		int n = 0;
 		try {
-			smt = con.prepareStatement("insert into NhanVien values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-			smt.setString(1, kh.getMaNV());
-			smt.setString(2, kh.getTenNV());
-			smt.setString(3, kh.getGioiTinh());
-			smt.setString(4, kh.getNgaySinh());
-			smt.setString(5, kh.getCMND());
-			smt.setString(6, kh.getSDT());
-			smt.setString(7, kh.getTrangThaiLamViec());
-			smt.setString(8, kh.getMaDC());
-			smt.setString(9, kh.getTenLNV().getTenLNV());
-			smt.setString(10, kh.getMaTK().getMaTaiKhoan());
-			
+			smt = con.prepareStatement("insert into NhanVien values(?,?, ?, ?, ?, ?, ?, ? , ? , ?)");
+			smt.setString(1, nv.getMaNV());
+			smt.setString(2, nv.getTenNV());
+			smt.setString(3, nv.getGioiTinh());
+			smt.setString(4, nv.getNgaySinh());
+			smt.setString(5, nv.getCMND());
+			smt.setString(6, nv.getSDT());
+			smt.setString(7, nv.getTrangThaiLamViec());
+			smt.setString(8, nv.getMaDC());
+//			smt.setString(9, nv.getTenLNV());
+//			smt.setString(10, nv.getMaTK());
 			n = smt.executeUpdate();
 			
 		} catch (Exception e) {
@@ -63,30 +62,30 @@ public class QLNV_DAO {
 		}
 		return n>0;
 	}
-	public boolean update(NhanVien kh) {
-		Connection con = connectDB.getInstance().getConnection();
-		PreparedStatement smt = null;
-		int n = 0;
-		try {
-			smt = con.prepareStatement("UPDATE NhanVien SET tenNV = ?, gioiTinh = ?, ngaySinh = ?, CMND = ?, SDT = ?, trangThaiLamViec = ? , maDC = ?, maLNV = ?, maTK = ? where maNV = ?");
-
-			smt.setString(1, kh.getMaNV());
-			smt.setString(2, kh.getTenNV());
-			smt.setString(3, kh.getGioiTinh());
-			smt.setString(4, kh.getNgaySinh());
-			smt.setString(5, kh.getCMND());
-			smt.setString(6, kh.getSDT());
-			smt.setString(7, kh.getTrangThaiLamViec());
-			smt.setString(8, kh.getMaDC());
-			smt.setString(9, kh.getTenLNV().getTenLNV());
-			smt.setString(10, kh.getMaTK().getMaTaiKhoan());
-
-			n = smt.executeUpdate();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return n>0;
-	}
+//	public boolean update(NhanVien kh) {
+//		Connection con = connectDB.getInstance().getConnection();
+//		PreparedStatement smt = null;
+//		int n = 0;
+//		try {
+//			smt = con.prepareStatement("UPDATE NhanVien SET tenNV = ?, gioiTinh = ?, ngaySinh = ?, CMND = ?, SDT = ?, trangThaiLamViec = ? , maDC = ?, maLNV = ?, maTK = ? where maNV = ?");
+//
+//			smt.setString(1, kh.getMaNV());
+//			smt.setString(2, kh.getTenNV());
+//			smt.setString(3, kh.getGioiTinh());
+//			smt.setString(4, kh.getNgaySinh());
+//			smt.setString(5, kh.getCMND());
+//			smt.setString(6, kh.getSDT());
+//			smt.setString(7, kh.getTrangThaiLamViec());
+//			smt.setString(8, kh.getMaDC());
+//			smt.setString(9, kh.getTenLNV().getTenLNV());
+//			smt.setString(10, kh.getMaTK().getMaTaiKhoan());
+//
+//			n = smt.executeUpdate();
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		return n>0;
+//	}
 	public NhanVien getNV(int index) {
 		return dsnv.get(index);
 	}
