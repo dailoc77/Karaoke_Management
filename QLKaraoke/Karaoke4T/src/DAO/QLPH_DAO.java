@@ -2,6 +2,7 @@ package DAO;
 
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -35,5 +36,26 @@ public class QLPH_DAO {
 			e.printStackTrace();
 		}
 		return dsph;
+	}
+	
+	public boolean create(Phong ph) {
+		Connection con = connectDB.getInstance().getConnection();
+		PreparedStatement smt = null;
+		int n = 0;
+		try {
+			smt = con.prepareStatement("insert into Phong values(?, ?, ?, ?, ?, ?)");
+			smt.setString(1, ph.getMaPhong());
+			smt.setString(2, ph.getTenPhong());
+			smt.setString(3, ph.getLoaiPhong().getTenLoaiPhong());
+			smt.setString(4, ph.getSoNguoi());
+			smt.setDouble(5, ph.getLoaiPhong().getGiaTien());
+			smt.setString(6, ph.getTrangThaiPhong().getTenTrangThai());
+			smt.setString(7, ph.getChuThichPhong());
+			n = smt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return n > 0;
 	}
 }

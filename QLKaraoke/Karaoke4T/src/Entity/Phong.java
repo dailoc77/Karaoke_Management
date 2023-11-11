@@ -10,13 +10,13 @@ public class Phong {
 	private String chuThichPhong;
 	
 	public Phong(String maPhong,String soNguoi, String tenPhong, LoaiPhong loaiPhong, double giaPhong, TrangThaiPhong trangThaiPhong, String chuThichPhong) {
-		setChuThichPhong(chuThichPhong);
+		setMaPhong(maPhong);
 		setSoNguoi(soNguoi);
+		setTenPhong(tenPhong);
 		setGiaPhong(giaPhong);
 		setLoaiPhong(loaiPhong);
-		setMaPhong(maPhong);
-		setTenPhong(tenPhong);
 		setTrangThaiPhong(trangThaiPhong);
+		setChuThichPhong(chuThichPhong);
 	}
 	
 	

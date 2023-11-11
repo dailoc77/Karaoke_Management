@@ -112,7 +112,7 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 	 * Create the frame.
 	 */
 	public GD_QLNhanVien() {
-		initComponents();
+//		initComponents();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1175, 650);
 		setResizable(false);
@@ -556,33 +556,33 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 		
 	}
 
-	private void initComponents() {
+//	private void initComponents() {
+//
+//        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+//        addWindowListener(new java.awt.event.WindowAdapter() {
+//            public void windowClosing(java.awt.event.WindowEvent evt) {
+//                formWindowClosing(evt);
+//            }
+//        });
+//
+//        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+//        getContentPane().setLayout(layout);
+//        layout.setHorizontalGroup(
+//            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+//            .addGap(0, 400, Short.MAX_VALUE)
+//        );
+//        layout.setVerticalGroup(
+//            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+//            .addGap(0, 300, Short.MAX_VALUE)
+//        );
+//
+//        pack();
+//    }
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                formWindowClosing(evt);
-            }
-        });
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
-
-        pack();
-    }
-
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-         GD_Main_QL mainql=new GD_Main_QL();
-         mainql.setVisible(true);
-    }
+//    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+//         GD_Main_QL mainql=new GD_Main_QL();
+//         mainql.setVisible(true);
+//    }
 	
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == timer) {
