@@ -384,6 +384,7 @@ public class GD_QuanLyKhachHang extends JFrame implements ActionListener {
 		//radbuton//
 		
 		txtmakh = new JTextField();
+		txtmakh.setEditable(false);
 		txtmakh.setColumns(10);
 		txtmakh.setBounds(31, 123, 202, 27);
 		panel.add(txtmakh);
@@ -571,7 +572,13 @@ public class GD_QuanLyKhachHang extends JFrame implements ActionListener {
 	}
 
 	protected void btnthemActionPerformed(ActionEvent e) {
-		
+		    int maxMaKH = dskh.getMaxMaKH();
+		    
+		    // Tăng mã kh lên 1 để có mã mới
+		    maxMaKH++;
+		    
+		    // Gán giá trị mới cho ô nhập liệu mã kh
+		    txtmakh.setText("KHAA" + String.format("%03d", maxMaKH));
 			KhachHang kh = reverSPFromTextField();
 			String gt = "";
 			if(dskh.create(kh)) {

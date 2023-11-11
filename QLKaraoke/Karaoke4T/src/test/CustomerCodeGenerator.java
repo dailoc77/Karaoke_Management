@@ -42,7 +42,7 @@ public class CustomerCodeGenerator extends JFrame {
 
         add(panel);
     }
-
+//aaaa
     private String generateCustomerCode(int count) {
         return "KHAA" + String.format("%03d", count);
     }
