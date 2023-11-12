@@ -405,7 +405,7 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 
 		btnthem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				btnthemActionPerformed(e);
+//				btnthemActionPerformed(e);
 			}
 		});
 		panel.add(btnthem);
@@ -574,21 +574,21 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 //		return gt;
 //	}
 	
-	private NhanVien reverSPFromTextField() {
-		String maNV = txtMaNV.getText().toString();
-		String ten = txtten.getText().toString();
-		String gt = "";
-		String ngaySinh = txtns.getText().toString();
-		String cmnd = txtcmnd.getText().toString();
-		String sdt = txtsdt.getText().toString();
-		String trangThaiLamViec = textFieldTrangThaiLamViec.getText().toString();
-		String dc = txtdc.getText().toString();
-		LoaiNhanVien loainv = new LoaiNhanVien("",cbLoaiNhanVien.getSelectedItem().toString());
-		TaiKhoanNhanVien maTK = new TaiKhoanNhanVien(txt_MaTK.getText().toString(), null, null, null);
-//		return new NhanVien(maNV,ten,gt,ngaySinh,cmnd,sdt,trangThaiLamViec,dc,loainv,maTK);
-		return new NhanVien(maNV,ten,gt,ngaySinh,cmnd,sdt,trangThaiLamViec,dc,loainv,maTK);
-	}
-	
+//	private NhanVien reverSPFromTextField() {
+//		String maNV = txtMaNV.getText().toString();
+//		String ten = txtten.getText().toString();
+//		String gt = "";
+//		String ngaySinh = txtns.getText().toString();
+//		String cmnd = txtcmnd.getText().toString();
+//		String sdt = txtsdt.getText().toString();
+//		String trangThaiLamViec = textFieldTrangThaiLamViec.getText().toString();
+//		String dc = txtdc.getText().toString();
+//		LoaiNhanVien loainv = new LoaiNhanVien("",cbLoaiNhanVien.getSelectedItem().toString());
+//		TaiKhoanNhanVien maTK = new TaiKhoanNhanVien(txt_MaTK.getText().toString(), null, null, null);
+////		return new NhanVien(maNV,ten,gt,ngaySinh,cmnd,sdt,trangThaiLamViec,dc,loainv,maTK);
+////		return new NhanVien(maNV,ten,gt,ngaySinh,cmnd,sdt,trangThaiLamViec,dc,loainv,maTK);
+//	}
+//	
 	
 	
 	protected void btnsuaActionPerformed(ActionEvent e) {
@@ -600,38 +600,38 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 		// TODO Auto-generated method stub
 		
 	}
-
-	protected void btnthemActionPerformed(ActionEvent e) {
-		QLNV_DAO dsnv = new QLNV_DAO();
-		int maxMaNV = dsnv.getMaxMaNV();
-//		int maxMaTK = dstk.getMaxMaTaiKhoan();
-		
-		maxMaNV++;
-//		maxMaTK++;
-
-		txtMaNV.setText("NVAA" + String.format("%03d", maxMaNV));
-		NhanVien nv = reverSPFromTextField();
-//		ArrayList<TaiKhoanNhanVien> tknv = dstk.laytheomatk(nv.get);
-//		String maTK = tknv.getMaTK().getMaTaiKhoan();
-//		maTK = "TK" + String.format("%03d", maxMaTK);
-		String gt = "";
-		if(dsnv.create(nv)) {
-			if(rdbtnNAM.isSelected()) {
-				gt = "Nam";
-			}
-			if(rdbtnNU.isSelected()) {
-				gt = "Nữ";
-			}
-			Object [] rowData = {txtMaNV.getText(),txtten.getText(),gt,txtns.getText(),txtcmnd.getText(),txtsdt.getText(),textFieldTrangThaiLamViec.getText(),txtdc.getText(),nv.getLNV().getTenLNV()};
-//			Object [] rowData = {txtMaNV.getText(),txtten.getText(),gt,txtns.getText(),txtcmnd.getText(),txtsdt.getText(),textFieldTrangThaiLamViec.getText(),txtdc.getText(),nv.getLNV().getTenLNV(),nv.getMaTK().getMaTaiKhoan()};
-			model.addRow(rowData);
-			JOptionPane.showMessageDialog(this, "Thêm Nhân Viên Thành Công");
-			lammoi();
-		}
-//		table.setModel(model);
-//		updateTableData();
-		loadTable();
-	}
+//
+//	protected void btnthemActionPerformed(ActionEvent e) {
+//		QLNV_DAO dsnv = new QLNV_DAO();
+//		int maxMaNV = dsnv.getMaxMaNV();
+////		int maxMaTK = dstk.getMaxMaTaiKhoan();
+//		
+//		maxMaNV++;
+////		maxMaTK++;
+//
+//		txtMaNV.setText("NVAA" + String.format("%03d", maxMaNV));
+//		NhanVien nv = reverSPFromTextField();
+////		ArrayList<TaiKhoanNhanVien> tknv = dstk.laytheomatk(nv.get);
+////		String maTK = tknv.getMaTK().getMaTaiKhoan();
+////		maTK = "TK" + String.format("%03d", maxMaTK);
+//		String gt = "";
+//		if(dsnv.create(nv)) {
+//			if(rdbtnNAM.isSelected()) {
+//				gt = "Nam";
+//			}
+//			if(rdbtnNU.isSelected()) {
+//				gt = "Nữ";
+//			}
+//			Object [] rowData = {txtMaNV.getText(),txtten.getText(),gt,txtns.getText(),txtcmnd.getText(),txtsdt.getText(),textFieldTrangThaiLamViec.getText(),txtdc.getText(),nv.getLNV().getTenLNV()};
+////			Object [] rowData = {txtMaNV.getText(),txtten.getText(),gt,txtns.getText(),txtcmnd.getText(),txtsdt.getText(),textFieldTrangThaiLamViec.getText(),txtdc.getText(),nv.getLNV().getTenLNV(),nv.getMaTK().getMaTaiKhoan()};
+//			model.addRow(rowData);
+//			JOptionPane.showMessageDialog(this, "Thêm Nhân Viên Thành Công");
+//			lammoi();
+//		}
+////		table.setModel(model);
+////		updateTableData();
+//		loadTable();
+//	}
 
 
 	

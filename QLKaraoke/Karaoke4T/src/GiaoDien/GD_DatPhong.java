@@ -12,6 +12,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.net.URL;
 import java.util.Calendar;
+import java.util.stream.IntStream;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -34,6 +35,7 @@ import javax.swing.JTextField;
 import javax.swing.JRadioButton;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
+import com.toedter.calendar.JDateChooser;
 
 public class GD_DatPhong extends JFrame implements ActionListener {
 
@@ -324,9 +326,20 @@ public class GD_DatPhong extends JFrame implements ActionListener {
         comboBoxGio.setBounds(25, 377, 80, 22);
         pnl_thongtinkhachhang.add(comboBoxGio);
         
-        JComboBox comboBoxPhutNhanPhong = new JComboBox();
-        comboBoxPhutNhanPhong.setBounds(181, 377, 80, 22);
+        String[] phut = IntStream.rangeClosed(0, 60)
+                .mapToObj(String::valueOf)
+                .toArray(String[]::new);
+        JComboBox comboBoxPhutNhanPhong = new JComboBox<>(phut);
+        comboBoxPhutNhanPhong.setBounds(152, 377, 69, 22);
         pnl_thongtinkhachhang.add(comboBoxPhutNhanPhong);
+        
+        JLabel lblNewLabel_5 = new JLabel("Giờ");
+        lblNewLabel_5.setBounds(115, 380, 25, 14);
+        pnl_thongtinkhachhang.add(lblNewLabel_5);
+        
+        JLabel lblNewLabel_5_1 = new JLabel("Phút");
+        lblNewLabel_5_1.setBounds(231, 381, 49, 14);
+        pnl_thongtinkhachhang.add(lblNewLabel_5_1);
 		
         testbutton.Buttontest btndatphong1 = new testbutton.Buttontest();
         btndatphong1.addMouseListener(new MouseAdapter() {
