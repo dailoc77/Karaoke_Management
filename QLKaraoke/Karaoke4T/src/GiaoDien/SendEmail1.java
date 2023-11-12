@@ -16,6 +16,7 @@ import javax.mail.internet.MimeMessage;
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.Color;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -43,7 +44,8 @@ public class SendEmail1 extends JFrame implements ActionListener{
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField txtEmail, txtCode;
-	private JButton btnSend;
+//	private JButton btnSend;
+	private testbutton.Buttontest btnSend;
 
 	/**
 	 * Launch the application.
@@ -68,10 +70,17 @@ public class SendEmail1 extends JFrame implements ActionListener{
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-	    JPanel panel = new JPanel();
+	    JPanel panel = new JPanel() {
+	    	protected void paintComponent(Graphics g) {
+				g.setColor(getBackground());
+				g.fillRect(0, 0, getWidth(), getHeight());
+				super.paintComponent(g);
+			}
+	    };
 	    panel.setForeground(new Color(255, 255, 255));
 	    panel.setBackground(new Color(255, 255, 255, 200));
 	    panel.setBounds(201, 36, 323, 379);
+	    panel.setOpaque(false);
 	    contentPane.add(panel);
 	    panel.setLayout(null);
 		
@@ -82,21 +91,47 @@ public class SendEmail1 extends JFrame implements ActionListener{
 		
 		JLabel lblNewLabel_2 = new JLabel("Karaoke 4T");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblNewLabel_2.setBounds(107, 72, 108, 13);
+		lblNewLabel_2.setBounds(107, 72, 118, 17);
 		panel.add(lblNewLabel_2);
 		
-		btnSend = new JButton("Send Email");
+		btnSend = new testbutton.Buttontest();
+		btnSend.setText("Send Email");
+//		btnSend.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				String email = txtEmail.getText().trim();
+//                if (email.isEmpty()) {
+//                    JOptionPane.showMessageDialog(null, "Vui lòng nhập địa chỉ email.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+//                } else {
+//                    sendEmail(email, password, from);
+//                }
+//			}
+//		});
 		btnSend.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String email = txtEmail.getText().trim();
-                if (email.isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Please enter an email address.", "Validation Error", JOptionPane.ERROR_MESSAGE);
-                } else {
-                    sendEmail(email, password, from);
-                }
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+		        String email = txtEmail.getText().trim();
+
+		        // Check if email is empty
+		        if (email.isEmpty()) {
+		            JOptionPane.showMessageDialog(null, "Vui lòng nhập địa chỉ email.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+		        } else {
+		            // Check if the entered email has a valid format
+		            if (isValidEmail(email)) {
+		                // If the email format is valid, send the email
+		                sendEmail(email, password, from);
+		            } else {
+		                JOptionPane.showMessageDialog(null, "Địa chỉ email không hợp lệ.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+		            }
+		        }
+		    }
+
+			private boolean isValidEmail(String email) {
+				String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+			    return email.matches(emailRegex);
 			}
 		});
-		btnSend.setBounds(132, 174, 151, 23);
+
+		btnSend.setBounds(132, 174, 151, 33);
 		panel.add(btnSend);
 		btnSend.setForeground(Color.WHITE);
 		btnSend.setBackground(Color.BLACK);
@@ -105,12 +140,12 @@ public class SendEmail1 extends JFrame implements ActionListener{
 		
 		JLabel lblemail = new JLabel("Email:");
 		lblemail.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblemail.setBounds(44, 101, 64, 13);
+		lblemail.setBounds(44, 101, 64, 17);
 		panel.add(lblemail);
 		
-		JLabel lblcode = new JLabel("Verify Code");
+		JLabel lblcode = new JLabel("Verify Code:");
 		lblcode.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblcode.setBounds(44, 203, 97, 13);
+		lblcode.setBounds(44, 203, 97, 17);
 		panel.add(lblcode);
 		
 		txtEmail = new JTextField();
@@ -125,7 +160,8 @@ public class SendEmail1 extends JFrame implements ActionListener{
 		txtCode.setBounds(44, 224, 239, 40);
 		panel.add(txtCode);
 		
-		JButton btnVerifyCode = new JButton("Verify Code");
+		testbutton.Buttontest btnVerifyCode = new testbutton.Buttontest();
+		btnVerifyCode.setText("Verify Code");
 		btnVerifyCode.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -137,17 +173,17 @@ public class SendEmail1 extends JFrame implements ActionListener{
 		                resetFrame.setVisible(true);
 		                dispose();  // Đóng cửa sổ SendEmail
 		            } else {
-		                JOptionPane.showMessageDialog(null, "Mã xác minh không đúng");		          
+		                JOptionPane.showMessageDialog(null, "Mã xác minh không đúng", "Validation Error", JOptionPane.ERROR_MESSAGE);		          
 		            }
 		        } catch (NumberFormatException ex) {
-		            JOptionPane.showMessageDialog(null, "Vui lòng nhập một mã số hợp lệ");
+		            JOptionPane.showMessageDialog(null, "Vui lòng nhập đúng mã OTP", "Validation Error", JOptionPane.ERROR_MESSAGE);
 		        }
 			}
 		});
 		btnVerifyCode.setForeground(Color.WHITE);
 		btnVerifyCode.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnVerifyCode.setBackground(Color.BLACK);
-		btnVerifyCode.setBounds(132, 274, 151, 23);
+		btnVerifyCode.setBounds(132, 274, 151, 33);
 		panel.add(btnVerifyCode);
 		
 		JLabel lblNewLabel = new JLabel("");
@@ -202,7 +238,7 @@ public class SendEmail1 extends JFrame implements ActionListener{
 
 			// Nội dung
 			msg.setContent(noiDung, "text/HTML; charset=UTF-8"); 
-			msg.setText("Ma reset code is "+randomCode);
+			msg.setText("Mã OTP để đổi password: "+randomCode);
 			//String message = "Your reset code is "+randomCode;
 			// "Ma reset cod is "+randomCode
 
@@ -247,8 +283,6 @@ public class SendEmail1 extends JFrame implements ActionListener{
 	public static void updatePasswordInDatabase(String email, String newPassword) {
 	    try {
 	        Connection connection = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=Karaoke4T;user=sa;password=123");
-
-//	        String updateQuery = "UPDATE forgotpassjava SET password=? WHERE email=?";
 	        String updateQuery = "UPDATE TaiKhoan SET MK=? WHERE email=?";
 	        try (PreparedStatement updateStatement = connection.prepareStatement(updateQuery)) {
 	            updateStatement.setString(1, newPassword);

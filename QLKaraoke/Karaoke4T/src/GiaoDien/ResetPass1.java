@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.Color;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -28,7 +29,9 @@ public class ResetPass1 extends JFrame{
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField txtNewPass, txtVerify;
-	private JButton btnReset;
+	private JPasswordField passNew, passVerify;
+//	private JButton btnReset;
+	private testbutton.Buttontest btnReset;
 	public static String email;
 	private JTextField textField;
 
@@ -53,10 +56,17 @@ public class ResetPass1 extends JFrame{
 	    setContentPane(contentPane);
 	    contentPane.setLayout(null);
 
-	    JPanel panel = new JPanel();
+	    JPanel panel = new JPanel() {
+			protected void paintComponent(Graphics g) {
+				g.setColor(getBackground());
+				g.fillRect(0, 0, getWidth(), getHeight());
+				super.paintComponent(g);
+			}
+	    };
 	    panel.setForeground(new Color(255, 255, 255));
 	    panel.setBackground(new Color(255, 255, 255, 200));
 	    panel.setBounds(201, 36, 323, 379);
+	    panel.setOpaque(false);
 	    contentPane.add(panel);
 	    panel.setLayout(null);
 
@@ -67,29 +77,58 @@ public class ResetPass1 extends JFrame{
 
 	    JLabel lblNewLabel_2 = new JLabel("Karaoke 4T");
 	    lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 20));
-	    lblNewLabel_2.setBounds(107, 72, 108, 13);
+	    lblNewLabel_2.setBounds(107, 72, 118, 17);
 	    panel.add(lblNewLabel_2);
 
-	    btnReset = new JButton("Reset");
+	    btnReset = new testbutton.Buttontest();
+	    btnReset.setText("Reset");
+//	    btnReset.addActionListener(new ActionListener() {
+//
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				// TODO Auto-generated method stub
+//				String newPassword = passNew.getText();
+//
+//		        if (newPassword.equals(passVerify.getText())) {
+//		            // Gọi phương thức để cập nhật mật khẩu trong cơ sở dữ liệu
+//		        	SendEmail1.updatePasswordInDatabase(email, newPassword);
+//		            JOptionPane.showMessageDialog(null, "Đổi mật khẩu thành công");
+//		            GD_Login login = new GD_Login();
+//		            login.setVisible(true);
+//		            dispose();
+//		        } else {
+//		            JOptionPane.showMessageDialog(null, "Mật khẩu không khớp");
+//		        }
+//			}
+//	        
+//	    });
+	    
 	    btnReset.addActionListener(new ActionListener() {
+	        @Override
+	        public void actionPerformed(ActionEvent e) {
+	            // Check if any of the fields are empty
+	            if (textField.getText().trim().isEmpty() || 
+	                passNew.getPassword().length == 0 || 
+	                passVerify.getPassword().length == 0) {
+	                JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin.");
+	                return; // Exit the method if any field is empty
+	            }
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				String newPassword = txtNewPass.getText();
+	            String newPassword = new String(passNew.getPassword());
+	            String confirmPassword = new String(passVerify.getPassword());
 
-		        if (newPassword.equals(txtVerify.getText())) {
-		            // Gọi phương thức để cập nhật mật khẩu trong cơ sở dữ liệu
-		        	SendEmail1.updatePasswordInDatabase(email, newPassword);
-		            JOptionPane.showMessageDialog(null, "Đổi mật khẩu thành công");
-		            GD_Login login = new GD_Login();
-		            login.setVisible(true);
-		            dispose();
-		        } else {
-		            JOptionPane.showMessageDialog(null, "Mật khẩu không khớp");
-		        }
-			}
-	        
+	            // Check if the new passwords match
+	            if (newPassword.equals(confirmPassword)) {
+	                // Gọi phương thức để cập nhật mật khẩu trong cơ sở dữ liệu
+	                SendEmail1.updatePasswordInDatabase(email, newPassword);
+	                JOptionPane.showMessageDialog(null, "Đổi mật khẩu thành công");
+	                GD_Login login = new GD_Login();
+	                login.setVisible(true);
+	                dispose();
+	            } else {
+	                JOptionPane.showMessageDialog(null, "Mật khẩu nhập lại không đúng");
+	            }
+	        }
 	    });
 	    btnReset.setBounds(44, 329, 239, 40);
 	    panel.add(btnReset);
@@ -97,26 +136,37 @@ public class ResetPass1 extends JFrame{
 	    btnReset.setBackground(Color.BLACK);
 	    btnReset.setFont(new Font("Tahoma", Font.PLAIN, 20));
 
-	    JLabel lblNewLabel_4 = new JLabel("New Password");
+	    JLabel lblNewLabel_4 = new JLabel("Mật khẩu mới");
 	    lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 14));
-	    lblNewLabel_4.setBounds(44, 168, 108, 13);
+	    lblNewLabel_4.setBounds(44, 168, 118, 17);
 	    panel.add(lblNewLabel_4);
 
-	    JLabel lblNewLabel_4_1 = new JLabel("Verify Password");
+	    JLabel lblNewLabel_4_1 = new JLabel("Nhập lại mật khẩu");
 	    lblNewLabel_4_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-	    lblNewLabel_4_1.setBounds(44, 234, 108, 13);
+	    lblNewLabel_4_1.setBounds(44, 234, 118, 17);
 	    panel.add(lblNewLabel_4_1);
 
-	    txtVerify = new JTextField();
-	    txtVerify.setFont(new Font("Tahoma", Font.PLAIN, 20));
-	    txtVerify.setBounds(44, 257, 240, 40);
-	    panel.add(txtVerify);
+//	    txtVerify = new JTextField();
+//	    txtVerify.setFont(new Font("Tahoma", Font.PLAIN, 20));
+//	    txtVerify.setBounds(44, 257, 240, 40);
+//	    panel.add(txtVerify);
 
-	    txtNewPass = new JTextField();
-	    txtNewPass.setFont(new Font("Tahoma", Font.PLAIN, 20));
-	    txtNewPass.setBounds(44, 191, 240, 40);
-	    panel.add(txtNewPass);
-	    txtNewPass.setColumns(10);
+//	    txtNewPass = new JTextField();
+//	    txtNewPass.setFont(new Font("Tahoma", Font.PLAIN, 20));
+//	    txtNewPass.setBounds(44, 191, 240, 40);
+//	    panel.add(txtNewPass);
+//	    txtNewPass.setColumns(10);
+	    
+	    passVerify = new JPasswordField();
+	    passVerify.setFont(new Font("Tahoma", Font.PLAIN, 20));
+	    passVerify.setBounds(44, 257, 240, 40);
+	    panel.add(passVerify);
+	    
+	    passNew = new JPasswordField();
+	    passNew.setFont(new Font("Tahoma", Font.PLAIN, 20));
+	    passNew.setBounds(44, 191, 240, 40);
+	    panel.add(passNew);
+	    passNew.setColumns(10);
 	    
 	    JLabel lblNewLabel_4_2 = new JLabel("Tên tài khoản");
 	    lblNewLabel_4_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
