@@ -3,6 +3,7 @@ package GiaoDien;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Desktop;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -14,7 +15,15 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.net.URL;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import java.util.ArrayList;
+
 import java.util.Calendar;
 import java.util.List;
 
@@ -23,6 +32,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
 import DAO.QLDV_DAO;
@@ -64,6 +74,12 @@ public class GD_PhongHat extends JFrame implements ActionListener {
 	private JTextField txtMaPhong;
 	private JTextField txtTenPhong;
 	private JTextField textField_2;
+
+	private JTextField textField_3;
+	private JComboBox<String> comboBoxLoaiPhong;
+	private JComboBox<String> comboBoxGiaTien;
+	private JTextField textFieldTrangThai;
+
 	private JTextField txt_chuThich;
 	DefaultTableModel model;
 	private JTable table;
@@ -74,6 +90,7 @@ public class GD_PhongHat extends JFrame implements ActionListener {
 	JComboBox cbB_trangThaiPhong = new JComboBox<String>();
 	JPanel pnl_danhsachphonghat = new JPanel();
 	private JTextField txt_soNguoi;
+
 	/**
 	 * Launch the application.
 	 */
@@ -281,28 +298,39 @@ public class GD_PhongHat extends JFrame implements ActionListener {
         lblNewLabel_3_1.setBounds(25, 293, 93, 25);
         pnl_thongtinkhachhang.add(lblNewLabel_3_1);
         
+
+        comboBoxLoaiPhong = new JComboBox();
+        comboBoxLoaiPhong.setBounds(25, 147, 121, 25);
+        pnl_thongtinkhachhang.add(comboBoxLoaiPhong);
+        loadComBoBoxLoaiPhong();
+
         JComboBox cbB_loaiPhong = new JComboBox();
         cbB_loaiPhong.setBounds(25, 147, 121, 25);
         pnl_thongtinkhachhang.add(cbB_loaiPhong);
+
         
         JLabel lblNewLabel_2_1 = new JLabel("Giá Phòng");
         lblNewLabel_2_1.setFont(new Font("Tahoma", Font.PLAIN, 13));
         lblNewLabel_2_1.setBounds(25, 182, 93, 19);
         pnl_thongtinkhachhang.add(lblNewLabel_2_1);
         
+
+        comboBoxGiaTien = new JComboBox();
+        comboBoxGiaTien.setBounds(25, 200, 121, 25);
+        pnl_thongtinkhachhang.add(comboBoxGiaTien);
+        loadComBoBoxGiaPhong();
+
         JComboBox cbB_giaPhong = new JComboBox();
         cbB_giaPhong.setBounds(25, 200, 121, 25);
         pnl_thongtinkhachhang.add(cbB_giaPhong);
+
         
         JLabel lblNewLabel_2_1_1 = new JLabel("Trạng Thái Phòng");
         lblNewLabel_2_1_1.setFont(new Font("Tahoma", Font.PLAIN, 13));
         lblNewLabel_2_1_1.setBounds(25, 233, 121, 25);
         pnl_thongtinkhachhang.add(lblNewLabel_2_1_1);
         
-        JComboBox cbB_trangThaiPhong = new JComboBox();
-        cbB_trangThaiPhong.setBounds(25, 258, 121, 25);
-        pnl_thongtinkhachhang.add(cbB_trangThaiPhong);
-        
+
         testbutton.Buttontest btnthem = new testbutton.Buttontest();
         btnthem.setText("Thêm");
 		btnthem.setRippleColor(new Color(255, 255, 255));
@@ -333,6 +361,12 @@ public class GD_PhongHat extends JFrame implements ActionListener {
 		});
         pnl_thongtinkhachhang.add(btnsua);
         
+
+        textFieldTrangThai = new JTextField();
+        textFieldTrangThai.setColumns(10);
+        textFieldTrangThai.setBounds(25, 258, 236, 25);
+        pnl_thongtinkhachhang.add(textFieldTrangThai);
+
         JLabel lblavatar = new JLabel("");
         lblavatar.setBounds(318, -591, 1149, 957);
         pnl_thongtinkhachhang.add(lblavatar);
@@ -348,6 +382,7 @@ public class GD_PhongHat extends JFrame implements ActionListener {
         txt_soNguoi.setBounds(176, 147, 112, 24);
         pnl_thongtinkhachhang.add(txt_soNguoi);
         txt_soNguoi.setColumns(10);
+
 		
         testbutton.Buttontest btnphonghat = new testbutton.Buttontest();
         btnphonghat.addMouseListener(new MouseAdapter() {
@@ -758,6 +793,70 @@ public class GD_PhongHat extends JFrame implements ActionListener {
         lblClock.setText(time);
     }
     
+
+    
+    
+    public void loadComBoBoxLoaiPhong() {
+
+		// Thông tin kết nối đến cơ sở dữ liệu
+        String url = "jdbc:sqlserver://localhost:1433;databasename=Karaoke4T";
+        String username = "sa";
+        String password = "123";
+
+        try {
+            // Kết nối đến cơ sở dữ liệu
+            Connection connection = DriverManager.getConnection(url, username, password);
+
+            // Truy vấn SQL để lấy dữ liệu
+            String sql = "SELECT * FROM LoaiPhong";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+
+            // Lặp qua các dòng kết quả và thêm vào JComboBox
+            while (resultSet.next()) {
+                String columnName = resultSet.getString("tenLoaiPhong");
+                comboBoxLoaiPhong.addItem(columnName);
+            }
+
+            // Đóng các tài nguyên
+            resultSet.close();
+            statement.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+	}
+    public void loadComBoBoxGiaPhong() {
+
+		// Thông tin kết nối đến cơ sở dữ liệu
+        String url = "jdbc:sqlserver://localhost:1433;databasename=Karaoke4T";
+        String username = "sa";
+        String password = "123";
+
+        try {
+            // Kết nối đến cơ sở dữ liệu
+            Connection connection = DriverManager.getConnection(url, username, password);
+
+            // Truy vấn SQL để lấy dữ liệu
+            String sql = "SELECT * FROM LoaiPhong";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+
+            // Lặp qua các dòng kết quả và thêm vào JComboBox
+            while (resultSet.next()) {
+                String columnName = resultSet.getString("giaTien");
+                comboBoxGiaTien.addItem(columnName);
+            }
+
+            // Đóng các tài nguyên
+            resultSet.close();
+            statement.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+	}
+
     private void loadData() {
 		QLPH_DAO ds = new QLPH_DAO();
 		ArrayList<Phong> listPhong = ds.docbang();
@@ -780,13 +879,16 @@ public class GD_PhongHat extends JFrame implements ActionListener {
 		JPanel panel_dsph = new JPanel();
 		panel_dsph.setBackground(new Color(192, 192, 192));
 		scrollPane_DSPH.setViewportView(panel_dsph);
-		panel_dsph.setLayout(new GridLayout(0, 5, -50, -50));
+		panel_dsph.setLayout(new GridLayout(0, 5, -50, 20));
     	for(Phong ph : listph) {
     		//load label cha
-    		JLabel lbl_phonghat = new JLabel();
-    		lbl_phonghat.setBackground(new Color(255, 255, 255));
-    		panel_dsph.add(lbl_phonghat);
-    		lbl_phonghat.setLayout(null);
+    		JPanel pnl_phonghat = new JPanel();
+    		pnl_phonghat.setBackground(new Color(255, 255, 255, 0));
+    		pnl_phonghat.setLayout(null);
+//    		pnl_phonghat.setBorder(LineBorder.createBlackLineBorder());
+    		pnl_phonghat.setPreferredSize(new Dimension(200, 200));
+    		panel_dsph.add(pnl_phonghat);
+    		
 //
 //    		
 //    		//load suc chua
@@ -795,20 +897,21 @@ public class GD_PhongHat extends JFrame implements ActionListener {
     		lbl_succhua.setFont(new Font("Tahoma", Font.BOLD, 11));
     		lbl_succhua.setForeground(new Color(255,0,0));
     		lbl_succhua.setBounds(55, 130, 85, 35);
-    		lbl_phonghat.add(lbl_succhua);
+    		pnl_phonghat.add(lbl_succhua);
     		
     		//load ten phong
     		JLabel lbl_tenphong = new JLabel(ph.getTenPhong());
     		lbl_tenphong.setFont(new Font("Tahoma", Font.BOLD, 13));
     		lbl_tenphong.setHorizontalAlignment(SwingConstants.CENTER);
     		lbl_tenphong.setBounds(55, 145, 85, 35);
-    		lbl_phonghat.add(lbl_tenphong);
+    		pnl_phonghat.add(lbl_tenphong);
     		
     		//load hinh anh
     		JLabel lbl_hinhanh = new JLabel("");
     		lbl_hinhanh.setHorizontalAlignment(SwingConstants.CENTER);
     		lbl_hinhanh.setBounds(50, 50, 88, 85);
-    		lbl_phonghat.add(lbl_hinhanh);
+    		lbl_hinhanh.setBorder(LineBorder.createBlackLineBorder());
+    		pnl_phonghat.add(lbl_hinhanh);
     		
     		//phan loai phong
     		if(ph.getLoaiPhong().getTenLoaiPhong().equals("Phòng Thường")) {
@@ -817,7 +920,7 @@ public class GD_PhongHat extends JFrame implements ActionListener {
     			lbl_hinhanh.setIcon(new ImageIcon(GD_PhongHat.class.getResource("/Imgs/micro_with_crown.png")));
     		}
     		
-    		lbl_phonghat.addMouseListener(new MouseAdapter() {
+    		pnl_phonghat.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					txtMaPhong.setText(ph.getMaPhong());
@@ -828,5 +931,6 @@ public class GD_PhongHat extends JFrame implements ActionListener {
 			});
     	}
 	}
+
 
 }

@@ -18,8 +18,8 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 import javax.swing.border.EmptyBorder;
-
-import Entity.Phong;
+import DAO.*;
+import Entity.*;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -156,7 +156,7 @@ public class GD_DatPhong extends JFrame implements ActionListener {
 		    }
 		});
 		
-//		Jlay
+
 //		
 //		JLabel lblavatar = new JLabel("");
 //		lblavatar.setHorizontalAlignment(SwingConstants.CENTER);

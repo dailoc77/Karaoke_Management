@@ -42,6 +42,7 @@ import Entity.Phong;
 import javax.swing.JTextField;
 import javax.swing.JScrollPane;
 import java.awt.GridLayout;
+import javax.swing.ScrollPaneConstants;
 
 
 public class GD_QLDichVu extends JFrame implements ActionListener{
@@ -781,11 +782,11 @@ public class GD_QLDichVu extends JFrame implements ActionListener{
 		lblavatar.setBounds(90, -444, 1333, 957);
 		contentPane.add(lblavatar);
 		
-		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setIcon(new ImageIcon(GD_Main_NV.class.getResource("/Imgs/370.png")));
-		lblNewLabel.setBounds(-95, -176, 1333, 957);
-		contentPane.add(lblNewLabel);
+//		JLabel lblNewLabel = new JLabel("");
+//		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+//		lblNewLabel.setIcon(new ImageIcon(GD_Main_NV.class.getResource("/Imgs/370.png")));
+//		lblNewLabel.setBounds(-95, -176, 1333, 957);
+//		contentPane.add(lblNewLabel);
 	
 		JLabel lblhinhnen = new JLabel("");
 		lblhinhnen.setHorizontalAlignment(SwingConstants.CENTER);
@@ -837,16 +838,18 @@ public class GD_QLDichVu extends JFrame implements ActionListener{
 		Right_QLDV.add(scrollPane_DSDV);
 		
 		JPanel panel_dsdv = new JPanel();
-		panel_dsdv.setBackground(new Color(192, 192, 192));
+		panel_dsdv.setBackground(new Color(255, 255, 255));
 		scrollPane_DSDV.setViewportView(panel_dsdv);
 		panel_dsdv.setLayout(new GridLayout(0, 5, 10, 10));
     	for(DichVu dv : listdv) {
     		//load label cha
-    		JLabel lbl_dichvu = new JLabel();
-    		lbl_dichvu.setBackground(new Color(255, 255, 255));
-    		lbl_dichvu.setBorder(LineBorder.createBlackLineBorder());
-    		panel_dsdv.add(lbl_dichvu);
-    		lbl_dichvu.setLayout(null);
+    		JPanel pnl_dichvu = new JPanel();
+    		pnl_dichvu.setBackground(new Color(255, 255, 255));
+    		pnl_dichvu.setLayout(null);
+    		pnl_dichvu.setPreferredSize(new Dimension(150,150));
+    		pnl_dichvu.setBorder(LineBorder.createBlackLineBorder());
+    		panel_dsdv.add(pnl_dichvu);
+
 
     		
     		//load label gia
@@ -855,23 +858,23 @@ public class GD_QLDichVu extends JFrame implements ActionListener{
     		lbl_price.setFont(new Font("Tahoma", Font.BOLD, 11));
 //    		lbl_price.setBorder(new LineBorder(new Color(0, 0, 0)));
     		lbl_price.setBounds(39, 115, 85, 35);
-    		lbl_dichvu.add(lbl_price);
+    		pnl_dichvu.add(lbl_price);
     		
     		//load ten dich vu
     		JLabel lbl_name = new JLabel(dv.getTenDichVu());
     		lbl_name.setFont(new Font("Tahoma", Font.BOLD, 13));
     		lbl_name.setHorizontalAlignment(SwingConstants.CENTER);
     		lbl_name.setBounds(39, 98, 85, 35);
-    		lbl_dichvu.add(lbl_name);
+    		pnl_dichvu.add(lbl_name);
     		
     		//load hinh anh
     		JLabel lbl_hinhanh = new JLabel("");
-    		lbl_hinhanh.setIcon(new ImageIcon(GD_QLDichVu.class.getResource("/Imgs/BiaSaiGon 1.png")));
+    		lbl_hinhanh.setIcon(new ImageIcon(GD_QLDichVu.class.getResource("/Imgs/food.png")));
     		lbl_hinhanh.setHorizontalAlignment(SwingConstants.CENTER);
     		lbl_hinhanh.setBounds(0, 0, 162, 121);
-    		lbl_dichvu.add(lbl_hinhanh);
+    		pnl_dichvu.add(lbl_hinhanh);
     		
-    		lbl_dichvu.addMouseListener(new MouseAdapter() {
+    		pnl_dichvu.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					textField_madv.setText(" " + dv.getMaDichVu());
