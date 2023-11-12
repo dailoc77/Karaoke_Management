@@ -13,32 +13,25 @@ import Entity.*;
 
 
 public class LoaiNhanVien_DAO {
-	List<LoaiNhanVien> danhSachLoaiNV;
-	public  LoaiNhanVien_DAO() {
-		danhSachLoaiNV = new ArrayList<>();
+	public List<LoaiNhanVien> doctubang(){
+		List<LoaiNhanVien> ds = new ArrayList<LoaiNhanVien>();
+		Connection con = connectDB.getConnection();
+		connectDB.getInstance();
+		try {
+			String sql = "select * from LoaiNhanVien";
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				ds.add(new LoaiNhanVien(
+						rs.getString("maLNV"),
+						rs.getString("tenLNV")
+						));
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return ds;
 	}
-		public List<LoaiNhanVien> getAllLoaiNhanVien() {
-	        
-	        try{
-	        	Connection con = connectDB.getInstance().getConnection();
-	        	String sql= "SELECT * FROM LoaiNhanVien";
-	        	Statement sta = con.createStatement();
-	        	ResultSet rs = sta.executeQuery(sql);
-	        	if(con != null) {
-	        		 while (rs.next()) {
-	                     String id = rs.getString(1);
-	                     String tenLoai = rs.getString(2);
-
-	                     LoaiNhanVien loaiNhanVien = new LoaiNhanVien(id, tenLoai);
-	                     danhSachLoaiNV.add(loaiNhanVien);
-	                 }
-	        	}
-	           
-	        } catch (Exception e) {
-	            e.printStackTrace();
-	        }
-
-	        return danhSachLoaiNV;
-	    }
 }
 
