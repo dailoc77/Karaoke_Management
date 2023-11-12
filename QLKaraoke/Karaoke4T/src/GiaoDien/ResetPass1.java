@@ -86,12 +86,11 @@ public class ResetPass1 extends JFrame{
 	        @Override
 	        public void actionPerformed(ActionEvent e) {
 	            // Check if any of the fields are empty
-	            if (textField.getText().trim().isEmpty() || 
-	                passNew.getPassword().length == 0 || 
-	                passVerify.getPassword().length == 0) {
-	                JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin.");
-	                return; // Exit the method if any field is empty
-	            }
+	            if (passNew.getPassword().length == 0 || 
+		                passVerify.getPassword().length == 0) {
+		                JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin.");
+		                return; // Exit the method if any field is empty
+		            }
 
 	            String newPassword = new String(passNew.getPassword());
 	            String confirmPassword = new String(passVerify.getPassword());
@@ -136,17 +135,6 @@ public class ResetPass1 extends JFrame{
 	    panel.add(passNew);
 	    passNew.setColumns(10);
 	    
-	    JLabel lblNewLabel_4_2 = new JLabel("Tên tài khoản");
-	    lblNewLabel_4_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
-	    lblNewLabel_4_2.setBounds(43, 95, 108, 13);
-	    panel.add(lblNewLabel_4_2);
-	    
-	    textField = new JTextField();
-	    textField.setFont(new Font("Tahoma", Font.PLAIN, 20));
-	    textField.setColumns(10);
-	    textField.setBounds(43, 118, 240, 40);
-	    panel.add(textField);
-
 	    JLabel lblNewLabel = new JLabel("");
 	    lblNewLabel.setIcon(new ImageIcon(ResetPass1.class.getResource("/Imgs/BG_login.jpg")));
 	    lblNewLabel.setBounds(0, 0, 728, 468);
