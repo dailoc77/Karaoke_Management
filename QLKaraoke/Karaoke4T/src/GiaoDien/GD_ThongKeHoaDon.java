@@ -10,8 +10,15 @@ import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.net.URL;
+import java.sql.Connection;
 import java.sql.Date;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
 
@@ -44,9 +51,19 @@ import javax.swing.JScrollBar;
 import com.toedter.calendar.JDayChooser;
 import com.toedter.calendar.JMonthChooser;
 import com.toedter.calendar.JYearChooser;
+
+import DAO.QLKH_DAO;
+import DAO.QLNV_DAO;
+import DAO.ThongKeHoaDon_DAO;
+import Entity.KhachHang;
+import Entity.NhanVien;
+import Entity.ThongKeHoaDon;
+import connectDB.connectDB;
+
 import com.toedter.calendar.JDateChooser;
 import com.toedter.calendar.JCalendar;
 import com.toedter.calendar.JTextFieldDateEditor;
+import javax.swing.JComboBox;
 
 public class GD_ThongKeHoaDon extends JFrame implements ActionListener {
 
@@ -55,9 +72,17 @@ public class GD_ThongKeHoaDon extends JFrame implements ActionListener {
 	DefaultTableModel model;
 	private JLabel lblClock;
 	private Timer timer;
-	private JTextField textField_1;
-	private JTextField textField_2;
+	private JTextField textFieldTongSoKhachHang;
+	private JTextField textFieldTongDoanhThu;
 	
+	private int selectedValueNgay = 0;
+	private String selectedValueThang = null;
+	private int selectedValueNam = 0;
+	private String thang [] = {"1","2","3","4","5","6","7","8","9","10","11","12"};
+	private JComboBox comboBoxThang = new JComboBox<>(thang);
+	
+//	private JComboBox comboBoxThang;
+	ThongKeHoaDon_DAO dstk = new ThongKeHoaDon_DAO();
 	/**
 	 * Launch the application.
 	 */
@@ -97,7 +122,7 @@ public class GD_ThongKeHoaDon extends JFrame implements ActionListener {
 	 * Create the frame.
 	 */
 	public GD_ThongKeHoaDon() {
-		initComponents();
+//		initComponents();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1175, 650);
 		contentPane = new JPanel();
@@ -139,11 +164,11 @@ public class GD_ThongKeHoaDon extends JFrame implements ActionListener {
         timer = new Timer(0, this);
         timer.start();
         
-		JLabel lblavatar = new JLabel("");
-		lblavatar.setHorizontalAlignment(SwingConstants.CENTER);
-		lblavatar.setIcon(new ImageIcon(GD_ThongKeHoaDon.class.getResource("/Imgs/t1 1.png")));
-		lblavatar.setBounds(90, -444, 1333, 957);
-		contentPane.add(lblavatar);
+//		JLabel lblavatar = new JLabel("");
+//		lblavatar.setHorizontalAlignment(SwingConstants.CENTER);
+//		lblavatar.setIcon(new ImageIcon(GD_ThongKeHoaDon.class.getResource("/Imgs/t1 1.png")));
+//		lblavatar.setBounds(90, -444, 1333, 957);
+//		contentPane.add(lblavatar);
 		
         JLabel lblquanly = new JLabel("QL:");
 		lblquanly.setForeground(Color.WHITE);
@@ -314,11 +339,6 @@ public class GD_ThongKeHoaDon extends JFrame implements ActionListener {
 		lblNewLabel_1_2.setBounds(595, 18, 113, 14);
 		panel.add(lblNewLabel_1_2);
 		
-		JMonthChooser monthChooser = new JMonthChooser();
-		monthChooser.setBounds(437, 47, 115, 20);
-		monthChooser.setOpaque(false);
-		panel.add(monthChooser);
-		
 		JYearChooser yearChooser = new JYearChooser();
 		yearChooser.setBounds(595, 47, 50, 20);
 		yearChooser.setOpaque(false);
@@ -343,11 +363,41 @@ public class GD_ThongKeHoaDon extends JFrame implements ActionListener {
 		
 	    
 		
-		JButton btnNewButton1 = new JButton("Thống kê");
-		btnNewButton1.setForeground(Color.WHITE);
-		btnNewButton1.setBackground(new Color(194, 100, 154));
-		btnNewButton1.setBounds(778, 30, 142, 42);
-		panel.add(btnNewButton1);
+		JButton btnThongKe = new JButton("Thống kê");
+		btnThongKe.setForeground(Color.WHITE);
+		btnThongKe.setBackground(new Color(194, 100, 154));
+		btnThongKe.setBounds(778, 30, 142, 42);
+		panel.add(btnThongKe);
+		
+		
+		
+		
+        
+		btnThongKe.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				selectedValueNgay = dayChooser.getDay();
+				selectedValueThang =  (String) comboBoxThang.getSelectedItem();
+				selectedValueNam =  yearChooser.getYear();
+				// TODO Auto-generated method stub
+				
+				// Lấy giá trị đã chọn từ JComboBox
+		        System.out.print(selectedValueNgay + "\n");
+		        
+		        ThongKeHoaDon_DAO dstk = new ThongKeHoaDon_DAO();
+				ArrayList<ThongKeHoaDon> ls = dstk.doctubangTheoThang(selectedValueNgay,selectedValueThang,selectedValueNam);
+				for(ThongKeHoaDon s : ls) {
+					
+//					loadTable();
+//					loadDanhSachThongKe(selectedValue);
+					loadDataFromSQL(selectedValueNgay,selectedValueThang,selectedValueNam);
+					loadTongDoanThu(selectedValueNgay,selectedValueThang,selectedValueNam);
+					loadTongSoKhachHang(selectedValueNgay,selectedValueThang,selectedValueNam) ;
+				}
+				
+			}
+			
+		});
 		
 		JLabel lblNewLabel_1_1_1 = new JLabel("Tổng doanh thu");
 		lblNewLabel_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -359,15 +409,20 @@ public class GD_ThongKeHoaDon extends JFrame implements ActionListener {
 		lblNewLabel_1_1_1_1.setBounds(967, 91, 122, 21);
 		panel.add(lblNewLabel_1_1_1_1);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(967, 112, 142, 28);
-		panel.add(textField_1);
+		textFieldTongSoKhachHang = new JTextField();
+		textFieldTongSoKhachHang.setColumns(10);
+		textFieldTongSoKhachHang.setBounds(967, 112, 142, 28);
+		panel.add(textFieldTongSoKhachHang);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(967, 44, 142, 28);
-		panel.add(textField_2);		
+		textFieldTongDoanhThu = new JTextField();
+		textFieldTongDoanhThu.setColumns(10);
+		textFieldTongDoanhThu.setBounds(967, 44, 142, 28);
+		panel.add(textFieldTongDoanhThu);		
+		
+		
+//		comboBoxThang = new JComboBox<>(thang);
+		comboBoxThang.setBounds(437, 47, 83, 20);
+		panel.add(comboBoxThang);
 
 		
 		//talbe
@@ -378,7 +433,7 @@ public class GD_ThongKeHoaDon extends JFrame implements ActionListener {
 		scrollPane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		contentPane.add(scrollPane);
 		
-		DefaultTableModel model = new DefaultTableModel();
+		model = new DefaultTableModel();
 		model.addColumn("Mã hóa đơn");
 		model.addColumn("Họ Tên Khách Hàng");
 		model.addColumn("Số Điện Thoại");
@@ -398,7 +453,13 @@ public class GD_ThongKeHoaDon extends JFrame implements ActionListener {
 		lblNewLabel.setBackground(new Color(240, 240, 240));
 		lblNewLabel.setForeground(new Color(255, 0, 0));
 		lblNewLabel.setIcon(new ImageIcon(GD_QuanLyKhachHang.class.getResource("/Imgs/370.png")));
+ 
 
+		connectDB.getInstance().connect();
+		loadTable();
+//		updateTableData();
+//		loadTongDoanThu();
+//		loadTongSoKhachHang("11") ;
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -433,31 +494,209 @@ public class GD_ThongKeHoaDon extends JFrame implements ActionListener {
         String time = String.format("%02d:%02d:%02d %s  %04d/%02d/%02d", hour, minute, second, ampm, year, month, day);
         lblClock.setText(time);
     }
-	private void initComponents() {
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                formWindowClosing(evt);
-            }
-        });
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
-
-        pack();
-    }
+//	private void initComponents() {
+//
+//        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+//        addWindowListener(new java.awt.event.WindowAdapter() {
+//            public void windowClosing(java.awt.event.WindowEvent evt) {
+//                formWindowClosing(evt);
+//            }
+//        });
+//
+//        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+//        getContentPane().setLayout(layout);
+//        layout.setHorizontalGroup(
+//            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+//            .addGap(0, 400, Short.MAX_VALUE)
+//        );
+//        layout.setVerticalGroup(
+//            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+//            .addGap(0, 300, Short.MAX_VALUE)
+//        );
+//
+//        pack();
+//    }
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
          GD_Main_QL mainql=new GD_Main_QL();
          mainql.setVisible(true);
     }
+    
+    
+    private void updateTableData() {
+		ThongKeHoaDon_DAO dstk = new ThongKeHoaDon_DAO();
+		ArrayList<ThongKeHoaDon> ls = dstk.doctubang();
+		for(ThongKeHoaDon s : ls) {
+			
+			String [] rowData = {s.getMaHD() + "",s.getTenKH() + "",s.getSDT() + "",s.getNgayLap() + "",s.getTenNV() + "",s.getTongTien() + ""};
+
+			model.addRow(rowData);
+			table.setModel(model);
+		}
+		
+	}
+    
+    
+    public void loadTongDoanThu(int ngay,String thang,int nam) {
+
+		// Thông tin kết nối đến cơ sở dữ liệu
+        String url = "jdbc:sqlserver://localhost:1433;databasename=Karaoke4T";
+        String username = "sa";
+        String password = "123";
+
+        try {
+            // Kết nối đến cơ sở dữ liệu
+            Connection connection = DriverManager.getConnection(url, username, password);
+
+            // Truy vấn SQL để lấy dữ liệu
+            String sql = "select sum(tongTien) as tongTien from HoaDon hd\r\n"
+            		+ "inner join KhachHang kh\r\n"
+            		+ "on hd.maKH = kh.maKH\r\n"
+            		+ "where DAY(ngayLap) = ? and month(ngayLap) = ? and YEAR(ngayLap) = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, ngay);
+            statement.setString(2, thang);
+            statement.setInt(3, nam);
+            ResultSet resultSet = statement.executeQuery();
+
+            // Lặp qua các dòng kết quả và thêm vào JComboBox
+            while (resultSet.next()) {
+                String columnName = resultSet.getString("tongTien");
+                textFieldTongDoanhThu.setText(columnName);
+               
+            }
+
+            // Đóng các tài nguyên
+            resultSet.close();
+            statement.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+	}
+    
+    
+    public void loadTongSoKhachHang(int ngay,String thang,int nam) {
+		// Thông tin kết nối đến cơ sở dữ liệu
+        String url = "jdbc:sqlserver://localhost:1433;databasename=Karaoke4T";
+        String username = "sa";
+        String password = "123";
+
+        try {
+            // Kết nối đến cơ sở dữ liệu
+            Connection connection = DriverManager.getConnection(url, username, password);
+
+            // Truy vấn SQL để lấy dữ liệu
+            String sql = "select count(kh.maKH) as SoLuongKhachHang from HoaDon hd\r\n"
+            		+ "inner join KhachHang kh\r\n"
+            		+ "on hd.maKH = kh.maKH\r\n"
+            		+ "where DAY(ngayLap) = ? and month(ngayLap) = ? and YEAR(ngayLap) = ?";
+            
+            
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, ngay);
+            statement.setString(2, thang);
+            statement.setInt(3, nam);
+            ResultSet resultSet = statement.executeQuery();
+            // Lặp qua các dòng kết quả và thêm vào JComboBox
+            while (resultSet.next()) {
+                String columnName = resultSet.getString("SoLuongKhachHang");
+                textFieldTongSoKhachHang.setText(columnName);
+               
+            }
+
+            // Đóng các tài nguyên
+            resultSet.close();
+            statement.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+	}
+    
+    public void loadTable() {
+    	 try {
+             // Kết nối đến cơ sở dữ liệu
+             Connection connection = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=Karaoke4T", "sa", "123");
+             
+             // Sử dụng PreparedStatement để có thể truyền tham số
+             String sql = "select maHD, kh.tenKH, kh.SDT, ngayLap, tenNV, tongTien from HoaDon h " +
+                          "inner join KhachHang kh on h.maKH = kh.maKH " +
+                          "inner join NhanVien nv on h.maNV = nv.maNV ";
+             try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+                 // Thiết lập giá trị cho tham số
+                 // Thực hiện truy vấn
+                 try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                     // Xóa dữ liệu cũ trong tableModel
+                     model.setRowCount(0);
+
+                     // Thêm dữ liệu từ ResultSet vào tableModel
+                     while (resultSet.next()) {
+                         Object[] row = {
+                                 resultSet.getString("maHD"),
+                                 resultSet.getString("tenKH"),
+                                 resultSet.getString("SDT"),
+                                 resultSet.getString("ngayLap"),
+                                 resultSet.getString("tenNV"),
+                                 resultSet.getString("tongTien")
+                                 // Thêm các cột khác nếu cần
+                         };
+                         model.addRow(row);
+                     }
+                 }
+             }
+
+             // Đóng tài nguyên
+             connection.close();
+         } catch (Exception e) {
+             e.printStackTrace();
+         }
+	}
+    
+    
+    
+    private void loadDataFromSQL(int ngay,String thang,int nam) {
+        try {
+            // Kết nối đến cơ sở dữ liệu
+            Connection connection = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=Karaoke4T", "sa", "123");
+            
+            // Sử dụng PreparedStatement để có thể truyền tham số
+            String sql = "select maHD, kh.tenKH, kh.SDT, ngayLap, tenNV, tongTien from HoaDon h " +
+                         "inner join KhachHang kh on h.maKH = kh.maKH " +
+                         "inner join NhanVien nv on h.maNV = nv.maNV " +
+                         "where DAY(ngayLap) = ? and month(ngayLap) = ? and YEAR(ngayLap) = ?";
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+                // Thiết lập giá trị cho tham số
+            	preparedStatement.setInt(1, ngay);
+                preparedStatement.setString(2, thang);
+                preparedStatement.setInt(3, nam);
+                // Thực hiện truy vấn
+                try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                    // Xóa dữ liệu cũ trong tableModel
+                    model.setRowCount(0);
+
+                    // Thêm dữ liệu từ ResultSet vào tableModel
+                    while (resultSet.next()) {
+                        Object[] row = {
+                                resultSet.getString("maHD"),
+                                resultSet.getString("tenKH"),
+                                resultSet.getString("SDT"),
+                                resultSet.getString("ngayLap"),
+                                resultSet.getString("tenNV"),
+                                resultSet.getString("tongTien")
+                                // Thêm các cột khác nếu cần
+                        };
+                        model.addRow(row);
+                    }
+                }
+            }
+
+            // Đóng tài nguyên
+            connection.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    
 }

@@ -11,6 +11,9 @@ import java.awt.event.MouseEvent;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import javax.swing.Timer;
 
 
@@ -416,7 +419,39 @@ public class GD_QuanLyKhachHang extends JFrame implements ActionListener {
 
 		btnthem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				btnthemActionPerformed(e);
+//				  String hoTenRegex = "^[A-Z][\\p{L}']*([\\p{Zs}\\-'][A-Z][\\p{L}']*)*$";
+
+				  
+				  
+				  String hovaten = txtten.getText();
+				  String phone = txtsdt.getText();
+				  String cmnd = txtcmnd.getText();
+				  String diachi = txtdc.getText();
+				  
+				  System.out.println();
+				  System.out.println();
+				  
+				  if (txtten.equals("") && txtsdt.equals("") && txtdc.equals("") && txtcmnd.equals("")) {
+					  JOptionPane.showMessageDialog(null,"Dữ liệu nhập vào không được trống");
+				  }
+				  else if(hovaten.matches( "^[A-Z][\\p{L}']*([\\p{Zs}\\-'][A-Z][\\p{L}']*)*$") == false){
+					  JOptionPane.showMessageDialog(null,"Họ và tên phải có ký tự đầu viết hoa và có dấu");
+				  }
+				  else if (phone.matches("^0[1-9]\\d{8}$") == false) {
+					  JOptionPane.showMessageDialog(null, "Số điện thoại di động bắt đầu bằng 09 cuối cùng là 7 chữ số.");
+				  }
+				  else if (cmnd.matches("^[0-9]{9}$") == false) {
+					  JOptionPane.showMessageDialog(null, "Số chứng minh nhân dân phải 9 chữ số");
+				  }
+				  else if (diachi.matches("^[\\p{L}0-9,\\s.'-]+$") == false) {
+					  JOptionPane.showMessageDialog(null, "Cho phép các ký tự phổ biến trong địa chỉ như dấu phẩy, khoảng trắng, dấu chấm, dấu nháy đơn, dấu gạch ngang và số");
+				  }
+				  else if (rdbtnNAM.isSelected() == false && rdbtnNU.isSelected() == false) {
+					  JOptionPane.showMessageDialog(null, "Giới tính không được để trống");
+				  }
+				  else {
+					  btnthemActionPerformed(e);					  
+				  }
 			}
 		});
 		panel.add(btnthem);

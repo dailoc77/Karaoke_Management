@@ -345,9 +345,17 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 				btnthem.setShadowColor(new Color(0,0,0));
 				btnthem.setBounds(822, 24, 128, 48);
 				
+				
 				btnthem.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						btnthemActionPerformed(e);
+						String tennv = txtTenNV.getText();
+						if (tennv.matches("[A-Z\\s]+$") == false) {
+							JOptionPane.showMessageDialog(null,"Tên phải viết in có khoảng trắng và không dấu");
+						}
+						else {
+							btnthemActionPerformed(e);							
+						}
+						
 					}
 				});
 				panel.add(btnthem);

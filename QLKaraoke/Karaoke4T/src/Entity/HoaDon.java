@@ -18,15 +18,15 @@ public class HoaDon {
 	}
 	public HoaDon(String maHD, Date gioKetThuc, Date gioNhanPhong, Date ngayLap, float tienKhachTra, float tongTien,
 			String maKH, String maNV) {
-		super();
-		this.maHD = maHD;
-		this.gioKetThuc = gioKetThuc;
-		this.gioNhanPhong = gioNhanPhong;
-		this.ngayLap = ngayLap;
-		this.tienKhachTra = tienKhachTra;
-		this.tongTien = tongTien;
-		this.maKH = maKH;
-		this.maNV = maNV;
+			
+		setMaHD(maHD);
+		setGioKetThuc(gioKetThuc);
+		setGioNhanPhong(gioNhanPhong);
+		setNgayLap(ngayLap);
+		setTienKhachTra(tienKhachTra);
+		setTongTien(tongTien);
+		setMaKH(maKH);
+		setMaNV(maNV);
 	}
 	public String getMaHD() {
 		return maHD;
