@@ -117,7 +117,6 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 	 * Create the frame.
 	 */
 	public GD_QLNhanVien() {
-<<<<<<< HEAD
 		
 		try {
 			connectDB.getInstance().connect();
@@ -127,8 +126,7 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 		}
 		dslnv = new LoaiNhanVien_DAO();
 		
-=======
->>>>>>> fa38eda1e86c8efb31718bf9ab8806fde5a0f968
+
 //		initComponents();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1175, 650);
@@ -579,7 +577,7 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 		loadTable();
 	}
 
-<<<<<<< HEAD
+
 	private NhanVien reverSPFromTextField() {
 		// TODO Auto-generated method stub
 		return null;
@@ -612,7 +610,7 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
          GD_Main_QL mainql=new GD_Main_QL();
          mainql.setVisible(true);
     }
-=======
+
 //	private void initComponents() {
 //
 //        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -640,7 +638,7 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 //         GD_Main_QL mainql=new GD_Main_QL();
 //         mainql.setVisible(true);
 //    }
->>>>>>> fa38eda1e86c8efb31718bf9ab8806fde5a0f968
+
 	
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == timer) {

@@ -15,25 +15,19 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.net.URL;
-<<<<<<< HEAD
 
-=======
-<<<<<<< HEAD
->>>>>>> fa905bdbcea4db80329f6aeab06386ea4060b17c
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-<<<<<<< HEAD
+
 
 import java.util.ArrayList;
 
-=======
-=======
+
 import java.util.ArrayList;
->>>>>>> fa38eda1e86c8efb31718bf9ab8806fde5a0f968
->>>>>>> fa905bdbcea4db80329f6aeab06386ea4060b17c
+
 import java.util.Calendar;
 import java.util.List;
 
@@ -84,20 +78,12 @@ public class GD_PhongHat extends JFrame implements ActionListener {
 	private JTextField txtMaPhong;
 	private JTextField txtTenPhong;
 	private JTextField textField_2;
-<<<<<<< HEAD
 
-=======
-<<<<<<< HEAD
->>>>>>> fa905bdbcea4db80329f6aeab06386ea4060b17c
 	private JTextField textField_3;
 	private JComboBox<String> comboBoxLoaiPhong;
 	private JComboBox<String> comboBoxGiaTien;
 	private JTextField textFieldTrangThai;
-<<<<<<< HEAD
 
-=======
-=======
->>>>>>> fa905bdbcea4db80329f6aeab06386ea4060b17c
 	private JTextField txt_chuThich;
 	DefaultTableModel model;
 	private JTable table;
@@ -108,11 +94,7 @@ public class GD_PhongHat extends JFrame implements ActionListener {
 	JComboBox cbB_trangThaiPhong = new JComboBox<String>();
 	JPanel pnl_danhsachphonghat = new JPanel();
 	private JTextField txt_soNguoi;
-<<<<<<< HEAD
 
-=======
->>>>>>> fa38eda1e86c8efb31718bf9ab8806fde5a0f968
->>>>>>> fa905bdbcea4db80329f6aeab06386ea4060b17c
 	/**
 	 * Launch the application.
 	 */
@@ -320,73 +302,44 @@ public class GD_PhongHat extends JFrame implements ActionListener {
         lblNewLabel_3_1.setBounds(25, 293, 93, 25);
         pnl_thongtinkhachhang.add(lblNewLabel_3_1);
         
-<<<<<<< HEAD
 
-=======
-<<<<<<< HEAD
->>>>>>> fa905bdbcea4db80329f6aeab06386ea4060b17c
         comboBoxLoaiPhong = new JComboBox();
         comboBoxLoaiPhong.setBounds(25, 147, 121, 25);
         pnl_thongtinkhachhang.add(comboBoxLoaiPhong);
         loadComBoBoxLoaiPhong();
-<<<<<<< HEAD
+
 
         JComboBox cbB_loaiPhong = new JComboBox();
         cbB_loaiPhong.setBounds(25, 147, 121, 25);
         pnl_thongtinkhachhang.add(cbB_loaiPhong);
 
-=======
-=======
-        JComboBox cbB_loaiPhong = new JComboBox();
-        cbB_loaiPhong.setBounds(25, 147, 121, 25);
-        pnl_thongtinkhachhang.add(cbB_loaiPhong);
->>>>>>> fa38eda1e86c8efb31718bf9ab8806fde5a0f968
->>>>>>> fa905bdbcea4db80329f6aeab06386ea4060b17c
         
         JLabel lblNewLabel_2_1 = new JLabel("Giá Phòng");
         lblNewLabel_2_1.setFont(new Font("Tahoma", Font.PLAIN, 13));
         lblNewLabel_2_1.setBounds(25, 182, 93, 19);
         pnl_thongtinkhachhang.add(lblNewLabel_2_1);
         
-<<<<<<< HEAD
 
-=======
-<<<<<<< HEAD
->>>>>>> fa905bdbcea4db80329f6aeab06386ea4060b17c
         comboBoxGiaTien = new JComboBox();
         comboBoxGiaTien.setBounds(25, 200, 121, 25);
         pnl_thongtinkhachhang.add(comboBoxGiaTien);
         loadComBoBoxGiaPhong();
-<<<<<<< HEAD
+
 
         JComboBox cbB_giaPhong = new JComboBox();
         cbB_giaPhong.setBounds(25, 200, 121, 25);
         pnl_thongtinkhachhang.add(cbB_giaPhong);
 
-=======
-=======
-        JComboBox cbB_giaPhong = new JComboBox();
-        cbB_giaPhong.setBounds(25, 200, 121, 25);
-        pnl_thongtinkhachhang.add(cbB_giaPhong);
->>>>>>> fa38eda1e86c8efb31718bf9ab8806fde5a0f968
->>>>>>> fa905bdbcea4db80329f6aeab06386ea4060b17c
+
+
+
         
         JLabel lblNewLabel_2_1_1 = new JLabel("Trạng Thái Phòng");
         lblNewLabel_2_1_1.setFont(new Font("Tahoma", Font.PLAIN, 13));
         lblNewLabel_2_1_1.setBounds(25, 233, 121, 25);
         pnl_thongtinkhachhang.add(lblNewLabel_2_1_1);
         
-<<<<<<< HEAD
 
-=======
-<<<<<<< HEAD
-=======
-        JComboBox cbB_trangThaiPhong = new JComboBox();
-        cbB_trangThaiPhong.setBounds(25, 258, 121, 25);
-        pnl_thongtinkhachhang.add(cbB_trangThaiPhong);
-        
->>>>>>> fa38eda1e86c8efb31718bf9ab8806fde5a0f968
->>>>>>> fa905bdbcea4db80329f6aeab06386ea4060b17c
         testbutton.Buttontest btnthem = new testbutton.Buttontest();
         btnthem.setText("Thêm");
 		btnthem.setRippleColor(new Color(255, 255, 255));
@@ -417,20 +370,12 @@ public class GD_PhongHat extends JFrame implements ActionListener {
 		});
         pnl_thongtinkhachhang.add(btnsua);
         
-<<<<<<< HEAD
 
-=======
-<<<<<<< HEAD
->>>>>>> fa905bdbcea4db80329f6aeab06386ea4060b17c
         textFieldTrangThai = new JTextField();
         textFieldTrangThai.setColumns(10);
         textFieldTrangThai.setBounds(25, 258, 236, 25);
         pnl_thongtinkhachhang.add(textFieldTrangThai);
-<<<<<<< HEAD
 
-=======
-=======
->>>>>>> fa905bdbcea4db80329f6aeab06386ea4060b17c
         JLabel lblavatar = new JLabel("");
         lblavatar.setBounds(318, -591, 1149, 957);
         pnl_thongtinkhachhang.add(lblavatar);
@@ -446,11 +391,7 @@ public class GD_PhongHat extends JFrame implements ActionListener {
         txt_soNguoi.setBounds(176, 147, 112, 24);
         pnl_thongtinkhachhang.add(txt_soNguoi);
         txt_soNguoi.setColumns(10);
-<<<<<<< HEAD
 
-=======
->>>>>>> fa38eda1e86c8efb31718bf9ab8806fde5a0f968
->>>>>>> fa905bdbcea4db80329f6aeab06386ea4060b17c
 		
         testbutton.Buttontest btnphonghat = new testbutton.Buttontest();
         btnphonghat.addMouseListener(new MouseAdapter() {
@@ -861,12 +802,6 @@ public class GD_PhongHat extends JFrame implements ActionListener {
         lblClock.setText(time);
     }
     
-<<<<<<< HEAD
-
-=======
-<<<<<<< HEAD
->>>>>>> fa905bdbcea4db80329f6aeab06386ea4060b17c
-    
     
     public void loadComBoBoxLoaiPhong() {
 
@@ -928,11 +863,7 @@ public class GD_PhongHat extends JFrame implements ActionListener {
             e.printStackTrace();
         }
 	}
-<<<<<<< HEAD
 
-=======
-=======
->>>>>>> fa905bdbcea4db80329f6aeab06386ea4060b17c
     private void loadData() {
 		QLPH_DAO ds = new QLPH_DAO();
 		ArrayList<Phong> listPhong = ds.docbang();
@@ -1008,9 +939,4 @@ public class GD_PhongHat extends JFrame implements ActionListener {
     	}
 	}
 
-<<<<<<< HEAD
-
-=======
->>>>>>> fa38eda1e86c8efb31718bf9ab8806fde5a0f968
->>>>>>> fa905bdbcea4db80329f6aeab06386ea4060b17c
 }
