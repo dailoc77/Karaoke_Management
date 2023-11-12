@@ -86,35 +86,6 @@ public class GD_Login extends JFrame implements ActionListener{
 		
 		btnDangNhap = new testbutton.Buttontest();
 		btnDangNhap.setText("Đăng Nhập");
-//		btnDangNhap.addActionListener(new ActionListener() {
-//		    public void actionPerformed(ActionEvent e) {
-//		        String query = "select * from TaiKhoan where tenTK = ? and MK = ?";
-//		        try {
-//		            con = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=Karaoke4T;user=sa;password=123");
-//		            pst = con.prepareStatement(query);
-//		            pst.setString(1, txtUser.getText());
-//		            pst.setString(2, passMk.getText());
-//		            rs = pst.executeQuery();
-//		            
-//		            if (rs.next()) {
-//		                JOptionPane.showMessageDialog(null, "Đăng nhập thành công");
-//
-//		                // Kiểm tra xem tài khoản có phải là admin hay không
-//		                if (isAdmin(txtUser.getText())) {
-//		                    // Nếu là admin, mở giao diện quản lý
-//		                    openAdminMain();
-//		                } else {
-//		                    // Nếu không phải admin, mở giao diện nhân viên
-//		                    openEmployeeMain();
-//		                }
-//		            } else {
-//		                JOptionPane.showMessageDialog(null, "Tên tài khoản hoặc mật khẩu sai");
-//		            }
-//		        } catch (SQLException ex) {
-//		            java.util.logging.Logger.getLogger(GD_Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//		        }
-//		    }
-//		});
 		btnDangNhap.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
 		        // Check if username and password are not empty

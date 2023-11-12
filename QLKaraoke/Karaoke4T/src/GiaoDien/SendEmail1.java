@@ -96,16 +96,6 @@ public class SendEmail1 extends JFrame implements ActionListener{
 		
 		btnSend = new testbutton.Buttontest();
 		btnSend.setText("Send Email");
-//		btnSend.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				String email = txtEmail.getText().trim();
-//                if (email.isEmpty()) {
-//                    JOptionPane.showMessageDialog(null, "Vui lòng nhập địa chỉ email.", "Validation Error", JOptionPane.ERROR_MESSAGE);
-//                } else {
-//                    sendEmail(email, password, from);
-//                }
-//			}
-//		});
 		btnSend.addActionListener(new ActionListener() {
 		    @Override
 		    public void actionPerformed(ActionEvent e) {
