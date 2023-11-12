@@ -60,7 +60,7 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField txtMaTK, txtmk, txtTaiKhoan, txtTenNV;
+	private JTextField txtMaTK, txtmk, txtTaiKhoan, txtTenNV, txtEmail;
 	private JTable table;
 	DefaultTableModel model;
 	private JLabel lblClock;
@@ -430,6 +430,7 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 		model.addColumn("Tên tài khoản");
 		model.addColumn("Mật khẩu");
 		model.addColumn("Tên nhân viên");
+//		model.addColumn("Email");
 //		model.addColumn("Tên Tài Khoản");
 //		model.addColumn("Mật Khẩu");
 		// Add data to the table
