@@ -82,7 +82,7 @@ public class GD_DatPhong extends JFrame implements ActionListener {
 	 * Create the frame.
 	 */
 	public GD_DatPhong() {
-		initComponents();
+//		initComponents();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1175, 650);
 		setTitle("Giao Diện Đặt Phòng");
@@ -306,13 +306,27 @@ public class GD_DatPhong extends JFrame implements ActionListener {
         
         JLabel lblNewLabel_11 = new JLabel("Số lượng người :");
         lblNewLabel_11.setFont(new Font("Tahoma", Font.PLAIN, 13));
-        lblNewLabel_11.setBounds(25, 333, 109, 21);
+        lblNewLabel_11.setBounds(25, 311, 109, 21);
         pnl_thongtinkhachhang.add(lblNewLabel_11);
         
         textField_4 = new JTextField();
         textField_4.setColumns(10);
-        textField_4.setBounds(150, 332, 79, 25);
+        textField_4.setBounds(152, 311, 109, 25);
         pnl_thongtinkhachhang.add(textField_4);
+        
+        JLabel lbGioNhanPhong = new JLabel("Giờ nhận phòng hát");
+        lbGioNhanPhong.setFont(new Font("Tahoma", Font.PLAIN, 13));
+        lbGioNhanPhong.setBounds(25, 348, 151, 21);
+        pnl_thongtinkhachhang.add(lbGioNhanPhong);
+        
+        String gio[] = {"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24"};
+        JComboBox comboBoxGio = new JComboBox<String>(gio);
+        comboBoxGio.setBounds(25, 377, 80, 22);
+        pnl_thongtinkhachhang.add(comboBoxGio);
+        
+        JComboBox comboBoxPhutNhanPhong = new JComboBox();
+        comboBoxPhutNhanPhong.setBounds(181, 377, 80, 22);
+        pnl_thongtinkhachhang.add(comboBoxPhutNhanPhong);
 		
         testbutton.Buttontest btndatphong1 = new testbutton.Buttontest();
         btndatphong1.addMouseListener(new MouseAdapter() {
@@ -661,28 +675,28 @@ public class GD_DatPhong extends JFrame implements ActionListener {
 		
 	}
 	
-	private void initComponents() {
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                formWindowClosing(evt);
-            }
-        });
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
-
-        pack();
-    }
+//	private void initComponents() {
+//
+//        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+//        addWindowListener(new java.awt.event.WindowAdapter() {
+//            public void windowClosing(java.awt.event.WindowEvent evt) {
+//                formWindowClosing(evt);
+//            }
+//        });
+//
+//        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+//        getContentPane().setLayout(layout);
+//        layout.setHorizontalGroup(
+//            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+//            .addGap(0, 400, Short.MAX_VALUE)
+//        );
+//        layout.setVerticalGroup(
+//            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+//            .addGap(0, 300, Short.MAX_VALUE)
+//        );
+//
+//        pack();
+//    }
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
          GD_Main_NV mainnv=new GD_Main_NV();

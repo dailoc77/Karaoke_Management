@@ -11,6 +11,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Calendar;
 
 import javax.swing.JFrame;
@@ -42,6 +47,9 @@ public class GD_PhongHat extends JFrame implements ActionListener {
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JTextField textField_3;
+	private JComboBox<String> comboBoxLoaiPhong;
+	private JComboBox<String> comboBoxGiaTien;
+	private JTextField textFieldTrangThai;
 	/**
 	 * Launch the application.
 	 */
@@ -252,27 +260,25 @@ public class GD_PhongHat extends JFrame implements ActionListener {
         lblNewLabel_3_1.setBounds(25, 293, 93, 25);
         pnl_thongtinkhachhang.add(lblNewLabel_3_1);
         
-        JComboBox comboBox_2 = new JComboBox();
-        comboBox_2.setBounds(25, 147, 121, 25);
-        pnl_thongtinkhachhang.add(comboBox_2);
+        comboBoxLoaiPhong = new JComboBox();
+        comboBoxLoaiPhong.setBounds(25, 147, 121, 25);
+        pnl_thongtinkhachhang.add(comboBoxLoaiPhong);
+        loadComBoBoxLoaiPhong();
         
         JLabel lblNewLabel_2_1 = new JLabel("Giá Phòng");
         lblNewLabel_2_1.setFont(new Font("Tahoma", Font.PLAIN, 13));
         lblNewLabel_2_1.setBounds(25, 182, 93, 19);
         pnl_thongtinkhachhang.add(lblNewLabel_2_1);
         
-        JComboBox comboBox_2_1 = new JComboBox();
-        comboBox_2_1.setBounds(25, 200, 121, 25);
-        pnl_thongtinkhachhang.add(comboBox_2_1);
+        comboBoxGiaTien = new JComboBox();
+        comboBoxGiaTien.setBounds(25, 200, 121, 25);
+        pnl_thongtinkhachhang.add(comboBoxGiaTien);
+        loadComBoBoxGiaPhong();
         
         JLabel lblNewLabel_2_1_1 = new JLabel("Trạng Thái Phòng");
         lblNewLabel_2_1_1.setFont(new Font("Tahoma", Font.PLAIN, 13));
         lblNewLabel_2_1_1.setBounds(25, 233, 121, 25);
         pnl_thongtinkhachhang.add(lblNewLabel_2_1_1);
-        
-        JComboBox comboBox_2_1_1 = new JComboBox();
-        comboBox_2_1_1.setBounds(25, 258, 121, 25);
-        pnl_thongtinkhachhang.add(comboBox_2_1_1);
         
         testbutton.Buttontest btnthem = new testbutton.Buttontest();
         btnthem.setText("Thêm");
@@ -303,6 +309,11 @@ public class GD_PhongHat extends JFrame implements ActionListener {
 			}
 		});
         pnl_thongtinkhachhang.add(btnsua);
+        
+        textFieldTrangThai = new JTextField();
+        textFieldTrangThai.setColumns(10);
+        textFieldTrangThai.setBounds(25, 258, 236, 25);
+        pnl_thongtinkhachhang.add(textFieldTrangThai);
 		
         testbutton.Buttontest btnphonghat = new testbutton.Buttontest();
         btnphonghat.addMouseListener(new MouseAdapter() {
@@ -663,4 +674,67 @@ public class GD_PhongHat extends JFrame implements ActionListener {
         String time = String.format("%02d:%02d:%02d %s  %04d/%02d/%02d", hour, minute, second, ampm, year, month, day);
         lblClock.setText(time);
     }
+    
+    
+    
+    public void loadComBoBoxLoaiPhong() {
+
+		// Thông tin kết nối đến cơ sở dữ liệu
+        String url = "jdbc:sqlserver://localhost:1433;databasename=Karaoke4T";
+        String username = "sa";
+        String password = "123";
+
+        try {
+            // Kết nối đến cơ sở dữ liệu
+            Connection connection = DriverManager.getConnection(url, username, password);
+
+            // Truy vấn SQL để lấy dữ liệu
+            String sql = "SELECT * FROM LoaiPhong";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+
+            // Lặp qua các dòng kết quả và thêm vào JComboBox
+            while (resultSet.next()) {
+                String columnName = resultSet.getString("tenLoaiPhong");
+                comboBoxLoaiPhong.addItem(columnName);
+            }
+
+            // Đóng các tài nguyên
+            resultSet.close();
+            statement.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+	}
+    public void loadComBoBoxGiaPhong() {
+
+		// Thông tin kết nối đến cơ sở dữ liệu
+        String url = "jdbc:sqlserver://localhost:1433;databasename=Karaoke4T";
+        String username = "sa";
+        String password = "123";
+
+        try {
+            // Kết nối đến cơ sở dữ liệu
+            Connection connection = DriverManager.getConnection(url, username, password);
+
+            // Truy vấn SQL để lấy dữ liệu
+            String sql = "SELECT * FROM LoaiPhong";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+
+            // Lặp qua các dòng kết quả và thêm vào JComboBox
+            while (resultSet.next()) {
+                String columnName = resultSet.getString("giaTien");
+                comboBoxGiaTien.addItem(columnName);
+            }
+
+            // Đóng các tài nguyên
+            resultSet.close();
+            statement.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+	}
 }
