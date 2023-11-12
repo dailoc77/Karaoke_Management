@@ -35,8 +35,10 @@ import java.util.Calendar;
 import javax.swing.border.LineBorder;
 
 import DAO.QLDV_DAO;
+import DAO.QLKH_DAO;
 import DAO.QLPH_DAO;
 import Entity.DichVu;
+import Entity.KhachHang;
 import Entity.Phong;
 
 import javax.swing.JTextField;
@@ -54,10 +56,10 @@ public class GD_QLDichVu extends JFrame implements ActionListener{
 	private JLabel lblClock;
 	private Timer timer;
 	private JButton jButton;
-	private JTextField textField_madv;
-	private JTextField textField_tenDV;
-	private JTextField textField_giaDV;
-	private JTextField textField_chuthich;
+	private JTextField txt_MaDV;
+	private JTextField txt_tenDV;
+	private JTextField txt_giaDV;
+	private JTextField txt_soLuong;
 	/**
 	 * Launch the application.
 	 */
@@ -140,50 +142,50 @@ public class GD_QLDichVu extends JFrame implements ActionListener{
 		contentPane.add(left_QLDV);
 		left_QLDV.setLayout(null);
 		
-		textField_madv = new JTextField();
-		textField_madv.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		textField_madv.setBounds(10, 41, 150, 30);
-		textField_madv.setBorder(null);
-		left_QLDV.add(textField_madv);
-		textField_madv.setColumns(10);
+		txt_MaDV = new JTextField();
+		txt_MaDV.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		txt_MaDV.setBounds(10, 41, 150, 30);
+		txt_MaDV.setBorder(null);
+		left_QLDV.add(txt_MaDV);
+		txt_MaDV.setColumns(10);
 		
 		JLabel lblmaDV = new JLabel("Mã Dịch Vụ");
 		lblmaDV.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblmaDV.setBounds(10, 27, 85, 13);
 		left_QLDV.add(lblmaDV);
 		
-		textField_tenDV = new JTextField();
-		textField_tenDV.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		textField_tenDV.setColumns(10);
-		textField_tenDV.setBorder(null);
-		textField_tenDV.setBounds(10, 126, 230, 30);
-		left_QLDV.add(textField_tenDV);
+		txt_tenDV = new JTextField();
+		txt_tenDV.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		txt_tenDV.setColumns(10);
+		txt_tenDV.setBorder(null);
+		txt_tenDV.setBounds(10, 126, 230, 30);
+		left_QLDV.add(txt_tenDV);
 		
 		JLabel lbltenDV = new JLabel("Tên Dịch Vụ");
 		lbltenDV.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lbltenDV.setBounds(10, 112, 85, 13);
 		left_QLDV.add(lbltenDV);
 		
-		textField_giaDV = new JTextField();
-		textField_giaDV.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		textField_giaDV.setColumns(10);
-		textField_giaDV.setBorder(null);
-		textField_giaDV.setBounds(10, 209, 230, 30);
-		left_QLDV.add(textField_giaDV);
+		txt_giaDV = new JTextField();
+		txt_giaDV.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		txt_giaDV.setColumns(10);
+		txt_giaDV.setBorder(null);
+		txt_giaDV.setBounds(10, 209, 230, 30);
+		left_QLDV.add(txt_giaDV);
 		
 		JLabel lblgiaDV = new JLabel("Giá Dịch Vụ");
 		lblgiaDV.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblgiaDV.setBounds(10, 195, 85, 13);
 		left_QLDV.add(lblgiaDV);
 		
-		textField_chuthich = new JTextField();
-		textField_chuthich.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		textField_chuthich.setColumns(10);
-		textField_chuthich.setBorder(null);
-		textField_chuthich.setBounds(10, 299, 230, 30);
-		left_QLDV.add(textField_chuthich);
+		txt_soLuong = new JTextField();
+		txt_soLuong.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		txt_soLuong.setColumns(10);
+		txt_soLuong.setBorder(null);
+		txt_soLuong.setBounds(10, 299, 121, 30);
+		left_QLDV.add(txt_soLuong);
 		
-		JLabel lblchuthich = new JLabel("Chú Thích");
+		JLabel lblchuthich = new JLabel("Số lượng");
 		lblchuthich.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblchuthich.setBounds(10, 285, 85, 13);
 		left_QLDV.add(lblchuthich);
@@ -794,22 +796,51 @@ public class GD_QLDichVu extends JFrame implements ActionListener{
 		lblhinhnen.setBounds(-95, -176, 1333, 957);
 		contentPane.add(lblhinhnen);
 	}
+	
+	private DichVu reverSPFromTextField() {
+		String maDV = txt_MaDV.getText().toString();
+		double giaDV = Double.parseDouble(txt_giaDV.getText().toString());
+		int soLuong = Integer.parseInt(txt_soLuong.getText().toString());
+		String tenDV = txt_tenDV.getText().toString();
+		
+		return new DichVu(maDV,giaDV,soLuong,tenDV);
+		
+	}
+	
 	protected void btnxoaActionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
 	protected void btnlammoiActionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 	protected void btnsuaActionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 	protected void btnthemActionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
+		QLDV_DAO dsdv = new QLDV_DAO();
+		int maxMaDV = dsdv.getMaxMaDV();
+	    
+	    // Tăng mã dv lên 1 để có mã mới
+		maxMaDV++;
+	    
+	    // Gán giá trị mới cho ô nhập liệu mã dv
+	    txt_MaDV.setText("DV00" + String.format("%03d", maxMaDV));
+		DichVu dv = reverSPFromTextField();
+		dsdv.themDichVu(dv);
+		JOptionPane.showMessageDialog(this,"Thêm Dịch Vụ Thành Công");
+		refresh();
 	}
+	
+	public void refresh() {
+		txt_MaDV.setText("");
+		txt_giaDV.setText("");
+		txt_soLuong.setText("");
+		txt_tenDV.setText("");
+		loadData();
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == timer) {
@@ -833,7 +864,7 @@ public class GD_QLDichVu extends JFrame implements ActionListener{
 		Right_QLDV.setLayout(null);
 		
 		JScrollPane scrollPane_DSDV = new JScrollPane();
-		scrollPane_DSDV.setBounds(0, 25, 870, 440);
+		scrollPane_DSDV.setBounds(0, 0, 870, 465);
 		scrollPane_DSDV.setBackground(new Color(255, 255, 255, 0));
 		Right_QLDV.add(scrollPane_DSDV);
 		
@@ -877,9 +908,10 @@ public class GD_QLDichVu extends JFrame implements ActionListener{
     		pnl_dichvu.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					textField_madv.setText(" " + dv.getMaDichVu());
-					textField_tenDV.setText(" " + dv.getTenDichVu());
-					textField_giaDV.setText(" " + dv.getGiaDichVu());
+					txt_MaDV.setText(" " + dv.getMaDichVu());
+					txt_tenDV.setText(" " + dv.getTenDichVu());
+					txt_giaDV.setText(" " + dv.getGiaDichVu());
+					txt_soLuong.setText(" " + dv.getSoLuongDichVu());
 				}
 			});
     		

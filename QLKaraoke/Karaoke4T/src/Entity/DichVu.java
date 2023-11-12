@@ -6,7 +6,7 @@ public class DichVu {
 	private double giaDichVu;
 	private int soLuongDichVu;
 	
-	public DichVu(String maDichVu, String tenDichVu, double giaDichVu, int soLuongDichVu) {
+	public DichVu(String maDichVu,double giaDichVu , int soLuongDichVu , String tenDichVu) {
 		setMaDichVu(maDichVu);
 		setGiaDichVu(giaDichVu);
 		setSoLuongDichVu(soLuongDichVu);
