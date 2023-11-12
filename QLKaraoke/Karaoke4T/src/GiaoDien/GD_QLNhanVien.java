@@ -122,7 +122,7 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 		
 		try {
 			connectDB.getInstance().connect();
-			loadTable();
+//			loadTable();
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -534,7 +534,7 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 		model.addColumn("Trạng Thái Làm Việc");
 		model.addColumn("Địa Chỉ");
 		model.addColumn("Loại nhân viên");
-//		model.addColumn("Mã tài khoản");
+		model.addColumn("Mã tài khoản");
 
 		table.setModel(model);
 		
@@ -733,7 +733,7 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 		ArrayList<NhanVien> ls = ds.doctubang();
 		for(NhanVien s : ls) {
 //			String [] rowData = {s.getMaNV(), s.getTenNV(),s.getGioiTinh(), s.getNgaySinh(), s.getCMND(),s.getSDT(), s.getTrangThaiLamViec() , s.getMaDC(),s.getLNV().getTenLNV(), s.getMaTK().getMaTaiKhoan()+""};
-			String [] rowData = {s.getMaNV(), s.getTenNV(),s.getGioiTinh(), s.getNgaySinh(), s.getCMND(),s.getSDT(), s.getTrangThaiLamViec() , s.getMaDC(),s.getLNV().getTenLNV()};
+			String [] rowData = {s.getMaNV(), s.getTenNV(),s.getGioiTinh(), s.getNgaySinh(), s.getCMND(),s.getSDT(), s.getTrangThaiLamViec() , s.getMaDC(),s.getLNV().getTenLNV(),s.getMaTK().getMaTaiKhoan()};
 
 			model.addRow(rowData);
 			table.setModel(model);
@@ -778,7 +778,7 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 		QLNV_DAO dsnv = new QLNV_DAO();
 		model.setRowCount(0);
 			for(NhanVien s : dsnv.doctubang()) {
-			Object  rowData[] = {s.getMaNV(),s.getTenNV(),s.getGioiTinh(),s.getNgaySinh(),s.getCMND(),s.getSDT(),s.getTrangThaiLamViec(),s.getMaDC(),s.getLNV().getTenLNV()};
+			Object  rowData[] = {s.getMaNV(),s.getTenNV(),s.getGioiTinh(),s.getNgaySinh(),s.getCMND(),s.getSDT(),s.getTrangThaiLamViec(),s.getMaDC(),s.getLNV().getTenLNV(),s.getMaTK().getMaTaiKhoan()};
 
 //			Object  rowData[] = {s.getMaNV(), s.getTenNV(),s.getGioiTinh(), s.getNgaySinh(), s.getCMND(),s.getSDT(), s.getTrangThaiLamViec() , s.getMaDC(), s.getTenLNV().getTenLNV(),s.getMaTK().getMaTaiKhoan()};
 

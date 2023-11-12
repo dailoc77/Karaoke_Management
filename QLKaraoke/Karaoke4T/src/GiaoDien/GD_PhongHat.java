@@ -488,7 +488,7 @@ public class GD_PhongHat extends JFrame implements ActionListener {
 		//Tao Bang
 
 	}
-	
+
 	protected void btnLmMiActionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		

@@ -16,7 +16,7 @@ public class QLNV_DAO {
 	public ArrayList<Entity.NhanVien> doctubang(){
 		try {
 			Connection con = connectDB.getInstance().getConnection();
-			String sql = "Select maNV,tenNV,gioiTinh,ngaySinh,CMND,SDT,trangThaiLamViec,diaChi,tenLNV from NhanVien nv inner join LoaiNhanVien lnv on nv.maLNV = lnv.maLNV";
+			String sql = "Select maNV,tenNV,gioiTinh,ngaySinh,CMND,SDT,trangThaiLamViec,diaChi,tenLNV , maTK from NhanVien nv inner join LoaiNhanVien lnv on nv.maLNV = lnv.maLNV";
 			Statement sta = con.createStatement();
 			ResultSet rs = sta.executeQuery(sql);
 			while(rs.next()) {
