@@ -5,7 +5,20 @@ public class LoaiPhong {
 	private String tenLoaiPhong;
 	private double giaTien;
 	
+	public LoaiPhong(String tenLoaiPhong) {
+		super();
+		setTenLoaiPhong(tenLoaiPhong);
+	}
+	
+	public LoaiPhong(String tenLoaiPhong, double giaTien) {
+		super();
+		// TODO Auto-generated constructor stub
+		setTenLoaiPhong(tenLoaiPhong);
+		setGiaTien(giaTien);
+	}
+
 	public LoaiPhong(String maLoaiPhong, String tenLoaiPhong, double giaTien) {
+		super();
 		setMaLoaiPhong(maLoaiPhong);
 		setTenLoaiPhong(tenLoaiPhong);
 		setGiaTien(giaTien);
@@ -18,6 +31,8 @@ public class LoaiPhong {
 	public void setMaLoaiPhong(String maLoaiPhong) {
 		this.maLoaiPhong = maLoaiPhong;
 	}
+
+	
 
 	public String getTenLoaiPhong() {
 		return tenLoaiPhong;
@@ -34,6 +49,12 @@ public class LoaiPhong {
 	public void setGiaTien(double giaTien) {
 		this.giaTien = giaTien;
 	}
+
+	@Override
+	public String toString() {
+		return maLoaiPhong;
+	}
+	
 	
 	
 }
