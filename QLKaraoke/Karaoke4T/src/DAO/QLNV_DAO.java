@@ -2,6 +2,7 @@ package DAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,9 +16,7 @@ public class QLNV_DAO {
 	public ArrayList<Entity.NhanVien> doctubang(){
 		try {
 			Connection con = connectDB.getInstance().getConnection();
-			String sql = "select maNV,tenNV,gioiTinh,ngaySinh,CMND,SDT,trangThaiLamViec,diaChi,tenLNV,maTK from NhanVien n\r\n"
-					+ "inner join LoaiNhanVien ln\r\n"
-					+ "on n.maLNV = ln.maLNV";
+			String sql = "Select maNV,tenNV,gioiTinh,ngaySinh,CMND,SDT,trangThaiLamViec,diaChi,tenLNV from NhanVien nv inner join LoaiNhanVien lnv on nv.maLNV = lnv.maLNV";
 			Statement sta = con.createStatement();
 			ResultSet rs = sta.executeQuery(sql);
 			while(rs.next()) {
@@ -27,11 +26,12 @@ public class QLNV_DAO {
 				String ngaySinh = rs.getString(4);
 				String cmnd = rs.getString(5);
 				String sdt = rs.getString(6);
-				String trangThai = rs.getString(7);
+				String trangThaiLamViec = rs.getString(7);
 				String dc = rs.getString(8);
-				LoaiNhanVien loai = new LoaiNhanVien(null, rs.getString(9));
-				TaiKhoanNhanVien maTK = new TaiKhoanNhanVien(rs.getString(10), null, null, null);
-				NhanVien nv = new NhanVien(ma,ten,gt,ngaySinh,cmnd,sdt,trangThai,dc, loai,maTK);
+				LoaiNhanVien loainv = new LoaiNhanVien(null, rs.getString(9));
+//				TaiKhoanNhanVien maTK = new TaiKhoanNhanVien(rs.getString(10), null, null, null);
+//				NhanVien nv = new NhanVien(ma,ten,gt,ngaySinh,cmnd,sdt,trangThaiLamViec,dc, loainv,maTK);
+				NhanVien nv = new NhanVien(ma,ten,gt,ngaySinh,cmnd,sdt,trangThaiLamViec,dc, loainv);
 				dsnv.add(nv);
 			}
 		} catch (Exception e) {
@@ -44,7 +44,7 @@ public class QLNV_DAO {
 		PreparedStatement smt = null;
 		int n = 0;
 		try {
-			smt = con.prepareStatement("insert into NhanVien values(?,?, ?, ?, ?, ?, ?, ? , ? , ?)");
+			smt = con.prepareStatement("insert into NhanVien values(?,?, ?, ?, ?, ?, ?, ?, ?)");
 			smt.setString(1, nv.getMaNV());
 			smt.setString(2, nv.getTenNV());
 			smt.setString(3, nv.getGioiTinh());
@@ -53,8 +53,8 @@ public class QLNV_DAO {
 			smt.setString(6, nv.getSDT());
 			smt.setString(7, nv.getTrangThaiLamViec());
 			smt.setString(8, nv.getMaDC());
-//			smt.setString(9, nv.getTenLNV());
-//			smt.setString(10, nv.getMaTK());
+			smt.setString(9, nv.getLNV().getTenLNV());
+//			smt.setString(10, nv.getMaTK().getMaTaiKhoan());
 			n = smt.executeUpdate();
 			
 		} catch (Exception e) {
@@ -104,6 +104,46 @@ public class QLNV_DAO {
 		}
 		return n>0;
 	}
+	
+	public int getMaxMaNV() {
+        int maxMaNV = 0;
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+            conn = connectDB.getInstance().getConnection();
+            String query = "SELECT MAX(CONVERT(INT, SUBSTRING(maNV, 5, LEN(maNV)))) FROM NhanVien";
+            pstmt = conn.prepareStatement(query);
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+            	maxMaNV = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return maxMaNV;
+    }
+	
+//	public int getMaxMaTK() {
+//        int maxMaTK = 0;
+//        Connection conn = null;
+//        PreparedStatement pstmt = null;
+//        ResultSet rs = null;
+//        try {
+//            conn = connectDB.getInstance().getConnection();
+//            String query = "SELECT MAX(CONVERT(INT, SUBSTRING(nv.maTK, 5, LEN(nv.maTK)))) FROM NhanVien nv inner join TaiKhoan tk on nv.maTK = tk.maTK";
+//            pstmt = conn.prepareStatement(query);
+//            rs = pstmt.executeQuery();
+//
+//            if (rs.next()) {
+//            	maxMaTK = rs.getInt(1);
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        return maxMaTK;
+//    }
 	
 	public ArrayList<NhanVien> getnv(){
 		return dsnv;

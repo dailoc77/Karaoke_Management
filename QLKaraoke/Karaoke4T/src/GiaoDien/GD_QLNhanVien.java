@@ -79,7 +79,9 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 	private JComboBox<String> cbtrangthai;
 	private LoaiNhanVien_DAO dslnv;
 	QLNV_DAO ds = new QLNV_DAO();
+	QLTK_DAO dstk = new QLTK_DAO();
 	private JTextField txtMaNV;
+//	private JTextField txt_MaTK;
 
 	public static void main(String[] args) {
 		try {
@@ -120,6 +122,7 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 		
 		try {
 			connectDB.getInstance().connect();
+			loadTable();
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -329,32 +332,32 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 		
 		JLabel lblNewLabel_1 = new JLabel("Nhập Họ Tên");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_1.setBounds(31, 10, 159, 28);
+		lblNewLabel_1.setBounds(10, 10, 159, 28);
 		panel.add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_1_1 = new JLabel("Số Điện Thoại");
 		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_1_1.setBounds(31, 90, 145, 23);
+		lblNewLabel_1_1.setBounds(156, 90, 145, 23);
 		panel.add(lblNewLabel_1_1);
 		
 		JLabel lblNewLabel_1_3 = new JLabel("Số CMND");
 		lblNewLabel_1_3.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_1_3.setBounds(241, 90, 92, 23);
+		lblNewLabel_1_3.setBounds(372, 90, 92, 23);
 		panel.add(lblNewLabel_1_3);
 		
 		JLabel lblNewLabel_1_4 = new JLabel("Địa Chỉ");
 		lblNewLabel_1_4.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_1_4.setBounds(538, 91, 55, 20);
+		lblNewLabel_1_4.setBounds(563, 91, 55, 20);
 		panel.add(lblNewLabel_1_4);
 		
 		txtten = new JTextField();
-		txtten.setBounds(31, 37, 173, 27);
+		txtten.setBounds(10, 37, 173, 27);
 		panel.add(txtten);
 		txtten.setColumns(10);
 		
 		//rad button
 		JRadioButton rdbtnNAM = new JRadioButton("Nam");
-		rdbtnNAM.setBounds(241, 37, 67, 23);
+		rdbtnNAM.setBounds(281, 37, 67, 23);
 		rdbtnNAM.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		rdbtnNAM.setOpaque(false);
 		rdbtnNAM.setContentAreaFilled(false);
@@ -377,17 +380,17 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 		
 		txtsdt = new JTextField();
 		txtsdt.setColumns(10);
-		txtsdt.setBounds(31, 123, 173, 27);
+		txtsdt.setBounds(156, 123, 173, 27);
 		panel.add(txtsdt);
 		
 		txtcmnd = new JTextField();
 		txtcmnd.setColumns(10);
-		txtcmnd.setBounds(241, 123, 248, 27);
+		txtcmnd.setBounds(369, 123, 152, 27);
 		panel.add(txtcmnd);
 		
 		txtdc = new JTextField();
 		txtdc.setColumns(10);
-		txtdc.setBounds(538, 123, 311, 27);
+		txtdc.setBounds(563, 121, 270, 27);
 		panel.add(txtdc);
 		
 		//button them
@@ -470,7 +473,7 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 
 		
 		cbLoaiNhanVien = new JComboBox<>();
-		cbLoaiNhanVien.setBounds(538, 37, 104, 27);
+		cbLoaiNhanVien.setBounds(548, 37, 104, 27);
 		panel.add(cbLoaiNhanVien);
 		loadComBoBox();
 		
@@ -493,9 +496,24 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 		panel.add(textFieldTrangThaiLamViec);
 		
 		txtMaNV = new JTextField();
-		txtMaNV.setBounds(200, 16, 79, 20);
+		txtMaNV.setBounds(10, 123, 128, 24);
 		panel.add(txtMaNV);
 		txtMaNV.setColumns(10);
+		
+		JLabel lbl_manv = new JLabel("Mã Nhân Viên");
+		lbl_manv.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lbl_manv.setBounds(10, 91, 104, 20);
+		panel.add(lbl_manv);
+		
+//		txt_MaTK = new JTextField();
+//		txt_MaTK.setBounds(204, 37, 67, 27);
+//		panel.add(txt_MaTK);
+//		txt_MaTK.setColumns(10);
+		
+//		JLabel lblNewLabel_2 = new JLabel("Mã Tài Khoản");
+//		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
+//		lblNewLabel_2.setBounds(190, 10, 111, 28);
+//		panel.add(lblNewLabel_2);
 		
 		
 		//talbe
@@ -544,6 +562,33 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 		
 	}
 	
+//	private String layGioiTinh(Boolean rdbtnNam , Boolean rdbtnNu) {
+//		String gt = "";
+//		if(rdbtnNam.TRUE) {
+//			gt = "Nam";
+//		}
+//		if(rdbtnNu.TRUE) {
+//			gt = "Nữ";
+//		}
+//		
+//		return gt;
+//	}
+	
+	private NhanVien reverSPFromTextField() {
+		String maNV = txtMaNV.getText().toString();
+		String ten = txtten.getText().toString();
+		String gt = "";
+		String ngaySinh = txtns.getText().toString();
+		String cmnd = txtcmnd.getText().toString();
+		String sdt = txtsdt.getText().toString();
+		String trangThaiLamViec = textFieldTrangThaiLamViec.getText().toString();
+		String dc = txtdc.getText().toString();
+		LoaiNhanVien loainv = new LoaiNhanVien("",cbLoaiNhanVien.getSelectedItem().toString());
+//		TaiKhoanNhanVien maTK = new TaiKhoanNhanVien(txt_MaTK.getText().toString(), null, null, null);
+//		return new NhanVien(maNV,ten,gt,ngaySinh,cmnd,sdt,trangThaiLamViec,dc,loainv,maTK);
+		return new NhanVien(maNV,ten,gt,ngaySinh,cmnd,sdt,trangThaiLamViec,dc,loainv);
+	}
+	
 	
 	
 	protected void btnsuaActionPerformed(ActionEvent e) {
@@ -557,19 +602,30 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 	}
 
 	protected void btnthemActionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+		QLNV_DAO dsnv = new QLNV_DAO();
+		int maxMaNV = dsnv.getMaxMaNV();
+//		int maxMaTK = dstk.getMaxMaTaiKhoan();
+		
+		maxMaNV++;
+//		maxMaTK++;
+
+		txtMaNV.setText("NVAA" + String.format("%03d", maxMaNV));
 		NhanVien nv = reverSPFromTextField();
+//		ArrayList<TaiKhoanNhanVien> tknv = dstk.laytheomatk(nv.get);
+//		String maTK = tknv.getMaTK().getMaTaiKhoan();
+//		maTK = "TK" + String.format("%03d", maxMaTK);
 		String gt = "";
-		if(ds.create(nv)) {
+		if(dsnv.create(nv)) {
 			if(rdbtnNAM.isSelected()) {
 				gt = "Nam";
 			}
 			if(rdbtnNU.isSelected()) {
 				gt = "Nữ";
 			}
-			Object [] rowData = {txtMaNV.getText(),txtten.getText(),gt,txtns.getText(),txtcmnd.getText(),txtsdt.getText(),textFieldTrangThaiLamViec.getText(),txtdc.getText()};
+			Object [] rowData = {txtMaNV.getText(),txtten.getText(),gt,txtns.getText(),txtcmnd.getText(),txtsdt.getText(),textFieldTrangThaiLamViec.getText(),txtdc.getText(),nv.getLNV().getTenLNV()};
+//			Object [] rowData = {txtMaNV.getText(),txtten.getText(),gt,txtns.getText(),txtcmnd.getText(),txtsdt.getText(),textFieldTrangThaiLamViec.getText(),txtdc.getText(),nv.getLNV().getTenLNV(),nv.getMaTK().getMaTaiKhoan()};
 			model.addRow(rowData);
-			JOptionPane.showMessageDialog(this, "Thêm Khách Hàng Thành Công");
+			JOptionPane.showMessageDialog(this, "Thêm Nhân Viên Thành Công");
 			lammoi();
 		}
 //		table.setModel(model);
@@ -578,10 +634,7 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 	}
 
 
-	private NhanVien reverSPFromTextField() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 //	private void initComponents() {
 //
@@ -606,10 +659,10 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 //        pack();
 //    }
 
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-         GD_Main_QL mainql=new GD_Main_QL();
-         mainql.setVisible(true);
-    }
+//    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+//         GD_Main_QL mainql=new GD_Main_QL();
+//         mainql.setVisible(true);
+//    }
 
 //	private void initComponents() {
 //
@@ -679,7 +732,9 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 		QLNV_DAO ds = new QLNV_DAO();
 		ArrayList<NhanVien> ls = ds.doctubang();
 		for(NhanVien s : ls) {
-			String [] rowData = {s.getMaNV(), s.getTenNV(),s.getGioiTinh(), s.getNgaySinh(), s.getCMND(),s.getSDT(), s.getTrangThaiLamViec() , s.getMaDC(), s.getTenLNV()+"" ,s.getMaTK()+""};
+//			String [] rowData = {s.getMaNV(), s.getTenNV(),s.getGioiTinh(), s.getNgaySinh(), s.getCMND(),s.getSDT(), s.getTrangThaiLamViec() , s.getMaDC(),s.getLNV().getTenLNV(), s.getMaTK().getMaTaiKhoan()+""};
+			String [] rowData = {s.getMaNV(), s.getTenNV(),s.getGioiTinh(), s.getNgaySinh(), s.getCMND(),s.getSDT(), s.getTrangThaiLamViec() , s.getMaDC(),s.getLNV().getTenLNV()};
+
 			model.addRow(rowData);
 			table.setModel(model);
 		}
@@ -723,13 +778,22 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 		QLNV_DAO dsnv = new QLNV_DAO();
 		model.setRowCount(0);
 			for(NhanVien s : dsnv.doctubang()) {
-			
-			Object  rowData[] = {s.getMaNV(), s.getTenNV(),s.getGioiTinh(), s.getNgaySinh(), s.getCMND(),s.getSDT(), s.getTrangThaiLamViec() , s.getMaDC(), s.getTenLNV()+"" ,s.getMaTK()+""};
+			Object  rowData[] = {s.getMaNV(),s.getTenNV(),s.getGioiTinh(),s.getNgaySinh(),s.getCMND(),s.getSDT(),s.getTrangThaiLamViec(),s.getMaDC(),s.getLNV().getTenLNV()};
+
+//			Object  rowData[] = {s.getMaNV(), s.getTenNV(),s.getGioiTinh(), s.getNgaySinh(), s.getCMND(),s.getSDT(), s.getTrangThaiLamViec() , s.getMaDC(), s.getTenLNV().getTenLNV(),s.getMaTK().getMaTaiKhoan()};
 
 			model.addRow(rowData);
 
 		}
 	}
+	
+//	public void mouseClicked(MouseEvent e) {
+//		int row = table.getSelectedRow();
+//		txtMaNV.setText(table.getValueAt(row, 0).toString());
+//		txtten.setText(table.getValueAt(row,2).toString());
+//		r.setText(table.getValueAt(row, 3).toString());
+//		txtmk.setText(table.getValueAt(row, 4).toString());
+//	}
 	
 	
 	public void lammoi() {
@@ -739,9 +803,8 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 		txtsdt.setText("");
 		txtdc.setText("");
 		textFieldTrangThaiLamViec.setText("");
+		
 //		bg.clearSelection();
 
 	}
-	
-	
 }

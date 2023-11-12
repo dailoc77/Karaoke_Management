@@ -144,7 +144,7 @@ public class QLTK_DAO {
         ResultSet rs = null;
         try {
             conn = connectDB.getInstance().getConnection();
-            String query = "SELECT MAX(CONVERT(INT, SUBSTRING(maTK, 3, LEN(maTK)))) FROM TaiKhoan";
+            String query = "SELECT MAX(CONVERT(INT, SUBSTRING(nv.maTK, 5, LEN(nv.maTK)))) FROM NhanVien nv inner join TaiKhoan tk on nv.maTK = tk.maTK";
             pstmt = conn.prepareStatement(query);
             rs = pstmt.executeQuery();
 
