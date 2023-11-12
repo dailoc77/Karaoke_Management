@@ -10,8 +10,14 @@ import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.net.URL;
+import java.sql.Connection;
 import java.sql.Date;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import javax.swing.Timer;
 import java.util.TimerTask;
@@ -29,6 +35,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 
@@ -43,6 +50,12 @@ import com.toedter.calendar.JDayChooser;
 import com.toedter.calendar.JMonthChooser;
 import com.toedter.calendar.JYearChooser;
 
+import DAO.ThongKeHoaDon_DAO;
+import DAO.ThongKeKhachHang_DAO;
+import Entity.ThongKeHoaDon;
+import Entity.ThongKeKhachHang;
+import connectDB.connectDB;
+
 import com.toedter.calendar.JDateChooser;
 import com.toedter.calendar.JCalendar;
 public class GD_ThongKeKhachHang extends JFrame implements ActionListener {
@@ -52,8 +65,18 @@ public class GD_ThongKeKhachHang extends JFrame implements ActionListener {
 	DefaultTableModel model;
 	private JLabel lblClock;
 	private Timer timer;
-	private JTextField textField_1;
+	private JTextField textFieldTongKhachHang;
 	
+	private int selectedValueNgay = 0;
+	private String selectedValueThang = null;
+	private int selectedValueNam = 0;
+	private String thang [] = {"1","2","3","4","5","6","7","8","9","10","11","12"};
+	private JComboBox comboBoxThang = new JComboBox<>(thang);
+	
+//	private JDayChooser dayChooser = new JDayChooser();
+//	private JYearChooser yearChooser = new JYearChooser();
+	
+	ThongKeKhachHang_DAO dstk = new ThongKeKhachHang_DAO();
 	/**
 	 * Launch the application.
 	 */
@@ -93,7 +116,7 @@ public class GD_ThongKeKhachHang extends JFrame implements ActionListener {
 	 * Create the frame.
 	 */
 	public GD_ThongKeKhachHang() {
-		initComponents();
+//		initComponents();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1175, 650);
 		contentPane = new JPanel();
@@ -182,11 +205,11 @@ public class GD_ThongKeKhachHang extends JFrame implements ActionListener {
 		    }
 		});
 		
-		JLabel lblavatar = new JLabel("");
-		lblavatar.setHorizontalAlignment(SwingConstants.CENTER);
-		lblavatar.setIcon(new ImageIcon(GD_Main_QL.class.getResource("/Imgs/t1 1.png")));
-		lblavatar.setBounds(90, -444, 1333, 957);
-		contentPane.add(lblavatar);
+//		JLabel lblavatar = new JLabel("");
+//		lblavatar.setHorizontalAlignment(SwingConstants.CENTER);
+//		lblavatar.setIcon(new ImageIcon(GD_Main_QL.class.getResource("/Imgs/t1 1.png")));
+//		lblavatar.setBounds(90, -444, 1333, 957);
+//		contentPane.add(lblavatar);
 		
 		testbutton.Buttontest btndatphong1 = new testbutton.Buttontest();
         btndatphong1.addMouseListener(new MouseAdapter() {
@@ -295,6 +318,9 @@ public class GD_ThongKeKhachHang extends JFrame implements ActionListener {
 		contentPane.add(btnthongke);
 		btnthongke.setLayout(null);
 		
+		
+		
+		
 		JPanel panel = new JPanel() {
 			protected void paintComponent(Graphics g) {
 				g.setColor(getBackground());
@@ -323,21 +349,26 @@ public class GD_ThongKeKhachHang extends JFrame implements ActionListener {
 		lblNewLabel_1_2.setBounds(595, 20, 113, 14);
 		panel.add(lblNewLabel_1_2);
 		
-		JButton btnNewButton1 = new JButton("Thống kê");
-		btnNewButton1.setForeground(Color.WHITE);
-		btnNewButton1.setBackground(new Color(194, 100, 154));
-		btnNewButton1.setBounds(778, 30, 142, 42);
-		panel.add(btnNewButton1);
+		
+		
 		
 		JLabel lblNewLabel_1_1_1_1 = new JLabel("Tổng khách hàng");
 		lblNewLabel_1_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		lblNewLabel_1_1_1_1.setBounds(980, 15, 122, 21);
 		panel.add(lblNewLabel_1_1_1_1);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(978, 47, 142, 28);
-		panel.add(textField_1);
+		textFieldTongKhachHang = new JTextField();
+		textFieldTongKhachHang.setColumns(10);
+		textFieldTongKhachHang.setBounds(978, 47, 142, 28);
+		panel.add(textFieldTongKhachHang);
+		
+//		comboBoxThang = new JComboBox();
+		comboBoxThang.setBounds(447, 46, 63, 26);
+		panel.add(comboBoxThang);
+		
+		ButtonGroup bg = new ButtonGroup();
+		
+		
 		
 		JPanel panel_1 = new JPanel() {
 			protected void paintComponent(Graphics g) {
@@ -346,28 +377,51 @@ public class GD_ThongKeKhachHang extends JFrame implements ActionListener {
 				super.paintComponent(g);
 			}
 		};
+			
+			panel_1.setOpaque(false);
+			panel_1.setBounds(28, 30, 370, 182);
+			panel.add(panel_1);
+			
+			JDayChooser dayChooser = new JDayChooser();
+			dayChooser.setBounds(10, 39, 289, 133);
+			dayChooser.setOpaque(false);
+			panel_1.add(dayChooser);
+			
 		
-		panel_1.setOpaque(false);
-		panel_1.setBounds(10, 30, 375, 182);
-		panel.add(panel_1);
+			JButton btnThongKe = new JButton("Thống kê");
+			btnThongKe.setForeground(Color.WHITE);
+			btnThongKe.setBackground(new Color(194, 100, 154));
+			btnThongKe.setBounds(778, 30, 142, 42);
+			panel.add(btnThongKe);
+			
+			JYearChooser yearChooser = new JYearChooser();
+			yearChooser.setBounds(605, 45, 48, 20);
+			panel.add(yearChooser);
 		
-		JDayChooser dayChooser = new JDayChooser();
-		dayChooser.setBounds(10, 39, 289, 133);
-		dayChooser.setOpaque(false);
-		panel_1.add(dayChooser);
-		
-		JMonthChooser monthChooser = new JMonthChooser();
-		monthChooser.setBounds(437, 47, 115, 20);
-		monthChooser.setOpaque(false);
-		panel.add(monthChooser);
-		
-		JYearChooser yearChooser = new JYearChooser();
-		yearChooser.setBounds(595, 47, 50, 20);
-		yearChooser.setOpaque(false);
-		panel.add(yearChooser);
-		
-		ButtonGroup bg = new ButtonGroup();
-		
+			btnThongKe.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				selectedValueNgay = dayChooser.getDay();
+				selectedValueThang =  (String) comboBoxThang.getSelectedItem();
+				selectedValueNam  = yearChooser.getYear();
+				System.out.print(selectedValueNgay + "\n");		
+				System.out.print(selectedValueThang + "\n");
+				System.out.print(selectedValueNam + "\n");
+				
+						        
+		        ThongKeKhachHang_DAO dstk = new ThongKeKhachHang_DAO();
+				ArrayList<ThongKeKhachHang> ls = dstk.doctubangTheoThang(selectedValueNgay, selectedValueThang, selectedValueNam);
+				for(ThongKeKhachHang s : ls) {
+					
+
+
+					loadDataFromSQL(selectedValueNgay,selectedValueThang,selectedValueNam);
+					loadTongSoKhachHang(selectedValueNgay,selectedValueThang,selectedValueNam);
+				}
+			}
+		});
 		
 		//talbe
 		table = new JTable();
@@ -377,12 +431,13 @@ public class GD_ThongKeKhachHang extends JFrame implements ActionListener {
 		scrollPane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		contentPane.add(scrollPane);
 		
-		DefaultTableModel model = new DefaultTableModel();
+		model = new DefaultTableModel();
 		model.addColumn("Mã Khách Hàng");
 		model.addColumn("Họ Tên Khách Hàng");
 		model.addColumn("Số Điện Thoại");
 		model.addColumn("Số Căn Cước");
-		model.addColumn("Tổng Tiền");
+		model.addColumn("Địa chỉ");
+		model.addColumn("Thời gian nhận phòng");
 		// Add data to the table
 		//model.addRow(new Object[]{"Data 1", "Data 2", "Data 3"});
 		table.setModel(model);
@@ -397,30 +452,35 @@ public class GD_ThongKeKhachHang extends JFrame implements ActionListener {
 		lblNewLabel.setForeground(new Color(255, 0, 0));
 		lblNewLabel.setIcon(new ImageIcon(GD_QuanLyKhachHang.class.getResource("/Imgs/370.png")));
 
+		
+		
+		
+		connectDB.getInstance().connect();
+		loadTable();
 	}
 	
-    private void initComponents() {
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                formWindowClosing(evt);
-            }
-        });
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
-
-        pack();
-    }
+//    private void initComponents() {
+//
+//        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+//        addWindowListener(new java.awt.event.WindowAdapter() {
+//            public void windowClosing(java.awt.event.WindowEvent evt) {
+//                formWindowClosing(evt);
+//            }
+//        });
+//
+//        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+//        getContentPane().setLayout(layout);
+//        layout.setHorizontalGroup(
+//            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+//            .addGap(0, 400, Short.MAX_VALUE)
+//        );
+//        layout.setVerticalGroup(
+//            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+//            .addGap(0, 300, Short.MAX_VALUE)
+//        );
+//
+//        pack();
+//    }
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
          GD_Main_NV mainnv=new GD_Main_NV();
@@ -458,5 +518,132 @@ public class GD_ThongKeKhachHang extends JFrame implements ActionListener {
         
         String time = String.format("%02d:%02d:%02d %s  %04d/%02d/%02d", hour, minute, second, ampm, year, month, day);
         lblClock.setText(time);
+    }
+	
+	
+
+    public void loadTable() {
+    	 try {
+             // Kết nối đến cơ sở dữ liệu
+             Connection connection = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=Karaoke4T", "sa", "123");
+             
+             // Sử dụng PreparedStatement để có thể truyền tham số
+             String sql = "select  kh.maKH,tenKH,SDT,CMND,diaChi,thoiGianNhanPhong from PhieuDatPhong p\r\n"
+             		+ "inner join KhachHang kh\r\n"
+             		+ "on p.maKH = kh.maKH";
+             try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+                 // Thiết lập giá trị cho tham số
+                 // Thực hiện truy vấn
+                 try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                     // Xóa dữ liệu cũ trong tableModel
+                     model.setRowCount(0);
+
+                     // Thêm dữ liệu từ ResultSet vào tableModel
+                     while (resultSet.next()) {
+                         Object[] row = {
+                                 resultSet.getString("maKH"),
+                                 resultSet.getString("tenKH"),
+                                 resultSet.getString("SDT"),
+                                 resultSet.getString("CMND"),
+                                 resultSet.getString("diaChi"),
+                                 resultSet.getString("thoiGianNhanPhong")
+                                 // Thêm các cột khác nếu cần
+                         };
+                         model.addRow(row);
+                     }
+                 }
+             }
+
+             // Đóng tài nguyên
+             connection.close();
+         } catch (Exception e) {
+             e.printStackTrace();
+         }
+	}
+    
+    
+
+    public void loadTongSoKhachHang(int ngay,String thang,int nam) {
+		// Thông tin kết nối đến cơ sở dữ liệu
+        String url = "jdbc:sqlserver://localhost:1433;databasename=Karaoke4T";
+        String username = "sa";
+        String password = "123";
+
+        try {
+            // Kết nối đến cơ sở dữ liệu
+            Connection connection = DriverManager.getConnection(url, username, password);
+
+            // Truy vấn SQL để lấy dữ liệu
+            String sql = "select COUNT(kh.maKH) as SoLuongKhachHang from PhieuDatPhong p\r\n"
+            		+ "inner join KhachHang kh\r\n"
+            		+ "on p.maKH = kh.maKH\r\n"
+            		+ "where DAY(thoiGianNhanPhong) = ? and MONTH(thoiGianNhanPhong) = ? and YEAR(thoiGianNhanPhong) = ?";
+            
+            
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, ngay);
+            statement.setString(2, thang);
+            statement.setInt(3, nam);
+            ResultSet resultSet = statement.executeQuery();
+            // Lặp qua các dòng kết quả và thêm vào JComboBox
+            while (resultSet.next()) {
+                String columnName = resultSet.getString("SoLuongKhachHang");
+                textFieldTongKhachHang.setText(columnName);
+               
+            }
+
+            // Đóng các tài nguyên
+            resultSet.close();
+            statement.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+	}
+    
+    
+
+    private void loadDataFromSQL(int ngay,String thang,int nam) {
+        try {
+            // Kết nối đến cơ sở dữ liệu
+            Connection connection = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=Karaoke4T", "sa", "123");
+            
+            // Sử dụng PreparedStatement để có thể truyền tham số
+            String sql = "select kh.maKH,tenKH,SDT,CMND,diaChi,thoiGianNhanPhong\r\n"
+            		+ "from PhieuDatPhong p\r\n"
+            		+ "inner join KhachHang kh\r\n"
+            		+ "on p.maKH = kh.maKH\r\n"
+            		+ "where Day(thoiGianNhanPhong) = ? and month(thoiGianNhanPhong) = ? and YEAR(thoiGianNhanPhong) = ?";
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+                // Thiết lập giá trị cho tham số
+            	preparedStatement.setInt(1, ngay);
+                preparedStatement.setString(2, thang);
+                preparedStatement.setInt(3, nam);
+                // Thực hiện truy vấn
+                try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                    // Xóa dữ liệu cũ trong tableModel
+                    model.setRowCount(0);
+
+                    // Thêm dữ liệu từ ResultSet vào tableModel
+                    while (resultSet.next()) {
+                        Object[] row = {
+                                resultSet.getString("maKH"),
+                                resultSet.getString("tenKH"),
+                                resultSet.getString("SDT"),
+                                resultSet.getString("CMND"),
+                                resultSet.getString("diaChi"),
+                                resultSet.getString("thoiGianNhanPhong")
+                                // Thêm các cột khác nếu cần
+                        };
+                        model.addRow(row);
+                    }
+                }
+            }
+
+            // Đóng tài nguyên
+            connection.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

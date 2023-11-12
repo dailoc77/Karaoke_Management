@@ -33,12 +33,12 @@ public class KhachHang {
 	}
 	public KhachHang(String maKH, String gioiTinh, String tenKH, String SDT, String CMND, String diaChi) {
 		super();
+		setMaKH(maKH);
+		setGioiTinh(gioiTinh);
+		setTenKH(tenKH);
+		setSDT(SDT);
 		setCMND(CMND);
 		setDiaChi(diaChi);
-		setGioiTinh(gioiTinh);
-		setMaKH(maKH);
-		setSDT(SDT);
-		setTenKH(tenKH);
 	}
 
 
