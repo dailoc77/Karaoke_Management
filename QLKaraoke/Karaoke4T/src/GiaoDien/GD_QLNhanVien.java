@@ -81,7 +81,7 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 	QLNV_DAO ds = new QLNV_DAO();
 	QLTK_DAO dstk = new QLTK_DAO();
 	private JTextField txtMaNV;
-//	private JTextField txt_MaTK;
+	private JTextField txt_MaTK;
 
 	public static void main(String[] args) {
 		try {
@@ -584,9 +584,9 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 		String trangThaiLamViec = textFieldTrangThaiLamViec.getText().toString();
 		String dc = txtdc.getText().toString();
 		LoaiNhanVien loainv = new LoaiNhanVien("",cbLoaiNhanVien.getSelectedItem().toString());
-//		TaiKhoanNhanVien maTK = new TaiKhoanNhanVien(txt_MaTK.getText().toString(), null, null, null);
+		TaiKhoanNhanVien maTK = new TaiKhoanNhanVien(txt_MaTK.getText().toString(), null, null, null);
 //		return new NhanVien(maNV,ten,gt,ngaySinh,cmnd,sdt,trangThaiLamViec,dc,loainv,maTK);
-		return new NhanVien(maNV,ten,gt,ngaySinh,cmnd,sdt,trangThaiLamViec,dc,loainv);
+		return new NhanVien(maNV,ten,gt,ngaySinh,cmnd,sdt,trangThaiLamViec,dc,loainv,maTK);
 	}
 	
 	
