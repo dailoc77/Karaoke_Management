@@ -66,6 +66,7 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 	private Timer timer;
 	private testbutton.Buttontest btnthem, btnxoa, btnlammoi, btnsua;
 	QLTK_DAO dstk = new QLTK_DAO();
+//	private JTextField textField;
 	/**
 	 * Launch the application.
 	 */
@@ -334,6 +335,16 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 		txtTaiKhoan.setBounds(281, 37, 241, 27);
 		panel.add(txtTaiKhoan);
 		
+		txtEmail = new JTextField();
+		txtEmail.setColumns(10);
+		txtEmail.setBounds(261, 76, 202, 27);
+		panel.add(txtEmail);
+		
+		JLabel lblEmail = new JLabel("Email");
+		lblEmail.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblEmail.setBounds(261, 44, 145, 23);
+		panel.add(lblEmail);
+		
 		//button them
 				btnthem = new testbutton.Buttontest();
 				btnthem.setText("Thêm");
@@ -344,19 +355,39 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 				btnthem.setShadowColor(new Color(0,0,0));
 				btnthem.setBounds(822, 24, 128, 48);
 				
-				
 				btnthem.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						String tennv = txtTenNV.getText();
-						if (tennv.matches("[a-z\\s]+$") == true) {
-							JOptionPane.showMessageDialog(null,"Tên phải viết in có khoảng trắng và không dấu");
-						}
-						else {
-							btnthemActionPerformed(e);							
-						}
-						
+				    public void actionPerformed(ActionEvent e) {
+				        String tennv = txtTenNV.getText();
+				        if (tennv.matches("[A-Z\\S]+$") == true) {
+				            JOptionPane.showMessageDialog(null, "Tên phải viết hoa và không chứa ký tự đặc biệt");
+				        } else {
+				            String email = txtEmail.getText();
+				            if (isValidEmail(email)) {
+				                btnthemActionPerformed(e);
+				            } else {
+				                JOptionPane.showMessageDialog(null, "Sai định dạng email. Email phải có định dạng @gmail.com");
+				            }
+				        }
+				    }
+					private boolean isValidEmail(String email) {
+						// TODO Auto-generated method stub
+					    return email.matches(".+@gmail\\.com");
 					}
 				});
+
+				
+//				btnthem.addActionListener(new ActionListener() {
+//					public void actionPerformed(ActionEvent e) {
+//						String tennv = txtTenNV.getText();
+//						if (tennv.matches("[A-Z\\S]+$") == true) {
+//							JOptionPane.showMessageDialog(null,"Tên phải viết in có khoảng trắng và không dấu");
+//						}
+//						else {
+//							btnthemActionPerformed(e);							
+//						}
+//						
+//					}
+//				});
 				panel.add(btnthem);
 				
 				//button xoa
@@ -449,7 +480,7 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 //		model.addColumn("Tên Tài Khoản");
 //		model.addColumn("Mật Khẩu");
 		// Add data to the table
-//		model.addRow(new Object[]{"1", "Nguyễn Văn A", "09999999", "aaabb@gmail.com", "aaaa"});
+//		model.addRow(new Object[]{"1", "Nguyễn Văn A", "09999999", "GD_TaiKhoanbb@gmail.com", "GD_TaiKhoana"});
 //		model.addRow(new Object[]{"", "", "", "", ""});
 		table.setModel(model);
 		
@@ -498,10 +529,13 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 				table.setValueAt(txtTenNV.getText(), row, 3);
 				table.setValueAt(txt_email.getText(), row, 4);
 				JOptionPane.showMessageDialog(this, "Sửa thông tin tài khoản nhân viên thành công!");
-//				table.setModel(model);
+				table.setModel(model);
 			}
 		}
+<<<<<<< Updated upstream
 		
+=======
+>>>>>>> Stashed changes
 		loadTable();
 	}
 	protected void btnxoaActionPerformed(ActionEvent e) {
@@ -617,6 +651,7 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 		txt_email.setText("");
 		txtMaTK.requestFocus();
 	}
+<<<<<<< Updated upstream
 	
 //	private void initComponents() {
 //
@@ -645,5 +680,7 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
          GD_Main_QL mainql=new GD_Main_QL();
          mainql.setVisible(true);
     }
+=======
+>>>>>>> Stashed changes
 }
 
