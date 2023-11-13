@@ -29,8 +29,15 @@ public class TinhTien_DAO {
 				KhachHang tenKH = new KhachHang(null, null, rs.getString(2), null, null, null);
 				NhanVien tenNV = new NhanVien(null, rs.getString(3), null, null, null, null, null, null, null, null);
 				String thoiGianNhanPhong = rs.getString(4);
+<<<<<<< Updated upstream
 				PhieuDatPhong pdp = new PhieuDatPhong(sdtKH, tenKH, tenNV,thoiGianNhanPhong);
 				dsPDP.add(pdp);
+=======
+
+				PhieuDatPhong pdp = new PhieuDatPhong(sdtKH, tenKH, tenNV,thoiGianNhanPhong);
+				dsPDP.add(pdp);
+
+>>>>>>> Stashed changes
 			}
 		}catch (Exception e) {
 			e.printStackTrace();

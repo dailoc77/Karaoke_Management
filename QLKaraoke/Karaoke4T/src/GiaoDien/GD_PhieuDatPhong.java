@@ -7,8 +7,12 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JButton;
+import javax.swing.JDialog;
+
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -134,7 +138,8 @@ public class GD_PhieuDatPhong extends JFrame {
 				GD_ThuePhong tp = new GD_ThuePhong();
 				tp.setVisible(true);
 				tp.setLocationRelativeTo(null);
-				tp.btnthemActionPerformed(e);
+//				tp.btnthemActionPerformed();
+				JOptionPane.showMessageDialog(null,"Khách hàng thuê phòng hát thành công");
 	            dispose();
 			}
 		});

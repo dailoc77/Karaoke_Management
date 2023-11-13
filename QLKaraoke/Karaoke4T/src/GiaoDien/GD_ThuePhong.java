@@ -53,11 +53,13 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
 	private JPanel contentPane;
 	private JLabel lblClock;
 	private Timer timer;
+	
 	private JTextField textFieldTenKhach;
 	private JTextField textFieldSDT;
 	private JTextField textFieldCMND;
 	private JTextField textFieldDiaChi;
 	private JTextField textFieldSoLuongNguoi;
+	
 	private String soLuongNguoi;
 	private String trangThaiPhong;
 	private  JRadioButton rdbtnNAM,rdbtnNU;
@@ -442,12 +444,13 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
 		lb_hinhnen.setBounds(-40, -176, 1333, 957);
 		contentPane.add(lb_hinhnen);
 		
-//		 loadTrangThai(trangThaiPhong);
 //		String ten = textFieldTenKhach.getText();
-//		String sdt = textFieldDiaChi.getText().toString();
-//		String cccd = textFieldCMND.getText().toString();
-//		String dch = textFieldDiaChi.getText().toString();
-//		System.out.print(ten);
+//		String sdt = textFieldDiaChi.getText();
+//		String cccd = textFieldCMND.getText();
+//		String dch = textFieldDiaChi.getText();
+		tenKH = textFieldTenKhach.getText();
+		System.out.print(maPhong+tenKH+sdt+cmnd+diaChi+songuoi);
+		
 	}
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == timer) {
@@ -600,13 +603,21 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
 					cmnd = textFieldCMND.getText();
 					diaChi = textFieldDiaChi.getText();
 					songuoi = textFieldSoLuongNguoi.getText();
+					
 					if (ph.getLoaiPhong().getTenLoaiPhong().equals("Phòng Thường")) {
 						giaTien = 100000;
 					}
 					else {
 						giaTien = 180000;
 					}
-					
+					String gt = "";
+					if(rdbtnNAM.isSelected()) {
+						gt = "Nam";
+					}
+					if(rdbtnNU.isSelected()) {
+						gt = "Nu";
+					}
+					btnthemActionPerformed(tenKH,sdt,cmnd,diaChi,gt);
 //					System.out.print(giaTien);
 //					System.out.print("GDThue"+maPhong);
 
@@ -674,49 +685,49 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
             e.printStackTrace();
         }
 	}
-	protected void btnthemActionPerformed(MouseEvent e) {
+	protected void btnthemActionPerformed(String ten,String sdt,String cccd,String dch,String gt) {
 	  
-		KhachHang kh = reverSPFromTextField();
-		String gt = "";
-		if(dskh.create(kh)) {
-			if(rdbtnNAM.isSelected()) {
-				gt = "Nam";
-			}
-			if(rdbtnNU.isSelected()) {
-				gt = "Nu";
-			}
-			
-			JOptionPane.showMessageDialog(this, "Thêm Khách Hàng Thành Công");
-		}
-	
-}
+		 // Các biến dữ liệu đã được khai báo ở trên
 
-		private KhachHang reverSPFromTextField() {
-			  int maxMaKH = dskh.getMaxMaKH();
-			    
-			    // Tăng mã kh lên 1 để có mã mới
-			    maxMaKH++;
-			    
-			    // Gán giá trị mới cho ô nhập liệu mã kh
+        // Thực hiện kết nối đến cơ sở dữ liệu
+        String jdbcUrl = "jdbc:sqlserver://localhost:1433;databasename=Karaoke4T"; // Thay đổi URL kết nối tùy thuộc vào loại cơ sở dữ liệu bạn đang sử dụng
+        String username = "sa";
+        String password = "123";
+
+        try (Connection connection = DriverManager.getConnection(jdbcUrl, username, password)) {
+            // Chuẩn bị câu lệnh SQL để chèn dữ liệu
+            String sql = "INSERT INTO KhachHang (maKH,gioiTinh,tenKH,SDT,CMND,diaChi) VALUES (?, ?, ?, ?, ?, ?)";
+
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            	 int maxMaKH = dskh.getMaxMaKH();
+ 			     maxMaKH++;
+ 			    			
+	 			JTextField matxt = new JTextField();
+	 			matxt.setText("KHAA" + String.format("%03d", maxMaKH));
+	 			String ma = matxt.getText().toString();
 			
-			JTextField matxt = new JTextField();
-			matxt.setText("KHAA" + String.format("%03d", maxMaKH));
-			String ma = matxt.getText().toString();
-			String ten = textFieldTenKhach.getText().toString();
-			String sdt = textFieldDiaChi.getText().toString();
-			String cccd = textFieldCMND.getText().toString();
-			String dch = textFieldDiaChi.getText().toString();
-		
-			String gt = "";
-			if(rdbtnNAM.isSelected()) {
-				gt = "Nam";
-			}
-			if(rdbtnNU.isSelected()) {
-				gt = "Nu";
-			}
-			System.out.print(ten);
-			return new KhachHang(ma,gt,tenKH, sdt, cmnd, diaChi);
-		}
-		
+			
+				
+                preparedStatement.setString(1, ma);
+                preparedStatement.setString(2, gt);
+                preparedStatement.setString(3, ten);
+                preparedStatement.setString(4, sdt);
+                preparedStatement.setString(5, cccd);
+                preparedStatement.setString(6, dch);
+
+                // Thực hiện câu lệnh SQL chèn dữ liệu
+                int rowsAffected = preparedStatement.executeUpdate();
+
+                if (rowsAffected > 0) {
+                    System.out.println("Dữ liệu đã được chèn thành công!");
+                } else {
+                    System.out.println("Có lỗi xảy ra khi chèn dữ liệu.");
+                }
+            }
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        }
+	
+	}
 		
 }

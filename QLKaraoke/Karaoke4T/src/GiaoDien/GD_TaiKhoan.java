@@ -443,6 +443,11 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 		model.addColumn("Tên nhân viên");
 		model.addColumn("Email");
 
+<<<<<<< Updated upstream
+=======
+//		model.addColumn("Email");
+
+>>>>>>> Stashed changes
 //		model.addColumn("Tên Tài Khoản");
 //		model.addColumn("Mật Khẩu");
 		// Add data to the table
