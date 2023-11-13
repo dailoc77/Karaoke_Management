@@ -574,13 +574,8 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
 				public void mouseExited(MouseEvent e) {				
 				}
 				
-				@Override
-<<<<<<< Updated upstream
-				public void mouseEntered(MouseEvent e) {		
-=======
 				public void mouseEntered(MouseEvent e) {
-					
->>>>>>> Stashed changes
+
 				}
 				
 				@Override
@@ -621,12 +616,7 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
 					    } else {
 					    	 	LineBorder labelBorder = new LineBorder(Color.BLACK, 5);
 						        lbl_hinhanh.setBorder(labelBorder);
-					    }	
-<<<<<<< Updated upstream
-=======
-				            
-					
-					 
+					    }	      				 
 					 
 					  long clickTime = System.currentTimeMillis();
 
@@ -642,8 +632,7 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
 	                    }
 
 	                    lastClickTime = clickTime;
-					 
->>>>>>> Stashed changes
+
 				}
 			}); 
     

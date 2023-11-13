@@ -11,19 +11,34 @@ import Entity.Phong;
 
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import testbutton.Buttontest;
 import javax.swing.JCheckBox;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.BaseFont;
+import com.itextpdf.text.pdf.PdfWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class GD_TinhTien extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
 	private JTextField txt_tienNhan;
+	private boolean isXuatHoaDon = false;
 	JLabel lbl_tenPhongTT;
 	JLabel lbl_sdtKH;
 	JLabel lbl_tenKH;
@@ -36,10 +51,27 @@ public class GD_TinhTien extends JFrame {
 	JLabel lbl_tongCong;
 	JCheckBox cbox_xuatHoaDon;
 	JLabel lbl_tienThua;
+	
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(GD_Main_NV.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(GD_Main_NV.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(GD_Main_NV.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(GD_Main_NV.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -57,7 +89,7 @@ public class GD_TinhTien extends JFrame {
 	 */
 	public GD_TinhTien() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 820, 782);
+		setBounds(100, 100, 814, 682);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -66,13 +98,13 @@ public class GD_TinhTien extends JFrame {
 		
 		JPanel pnl_txt_tinhTien = new JPanel();
 		pnl_txt_tinhTien.setBackground(new Color(0, 88, 176));
-		pnl_txt_tinhTien.setBounds(0, 0, 804, 83);
+		pnl_txt_tinhTien.setBounds(0, 0, 806, 96);
 		contentPane.add(pnl_txt_tinhTien);
 		pnl_txt_tinhTien.setLayout(null);
 		
-		lbl_tenPhongTT = new JLabel("");
+		lbl_tenPhongTT = new JLabel("TÍNH TIỀN");
 		lbl_tenPhongTT.setForeground(new Color(255, 255, 255));
-		lbl_tenPhongTT.setBounds(239, 23, 330, 49);
+		lbl_tenPhongTT.setBounds(271, 25, 276, 49);
 		pnl_txt_tinhTien.add(lbl_tenPhongTT);
 		lbl_tenPhongTT.setFont(new Font("Tahoma", Font.BOLD, 32));
 		
@@ -86,7 +118,7 @@ public class GD_TinhTien extends JFrame {
 		lbl_sdtKH.setBounds(160, 141, 97, 20);
 		contentPane.add(lbl_sdtKH);
 		
-		JLabel lblNewLabel_1_2 = new JLabel("Họ và KH :");
+		JLabel lblNewLabel_1_2 = new JLabel("Họ tên KH :");
 		lblNewLabel_1_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblNewLabel_1_2.setBounds(60, 186, 115, 20);
 		contentPane.add(lblNewLabel_1_2);
@@ -138,33 +170,33 @@ public class GD_TinhTien extends JFrame {
 		
 		JLabel lblNewLabel_1_7 = new JLabel("Tiền dịch vụ :");
 		lblNewLabel_1_7.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_1_7.setBounds(465, 486, 129, 20);
+		lblNewLabel_1_7.setBounds(415, 348, 129, 20);
 		contentPane.add(lblNewLabel_1_7);
 		
 		lbl_tienDichVu = new JLabel("75.000 VND");
 		lbl_tienDichVu.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lbl_tienDichVu.setBounds(604, 486, 97, 20);
+		lbl_tienDichVu.setBounds(554, 348, 97, 20);
 		contentPane.add(lbl_tienDichVu);
 		
 		JLabel lblNewLabel_1_8 = new JLabel("Tiền phòng :");
 		lblNewLabel_1_8.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_1_8.setBounds(465, 541, 97, 20);
+		lblNewLabel_1_8.setBounds(415, 403, 97, 20);
 		contentPane.add(lblNewLabel_1_8);
 		
 		lbl_tienPhong = new JLabel("200.000 VND");
 		lbl_tienPhong.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lbl_tienPhong.setBounds(604, 541, 97, 20);
+		lbl_tienPhong.setBounds(554, 403, 97, 20);
 		contentPane.add(lbl_tienPhong);
 		
 		JLabel lblNewLabel_1_9 = new JLabel("Tổng cộng :");
 		lblNewLabel_1_9.setForeground(new Color(255, 0, 0));
 		lblNewLabel_1_9.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_1_9.setBounds(465, 593, 97, 20);
+		lblNewLabel_1_9.setBounds(415, 455, 97, 20);
 		contentPane.add(lblNewLabel_1_9);
 		
 		lbl_tongCong = new JLabel("275.000 VND");
 		lbl_tongCong.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lbl_tongCong.setBounds(604, 593, 97, 20);
+		lbl_tongCong.setBounds(554, 455, 97, 20);
 		contentPane.add(lbl_tongCong);
 		
 		table = new JTable();
@@ -173,18 +205,19 @@ public class GD_TinhTien extends JFrame {
 		
 		JLabel lblNewLabel_1_7_1 = new JLabel("Tiền nhận :");
 		lblNewLabel_1_7_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_1_7_1.setBounds(60, 486, 91, 20);
+		lblNewLabel_1_7_1.setBounds(60, 348, 91, 20);
 		contentPane.add(lblNewLabel_1_7_1);
 		
 		JLabel lblNewLabel_1_7_2 = new JLabel("Tiền thừa :");
 		lblNewLabel_1_7_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_1_7_2.setBounds(60, 546, 129, 20);
+		lblNewLabel_1_7_2.setBounds(60, 408, 129, 20);
 		contentPane.add(lblNewLabel_1_7_2);
 		
 		txt_tienNhan = new JTextField();
-		txt_tienNhan.setBounds(160, 488, 86, 20);
+		txt_tienNhan.setBounds(160, 345, 115, 31);
 		contentPane.add(txt_tienNhan);
 		txt_tienNhan.setColumns(10);
+		contentPane.add(txt_tienNhan);
 		
 		testbutton.Buttontest quayLai = new testbutton.Buttontest();
 		quayLai.setBorder(null);
@@ -192,7 +225,17 @@ public class GD_TinhTien extends JFrame {
 		quayLai.setForeground(Color.WHITE);
 		quayLai.setFont(new Font("Tahoma", Font.BOLD, 13));
 		quayLai.setBackground(new Color(0, 128, 255));
-		quayLai.setBounds(60, 669, 91, 48);
+		quayLai.setBounds(60, 531, 97, 48);
+		quayLai.addMouseListener(new MouseAdapter(){
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				GD_TraPhong gdtraphong = new GD_TraPhong();
+				gdtraphong.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				gdtraphong.setVisible(true);
+				dispose();
+			}
+		});
 	    contentPane.add(quayLai);
 	    quayLai.setLayout(null);
 	     
@@ -202,11 +245,110 @@ public class GD_TinhTien extends JFrame {
 	    btntstThanhTon.setFont(new Font("Tahoma", Font.BOLD, 13));
 	    btntstThanhTon.setBorder(null);
 	    btntstThanhTon.setBackground(new Color(255, 60, 60));
-	    btntstThanhTon.setBounds(604, 669, 97, 48);
+	    btntstThanhTon.setBounds(544, 531, 115, 48);
+//	    btntstThanhTon.addActionListener(new ActionListener() {
+//			private void printToPDF() {
+//				// TODO Auto-generated method stub
+//				 Document document = new Document();
+//				    try {
+//				        // chon noi de save fild pdf
+//				        PdfWriter.getInstance(document, new FileOutputStream("HoaDonTinhTien_" + soLanThanhToan + ".pdf"));
+//				        document.open();
+//				        // set font
+//				        BaseFont unicodeFont = BaseFont.createFont("Tahoma Regular font.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+//				        com.itextpdf.text.Font vietnameseFont = new com.itextpdf.text.Font(unicodeFont, 12, com.itextpdf.text.Font.BOLD);
+//				        // Add content to the PDF document
+//				        document.add(new Paragraph("THÔNG TIN TÍNH TIỀN", vietnameseFont));
+//				        document.add(new Paragraph(lbl_tenPhongTT.getText(), vietnameseFont));
+//				        document.add(new Paragraph("SĐT Khách: " + lbl_sdtKH.getText(), vietnameseFont));
+//				        document.add(new Paragraph("Họ tên KH: " + lbl_tenKH.getText(), vietnameseFont));
+//				        document.add(new Paragraph("Họ tên NV: " + lbl_tenNV.getText(), vietnameseFont));
+//				        document.add(new Paragraph("Giờ nhận phòng: " + lbl_gioNhanPhong.getText(), vietnameseFont));
+//				        document.add(new Paragraph("Giờ trả phòng: " +lbl_gioTraPhong.getText(), vietnameseFont));
+//				        document.add(new Paragraph("Tổng thời lượng: " + lbl_tongThoiLuong.getText(), vietnameseFont));
+//				        document.add(new Paragraph("Tiền dịch vụ: " + lbl_tienDichVu.getText(), vietnameseFont));
+//				        document.add(new Paragraph("Tiền phòng: " + lbl_tienPhong.getText(), vietnameseFont));
+//				        document.add(new Paragraph("TỔNG CỘNG: " + lbl_tongCong.getText(), vietnameseFont));
+//				        document.add(new Paragraph("Tiền nhận: " + txt_tienNhan.getText(), vietnameseFont));
+//				        document.add(new Paragraph("Tiền thừa: " + lbl_tienThua.getText(), vietnameseFont));
+//				        // Close the document
+//				        document.close();
+//				        // Display a message indicating successful PDF creation
+//				        JOptionPane.showMessageDialog(contentPane, "ĐÃ XUẤT FILE PDF!", "Success", JOptionPane.PLAIN_MESSAGE);
+//				    } catch (Exception e) {
+//				        e.printStackTrace();
+//				        JOptionPane.showMessageDialog(contentPane, "KHÔNG XUẤT ĐƯỢC FILE PDF!", "Error", JOptionPane.PLAIN_MESSAGE);
+//				    }
+//			}
+	    btntstThanhTon.addActionListener(new ActionListener() {
+            private void printToPDF() {
+            	Document document = new Document();
+                try {
+                    // Sử dụng thời gian hiện tại để tạo tên file duy nhất
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmmss");
+                    String fileName = "HoaDon_" + dateFormat.format(new Date()) + ".pdf";
+
+                    PdfWriter.getInstance(document, new FileOutputStream(fileName));
+                    document.open();
+
+                    BaseFont unicodeFont = BaseFont.createFont("Tahoma Regular font.ttf", BaseFont.IDENTITY_H,
+                            BaseFont.EMBEDDED);
+                    com.itextpdf.text.Font vietnameseFont = new com.itextpdf.text.Font(unicodeFont, 12,
+                            com.itextpdf.text.Font.BOLD);
+
+                    // Add content to the PDF document
+                    addContent(document, vietnameseFont);
+
+                    // Close the document
+                    document.close();
+                    // Display a message indicating successful PDF creation
+                    JOptionPane.showMessageDialog(contentPane, "ĐÃ XUẤT FILE PDF!", "Success",
+                            JOptionPane.PLAIN_MESSAGE);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    JOptionPane.showMessageDialog(contentPane, "KHÔNG XUẤT ĐƯỢC FILE PDF!", "Error",
+                            JOptionPane.PLAIN_MESSAGE);
+                }
+            }
+			private void addContent(Document document, com.itextpdf.text.Font vietnameseFont) throws DocumentException {
+				// TODO Auto-generated method stub
+				// Add content to the PDF document
+                document.add(new Paragraph("THÔNG TIN TÍNH TIỀN", vietnameseFont));
+                document.add(new Paragraph(lbl_tenPhongTT.getText(), vietnameseFont));
+                document.add(new Paragraph("SĐT Khách: " + lbl_sdtKH.getText(), vietnameseFont));
+                document.add(new Paragraph("Họ tên KH: " + lbl_tenKH.getText(), vietnameseFont));
+                document.add(new Paragraph("Họ tên NV: " + lbl_tenNV.getText(), vietnameseFont));
+                document.add(new Paragraph("Giờ nhận phòng: " + lbl_gioNhanPhong.getText(), vietnameseFont));
+                document.add(new Paragraph("Giờ trả phòng: " + lbl_gioTraPhong.getText(), vietnameseFont));
+                document.add(new Paragraph("Tổng thời lượng: " + lbl_tongThoiLuong.getText(), vietnameseFont));
+                document.add(new Paragraph("Tiền dịch vụ: " + lbl_tienDichVu.getText(), vietnameseFont));
+                document.add(new Paragraph("Tiền phòng: " + lbl_tienPhong.getText(), vietnameseFont));
+                document.add(new Paragraph("TỔNG CỘNG: " + lbl_tongCong.getText(), vietnameseFont));
+                document.add(new Paragraph("Tiền nhận: " + txt_tienNhan.getText(), vietnameseFont));
+                document.add(new Paragraph("Tiền thừa: " + lbl_tienThua.getText(), vietnameseFont));
+			}
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+		        if (isXuatHoaDon) {
+		            printToPDF();
+		        } else {
+		            JOptionPane.showMessageDialog(contentPane, "Vui lòng chọn Xuất hóa đơn.", "Thông báo", JOptionPane.WARNING_MESSAGE);
+		        }
+			}
+		});
 	    contentPane.add(btntstThanhTon);
 	     
 	    cbox_xuatHoaDon = new JCheckBox("Xuất hóa đơn");
-	    cbox_xuatHoaDon.setBounds(465, 683, 115, 23);
+	    cbox_xuatHoaDon.setBounds(415, 545, 115, 23);
+	    cbox_xuatHoaDon.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				isXuatHoaDon = cbox_xuatHoaDon.isSelected();
+			}
+		});
 	    contentPane.add(cbox_xuatHoaDon);
 	    
 	    lbl_tienThua = new JLabel("");
@@ -215,6 +357,7 @@ public class GD_TinhTien extends JFrame {
 	    contentPane.add(lbl_tienThua);
 	}
 	
+
 //	public void hienThiThongTinPhong(String maPhong) {
 //		QLPH_DAO ds = new QLPH_DAO();
 //		ArrayList<Phong> listPhong = ds.docbang();

@@ -373,7 +373,7 @@ public class GD_TraPhong extends JFrame implements ActionListener {
         		pnl_chuaNutTraPhong.setBounds(50, 180, 100, 40);
         		pn_phonghat.add(pnl_chuaNutTraPhong);
         		
-        		 pn_phonghat.addMouseListener(new MouseAdapter() {
+        		pn_phonghat.addMouseListener(new MouseAdapter() {
         			 JButton btnTraPhong = new JButton("Trả phòng");
         	            @Override
         	            public void mouseEntered(MouseEvent e) {
@@ -424,18 +424,6 @@ public class GD_TraPhong extends JFrame implements ActionListener {
             }
         });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
-
-        pack();
     }
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
