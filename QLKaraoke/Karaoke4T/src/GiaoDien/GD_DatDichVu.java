@@ -392,8 +392,23 @@ public class GD_DatDichVu extends JFrame implements ActionListener{
 	}
 
 	protected void btnDatDVActionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
+
+	    String maPhong = comboBox_chonPhong.getSelectedItem().toString();
+	    DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
+	    
+	    for (int row = 0; row < tableModel.getRowCount(); row++) {
+	    	if(tableModel.getValueAt(row, 3).toString().isEmpty()) {
+	        	JOptionPane.showMessageDialog(null, "Chua Them So Luong");
+	        	break;
+	        }else {
+	        	String maDV = tableModel.getValueAt(row, 0).toString();
+		        String tenDV = tableModel.getValueAt(row, 1).toString();
+		        Double gia = Double.parseDouble(tableModel.getValueAt(row, 2).toString());
+		        int soLuong = Integer.parseInt(tableModel.getValueAt(row, 3).toString());
+	        	JOptionPane.showMessageDialog(null,"Đặt dịch vụ cho phòng " + maPhong + ": " + "Mã DV: " + maDV + ", Tên DV: " + tenDV + ", Gia: " + gia + ", Số lượng: " + soLuong);	
+	        }
+	        
+	    }
 	}
 	
 	private void initComponents() {

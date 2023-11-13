@@ -342,6 +342,7 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
 		contentPane.add(btndatphong1);
 		btndatphong1.setLayout(null);
 		
+
         testbutton.Buttontest btnthuephong = new testbutton.Buttontest();
         btnthuephong.addMouseListener(new MouseAdapter() {
 			@Override
