@@ -69,10 +69,6 @@ public class GD_PhongHat extends JFrame implements ActionListener {
 	DefaultTableModel model;
 
 	private QLPH_DAO dsp = new QLPH_DAO();
-//	JComboBox cbB_loaiPhong = new JComboBox<String>();
-//	JComboBox cbB_giaPhong 
-//	JComboBox cbB_soNguoi = new JComboBox<String>();
-//	JComboBox cbB_trangThaiPhong = new JComboBox<String>();
 	JPanel pnl_danhsachphonghat = new JPanel();
 	private JTextField txt_soNguoi;
 	private final Action action_1 = new SwingAction_1();
@@ -264,7 +260,7 @@ public class GD_PhongHat extends JFrame implements ActionListener {
 				btnxoaActionPerformed(e);
 				String maKH = txtMaPhong.getText();
 				dsp.deleteCustomerByCustomerId(maKH);
-//				loadData();
+				loadData();
 			}
 		});
         pnl_thongtinkhachhang.add(btnxoa);
@@ -302,15 +298,6 @@ public class GD_PhongHat extends JFrame implements ActionListener {
         cbB_TrangThai.setBounds(25, 200, 121, 25);
         pnl_thongtinkhachhang.add(cbB_TrangThai);
         loadComBoBoxTrangThai();
-
-
-//        JComboBox cbB_giaPhong = new JComboBox();
-//        cbB_giaPhong.setBounds(25, 200, 121, 25);
-//        pnl_thongtinkhachhang.add(cbB_giaPhong);
-
-
-
-
         
         JLabel lblNewLabel_2_1_1 = new JLabel("Tình Trạng Phòng");
         lblNewLabel_2_1_1.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -519,12 +506,6 @@ public class GD_PhongHat extends JFrame implements ActionListener {
 	
 	private void btnthemActionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-//		int maxMaKH = dsp.getMaxMaPH();
-//		maxMaKH++;
-//		
-//	    
-//	    // Gán giá trị mới cho ô nhập liệu mã kh
-//		txtMaPhong.setText("P" + String.format("%03d", maxMaKH));
 		
 		int maPhongCounter = dsp.getMaxMaPH();
 		maPhongCounter++;
@@ -679,16 +660,16 @@ public class GD_PhongHat extends JFrame implements ActionListener {
 		Right_QL_PHONG.add(scrollPane_DSPH);
 		
 		JPanel panel_dsph = new JPanel();
-		panel_dsph.setBackground(new Color(192, 192, 192));
+		panel_dsph.setBackground(new Color(255,255,255));
 		scrollPane_DSPH.setViewportView(panel_dsph);
-		panel_dsph.setLayout(new GridLayout(0, 5, -50, 20));
+		panel_dsph.setLayout(new GridLayout(0, 5, 10, 10));
     	for(Phong ph : listph) {
     		//load label cha
     		JPanel pnl_phonghat = new JPanel();
-    		pnl_phonghat.setBackground(new Color(255, 255, 255, 0));
+    		pnl_phonghat.setBackground(new Color(255, 255, 255));
     		pnl_phonghat.setLayout(null);
-//    		pnl_phonghat.setBorder(LineBorder.createBlackLineBorder());
-    		pnl_phonghat.setPreferredSize(new Dimension(200, 200));
+    		pnl_phonghat.setBorder(LineBorder.createBlackLineBorder());
+    		pnl_phonghat.setPreferredSize(new Dimension(150, 150));
     		panel_dsph.add(pnl_phonghat);
    		
 //    		//load suc chua
@@ -696,21 +677,21 @@ public class GD_PhongHat extends JFrame implements ActionListener {
     		lbl_succhua.setHorizontalAlignment(SwingConstants.CENTER);
     		lbl_succhua.setFont(new Font("Tahoma", Font.BOLD, 11));
     		lbl_succhua.setForeground(new Color(255,0,0));
-    		lbl_succhua.setBounds(55, 130, 85, 35);
+    		lbl_succhua.setBounds(39, 115, 85, 35);
     		pnl_phonghat.add(lbl_succhua);
     		
     		//load ten phong
-    		JLabel lbl_tenphong = new JLabel(ph.getTenPhong());
-    		lbl_tenphong.setFont(new Font("Tahoma", Font.BOLD, 13));
-    		lbl_tenphong.setHorizontalAlignment(SwingConstants.CENTER);
-    		lbl_tenphong.setBounds(55, 145, 85, 35);
-    		pnl_phonghat.add(lbl_tenphong);
+    		JLabel lbl_maphong = new JLabel(ph.getMaPhong());
+    		lbl_maphong.setFont(new Font("Tahoma", Font.BOLD, 13));
+    		lbl_maphong.setHorizontalAlignment(SwingConstants.CENTER);
+    		lbl_maphong.setBounds(39, 98, 85, 35);
+    		pnl_phonghat.add(lbl_maphong);
     		
     		//load hinh anh
     		JLabel lbl_hinhanh = new JLabel("");
     		lbl_hinhanh.setHorizontalAlignment(SwingConstants.CENTER);
-    		lbl_hinhanh.setBounds(50, 50, 88, 85);
-    		lbl_hinhanh.setBorder(LineBorder.createBlackLineBorder());
+    		lbl_hinhanh.setBounds(0, 0, 162, 121);
+//    		lbl_hinhanh.setBorder(LineBorder.createBlackLineBorder());
     		pnl_phonghat.add(lbl_hinhanh);
     		
     		//phan loai phong

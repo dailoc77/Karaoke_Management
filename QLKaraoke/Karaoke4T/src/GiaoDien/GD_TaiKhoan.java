@@ -50,7 +50,6 @@ import javax.swing.table.DefaultTableModel;
 import DAO.QLTK_DAO;
 import Entity.*;
 import connectDB.connectDB;
-import test.CustomerCodeGenerator;
 import testbutton.Buttontest;
  
 

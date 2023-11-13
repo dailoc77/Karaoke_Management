@@ -6,7 +6,13 @@ public class DichVu {
 	private double giaDichVu;
 	private int soLuongDichVu;
 	
+	public DichVu(String maDichVu) {
+		super();
+		setMaDichVu(maDichVu);
+	}
+	
 	public DichVu(String maDichVu,double giaDichVu , int soLuongDichVu , String tenDichVu) {
+		super();
 		setMaDichVu(maDichVu);
 		setGiaDichVu(giaDichVu);
 		setSoLuongDichVu(soLuongDichVu);

@@ -17,58 +17,15 @@ import connectDB.connectDB;
 public class QLPH_DAO {
 	ArrayList<Phong> dsph;
 	Connection con = connectDB.getInstance().getConnection();
-    private HashSet<String> existingMaPhongs = new HashSet<>();
 
     
 	public QLPH_DAO() {
 		dsph = new ArrayList<Phong>();
-//		updateExistingMaPhongs();
-		
 		
 	}
-	public String sinhMaPhong() {
-        // Lấy số cuối cùng từ mã phòng đã tồn tại trong CSDL
-        int currentNumber = getCurrentNumber();
+	
 
-        // Tăng số cuối cùng lên 1 đơn vị
-        currentNumber++;
-
-        // Tạo mã phòng mới
-        String newMaPhong = "P" + String.format("%03d", currentNumber);
-
-        // Kiểm tra và tăng tiếp nếu mã đã tồn tại
-        while (existingMaPhongs.contains(newMaPhong)) {
-            currentNumber++;
-            newMaPhong = "P" + String.format("%03d", currentNumber);
-        }
-
-        // Sau khi tìm được mã mới không trùng lặp, cập nhật danh sách và trả về
-        existingMaPhongs.add(newMaPhong);
-        return newMaPhong;
-    }
-
-    private int getCurrentNumber() {
-        int maxNumber = 0;
-        for (String maPhong : existingMaPhongs) {
-            int number = Integer.parseInt(maPhong.substring(1));
-            if (number > maxNumber) {
-                maxNumber = number;
-            }
-        }
-        return maxNumber;
-    }
-	private void updateExistingMaPhongs() {
-        String sql = "SELECT maPhong FROM Phong";        
-        try {
-        	PreparedStatement preparedStatement = con.prepareStatement(sql);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                existingMaPhongs.add(resultSet.getString("maPhong"));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+ 
 	
 	public ArrayList<Phong> docbang(){
 		try {
@@ -229,40 +186,4 @@ public class QLPH_DAO {
         }
         return maxMaKH;
     }
-    private boolean isMaKHExist(String maPH) {
-        String sql = "SELECT COUNT(*) FROM Phong WHERE maPhong = ?";
-        try (PreparedStatement preparedStatement = con.prepareStatement(sql)) {
-            preparedStatement.setString(1, maPH);
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                if (resultSet.next()) {
-                    int count = resultSet.getInt(1);
-                    return count > 0;
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-    public String kiemTraMaTrungLap(String maPH) {
-        String newMaKH = maPH;
-        boolean isDuplicate = true;
-
-        while (isDuplicate) {
-            // Kiểm tra xem mã khách hàng có trùng lặp không
-            if (!isMaKHExist(newMaKH)) {
-                isDuplicate = false; // Nếu không trùng lặp, thoát khỏi vòng lặp
-            } else {
-                // Nếu trùng lặp, tăng thêm 1 đơn vị và kiểm tra lại
-                int currentNumber = Integer.parseInt(newMaKH.substring(1));
-                currentNumber++;
-                newMaKH = newMaKH.substring(0, 1) + currentNumber;
-            }
-        }
-
-        return newMaKH;
-    }
-    
-
-
 }

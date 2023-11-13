@@ -34,8 +34,6 @@ import javax.swing.table.DefaultTableModel;
 import DAO.*;
 import Entity.*;
 import connectDB.connectDB;
-import test.dao;
-import test.en;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;

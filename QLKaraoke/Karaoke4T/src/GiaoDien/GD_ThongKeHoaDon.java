@@ -430,7 +430,7 @@ public class GD_ThongKeHoaDon extends JFrame implements ActionListener {
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setBounds(0, 372, 1161, 290);
 		// Set the component orientation to RIGHT_TO_LEFT
-		scrollPane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+//		scrollPane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		contentPane.add(scrollPane);
 		
 		model = new DefaultTableModel();

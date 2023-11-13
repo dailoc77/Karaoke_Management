@@ -60,6 +60,7 @@ public class GD_QLDichVu extends JFrame implements ActionListener{
 	private JTextField txt_tenDV;
 	private JTextField txt_giaDV;
 	private JTextField txt_soLuong;
+	private QLDV_DAO ds_dv = new QLDV_DAO();
 	/**
 	 * Launch the application.
 	 */
@@ -143,6 +144,7 @@ public class GD_QLDichVu extends JFrame implements ActionListener{
 		left_QLDV.setLayout(null);
 		
 		txt_MaDV = new JTextField();
+		txt_MaDV.setEnabled(false);
 		txt_MaDV.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		txt_MaDV.setBounds(10, 41, 150, 30);
 		txt_MaDV.setBorder(null);
@@ -250,378 +252,10 @@ public class GD_QLDichVu extends JFrame implements ActionListener{
 		btnxoa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btnxoaActionPerformed(e);
+				
 			}
 		});
 		left_QLDV.add(btnxoa);
-		
-		
-		
-//		JPanel panel_dsdv = new JPanel();
-//		panel_dsdv.setBackground(new Color(255, 255, 255));
-//		scrollPane_DSDV.setViewportView(panel_dsdv);
-//		panel_dsdv.setLayout(new GridLayout(0, 5, 10, 10));
-//		
-//		JPanel dv1 = new JPanel();
-//		dv1.addMouseListener(new MouseAdapter() {
-//			@Override
-//			public void mouseClicked(MouseEvent e) {
-//				
-//			}
-//		});
-//		dv1.setBorder(new LineBorder(new Color(0, 0, 0)));
-//		dv1.setBackground(new Color(255, 255, 255));
-//		panel_dsdv.add(dv1);
-//		dv1.setLayout(null);
-//		
-//		JLabel lblprice_dv1 = new JLabel("15K/Lon");
-//		lblprice_dv1.setHorizontalAlignment(SwingConstants.CENTER);
-//		lblprice_dv1.setFont(new Font("Tahoma", Font.BOLD, 15));
-//		lblprice_dv1.setBounds(39, 115, 85, 35);
-//		dv1.add(lblprice_dv1);
-//		
-//		JLabel lblname_dv1 = new JLabel("Bia SaiGon");
-//		lblname_dv1.setFont(new Font("Tahoma", Font.BOLD, 15));
-//		lblname_dv1.setHorizontalAlignment(SwingConstants.CENTER);
-//		lblname_dv1.setBounds(39, 98, 85, 35);
-//		dv1.add(lblname_dv1);
-//		
-//		JLabel lblicon_dv1 = new JLabel("");
-//		lblicon_dv1.setIcon(new ImageIcon(GD_QLDichVu.class.getResource("/Imgs/BiaSaiGon 1.png")));
-//		lblicon_dv1.setHorizontalAlignment(SwingConstants.CENTER);
-//		lblicon_dv1.setBounds(0, 0, 162, 121);
-//		dv1.add(lblicon_dv1);
-//		
-//		JPanel dv2 = new JPanel();
-//		dv2.addMouseListener(new MouseAdapter() {
-//			@Override
-//			public void mouseClicked(MouseEvent e) {
-//			}
-//		});
-//		dv2.setBorder(new LineBorder(new Color(0, 0, 0)));
-//		dv2.setBackground(new Color(255, 255, 255));
-//		dv2.setPreferredSize(new Dimension(150, 150));
-//		panel_dsdv.add(dv2);
-//		dv2.setLayout(null);
-//		
-//		JLabel lblprice_dv2 = new JLabel("18K/Lon");
-//		lblprice_dv2.setHorizontalAlignment(SwingConstants.CENTER);
-//		lblprice_dv2.setFont(new Font("Tahoma", Font.BOLD, 15));
-//		lblprice_dv2.setBounds(36, 115, 85, 35);
-//		dv2.add(lblprice_dv2);
-//		
-//		JLabel lblname_dv2 = new JLabel("Bia Tiger");
-//		lblname_dv2.setHorizontalAlignment(SwingConstants.CENTER);
-//		lblname_dv2.setFont(new Font("Tahoma", Font.BOLD, 15));
-//		lblname_dv2.setBounds(36, 98, 85, 35);
-//		dv2.add(lblname_dv2);
-//		
-//		JLabel lblicon_dv2 = new JLabel("");
-//		lblicon_dv2.setHorizontalAlignment(SwingConstants.CENTER);
-//		lblicon_dv2.setIcon(new ImageIcon(GD_QLDichVu.class.getResource("/Imgs/BiaTiger 1.png")));
-//		lblicon_dv2.setBounds(0, 0, 162, 133);
-//		dv2.add(lblicon_dv2);
-//		
-//		JPanel dv3 = new JPanel();
-//		dv3.addMouseListener(new MouseAdapter() {
-//			@Override
-//			public void mouseClicked(MouseEvent e) {
-//			}
-//		});
-//		dv3.setBorder(new LineBorder(new Color(0, 0, 0)));
-//		dv3.setPreferredSize(new Dimension(150, 150));
-//		dv3.setBackground(Color.WHITE);
-//		panel_dsdv.add(dv3);
-//		dv3.setLayout(null);
-//		
-//		JLabel lblprice_dv3 = new JLabel("18K/Lon");
-//		lblprice_dv3.setHorizontalAlignment(SwingConstants.CENTER);
-//		lblprice_dv3.setFont(new Font("Tahoma", Font.BOLD, 15));
-//		lblprice_dv3.setBounds(36, 115, 85, 35);
-//		dv3.add(lblprice_dv3);
-//		
-//		JLabel lblname_dv3 = new JLabel("Bia Ruby");
-//		lblname_dv3.setHorizontalAlignment(SwingConstants.CENTER);
-//		lblname_dv3.setFont(new Font("Tahoma", Font.BOLD, 15));
-//		lblname_dv3.setBounds(36, 98, 85, 35);
-//		dv3.add(lblname_dv3);
-//		
-//		JLabel lblicon_dv3 = new JLabel("");
-//		lblicon_dv3.setIcon(new ImageIcon(GD_QLDichVu.class.getResource("/Imgs/BiaRuby 1.png")));
-//		lblicon_dv3.setHorizontalAlignment(SwingConstants.CENTER);
-//		lblicon_dv3.setBounds(0, 0, 162, 133);
-//		dv3.add(lblicon_dv3);
-//		
-//		JPanel dv4 = new JPanel();
-//		dv4.addMouseListener(new MouseAdapter() {
-//			@Override
-//			public void mouseClicked(MouseEvent e) {
-//			}
-//		});
-//		dv4.setBorder(new LineBorder(new Color(0, 0, 0)));
-//		dv4.setPreferredSize(new Dimension(150, 150));
-//		dv4.setBackground(Color.WHITE);
-//		panel_dsdv.add(dv4);
-//		dv4.setLayout(null);
-//		
-//		JLabel lblprice_dv4 = new JLabel("75K/Chai");
-//		lblprice_dv4.setHorizontalAlignment(SwingConstants.CENTER);
-//		lblprice_dv4.setFont(new Font("Tahoma", Font.BOLD, 15));
-//		lblprice_dv4.setBounds(40, 115, 85, 35);
-//		dv4.add(lblprice_dv4);
-//		
-//		JLabel lblname_dv4 = new JLabel("Rượu SoJu");
-//		lblname_dv4.setHorizontalAlignment(SwingConstants.CENTER);
-//		lblname_dv4.setFont(new Font("Tahoma", Font.BOLD, 15));
-//		lblname_dv4.setBounds(40, 98, 85, 35);
-//		dv4.add(lblname_dv4);
-//		
-//		JLabel lblicon_dv4 = new JLabel("");
-//		lblicon_dv4.setIcon(new ImageIcon(GD_QLDichVu.class.getResource("/Imgs/RuouSoJu.png")));
-//		lblicon_dv4.setHorizontalAlignment(SwingConstants.CENTER);
-//		lblicon_dv4.setBounds(0, 0, 162, 126);
-//		dv4.add(lblicon_dv4);
-//		
-//		JPanel dv5 = new JPanel();
-//		dv5.addMouseListener(new MouseAdapter() {
-//			@Override
-//			public void mouseClicked(MouseEvent e) {
-//			}
-//		});
-//		dv5.setPreferredSize(new Dimension(150, 150));
-//		dv5.setBorder(new LineBorder(new Color(0, 0, 0)));
-//		dv5.setBackground(Color.WHITE);
-//		panel_dsdv.add(dv5);
-//		dv5.setLayout(null);
-//		
-//		JLabel lblprice_dv5 = new JLabel("200K/Combo");
-//		lblprice_dv5.setHorizontalAlignment(SwingConstants.CENTER);
-//		lblprice_dv5.setFont(new Font("Tahoma", Font.BOLD, 15));
-//		lblprice_dv5.setBounds(0, 115, 162, 35);
-//		dv5.add(lblprice_dv5);
-//		
-//		JLabel lblname_dv5 = new JLabel("Combo Trái Cây 1");
-//		lblname_dv5.setHorizontalAlignment(SwingConstants.CENTER);
-//		lblname_dv5.setFont(new Font("Tahoma", Font.BOLD, 15));
-//		lblname_dv5.setBounds(0, 98, 162, 35);
-//		dv5.add(lblname_dv5);
-//		
-//		JLabel lblicon_dv5 = new JLabel("");
-//		lblicon_dv5.setIcon(new ImageIcon(GD_QLDichVu.class.getResource("/Imgs/ComboTraiCay1.png")));
-//		lblicon_dv5.setHorizontalAlignment(SwingConstants.CENTER);
-//		lblicon_dv5.setBounds(0, 0, 162, 125);
-//		dv5.add(lblicon_dv5);
-//		
-//		JPanel dv6 = new JPanel();
-//		dv6.addMouseListener(new MouseAdapter() {
-//			@Override
-//			public void mouseClicked(MouseEvent e) {
-//			}
-//		});
-//		dv6.setPreferredSize(new Dimension(150, 150));
-//		dv6.setBorder(new LineBorder(new Color(0, 0, 0)));
-//		dv6.setBackground(Color.WHITE);
-//		panel_dsdv.add(dv6);
-//		dv6.setLayout(null);
-//		
-//		JLabel lblprice_dv6 = new JLabel("250K/Combo");
-//		lblprice_dv6.setHorizontalAlignment(SwingConstants.CENTER);
-//		lblprice_dv6.setFont(new Font("Tahoma", Font.BOLD, 15));
-//		lblprice_dv6.setBounds(0, 115, 162, 35);
-//		dv6.add(lblprice_dv6);
-//		
-//		JLabel lblname_dv6 = new JLabel("Combo Trái Cây 2");
-//		lblname_dv6.setHorizontalAlignment(SwingConstants.CENTER);
-//		lblname_dv6.setFont(new Font("Tahoma", Font.BOLD, 15));
-//		lblname_dv6.setBounds(0, 98, 162, 35);
-//		dv6.add(lblname_dv6);
-//		
-//		JLabel lblicon_dv6 = new JLabel("");
-//		lblicon_dv6.setIcon(new ImageIcon(GD_QLDichVu.class.getResource("/Imgs/ComboTraiCay2_1.png")));
-//		lblicon_dv6.setHorizontalAlignment(SwingConstants.CENTER);
-//		lblicon_dv6.setBounds(0, 10, 162, 130);
-//		dv6.add(lblicon_dv6);
-//		
-//		JPanel dv7 = new JPanel();
-//		dv7.addMouseListener(new MouseAdapter() {
-//			@Override
-//			public void mouseClicked(MouseEvent e) {
-//			}
-//		});
-//		dv7.setPreferredSize(new Dimension(150, 150));
-//		dv7.setBorder(new LineBorder(new Color(0, 0, 0)));
-//		dv7.setBackground(Color.WHITE);
-//		panel_dsdv.add(dv7);
-//		dv7.setLayout(null);
-//		
-//		JLabel lblprice_dv7 = new JLabel("250K/Combo");
-//		lblprice_dv7.setHorizontalAlignment(SwingConstants.CENTER);
-//		lblprice_dv7.setFont(new Font("Tahoma", Font.BOLD, 15));
-//		lblprice_dv7.setBounds(0, 115, 162, 35);
-//		dv7.add(lblprice_dv7);
-//		
-//		JLabel lblname_dv7 = new JLabel("Combo Trái Cây 3");
-//		lblname_dv7.setHorizontalAlignment(SwingConstants.CENTER);
-//		lblname_dv7.setFont(new Font("Tahoma", Font.BOLD, 15));
-//		lblname_dv7.setBounds(0, 98, 162, 35);
-//		dv7.add(lblname_dv7);
-//		
-//		JLabel lblicon_dv7 = new JLabel("");
-//		lblicon_dv7.setIcon(new ImageIcon(GD_QLDichVu.class.getResource("/Imgs/ComboTraiCay3.png")));
-//		lblicon_dv7.setHorizontalAlignment(SwingConstants.CENTER);
-//		lblicon_dv7.setBounds(0, 0, 162, 150);
-//		dv7.add(lblicon_dv7);
-//		
-//		JPanel dv8 = new JPanel();
-//		dv8.addMouseListener(new MouseAdapter() {
-//			@Override
-//			public void mouseClicked(MouseEvent e) {
-//			}
-//		});
-//		dv8.setPreferredSize(new Dimension(150, 150));
-//		dv8.setBorder(new LineBorder(new Color(0, 0, 0)));
-//		dv8.setBackground(Color.WHITE);
-//		panel_dsdv.add(dv8);
-//		dv8.setLayout(null);
-//		
-//		JLabel lblprice_dv8 = new JLabel("250K/Combo");
-//		lblprice_dv8.setHorizontalAlignment(SwingConstants.CENTER);
-//		lblprice_dv8.setFont(new Font("Tahoma", Font.BOLD, 15));
-//		lblprice_dv8.setBounds(0, 115, 162, 35);
-//		dv8.add(lblprice_dv8);
-//		
-//		JLabel lblname_dv8 = new JLabel("Combo Trái Cây 4");
-//		lblname_dv8.setHorizontalAlignment(SwingConstants.CENTER);
-//		lblname_dv8.setFont(new Font("Tahoma", Font.BOLD, 15));
-//		lblname_dv8.setBounds(0, 98, 162, 35);
-//		dv8.add(lblname_dv8);
-//		
-//		JLabel lblicon_dv8 = new JLabel("");
-//		lblicon_dv8.setHorizontalAlignment(SwingConstants.CENTER);
-//		lblicon_dv8.setIcon(new ImageIcon(GD_QLDichVu.class.getResource("/Imgs/ComboTraiCay4.png")));
-//		lblicon_dv8.setBounds(0, 0, 162, 140);
-//		dv8.add(lblicon_dv8);
-//		
-//		JPanel dv9 = new JPanel();
-//		dv9.addMouseListener(new MouseAdapter() {
-//			@Override
-//			public void mouseClicked(MouseEvent e) {
-//			}
-//		});
-//		dv9.setPreferredSize(new Dimension(150, 150));
-//		dv9.setBorder(new LineBorder(new Color(0, 0, 0)));
-//		dv9.setBackground(Color.WHITE);
-//		panel_dsdv.add(dv9);
-//		dv9.setLayout(null);
-//		
-//		JLabel lblprice_dv9 = new JLabel("250K/Combo");
-//		lblprice_dv9.setHorizontalAlignment(SwingConstants.CENTER);
-//		lblprice_dv9.setFont(new Font("Tahoma", Font.BOLD, 15));
-//		lblprice_dv9.setBounds(0, 115, 162, 35);
-//		dv9.add(lblprice_dv9);
-//		
-//		JLabel lblname_dv9 = new JLabel("Combo Trái Cây 5");
-//		lblname_dv9.setHorizontalAlignment(SwingConstants.CENTER);
-//		lblname_dv9.setFont(new Font("Tahoma", Font.BOLD, 15));
-//		lblname_dv9.setBounds(0, 98, 162, 35);
-//		dv9.add(lblname_dv9);
-//		
-//		JLabel lblicon_dv9 = new JLabel("");
-//		lblicon_dv9.setIcon(new ImageIcon(GD_QLDichVu.class.getResource("/Imgs/ComboTraiCay5.png")));
-//		lblicon_dv9.setHorizontalAlignment(SwingConstants.CENTER);
-//		lblicon_dv9.setBounds(0, 0, 162, 150);
-//		dv9.add(lblicon_dv9);
-//		
-//		JPanel dv10 = new JPanel();
-//		dv10.addMouseListener(new MouseAdapter() {
-//			@Override
-//			public void mouseClicked(MouseEvent e) {
-//			}
-//		});
-//		dv10.setPreferredSize(new Dimension(150, 150));
-//		dv10.setBorder(new LineBorder(new Color(0, 0, 0)));
-//		dv10.setBackground(Color.WHITE);
-//		panel_dsdv.add(dv10);
-//		dv10.setLayout(null);
-//		
-//		JLabel lblprice_dv10 = new JLabel("15K/Chai");
-//		lblprice_dv10.setHorizontalAlignment(SwingConstants.CENTER);
-//		lblprice_dv10.setFont(new Font("Tahoma", Font.BOLD, 15));
-//		lblprice_dv10.setBounds(0, 115, 162, 35);
-//		dv10.add(lblprice_dv10);
-//		
-//		JLabel lblname_dv10 = new JLabel("Sting");
-//		lblname_dv10.setHorizontalAlignment(SwingConstants.CENTER);
-//		lblname_dv10.setFont(new Font("Tahoma", Font.BOLD, 15));
-//		lblname_dv10.setBounds(0, 98, 162, 35);
-//		dv10.add(lblname_dv10);
-//		
-//		JLabel lblicon_dv10 = new JLabel("");
-//		lblicon_dv10.setIcon(new ImageIcon(GD_QLDichVu.class.getResource("/Imgs/Sting.png")));
-//		lblicon_dv10.setHorizontalAlignment(SwingConstants.CENTER);
-//		lblicon_dv10.setBounds(0, 0, 162, 124);
-//		dv10.add(lblicon_dv10);
-//		
-//		JPanel dv11 = new JPanel();
-//		dv11.addMouseListener(new MouseAdapter() {
-//			@Override
-//			public void mouseClicked(MouseEvent e) {
-//			}
-//		});
-//		dv11.setPreferredSize(new Dimension(150, 150));
-//		dv11.setBorder(new LineBorder(new Color(0, 0, 0)));
-//		dv11.setBackground(Color.WHITE);
-//		panel_dsdv.add(dv11);
-//		dv11.setLayout(null);
-//		
-//		JLabel lblprice_dv11 = new JLabel("15K/Lon");
-//		lblprice_dv11.setHorizontalAlignment(SwingConstants.CENTER);
-//		lblprice_dv11.setFont(new Font("Tahoma", Font.BOLD, 15));
-//		lblprice_dv11.setBounds(0, 115, 162, 35);
-//		dv11.add(lblprice_dv11);
-//		
-//		JLabel lblname_dv11 = new JLabel("RedBull");
-//		lblname_dv11.setHorizontalAlignment(SwingConstants.CENTER);
-//		lblname_dv11.setFont(new Font("Tahoma", Font.BOLD, 15));
-//		lblname_dv11.setBounds(0, 98, 162, 35);
-//		dv11.add(lblname_dv11);
-//		
-//		JLabel lblicon_dv11 = new JLabel("");
-//		lblicon_dv11.setIcon(new ImageIcon(GD_QLDichVu.class.getResource("/Imgs/RedBull.png")));
-//		lblicon_dv11.setHorizontalAlignment(SwingConstants.CENTER);
-//		lblicon_dv11.setBounds(0, 0, 162, 124);
-//		dv11.add(lblicon_dv11);
-//		
-//		JPanel dv12 = new JPanel();
-//		dv12.addMouseListener(new MouseAdapter() {
-//			@Override
-//			public void mouseClicked(MouseEvent e) {
-//				
-//			}
-//		});
-//		dv12.setPreferredSize(new Dimension(150, 150));
-//		dv12.setBorder(new LineBorder(new Color(0, 0, 0)));
-//		dv12.setBackground(Color.WHITE);
-//		panel_dsdv.add(dv12);
-//		dv12.setLayout(null);
-//		
-//		JLabel lblprice_dv12 = new JLabel("15K/Chai");
-//		lblprice_dv12.setHorizontalAlignment(SwingConstants.CENTER);
-//		lblprice_dv12.setFont(new Font("Tahoma", Font.BOLD, 15));
-//		lblprice_dv12.setBounds(0, 115, 162, 35);
-//		dv12.add(lblprice_dv12);
-//		
-//		JLabel lblname_dv12 = new JLabel("Nước Suối");
-//		lblname_dv12.setHorizontalAlignment(SwingConstants.CENTER);
-//		lblname_dv11.setHorizontalAlignment(SwingConstants.CENTER);
-//		lblname_dv12.setFont(new Font("Tahoma", Font.BOLD, 15));
-//		lblname_dv12.setBounds(0, 98, 162, 35);
-//		dv12.add(lblname_dv12);
-//		
-//		JLabel lblicon_dv12 = new JLabel("");
-//		lblicon_dv12.setIcon(new ImageIcon(GD_QLDichVu.class.getResource("/Imgs/Satori.png")));
-//		lblicon_dv12.setHorizontalAlignment(SwingConstants.CENTER);
-//		lblicon_dv12.setBounds(0, 0, 162, 124);
-//		dv12.add(lblicon_dv12);
 		
 		JButton jButton_1 = new JButton("Đăng Xuất");
 		jButton_1.setBounds(990, 10, 150, 50);
@@ -783,12 +417,6 @@ public class GD_QLDichVu extends JFrame implements ActionListener{
 		lblavatar.setIcon(new ImageIcon(GD_TaiKhoan.class.getResource("/Imgs/t1 1.png")));
 		lblavatar.setBounds(90, -444, 1333, 957);
 		contentPane.add(lblavatar);
-		
-//		JLabel lblNewLabel = new JLabel("");
-//		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-//		lblNewLabel.setIcon(new ImageIcon(GD_Main_NV.class.getResource("/Imgs/370.png")));
-//		lblNewLabel.setBounds(-95, -176, 1333, 957);
-//		contentPane.add(lblNewLabel);
 	
 		JLabel lblhinhnen = new JLabel("");
 		lblhinhnen.setHorizontalAlignment(SwingConstants.CENTER);
@@ -798,25 +426,29 @@ public class GD_QLDichVu extends JFrame implements ActionListener{
 	}
 	
 	private DichVu reverSPFromTextField() {
-		String maDV = txt_MaDV.getText().toString();
-		double giaDV = Double.parseDouble(txt_giaDV.getText().toString());
-		int soLuong = Integer.parseInt(txt_soLuong.getText().toString());
-		String tenDV = txt_tenDV.getText().toString();
-		
-		return new DichVu(maDV,giaDV,soLuong,tenDV);
+		String maDV = txt_MaDV.getText();
+		double giaDV = Double.parseDouble(txt_giaDV.getText());
+		int soLuong = Integer.parseInt(txt_soLuong.getText());
+		String tenDV = txt_tenDV.getText();
+		DichVu d = new DichVu(maDV, giaDV, soLuong, tenDV);
+		return d;
 		
 	}
 	
 	protected void btnxoaActionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
+		ds_dv.deleteDvbymaDV(txt_MaDV.getText());
+//		refresh();
+			
 	}
 	protected void btnlammoiActionPerformed(ActionEvent e) {
-		
+		refresh();
 		
 	}
 	protected void btnsuaActionPerformed(ActionEvent e) {
-		
+		DichVu ph = reverSPFromTextField();
+		ds_dv.update(ph);
+		JOptionPane.showMessageDialog(null, "Sửa thông tin Phòng thành công!");
+		loadData();
 	}
 	protected void btnthemActionPerformed(ActionEvent e) {
 		QLDV_DAO dsdv = new QLDV_DAO();
@@ -826,7 +458,7 @@ public class GD_QLDichVu extends JFrame implements ActionListener{
 		maxMaDV++;
 	    
 	    // Gán giá trị mới cho ô nhập liệu mã dv
-	    txt_MaDV.setText("DV00" + String.format("%03d", maxMaDV));
+	    txt_MaDV.setText("DV" + String.format("%03d", maxMaDV));
 		DichVu dv = reverSPFromTextField();
 		dsdv.themDichVu(dv);
 		JOptionPane.showMessageDialog(this,"Thêm Dịch Vụ Thành Công");
@@ -908,10 +540,10 @@ public class GD_QLDichVu extends JFrame implements ActionListener{
     		pnl_dichvu.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					txt_MaDV.setText(" " + dv.getMaDichVu());
-					txt_tenDV.setText(" " + dv.getTenDichVu());
-					txt_giaDV.setText(" " + dv.getGiaDichVu());
-					txt_soLuong.setText(" " + dv.getSoLuongDichVu());
+					txt_MaDV.setText(dv.getMaDichVu());
+					txt_tenDV.setText(dv.getTenDichVu());
+					txt_giaDV.setText(dv.getGiaDichVu()+"");
+					txt_soLuong.setText(dv.getSoLuongDichVu()+"");
 				}
 			});
     		

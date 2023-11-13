@@ -23,12 +23,23 @@ import javax.swing.Timer;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import javax.swing.JScrollPane;
 
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
+
+import DAO.QLDV_DAO;
+import Entity.DichVu;
+import connectDB.connectDB;
+
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JTable;
 import java.awt.GridLayout;
@@ -48,6 +59,8 @@ public class GD_DatDichVu extends JFrame implements ActionListener{
 	private Timer timer;
 	private DefaultTableModel model;
 	private JTable table_1;
+	private JComboBox<String> comboBox_chonPhong;
+	private QLDV_DAO dsdv = new QLDV_DAO();
 	/**
 	 * Launch the application.
 	 */
@@ -91,7 +104,9 @@ public class GD_DatDichVu extends JFrame implements ActionListener{
 		setBounds(100, 100, 1175, 650);
 		contentPane = new JPanel();
 		contentPane.setBorder(null);
-
+		
+		connectDB.getInstance().connect();
+		loadData();
 //		 Ho tro -----------------------
 		JButton btnNewButton = new JButton("");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -278,396 +293,7 @@ public class GD_DatDichVu extends JFrame implements ActionListener{
 							        }
 							    }
 							});
-		
-		JPanel Left_DatDichVu = new JPanel();
-		Left_DatDichVu.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(192, 192, 192), null));
-		Left_DatDichVu.setBackground(new Color(255, 255, 255, 100));
-		Left_DatDichVu.setBounds(0, 146, 464, 467);
-		contentPane.add(Left_DatDichVu);
-		Left_DatDichVu.setLayout(null);
-		
-		JScrollPane scrollPane_dsDV = new JScrollPane();
-		scrollPane_dsDV.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollPane_dsDV.setBounds(0, 50, 464, 417);
-		Left_DatDichVu.add(scrollPane_dsDV);
-		
-		JPanel List = new JPanel();
-		scrollPane_dsDV.setViewportView(List);
-		List.setLayout(new GridLayout(0, 3, 0, 0));
-		
-		JPanel dv01 = new JPanel();
-		dv01.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
-		dv01.setBorder(new LineBorder(new Color(0, 0, 0)));
-		dv01.setPreferredSize(new Dimension(150, 150));
-		dv01.setBackground(new Color(255, 255, 255));
-		List.add(dv01);
-		dv01.setLayout(null);
-		
-		JLabel lblname_Dv_1 = new JLabel("Bia SaiGon");
-		lblname_Dv_1.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblname_Dv_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblname_Dv_1.setBounds(0, 89, 150, 40);
-		dv01.add(lblname_Dv_1);
-		
-		JLabel lblprice_Dv_1 = new JLabel("15K/Lon");
-		lblprice_Dv_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblprice_Dv_1.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblprice_Dv_1.setBounds(0, 110, 150, 40);
-		dv01.add(lblprice_Dv_1);
-		
-		JLabel lbl_icon_dv1 = new JLabel("");
-		lbl_icon_dv1.setIcon(new ImageIcon(GD_DatDichVu.class.getResource("/Imgs/BiaSaiGon 1.png")));
-		lbl_icon_dv1.setHorizontalAlignment(SwingConstants.CENTER);
-		lbl_icon_dv1.setBounds(0, 0, 150, 113);
-		dv01.add(lbl_icon_dv1);
-		
-		JPanel dv02 = new JPanel();
-		dv02.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
-		dv02.setBorder(new LineBorder(new Color(0, 0, 0)));
-		dv02.setPreferredSize(new Dimension(150, 150));
-		dv02.setBackground(Color.WHITE);
-		List.add(dv02);
-		dv02.setLayout(null);
-		
-		JLabel lblname_Dv_2 = new JLabel("Bia Tiger");
-		lblname_Dv_2.setBounds(35, 97, 82, 19);
-		lblname_Dv_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblname_Dv_2.setFont(new Font("Tahoma", Font.BOLD, 15));
-		dv02.add(lblname_Dv_2);
-		
-		JLabel lblprice_Dv_2 = new JLabel("18K/Lon");
-		lblprice_Dv_2.setBounds(40, 121, 66, 19);
-		lblprice_Dv_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblprice_Dv_2.setFont(new Font("Tahoma", Font.BOLD, 15));
-		dv02.add(lblprice_Dv_2);
-		
-		JLabel lblicon_Dv_2 = new JLabel("");
-		lblicon_Dv_2.setIcon(new ImageIcon(GD_DatDichVu.class.getResource("/Imgs/BiaTiger 1.png")));
-		lblicon_Dv_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblicon_Dv_2.setBounds(0, 0, 150, 111);
-		dv02.add(lblicon_Dv_2);
-		
-		JPanel dv03 = new JPanel();
-		dv03.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
-		dv03.setBorder(new LineBorder(new Color(0, 0, 0)));
-		dv03.setPreferredSize(new Dimension(150, 150));
-		dv03.setBackground(Color.WHITE);
-		List.add(dv03);
-		dv03.setLayout(null);
-		
-		JLabel lblname_Dv_3 = new JLabel("Bia Ruby");
-		lblname_Dv_3.setHorizontalAlignment(SwingConstants.CENTER);
-		lblname_Dv_3.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblname_Dv_3.setBounds(28, 98, 82, 19);
-		dv03.add(lblname_Dv_3);
-		
-		JLabel lblprice_Dv_2_1 = new JLabel("18K/Lon");
-		lblprice_Dv_2_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblprice_Dv_2_1.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblprice_Dv_2_1.setBounds(37, 121, 66, 19);
-		dv03.add(lblprice_Dv_2_1);
-		
-		JLabel lblicon_Dv_3 = new JLabel("");
-		lblicon_Dv_3.setIcon(new ImageIcon(GD_DatDichVu.class.getResource("/Imgs/BiaRuby 1.png")));
-		lblicon_Dv_3.setHorizontalAlignment(SwingConstants.CENTER);
-		lblicon_Dv_3.setBounds(10, 10, 130, 107);
-		dv03.add(lblicon_Dv_3);
-		
-		JPanel dv04 = new JPanel();
-		dv04.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
-		dv04.setBorder(new LineBorder(new Color(0, 0, 0)));
-		dv04.setPreferredSize(new Dimension(150, 150));
-		dv04.setBackground(Color.WHITE);
-		List.add(dv04);
-		dv04.setLayout(null);
-		
-		JLabel lblname_Dv_4 = new JLabel("Rượu SoJu");
-		lblname_Dv_4.setHorizontalAlignment(SwingConstants.CENTER);
-		lblname_Dv_4.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblname_Dv_4.setBounds(31, 97, 82, 19);
-		dv04.add(lblname_Dv_4);
-		
-		JLabel lblprice_Dv_4 = new JLabel("75K/Chai");
-		lblprice_Dv_4.setHorizontalAlignment(SwingConstants.CENTER);
-		lblprice_Dv_4.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblprice_Dv_4.setBounds(25, 121, 93, 19);
-		dv04.add(lblprice_Dv_4);
-		
-		JLabel lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setIcon(new ImageIcon(GD_DatDichVu.class.getResource("/Imgs/RuouSoJu.png")));
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setBounds(0, 0, 150, 107);
-		dv04.add(lblNewLabel_1);
-		
-		JPanel dv05 = new JPanel();
-		dv05.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
-		dv05.setBorder(new LineBorder(new Color(0, 0, 0)));
-		dv05.setPreferredSize(new Dimension(150, 150));
-		dv05.setBackground(Color.WHITE);
-		List.add(dv05);
-		dv05.setLayout(null);
-		
-		JLabel lblname_Dv_5 = new JLabel("Combo Trái Cây 1");
-		lblname_Dv_5.setHorizontalAlignment(SwingConstants.CENTER);
-		lblname_Dv_5.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblname_Dv_5.setBounds(0, 97, 150, 19);
-		dv05.add(lblname_Dv_5);
-		
-		JLabel lblprice_Dv_5 = new JLabel("200K/Combo");
-		lblprice_Dv_5.setHorizontalAlignment(SwingConstants.CENTER);
-		lblprice_Dv_5.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblprice_Dv_5.setBounds(10, 121, 130, 19);
-		dv05.add(lblprice_Dv_5);
-		
-		JLabel lblicon_Dv_5 = new JLabel("");
-		lblicon_Dv_5.setHorizontalAlignment(SwingConstants.CENTER);
-		lblicon_Dv_5.setIcon(new ImageIcon(GD_DatDichVu.class.getResource("/Imgs/ComboTraiCay1.png")));
-		lblicon_Dv_5.setBounds(10, -1, 124, 117);
-		dv05.add(lblicon_Dv_5);
-		
-		JPanel dv06 = new JPanel();
-		dv06.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
-		dv06.setBorder(new LineBorder(new Color(0, 0, 0)));
-		dv06.setPreferredSize(new Dimension(150, 150));
-		dv06.setBackground(Color.WHITE);
-		List.add(dv06);
-		dv06.setLayout(null);
-		
-		JLabel lblname_Dv_6 = new JLabel("Combo Trái Cây 2");
-		lblname_Dv_6.setHorizontalAlignment(SwingConstants.CENTER);
-		lblname_Dv_6.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblname_Dv_6.setBounds(0, 97, 150, 19);
-		dv06.add(lblname_Dv_6);
-		
-		JLabel lblprice_Dv_ = new JLabel("250K/Combo");
-		lblprice_Dv_.setHorizontalAlignment(SwingConstants.CENTER);
-		lblprice_Dv_.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblprice_Dv_.setBounds(10, 121, 130, 19);
-		dv06.add(lblprice_Dv_);
-		
-		JLabel lblicon_Dv_6 = new JLabel("");
-		lblicon_Dv_6.setHorizontalAlignment(SwingConstants.CENTER);
-		lblicon_Dv_6.setIcon(new ImageIcon(GD_DatDichVu.class.getResource("/Imgs/ComboTraiCay2_1.png")));
-		lblicon_Dv_6.setBounds(10, 10, 130, 130);
-		dv06.add(lblicon_Dv_6);
-		
-		JPanel dv07 = new JPanel();
-		dv07.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
-		dv07.setBorder(new LineBorder(new Color(0, 0, 0)));
-		dv07.setPreferredSize(new Dimension(150, 150));
-		dv07.setBackground(Color.WHITE);
-		List.add(dv07);
-		dv07.setLayout(null);
-		
-		JLabel lblname_Dv_7 = new JLabel("Combo Trái Cây 3");
-		lblname_Dv_7.setHorizontalAlignment(SwingConstants.CENTER);
-		lblname_Dv_7.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblname_Dv_7.setBounds(0, 91, 150, 19);
-		dv07.add(lblname_Dv_7);
-		
-		JLabel lblprice_Dv__7 = new JLabel("250K/Combo");
-		lblprice_Dv__7.setHorizontalAlignment(SwingConstants.CENTER);
-		lblprice_Dv__7.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblprice_Dv__7.setBounds(0, 120, 150, 19);
-		dv07.add(lblprice_Dv__7);
-		
-		JLabel lblicon_Dv_7 = new JLabel("");
-		lblicon_Dv_7.setIcon(new ImageIcon(GD_DatDichVu.class.getResource("/Imgs/ComboTraiCay3.png")));
-		lblicon_Dv_7.setHorizontalAlignment(SwingConstants.CENTER);
-		lblicon_Dv_7.setBounds(0, 0, 150, 129);
-		dv07.add(lblicon_Dv_7);
-		
-		JPanel dv08 = new JPanel();
-		dv08.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
-		dv08.setBorder(new LineBorder(new Color(0, 0, 0)));
-		dv08.setPreferredSize(new Dimension(150, 150));
-		dv08.setBackground(Color.WHITE);
-		List.add(dv08);
-		dv08.setLayout(null);
-		
-		JLabel lblname_Dv_8 = new JLabel("Combo Trái Cây 4");
-		lblname_Dv_8.setHorizontalAlignment(SwingConstants.CENTER);
-		lblname_Dv_8.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblname_Dv_8.setBounds(0, 92, 150, 19);
-		dv08.add(lblname_Dv_8);
-		
-		JLabel lblprice_Dv__8 = new JLabel("250K/Combo");
-		lblprice_Dv__8.setHorizontalAlignment(SwingConstants.CENTER);
-		lblprice_Dv__8.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblprice_Dv__8.setBounds(0, 121, 150, 19);
-		dv08.add(lblprice_Dv__8);
-		
-		JLabel lblicon_Dv8 = new JLabel("");
-		lblicon_Dv8.setHorizontalAlignment(SwingConstants.CENTER);
-		lblicon_Dv8.setIcon(new ImageIcon(GD_DatDichVu.class.getResource("/Imgs/ComboTraiCay4.png")));
-		lblicon_Dv8.setBounds(22, 10, 107, 90);
-		dv08.add(lblicon_Dv8);
-		
-		JPanel dv09 = new JPanel();
-		dv09.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
-		dv09.setBorder(new LineBorder(new Color(0, 0, 0)));
-		dv09.setPreferredSize(new Dimension(150, 150));
-		dv09.setBackground(Color.WHITE);
-		List.add(dv09);
-		dv09.setLayout(null);
-		
-		JLabel lblname_Dv_9 = new JLabel("Combo Trái Cây 5");
-		lblname_Dv_9.setHorizontalAlignment(SwingConstants.CENTER);
-		lblname_Dv_9.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblname_Dv_9.setBounds(0, 92, 150, 19);
-		dv09.add(lblname_Dv_9);
-		
-		JLabel lblprice_Dv__9 = new JLabel("250K/Combo");
-		lblprice_Dv__9.setHorizontalAlignment(SwingConstants.CENTER);
-		lblprice_Dv__9.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblprice_Dv__9.setBounds(0, 121, 150, 19);
-		dv09.add(lblprice_Dv__9);
-		
-		JLabel lblicon_Dv_9 = new JLabel("");
-		lblicon_Dv_9.setIcon(new ImageIcon(GD_DatDichVu.class.getResource("/Imgs/ComboTraiCay5.png")));
-		lblicon_Dv_9.setHorizontalAlignment(SwingConstants.CENTER);
-		lblicon_Dv_9.setBounds(0, 0, 150, 110);
-		dv09.add(lblicon_Dv_9);
-		
-		JPanel dv10 = new JPanel();
-		dv10.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
-		dv10.setBorder(new LineBorder(new Color(0, 0, 0)));
-		dv10.setPreferredSize(new Dimension(150, 150));
-		dv10.setBackground(Color.WHITE);
-		List.add(dv10);
-		dv10.setLayout(null);
-		
-		JLabel lblname_Dv_10 = new JLabel("Sting");
-		lblname_Dv_10.setHorizontalAlignment(SwingConstants.CENTER);
-		lblname_Dv_10.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblname_Dv_10.setBounds(0, 95, 150, 19);
-		dv10.add(lblname_Dv_10);
-		
-		JLabel lblprice_Dv__10 = new JLabel("15K/Chai");
-		lblprice_Dv__10.setHorizontalAlignment(SwingConstants.CENTER);
-		lblprice_Dv__10.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblprice_Dv__10.setBounds(0, 121, 150, 19);
-		dv10.add(lblprice_Dv__10);
-		
-		JLabel lblicon_Dv_10 = new JLabel("");
-		lblicon_Dv_10.setIcon(new ImageIcon(GD_DatDichVu.class.getResource("/Imgs/Sting.png")));
-		lblicon_Dv_10.setHorizontalAlignment(SwingConstants.CENTER);
-		lblicon_Dv_10.setBounds(0, 0, 150, 110);
-		dv10.add(lblicon_Dv_10);
-		
-		JPanel dv11 = new JPanel();
-		dv11.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
-		dv11.setBorder(new LineBorder(new Color(0, 0, 0)));
-		dv11.setPreferredSize(new Dimension(150, 150));
-		dv11.setBackground(Color.WHITE);
-		List.add(dv11);
-		dv11.setLayout(null);
-		
-		JLabel lblname_Dv_11 = new JLabel("Red Bull");
-		lblname_Dv_11.setHorizontalAlignment(SwingConstants.CENTER);
-		lblname_Dv_11.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblname_Dv_11.setBounds(0, 95, 150, 19);
-		dv11.add(lblname_Dv_11);
-		
-		JLabel lblprice_Dv__11 = new JLabel("15K/Lon");
-		lblprice_Dv__11.setHorizontalAlignment(SwingConstants.CENTER);
-		lblprice_Dv__11.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblprice_Dv__11.setBounds(0, 121, 150, 19);
-		dv11.add(lblprice_Dv__11);
-		
-		JLabel lblicon_Dv_11 = new JLabel("");
-		lblicon_Dv_11.setIcon(new ImageIcon(GD_DatDichVu.class.getResource("/Imgs/RedBull.png")));
-		lblicon_Dv_11.setHorizontalAlignment(SwingConstants.CENTER);
-		lblicon_Dv_11.setBounds(0, 0, 150, 110);
-		dv11.add(lblicon_Dv_11);
-		
-		JPanel dv12 = new JPanel();
-		dv12.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
-		dv12.setBorder(new LineBorder(new Color(0, 0, 0)));
-		dv12.setPreferredSize(new Dimension(150, 150));
-		dv12.setBackground(Color.WHITE);
-		List.add(dv12);
-		dv12.setLayout(null);
-		
-		JLabel lblname_Dv_12 = new JLabel("Nước Suối");
-		lblname_Dv_12.setHorizontalAlignment(SwingConstants.CENTER);
-		lblname_Dv_12.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblname_Dv_12.setBounds(0, 95, 150, 19);
-		dv12.add(lblname_Dv_12);
-		
-		JLabel lblprice_Dv__12 = new JLabel("15K/Chai");
-		lblprice_Dv__12.setHorizontalAlignment(SwingConstants.CENTER);
-		lblprice_Dv__12.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblprice_Dv__12.setBounds(0, 121, 150, 19);
-		dv12.add(lblprice_Dv__12);
-		
-		JLabel lblicon_Dv_12 = new JLabel("");
-		lblicon_Dv_12.setIcon(new ImageIcon(GD_DatDichVu.class.getResource("/Imgs/Satori.png")));
-		lblicon_Dv_12.setHorizontalAlignment(SwingConstants.CENTER);
-		lblicon_Dv_12.setBounds(0, 0, 150, 110);
-		dv12.add(lblicon_Dv_12);
-		
-		JPanel Box_dsdv = new JPanel();
-		Box_dsdv.setBackground(new Color(0, 0, 0, 130));
-		Box_dsdv.setBounds(0, 10, 464, 42);
-		Left_DatDichVu.add(Box_dsdv);
-		Box_dsdv.setLayout(null);
-		
-		JLabel lblDS_DV = new JLabel("Danh Sách Dịch Vụ");
-		lblDS_DV.setBounds(10, 5, 454, 37);
-		lblDS_DV.setForeground(Color.WHITE);
-		lblDS_DV.setFont(new Font("Tahoma", Font.BOLD, 15));
-		Box_dsdv.add(lblDS_DV);
-		
-		
+							
 		JPanel Right_DatDichVu = new JPanel() {
 			protected void paintComponent(Graphics g) {
 				g.setColor(getBackground());
@@ -681,11 +307,12 @@ public class GD_DatDichVu extends JFrame implements ActionListener{
 		contentPane.add(Right_DatDichVu);
 		Right_DatDichVu.setLayout(null);
 		
-		JComboBox comboBox_chonPhong = new JComboBox();
+		comboBox_chonPhong = new JComboBox<String>();
 		comboBox_chonPhong.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		comboBox_chonPhong.setBackground(new Color(255, 255, 255));
 		comboBox_chonPhong.setBounds(10, 48, 96, 28);
 		Right_DatDichVu.add(comboBox_chonPhong);
+		loadComBoBoxChonPhong();
 		
 		JLabel lblchonphong = new JLabel("Chọn Phòng");
 		lblchonphong.setFont(new Font("Tahoma", Font.BOLD, 15));
@@ -822,4 +449,96 @@ public class GD_DatDichVu extends JFrame implements ActionListener{
         String time = String.format("%02d:%02d:%02d %s  %04d/%02d/%02d", hour, minute, second, ampm, year, month, day);
         lblClock.setText(time);
     }
+    public void loadComBoBoxChonPhong() {
+        String url = "jdbc:sqlserver://localhost:1433;databasename=Karaoke4T";
+        String username = "sa";
+        String password = "123";
+
+        try {
+            Connection connection = DriverManager.getConnection(url, username, password);
+
+            String sql = "SELECT * FROM Phong";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                String columnName = resultSet.getString("maPhong");
+                comboBox_chonPhong.addItem(columnName);
+              
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+	}
+	private void loadData() {
+		QLDV_DAO ds = new QLDV_DAO();
+		ArrayList<DichVu> listDV = ds.docbang();
+		draw(listDV);
+	}
+	
+	private void draw(ArrayList<DichVu> listdv) {
+		JPanel Left_QLDV = new JPanel();
+		Left_QLDV.setBorder(null);
+		Left_QLDV.setBackground(new Color(255, 255, 255, 100));
+		Left_QLDV.setBounds(0, 146, 464, 467);
+		contentPane.add(Left_QLDV);
+		Left_QLDV.setLayout(null);
+		
+		JScrollPane scrollPane_DSDV = new JScrollPane();
+		scrollPane_DSDV.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane_DSDV.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane_DSDV.setBounds(0, 0, 464, 465);
+		scrollPane_DSDV.setBackground(new Color(255, 255, 255, 0));
+		Left_QLDV.add(scrollPane_DSDV);
+		
+		JPanel panel_dsdv = new JPanel();
+		panel_dsdv.setBackground(new Color(255, 255, 255));
+		scrollPane_DSDV.setViewportView(panel_dsdv);
+		panel_dsdv.setLayout(new GridLayout(0, 3, 0, 0));
+    	for(DichVu dv : listdv) {
+    		//load label cha
+    		JPanel pnl_dichvu = new JPanel();
+    		pnl_dichvu.setBackground(new Color(255, 255, 255));
+    		pnl_dichvu.setLayout(null);
+    		pnl_dichvu.setPreferredSize(new Dimension(150,150));
+    		pnl_dichvu.setBorder(LineBorder.createBlackLineBorder());
+    		panel_dsdv.add(pnl_dichvu);
+
+
+    		
+    		//load label gia
+    		JLabel lbl_price = new JLabel(dv.getGiaDichVu() + "/1 cái");
+    		lbl_price.setHorizontalAlignment(SwingConstants.CENTER);
+    		lbl_price.setFont(new Font("Tahoma", Font.BOLD, 11));
+//    		lbl_price.setBorder(new LineBorder(new Color(0, 0, 0)));
+    		lbl_price.setBounds(0, 115, 150, 35);
+    		pnl_dichvu.add(lbl_price);
+    		
+    		//load ten dich vu
+    		JLabel lbl_name = new JLabel(dv.getTenDichVu());
+    		lbl_name.setFont(new Font("Tahoma", Font.BOLD, 13));
+    		lbl_name.setHorizontalAlignment(SwingConstants.CENTER);
+    		lbl_name.setBounds(0, 98, 150, 35);
+    		pnl_dichvu.add(lbl_name);
+    		
+    		//load hinh anh
+    		JLabel lbl_hinhanh = new JLabel("");
+    		lbl_hinhanh.setIcon(new ImageIcon(GD_QLDichVu.class.getResource("/Imgs/food.png")));
+    		lbl_hinhanh.setHorizontalAlignment(SwingConstants.CENTER);
+    		lbl_hinhanh.setBounds(0, 0, 150, 150);
+    		pnl_dichvu.add(lbl_hinhanh);
+    		
+    		pnl_dichvu.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+//					txt_MaDV.setText(dv.getMaDichVu());
+//					txt_tenDV.setText(dv.getTenDichVu());
+//					txt_giaDV.setText(dv.getGiaDichVu()+"");
+//					txt_soLuong.setText(dv.getSoLuongDichVu()+"");
+				}
+			});
+    		
+		}
+	}
 }
