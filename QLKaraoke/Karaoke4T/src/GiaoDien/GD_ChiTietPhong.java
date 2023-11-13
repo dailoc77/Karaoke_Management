@@ -12,6 +12,12 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.swing.border.LineBorder;
 import javax.swing.JSeparator;
@@ -26,7 +32,8 @@ public class GD_ChiTietPhong extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
-	private JTextField textField;
+	private String tam;
+	private JLabel lbl_tongcong,lbl_tiendichvu,lbl_tienphong,lbl_tenphong,lbl_giatien,lbl_soluongnguoi,lbl_loaiphong,lbl_trangthaiphong,lbl_tennhanvien,lbl_tenkhach,lbl_sdtKH,lblThoiLuong,lblGioVao,lblTongDichVu;
 
 	/**
 	 * Launch the application.
@@ -88,9 +95,9 @@ public class GD_ChiTietPhong extends JFrame {
 		lbl_iconmicro.setBounds(307, 47, 70, 81);
 		pnl_thongtinphong.add(lbl_iconmicro);
 		
-		JLabel lbl_tenphong = new JLabel("Phòng ...");
+		lbl_tenphong = new JLabel("Phòng ");
 		lbl_tenphong.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lbl_tenphong.setBounds(186, 73, 111, 25);
+		lbl_tenphong.setBounds(52, 73, 245, 25);
 		pnl_thongtinphong.add(lbl_tenphong);
 		
 		JPanel pnl_showthongtin = new JPanel();
@@ -100,60 +107,29 @@ public class GD_ChiTietPhong extends JFrame {
 		pnl_thongtinphong.add(pnl_showthongtin);
 		pnl_showthongtin.setLayout(null);
 		
-		JLabel lbl_trangthaiphong = new JLabel("Trạng thái phòng :");
+		 lbl_trangthaiphong = new JLabel("Trạng thái phòng :");
 		lbl_trangthaiphong.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lbl_trangthaiphong.setBounds(25, 11, 164, 25);
+		lbl_trangthaiphong.setBounds(25, 11, 382, 25);
 		pnl_showthongtin.add(lbl_trangthaiphong);
 		
-		JLabel lbl_loaiphong = new JLabel("Loại phòng :");
+		 lbl_loaiphong = new JLabel("Loại phòng :");
 		lbl_loaiphong.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lbl_loaiphong.setBounds(25, 57, 164, 25);
+		lbl_loaiphong.setBounds(25, 57, 382, 25);
 		pnl_showthongtin.add(lbl_loaiphong);
 		
-		JLabel lbl_soluongnguoi = new JLabel("Số lượng người :");
+		 lbl_soluongnguoi = new JLabel("Số lượng người :");
 		lbl_soluongnguoi.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lbl_soluongnguoi.setBounds(25, 112, 164, 25);
+		lbl_soluongnguoi.setBounds(25, 112, 382, 25);
 		pnl_showthongtin.add(lbl_soluongnguoi);
 		
-		JLabel lbl_giatien = new JLabel("Giá tiền/h :");
+		 lbl_giatien = new JLabel("Giá tiền/h :");
 		lbl_giatien.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lbl_giatien.setBounds(25, 168, 164, 25);
+		lbl_giatien.setBounds(25, 168, 382, 25);
 		pnl_showthongtin.add(lbl_giatien);
-		
-		JLabel lblNewLabel_1 = new JLabel("Chuyển phòng");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblNewLabel_1.setBounds(10, 365, 111, 25);
-		pnl_thongtinphong.add(lblNewLabel_1);
 		
 		JSeparator separator = new JSeparator();
 		separator.setBounds(126, 377, 364, 2);
 		pnl_thongtinphong.add(separator);
-		
-		JLabel lblNewLabel_2 = new JLabel("Phòng số:");
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_2.setBounds(28, 412, 93, 25);
-		pnl_thongtinphong.add(lblNewLabel_2);
-		
-		JComboBox cbB_chonphong = new JComboBox();
-		cbB_chonphong.setBounds(126, 415, 272, 22);
-		pnl_thongtinphong.add(cbB_chonphong);
-		
-		
-		testbutton.Buttontest btnchuyenphong = new testbutton.Buttontest();
-		btnchuyenphong.setBounds(408, 412, 111, 39);
-		pnl_thongtinphong.add(btnchuyenphong);
-        btnchuyenphong.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-
-			}
-		});
-        btnchuyenphong.setBorder(null);
-        btnchuyenphong.setText("Chuyển");
-        btnchuyenphong.setForeground(Color.WHITE);
-        btnchuyenphong.setFont(new Font("Tahoma", Font.BOLD, 16));
-        btnchuyenphong.setBackground(new Color(128, 128, 255));
-		btnchuyenphong.setLayout(null);
 		
 		JPanel pnl_hoadontam = new JPanel();
 		pnl_hoadontam.setBackground(new Color(230, 230, 230));
@@ -169,110 +145,200 @@ public class GD_ChiTietPhong extends JFrame {
 		lbl_hoadontam.setFont(new Font("Tahoma", Font.BOLD, 20));
 		pnl_hoadontamtxt.add(lbl_hoadontam);
 		
-		JLabel lbl_sdtKH = new JLabel("SĐT Khách Hàng:");
+		lbl_sdtKH = new JLabel("SĐT Khách Hàng:");
 		lbl_sdtKH.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lbl_sdtKH.setBounds(20, 73, 148, 15);
+		lbl_sdtKH.setBounds(20, 99, 282, 15);
 		pnl_hoadontam.add(lbl_sdtKH);
 		
-		JLabel lbl_tenkhach = new JLabel("Tên Khách Hàng:");
+		lbl_tenkhach = new JLabel("Tên Khách Hàng:");
 		lbl_tenkhach.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lbl_tenkhach.setBounds(20, 99, 148, 15);
+		lbl_tenkhach.setBounds(20, 73, 282, 15);
 		pnl_hoadontam.add(lbl_tenkhach);
 		
-		JLabel lbl_tennhanvien = new JLabel("Tên Nhân Viên:");
+		lbl_tennhanvien = new JLabel("Tên Nhân Viên:");
 		lbl_tennhanvien.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lbl_tennhanvien.setBounds(20, 125, 148, 15);
+		lbl_tennhanvien.setBounds(20, 125, 282, 15);
 		pnl_hoadontam.add(lbl_tennhanvien);
 		
-		JLabel lbl_mahoadon = new JLabel("Mã Hóa Đơn:");
-		lbl_mahoadon.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lbl_mahoadon.setBounds(312, 73, 148, 15);
-		pnl_hoadontam.add(lbl_mahoadon);
+		lblGioVao = new JLabel("Giờ Vào:");
+		lblGioVao.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblGioVao.setBounds(312, 73, 250, 15);
+		pnl_hoadontam.add(lblGioVao);
 		
-		JLabel lblNewLabel_3_4 = new JLabel("Giờ Vào:");
-		lblNewLabel_3_4.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblNewLabel_3_4.setBounds(312, 99, 148, 15);
-		pnl_hoadontam.add(lblNewLabel_3_4);
-		
-		JLabel lblNewLabel_3_5 = new JLabel("Thời Lượng:");
-		lblNewLabel_3_5.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblNewLabel_3_5.setBounds(312, 125, 148, 15);
-		pnl_hoadontam.add(lblNewLabel_3_5);
+		lblThoiLuong = new JLabel("Thời Lượng:");
+		lblThoiLuong.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblThoiLuong.setBounds(312, 99, 250, 15);
+		pnl_hoadontam.add(lblThoiLuong);
 		
 		table = new JTable();
 		table.setBounds(10, 151, 563, 199);
 		pnl_hoadontam.add(table);
 		
-		JLabel lblNewLabel_3 = new JLabel("Mã giảm giá");
-		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_3.setBounds(10, 374, 82, 17);
-		pnl_hoadontam.add(lblNewLabel_3);
-		
-		textField = new JTextField();
-		textField.setBounds(102, 374, 121, 20);
-		pnl_hoadontam.add(textField);
-		textField.setColumns(10);
-		
-		Buttontest btntstKimTra = new Buttontest();
-		btntstKimTra.setText("Kiểm tra");
-		btntstKimTra.setForeground(Color.WHITE);
-		btntstKimTra.setFont(new Font("Tahoma", Font.BOLD, 14));
-		btntstKimTra.setBorder(null);
-		btntstKimTra.setBackground(new Color(128, 128, 255));
-		btntstKimTra.setBounds(233, 361, 111, 39);
-		pnl_hoadontam.add(btntstKimTra);
-		
-		JLabel lbl_chietkhau = new JLabel("Chiết khẩu:");
-		lbl_chietkhau.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lbl_chietkhau.setBounds(10, 409, 148, 15);
-		pnl_hoadontam.add(lbl_chietkhau);
-		
-		JLabel lbl_vat = new JLabel("Thuế VAT:");
-		lbl_vat.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lbl_vat.setBounds(10, 435, 148, 15);
-		pnl_hoadontam.add(lbl_vat);
-		
-		JLabel lbl_tiendichvu = new JLabel("Tiền dịch vụ:");
+		lbl_tiendichvu = new JLabel("Tiền dịch vụ:");
 		lbl_tiendichvu.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lbl_tiendichvu.setBounds(312, 411, 148, 15);
+		lbl_tiendichvu.setBounds(312, 411, 250, 15);
 		pnl_hoadontam.add(lbl_tiendichvu);
 		
-		JLabel lbl_tienphong = new JLabel("Tiền phòng:");
+		lbl_tienphong = new JLabel("Tiền phòng:");
 		lbl_tienphong.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lbl_tienphong.setBounds(312, 435, 148, 15);
+		lbl_tienphong.setBounds(312, 435, 250, 15);
 		pnl_hoadontam.add(lbl_tienphong);
 		
-		Buttontest btntstCpNhtDch = new Buttontest();
-		btntstCpNhtDch.setText("Cập nhật dịch vụ");
-		btntstCpNhtDch.setForeground(Color.WHITE);
-		btntstCpNhtDch.setFont(new Font("Tahoma", Font.BOLD, 16));
-		btntstCpNhtDch.setBorder(null);
-		btntstCpNhtDch.setBackground(new Color(128, 128, 255));
-		btntstCpNhtDch.setBounds(389, 361, 184, 39);
-		pnl_hoadontam.add(btntstCpNhtDch);
-		
-		JLabel lbl_tongcong = new JLabel("Tổng tiền:");
+		lbl_tongcong = new JLabel("Tổng tiền:");
 		lbl_tongcong.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lbl_tongcong.setBounds(312, 461, 148, 15);
+		lbl_tongcong.setBounds(312, 461, 229, 15);
 		pnl_hoadontam.add(lbl_tongcong);
 		
-		Buttontest btntstTnhTin = new Buttontest();
-		btntstTnhTin.setText("Tính tiền");
-		btntstTnhTin.setForeground(Color.WHITE);
-		btntstTnhTin.setFont(new Font("Tahoma", Font.BOLD, 16));
-		btntstTnhTin.setBorder(null);
-		btntstTnhTin.setBackground(new Color(0, 198, 50));
-		btntstTnhTin.setBounds(1011, 572, 111, 39);
-		contentPane.add(btntstTnhTin);
+		lblTongDichVu = new JLabel("Tổng tiền dịch vụ:");
+		lblTongDichVu.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblTongDichVu.setBounds(312, 385, 261, 15);
+		pnl_hoadontam.add(lblTongDichVu);
 		
-		Buttontest btntstQuayLi = new Buttontest();
-		btntstQuayLi.setText("Quay lại");
-		btntstQuayLi.setForeground(Color.WHITE);
-		btntstQuayLi.setFont(new Font("Tahoma", Font.BOLD, 16));
-		btntstQuayLi.setBorder(null);
-		btntstQuayLi.setBackground(new Color(19, 142, 234));
-		btntstQuayLi.setBounds(37, 572, 111, 39);
-		contentPane.add(btntstQuayLi);
+		Buttontest btntstQuayLai = new Buttontest();
+		btntstQuayLai.setText("Quay lại");
+		btntstQuayLai.setForeground(Color.WHITE);
+		btntstQuayLai.setFont(new Font("Tahoma", Font.BOLD, 16));
+		btntstQuayLai.setBorder(null);
+		btntstQuayLai.setBackground(new Color(19, 142, 234));
+		btntstQuayLai.setBounds(37, 572, 111, 39);
+		contentPane.add(btntstQuayLai);
 		
+		btntstQuayLai.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				 GD_ThuePhong thue = new GD_ThuePhong();
+				 thue.setVisible(true);
+				 thue.setLocationRelativeTo(null);
+		            dispose();
+			}
+		});
+		
+		
+		
+		loadChiTietPhong(tam);
+	}
+	
+
+    public void loadChiTietPhong(String maPhong) {
+		// Thông tin kết nối đến cơ sở dữ liệu
+        String url = "jdbc:sqlserver://localhost:1433;databasename=Karaoke4T";
+        String username = "sa";
+        String password = "123";
+        
+        tam = maPhong;
+        try {
+            // Kết nối đến cơ sở dữ liệu
+            Connection connection = DriverManager.getConnection(url, username, password);
+
+            // Truy vấn SQL để lấy dữ liệu
+//            String sql = "select p.maPhong,tenTrangThaiPhong,tenLoaiPhong,giaTien,kh.SDT,tenKH,tenNV,h.maHD,gioNhanPhong,thoiLuong,soNguoi,donGia,sum(ctdv.soLuong) soLuongDichVu,(giaTien + donGia) tongTien\r\n"
+//            		+ "from HoaDon h\r\n"
+//            		+ "inner join ChiTietHoaDon cth\r\n"
+//            		+ "on h.maHD = cth.maHD\r\n"
+//            		+ "inner join Phong p\r\n"
+//            		+ "on cth.maPhong = p.maPhong\r\n"
+//            		+ "inner join TrangThaiPhong ttp\r\n"
+//            		+ "on p.maTTP = ttp.maTTP\r\n"
+//            		+ "inner join LoaiPhong lp\r\n"
+//            		+ "on p.maLP = lp.maLP\r\n"
+//            		+ "inner join KhachHang kh\r\n"
+//            		+ "on h.maKH = kh.maKH\r\n"
+//            		+ "inner join NhanVien nv\r\n"
+//            		+ "on h.maNV = nv.maNV\r\n"
+//            		+ "inner join ChiTietDichVu ctdv\r\n"
+//            		+ "on ctdv.maHD = h.maHD\r\n"
+//            		+ "inner join DichVu dv\r\n"
+//            		+ "on ctdv.maDV = dv.maDV\r\n"
+//            		+ "where p.maPhong = ? \r\n"
+//            		+ "GROUP BY p.maPhong,tenTrangThaiPhong,tenLoaiPhong,giaTien,kh.SDT,tenKH,tenNV,h.maHD,gioNhanPhong,thoiLuong,soNguoi,dv.donGia;";
+//            
+            
+            String sql = "select * \r\n"
+            		+ "from HoaDon h\r\n"
+            		+ "inner join ChiTietHoaDon cth\r\n"
+            		+ "on h.maHD = cth.maHD\r\n"
+            		+ "inner join Phong p\r\n"
+            		+ "on cth.maPhong = p.maPhong\r\n"
+            		+ "inner join TrangThaiPhong ttp\r\n"
+            		+ "on p.maTTP = ttp.maTTP\r\n"
+            		+ "inner join LoaiPhong lp\r\n"
+            		+ "on p.maLP = lp.maLP\r\n"
+            		+ "inner join KhachHang kh\r\n"
+            		+ "on h.maKH = kh.maKH\r\n"
+            		+ "inner join NhanVien nv\r\n"
+            		+ "on h.maNV = nv.maNV\r\n"
+            		+ "where p.maPhong = ? ";
+            
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1,maPhong);
+           
+            ResultSet resultSet = statement.executeQuery();
+            // Lặp qua các dòng kết quả và thêm vào JComboBox
+            while (resultSet.next()) {
+                String columnName1 = resultSet.getString("maPhong");
+                String columnName2 = resultSet.getString("tenTrangThaiPhong");
+                String columnName3 = resultSet.getString("tenLoaiPhong");
+                String columnName4 = resultSet.getString("giaTien");
+                String columnName5 = resultSet.getString("SDT");
+                String columnName6 = resultSet.getString("tenKH");
+                String columnName7 = resultSet.getString("tenNV");
+//                String columnName8 = resultSet.getString("soLuongDichVu");
+                String columnName9 = resultSet.getString("gioNhanPhong");
+                String columnName10 = resultSet.getString("thoiLuong");
+                String columnName11 = resultSet.getString("soNguoi");
+//                String columnName12 = resultSet.getString("donGia");
+//                String columnName13 = resultSet.getString("tongTien");
+                
+                
+                lbl_tenphong.setText("Tên phòng hát: " + columnName1);
+                lbl_trangthaiphong.setText("Trạng thái phòng hát: " + columnName2);
+                lbl_loaiphong.setText("Loại phòng hát: " + columnName3);
+                lbl_giatien.setText("Giá phòng hát: " + columnName4 + " VND");
+                lbl_tienphong.setText("Tiền phòng: " + columnName4 + " VND");
+                lbl_sdtKH.setText("Số điện thoại khách hàng: " + columnName5);
+                lbl_tenkhach.setText("Tên khách hàng: " + columnName6);
+                lbl_tennhanvien.setText("Tên nhân viên: " + columnName7);
+//                lblTongDichVu.setText("Tổng số lượng dịch vụ: " + columnName8);
+                lblGioVao.setText("Giờ nhận phòng: " + columnName9);
+                lblThoiLuong.setText("Thời lượng hát: " + columnName10);
+                lbl_soluongnguoi.setText("Sức chứa: " + columnName11);
+//                lbl_tiendichvu.setText("Tiền dịch vụ " + columnName12 + " VND");
+//                lbl_tongcong.setText("Tổng cộng: " + columnName13 + " VND");
+               
+            }
+
+            // Đóng các tài nguyên
+            resultSet.close();
+            statement.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 	}
 }

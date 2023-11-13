@@ -448,6 +448,16 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 		model.addColumn("Mật khẩu");
 		model.addColumn("Tên nhân viên");
 		model.addColumn("Email");
+<<<<<<< Updated upstream
+=======
+
+
+//		model.addColumn("Tên Tài Khoản");
+//		model.addColumn("Mật Khẩu");
+		// Add data to the table
+//		model.addRow(new Object[]{"1", "Nguyễn Văn A", "09999999", "aaabb@gmail.com", "aaaa"});
+//		model.addRow(new Object[]{"", "", "", "", ""});
+>>>>>>> Stashed changes
 		table.setModel(model);
 		
 		JLabel lblquanly = new JLabel("QL:");

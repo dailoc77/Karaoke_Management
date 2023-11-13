@@ -68,6 +68,9 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
 	
 	private String maPhong,tenKH,sdt,cmnd,diaChi,songuoi;
 	private float giaTien;
+	
+	private long lastClickTime = 0;
+	
 	private List<Phong> phongList = new ArrayList<Phong>();
 	QLPH_DAO ds = new QLPH_DAO();
 	QLKH_DAO dskh = new QLKH_DAO();
@@ -572,7 +575,12 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
 				}
 				
 				@Override
+<<<<<<< Updated upstream
 				public void mouseEntered(MouseEvent e) {		
+=======
+				public void mouseEntered(MouseEvent e) {
+					
+>>>>>>> Stashed changes
 				}
 				
 				@Override
@@ -584,6 +592,7 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
 					cmnd = textFieldCMND.getText();
 					diaChi = textFieldDiaChi.getText();
 					songuoi = textFieldSoLuongNguoi.getText();
+//					System.out.print(maPhong);
 					
 					if (ph.getLoaiPhong().getTenLoaiPhong().equals("Phòng Thường")) {
 						giaTien = 100000;
@@ -598,7 +607,10 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
 					if(rdbtnNU.isSelected()) {
 						gt = "Nu";
 					}
-					btnthemActionPerformed(tenKH,sdt,cmnd,diaChi,gt);
+					
+					 btnthemActionPerformed(tenKH,sdt,cmnd,diaChi,gt);
+//					btnthemActionPerformed(tenKH,sdt,cmnd,diaChi,gt);
+					
 //					System.out.print(giaTien);
 //					System.out.print("GDThue"+maPhong);
 
@@ -610,6 +622,28 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
 					    	 	LineBorder labelBorder = new LineBorder(Color.BLACK, 5);
 						        lbl_hinhanh.setBorder(labelBorder);
 					    }	
+<<<<<<< Updated upstream
+=======
+				            
+					
+					 
+					 
+					  long clickTime = System.currentTimeMillis();
+
+	                    if (clickTime - lastClickTime <= 500) { // Check if the click interval is less than 500 milliseconds (adjust as needed)
+	                    	 GD_ChiTietPhong chitiet = new GD_ChiTietPhong();
+	                    	 chitiet.setVisible(true);
+	                    	 chitiet.setLocationRelativeTo(null);
+	                    	 System.out.print(maPhong);
+	                    	 chitiet.loadChiTietPhong(maPhong);
+	     		            dispose();
+	     		            
+	     		           btnthemActionPerformed(tenKH,sdt,cmnd,diaChi,gt);
+	                    }
+
+	                    lastClickTime = clickTime;
+					 
+>>>>>>> Stashed changes
 				}
 			}); 
     
@@ -622,7 +656,7 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
     			lbl_hinhanh.setIcon(new ImageIcon(GD_PhongHat.class.getResource("/Imgs/micro_with_crown.png")));
     		}
     		
-    
+    		
     	}
     	
 
