@@ -60,14 +60,13 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField txtMaTK, txtmk, txtTaiKhoan, txtTenNV, txtEmail;
+	private JTextField txtMaTK, txtmk, txtTaiKhoan, txtTenNV, txt_email;
 	private JTable table;
 	DefaultTableModel model;
 	private JLabel lblClock;
 	private Timer timer;
 	private testbutton.Buttontest btnthem, btnxoa, btnlammoi, btnsua;
 	QLTK_DAO dstk = new QLTK_DAO();
-	private JTextField textField;
 	/**
 	 * Launch the application.
 	 */
@@ -416,10 +415,10 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 				TxtGmail.setBounds(554, 10, 159, 28);
 				panel.add(TxtGmail);
 				
-				textField = new JTextField();
-				textField.setColumns(10);
-				textField.setBounds(554, 37, 241, 27);
-				panel.add(textField);
+				txt_email = new JTextField();
+				txt_email.setColumns(10);
+				txt_email.setBounds(554, 37, 241, 27);
+				panel.add(txt_email);
 		
 		table = new JTable();
 		table.addMouseListener(new MouseAdapter() {
@@ -430,7 +429,7 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 				txtTaiKhoan.setText(model.getValueAt(row, 1).toString());
 				txtmk.setText(model.getValueAt(row, 2).toString());
 				txtTenNV.setText(model.getValueAt(row, 3).toString());
-				txtEmail.setText(model.getValueAt(row, 4).toString());
+				txt_email.setText(model.getValueAt(row, 4).toString());
 			}
 		});
 		JScrollPane scrollPane = new JScrollPane(table);
@@ -443,10 +442,7 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 		model.addColumn("Mật khẩu");
 		model.addColumn("Tên nhân viên");
 		model.addColumn("Email");
-<<<<<<< Updated upstream
-//		model.addColumn("Email");
-=======
->>>>>>> Stashed changes
+
 //		model.addColumn("Tên Tài Khoản");
 //		model.addColumn("Mật Khẩu");
 		// Add data to the table
@@ -497,13 +493,13 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 				table.setValueAt(txtTaiKhoan.getText(), row, 1);
 				table.setValueAt(txtmk.getText(), row, 2);
 				table.setValueAt(txtTenNV.getText(), row, 3);
-				table.setValueAt(txtEmail.getText(), row, 4);
+				table.setValueAt(txt_email.getText(), row, 4);
 				JOptionPane.showMessageDialog(this, "Sửa thông tin tài khoản nhân viên thành công!");
 //				table.setModel(model);
 			}
 		}
 		
-		updateTableData();
+		loadTable();
 	}
 	protected void btnxoaActionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
@@ -530,7 +526,7 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 	    
 		TaiKhoanNhanVien tk = reverSPFromTextField();
 		if(dstk.create(tk)) {
-			Object [] rowData = {txtMaTK.getText(), txtTaiKhoan.getText(), txtmk.getText(), txtTenNV.getText(), txtEmail.getText()};
+			Object [] rowData = {txtMaTK.getText(), txtTaiKhoan.getText(), txtmk.getText(), txtTenNV.getText(), txt_email.getText()};
 			model.addRow(rowData);
 			JOptionPane.showMessageDialog(this, "Thêm Tài Khoản Thành Công");
 			lammoi();
@@ -576,7 +572,7 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 		String tentk = txtTaiKhoan.getText().toString();
 		String mk = txtmk.getText().toString();
 		String tennv = txtTenNV.getText().toString();
-		String email = txtEmail.getText().toString();
+		String email = txt_email.getText().toString();
 		return new TaiKhoanNhanVien(matk, tentk, mk, tennv,email);
 	}
 //    
@@ -608,14 +604,14 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 		txtTaiKhoan.setText(table.getValueAt(row,2).toString());
 		txtTenNV.setText(table.getValueAt(row, 3).toString());
 		txtmk.setText(table.getValueAt(row, 4).toString());
-		txtEmail.setText(table.getValueAt(row, 5).toString());
+		txt_email.setText(table.getValueAt(row, 5).toString());
 	}
 	public void lammoi() {
 		txtMaTK.setText("");
 		txtmk.setText("");
 		txtTaiKhoan.setText("");
 		txtTenNV.setText("");
-		txtEmail.setText("");
+		txt_email.setText("");
 		txtMaTK.requestFocus();
 	}
 	
