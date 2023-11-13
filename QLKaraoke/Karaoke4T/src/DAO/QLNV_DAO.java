@@ -28,9 +28,8 @@ public class QLNV_DAO {
 				String sdt = rs.getString(6);
 				String trangThaiLamViec = rs.getString(7);
 				String dc = rs.getString(8);
-				LoaiNhanVien loainv = new LoaiNhanVien(null, rs.getString(9));
+				LoaiNhanVien loainv = new LoaiNhanVien(rs.getString(9), "");
 				TaiKhoanNhanVien maTK = new TaiKhoanNhanVien(rs.getString(10), null, null, null, null);
-//				NhanVien nv = new NhanVien(ma,ten,gt,ngaySinh,cmnd,sdt,trangThaiLamViec,dc, loainv,maTK);
 				NhanVien nv = new NhanVien(ma,ten,gt,ngaySinh,cmnd,sdt,trangThaiLamViec,dc, loainv,maTK);
 				dsnv.add(nv);
 			}
@@ -44,7 +43,7 @@ public class QLNV_DAO {
 		PreparedStatement smt = null;
 		int n = 0;
 		try {
-			smt = con.prepareStatement("insert into NhanVien values(?,?, ?, ?, ?, ?, ?, ?, ?)");
+			smt = con.prepareStatement("INSERT INTO [dbo].[NhanVien] ([maNV], [tenNV],[gioiTinh], [ngaySinh], [CMND], [SDT], [trangThaiLamViec], [diaChi],[maLNV] ,[maTK]) VALUES(? ,?, ?, ?, ?, ?, ?, ?, ?, ?)");
 			smt.setString(1, nv.getMaNV());
 			smt.setString(2, nv.getTenNV());
 			smt.setString(3, nv.getGioiTinh());
@@ -53,8 +52,8 @@ public class QLNV_DAO {
 			smt.setString(6, nv.getSDT());
 			smt.setString(7, nv.getTrangThaiLamViec());
 			smt.setString(8, nv.getMaDC());
-			smt.setString(9, nv.getLNV().getTenLNV());
-//			smt.setString(10, nv.getMaTK().getMaTaiKhoan());
+			smt.setString(9, nv.getLNV().getMaLNV());
+			smt.setString(10, nv.getMaTK().getMaTaiKhoan());
 			n = smt.executeUpdate();
 			
 		} catch (Exception e) {
@@ -62,30 +61,30 @@ public class QLNV_DAO {
 		}
 		return n>0;
 	}
-//	public boolean update(NhanVien kh) {
-//		Connection con = connectDB.getInstance().getConnection();
-//		PreparedStatement smt = null;
-//		int n = 0;
-//		try {
-//			smt = con.prepareStatement("UPDATE NhanVien SET tenNV = ?, gioiTinh = ?, ngaySinh = ?, CMND = ?, SDT = ?, trangThaiLamViec = ? , maDC = ?, maLNV = ?, maTK = ? where maNV = ?");
-//
-//			smt.setString(1, kh.getMaNV());
-//			smt.setString(2, kh.getTenNV());
-//			smt.setString(3, kh.getGioiTinh());
-//			smt.setString(4, kh.getNgaySinh());
-//			smt.setString(5, kh.getCMND());
-//			smt.setString(6, kh.getSDT());
-//			smt.setString(7, kh.getTrangThaiLamViec());
-//			smt.setString(8, kh.getMaDC());
-//			smt.setString(9, kh.getTenLNV().getTenLNV());
-//			smt.setString(10, kh.getMaTK().getMaTaiKhoan());
-//
-//			n = smt.executeUpdate();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return n>0;
-//	}
+	public boolean update(NhanVien nv) {
+		Connection con = connectDB.getInstance().getConnection();
+		PreparedStatement smt = null;
+		int n = 0;
+		try {
+			smt = con.prepareStatement("UPDATE NhanVien SET tenNV = ?, gioiTinh = ?, ngaySinh = ?, CMND = ?, SDT = ?, trangThaiLamViec = ? , diaChi = ?, maLNV = ?, maTK = ? where maNV = ?");
+
+			smt.setString(1, nv.getMaNV());
+			smt.setString(2, nv.getTenNV());
+			smt.setString(3, nv.getGioiTinh());
+			smt.setString(4, nv.getNgaySinh());
+			smt.setString(5, nv.getCMND());
+			smt.setString(6, nv.getSDT());
+			smt.setString(7, nv.getTrangThaiLamViec());
+			smt.setString(8, nv.getMaDC());
+			smt.setString(9, nv.getLNV().getMaLNV());
+			smt.setString(10, nv.getMaTK().getMaTaiKhoan());
+
+			n = smt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return n>0;
+	}
 	public NhanVien getNV(int index) {
 		return dsnv.get(index);
 	}

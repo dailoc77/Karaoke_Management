@@ -37,10 +37,7 @@ public class NhanVien
 	public NhanVien(String maNV, String tenNV, String gioiTinh, String ngaySinh, String cMND, String sDT,
 			String trangThaiLamViec, String maDC, LoaiNhanVien LNV, TaiKhoanNhanVien maTK) {
 
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes
 		setMaNV(maNV);
 		setTenNV(tenNV);
 		setGioiTinh(gioiTinh);

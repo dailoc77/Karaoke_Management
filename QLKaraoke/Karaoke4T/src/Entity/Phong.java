@@ -20,7 +20,7 @@ public class Phong {
 
 
 
-	public Phong(String maPhong,String soNguoi, String tenPhong,String tinhTrangPhong,LoaiPhong loaiPhong, TrangThaiPhong trangThaiPhong) {
+	public Phong(String maPhong,String soNguoi, String tenPhong, LoaiPhong loaiPhong, LoaiPhong giaPhong, TrangThaiPhong trangThaiPhong) {
 		super();
 		setMaPhong(maPhong);
 		setSoNguoi(soNguoi);
@@ -32,18 +32,15 @@ public class Phong {
 	
 	
 
-//	public Phong(String maPhong, String soNguoi, String tenPhong, String tinhTrangPhong, LoaiPhong loaiPhong,TrangThaiPhong trangThaiPhong) {
-//		super();
-//		setMaPhong(maPhong);
-//		setSoNguoi(soNguoi);
-//		setTenPhong(tenPhong);
-//		setTinTrangPhong(tinhTrangPhong);
-//		setTrangThaiPhong(trangThaiPhong);
-//		setLoaiPhong(loaiPhong);
-//	}
-
-
-
+	public Phong(String maPhong, String soNguoi, String tenPhong, String tinhTrangPhong, LoaiPhong loaiPhong,TrangThaiPhong trangThaiPhong) {
+		super();
+		setMaPhong(maPhong);
+		setSoNguoi(soNguoi);
+		setTenPhong(tenPhong);
+		setTinTrangPhong(tinhTrangPhong);
+		setTrangThaiPhong(trangThaiPhong);
+		setLoaiPhong(loaiPhong);
+	}
 
 
 

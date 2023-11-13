@@ -69,6 +69,10 @@ public class GD_PhongHat extends JFrame implements ActionListener {
 	DefaultTableModel model;
 
 	private QLPH_DAO dsp = new QLPH_DAO();
+//	JComboBox cbB_loaiPhong = new JComboBox<String>();
+//	JComboBox cbB_giaPhong 
+//	JComboBox cbB_soNguoi = new JComboBox<String>();
+//	JComboBox cbB_trangThaiPhong = new JComboBox<String>();
 	JPanel pnl_danhsachphonghat = new JPanel();
 	private JTextField txt_soNguoi;
 	private final Action action_1 = new SwingAction_1();
@@ -109,7 +113,7 @@ public class GD_PhongHat extends JFrame implements ActionListener {
 	 * Create the frame.
 	 */
 	public GD_PhongHat() {
-		initComponents();
+//		initComponents();
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1175, 650);
 		setTitle("Giao Diện Phòng Hát");
@@ -134,12 +138,6 @@ public class GD_PhongHat extends JFrame implements ActionListener {
 		btnNewButton.setIcon(new ImageIcon(GD_Main_NV.class.getResource("/Imgs/iconHoTro.png")));
 		btnNewButton.setBounds(304, 10, 49, 50);
 		contentPane.add(btnNewButton);
-		
-		JLabel lblavatar = new JLabel("");
-		lblavatar.setHorizontalAlignment(SwingConstants.CENTER);
-		lblavatar.setIcon(new ImageIcon(GD_Main_QL.class.getResource("/Imgs/t1 1.png")));
-		lblavatar.setBounds(90, -444, 1333, 957);
-		contentPane.add(lblavatar);
 		
 		JLabel lblquanly = new JLabel("QL:");
 		lblquanly.setForeground(Color.WHITE);
@@ -266,7 +264,7 @@ public class GD_PhongHat extends JFrame implements ActionListener {
 				btnxoaActionPerformed(e);
 				String maKH = txtMaPhong.getText();
 				dsp.deleteCustomerByCustomerId(maKH);
-				loadData();
+//				loadData();
 			}
 		});
         pnl_thongtinkhachhang.add(btnxoa);
@@ -304,6 +302,15 @@ public class GD_PhongHat extends JFrame implements ActionListener {
         cbB_TrangThai.setBounds(25, 200, 121, 25);
         pnl_thongtinkhachhang.add(cbB_TrangThai);
         loadComBoBoxTrangThai();
+
+
+//        JComboBox cbB_giaPhong = new JComboBox();
+//        cbB_giaPhong.setBounds(25, 200, 121, 25);
+//        pnl_thongtinkhachhang.add(cbB_giaPhong);
+
+
+
+
         
         JLabel lblNewLabel_2_1_1 = new JLabel("Tình Trạng Phòng");
         lblNewLabel_2_1_1.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -352,6 +359,12 @@ public class GD_PhongHat extends JFrame implements ActionListener {
         txt_TinhTrang.setColumns(10);
         txt_TinhTrang.setBounds(25, 258, 236, 25);
         pnl_thongtinkhachhang.add(txt_TinhTrang);
+
+        JLabel lblavatar = new JLabel("");
+        lblavatar.setBounds(318, -591, 1149, 957);
+        pnl_thongtinkhachhang.add(lblavatar);
+        lblavatar.setHorizontalAlignment(SwingConstants.CENTER);
+        lblavatar.setIcon(new ImageIcon(GD_TaiKhoan.class.getResource("/Imgs/t1 1.png")));
         
         JLabel lblNewLabel_3 = new JLabel("Số người");
         lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -475,7 +488,7 @@ public class GD_PhongHat extends JFrame implements ActionListener {
 		//Tao Bang
 
 	}
-
+	
 	protected void btnLmMiActionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		
@@ -506,6 +519,12 @@ public class GD_PhongHat extends JFrame implements ActionListener {
 	
 	private void btnthemActionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
+//		int maxMaKH = dsp.getMaxMaPH();
+//		maxMaKH++;
+//		
+//	    
+//	    // Gán giá trị mới cho ô nhập liệu mã kh
+//		txtMaPhong.setText("P" + String.format("%03d", maxMaKH));
 		
 		int maPhongCounter = dsp.getMaxMaPH();
 		maPhongCounter++;
@@ -519,33 +538,33 @@ public class GD_PhongHat extends JFrame implements ActionListener {
 		
 	}
 	
-	private void initComponents() {
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                formWindowClosing(evt);
-            }
-        });
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
-
-        pack();
-    }
-
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-         GD_Main_QL mainql=new GD_Main_QL();
-         mainql.setVisible(true);
-    }
+//	private void initComponents() {
+//
+//        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+//        addWindowListener(new java.awt.event.WindowAdapter() {
+//            public void windowClosing(java.awt.event.WindowEvent evt) {
+//                formWindowClosing(evt);
+//            }
+//        });
+//
+//        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+//        getContentPane().setLayout(layout);
+//        layout.setHorizontalGroup(
+//            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+//            .addGap(0, 400, Short.MAX_VALUE)
+//        );
+//        layout.setVerticalGroup(
+//            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+//            .addGap(0, 300, Short.MAX_VALUE)
+//        );
+//
+//        pack();
+//    }
+//
+//    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+//         GD_Main_QL mainql=new GD_Main_QL();
+//         mainql.setVisible(true);
+//    }
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == timer) {
@@ -660,16 +679,16 @@ public class GD_PhongHat extends JFrame implements ActionListener {
 		Right_QL_PHONG.add(scrollPane_DSPH);
 		
 		JPanel panel_dsph = new JPanel();
-		panel_dsph.setBackground(new Color(255,255,255));
+		panel_dsph.setBackground(new Color(192, 192, 192));
 		scrollPane_DSPH.setViewportView(panel_dsph);
-		panel_dsph.setLayout(new GridLayout(0, 5, 10, 10));
+		panel_dsph.setLayout(new GridLayout(0, 5, -50, 20));
     	for(Phong ph : listph) {
     		//load label cha
     		JPanel pnl_phonghat = new JPanel();
-    		pnl_phonghat.setBackground(new Color(255, 255, 255));
+    		pnl_phonghat.setBackground(new Color(255, 255, 255, 0));
     		pnl_phonghat.setLayout(null);
-    		pnl_phonghat.setBorder(LineBorder.createBlackLineBorder());
-    		pnl_phonghat.setPreferredSize(new Dimension(150, 150));
+//    		pnl_phonghat.setBorder(LineBorder.createBlackLineBorder());
+    		pnl_phonghat.setPreferredSize(new Dimension(200, 200));
     		panel_dsph.add(pnl_phonghat);
    		
 //    		//load suc chua
@@ -677,21 +696,21 @@ public class GD_PhongHat extends JFrame implements ActionListener {
     		lbl_succhua.setHorizontalAlignment(SwingConstants.CENTER);
     		lbl_succhua.setFont(new Font("Tahoma", Font.BOLD, 11));
     		lbl_succhua.setForeground(new Color(255,0,0));
-    		lbl_succhua.setBounds(39, 115, 85, 35);
+    		lbl_succhua.setBounds(55, 130, 85, 35);
     		pnl_phonghat.add(lbl_succhua);
     		
     		//load ten phong
-    		JLabel lbl_maphong = new JLabel(ph.getMaPhong());
-    		lbl_maphong.setFont(new Font("Tahoma", Font.BOLD, 13));
-    		lbl_maphong.setHorizontalAlignment(SwingConstants.CENTER);
-    		lbl_maphong.setBounds(39, 98, 85, 35);
-    		pnl_phonghat.add(lbl_maphong);
+    		JLabel lbl_tenphong = new JLabel(ph.getTenPhong());
+    		lbl_tenphong.setFont(new Font("Tahoma", Font.BOLD, 13));
+    		lbl_tenphong.setHorizontalAlignment(SwingConstants.CENTER);
+    		lbl_tenphong.setBounds(55, 145, 85, 35);
+    		pnl_phonghat.add(lbl_tenphong);
     		
     		//load hinh anh
     		JLabel lbl_hinhanh = new JLabel("");
     		lbl_hinhanh.setHorizontalAlignment(SwingConstants.CENTER);
-    		lbl_hinhanh.setBounds(0, 0, 162, 121);
-//    		lbl_hinhanh.setBorder(LineBorder.createBlackLineBorder());
+    		lbl_hinhanh.setBounds(50, 50, 88, 85);
+    		lbl_hinhanh.setBorder(LineBorder.createBlackLineBorder());
     		pnl_phonghat.add(lbl_hinhanh);
     		
     		//phan loai phong
@@ -700,6 +719,12 @@ public class GD_PhongHat extends JFrame implements ActionListener {
     		}else {
     			lbl_hinhanh.setIcon(new ImageIcon(GD_PhongHat.class.getResource("/Imgs/micro_with_crown.png")));
     		}
+//    		if(ph.getTrangThaiPhong().getTenTrangThai().trim().equals("Phòng Trống")) {
+//    			lbl_hinhanh.setIcon(new ImageIcon(GD_PhongHat.class.getResource("/Imgs/micro.png")));
+//    		}else {
+//    			lbl_hinhanh.setIcon(new ImageIcon(GD_PhongHat.class.getResource("/Imgs/micro_gray.png")));
+//    		}
+    		
     		
     		pnl_phonghat.addMouseListener(new MouseAdapter() {
 				@Override
