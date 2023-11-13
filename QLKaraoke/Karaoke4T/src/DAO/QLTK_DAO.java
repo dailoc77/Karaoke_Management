@@ -47,7 +47,8 @@ public class QLTK_DAO {
 				String ten = rs.getString(2);
 				String mk = rs.getString(3);
 				String tennv = rs.getString(4);
-				TaiKhoanNhanVien tk = new TaiKhoanNhanVien(ma,ten,mk,tennv);
+				String email = rs.getString(5);
+				TaiKhoanNhanVien tk = new TaiKhoanNhanVien(ma,ten,mk,tennv,email);
 				dstk.add(tk);
 			}
 		} catch (Exception e) {
@@ -70,7 +71,8 @@ public class QLTK_DAO {
 				String ten = rs.getString(2);
 				String mk = rs.getString(3);
 				String tennv = rs.getString(4);
-				TaiKhoanNhanVien tk = new TaiKhoanNhanVien(ma,ten,mk,tennv);
+				String email = rs.getString(5);
+				TaiKhoanNhanVien tk = new TaiKhoanNhanVien(ma,ten,mk,tennv,email);
 				dstk.add(tk);
 			}
 		} catch (Exception e) {
@@ -84,11 +86,12 @@ public class QLTK_DAO {
 		PreparedStatement smt = null;
 		int n = 0;
 		try {
-			smt = con.prepareStatement("insert into TaiKhoan values(?, ?, ?, ?)");
+			smt = con.prepareStatement("insert into TaiKhoan values(?, ?, ?, ?, ?)");
 			smt.setString(1, tk.getMaTaiKhoan());
 			smt.setString(2, tk.getTenTaiKhoan());
 			smt.setString(3, tk.getMatKhau());
 			smt.setString(4, tk.getTenNV());
+			smt.setString(5, tk.getEmail());
 			n = smt.executeUpdate();
 			
 		} catch (Exception e) {
@@ -102,11 +105,12 @@ public class QLTK_DAO {
 		PreparedStatement smt = null;
 		int n = 0;
 		try {
-			smt = con.prepareStatement("UPDATE TaiKhoan SET tenTK = ?, MK = ? , tenNV = ? where maTK = ?");
+			smt = con.prepareStatement("UPDATE TaiKhoan SET tenTK = ?, MK = ? , tenNV = ?, email = ? where maTK = ?");
 			smt.setString(1, tk.getTenTaiKhoan());
 			smt.setString(2, tk.getMatKhau());
 			smt.setString(3, tk.getTenNV());
-			smt.setString(4, tk.getMaTaiKhoan());
+			smt.setString(4, tk.getEmail());
+			smt.setString(5, tk.getMaTaiKhoan());
 			
 			n = smt.executeUpdate();
 		} catch (Exception e) {
@@ -144,7 +148,7 @@ public class QLTK_DAO {
         ResultSet rs = null;
         try {
             conn = connectDB.getInstance().getConnection();
-            String query = "SELECT MAX(CONVERT(INT, SUBSTRING(nv.maTK, 5, LEN(nv.maTK)))) FROM NhanVien nv inner join TaiKhoan tk on nv.maTK = tk.maTK";
+            String query = "SELECT MAX(CONVERT(INT, SUBSTRING(maTK, 3, LEN(maTK)))) FROM TaiKhoan";
             pstmt = conn.prepareStatement(query);
             rs = pstmt.executeQuery();
 

@@ -11,7 +11,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -34,7 +40,9 @@ import javax.swing.Timer;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+import DAO.QLKH_DAO;
 import DAO.QLPH_DAO;
+import Entity.KhachHang;
 import Entity.Phong;
 import connectDB.connectDB;
 import testbutton.Buttontest;
@@ -45,14 +53,24 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
 	private JPanel contentPane;
 	private JLabel lblClock;
 	private Timer timer;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
+	
+	private JTextField textFieldTenKhach;
+	private JTextField textFieldSDT;
+	private JTextField textFieldCMND;
+	private JTextField textFieldDiaChi;
+	private JTextField textFieldSoLuongNguoi;
+	
+	private String soLuongNguoi;
+	private String trangThaiPhong;
+	private  JRadioButton rdbtnNAM,rdbtnNU;
+	private boolean isSelected = false;
 	private testbutton.Buttontest btnthuephong, btnhuyphong;
+	
+	private String maPhong,tenKH,sdt,cmnd,diaChi,songuoi;
+	private float giaTien;
 	private List<Phong> phongList = new ArrayList<Phong>();
 	QLPH_DAO ds = new QLPH_DAO();
+	QLKH_DAO dskh = new QLKH_DAO();
 	JPanel pnl_danhsachphonghat = new JPanel();
 
 	/**
@@ -115,6 +133,9 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
 				catch(Exception ex){}
 			}
 		});
+		
+		
+				
 		btnNewButton.setIcon(new ImageIcon(GD_Main_NV.class.getResource("/Imgs/iconHoTro.png")));
 		btnNewButton.setBounds(304, 10, 49, 50);
 		contentPane.add(btnNewButton);
@@ -199,10 +220,10 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
         contentPane.add(pnl_thongtinkhachhang);
         pnl_thongtinkhachhang.setLayout(null);
         
-        textField = new JTextField();
-        textField.setBounds(25, 55, 236, 25);
-        pnl_thongtinkhachhang.add(textField);
-        textField.setColumns(10);
+        textFieldTenKhach = new JTextField();
+        textFieldTenKhach.setBounds(25, 55, 236, 25);
+        pnl_thongtinkhachhang.add(textFieldTenKhach);
+        textFieldTenKhach.setColumns(10);
         
         JLabel lblNewLabel = new JLabel("Tên Khách Hàng");
         lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -210,21 +231,21 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
         pnl_thongtinkhachhang.add(lblNewLabel);
         
         // rad button
-        JRadioButton rdbtnNewRadioButton = new JRadioButton("Nam");
-        rdbtnNewRadioButton.setBounds(25, 115, 109, 23);
-        rdbtnNewRadioButton.setOpaque(false);
-		rdbtnNewRadioButton.setContentAreaFilled(false);
-		rdbtnNewRadioButton.setFocusPainted(false);
-        pnl_thongtinkhachhang.add(rdbtnNewRadioButton);
+        rdbtnNAM = new JRadioButton("Nam");
+        rdbtnNAM.setBounds(25, 115, 109, 23);
+        rdbtnNAM.setOpaque(false);
+		rdbtnNAM.setContentAreaFilled(false);
+		rdbtnNAM.setFocusPainted(false);
+        pnl_thongtinkhachhang.add(rdbtnNAM);
         
-        JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("Nữ");
-        rdbtnNewRadioButton_1.setBounds(152, 115, 109, 23);
-        rdbtnNewRadioButton_1.setOpaque(false);
-        pnl_thongtinkhachhang.add(rdbtnNewRadioButton_1);
+        rdbtnNU = new JRadioButton("Nữ");
+        rdbtnNU.setBounds(152, 115, 109, 23);
+        rdbtnNU.setOpaque(false);
+        pnl_thongtinkhachhang.add(rdbtnNU);
         
         ButtonGroup bg = new ButtonGroup();
-		bg.add(rdbtnNewRadioButton);bg.add(rdbtnNewRadioButton_1);
-		pnl_thongtinkhachhang.add(rdbtnNewRadioButton);pnl_thongtinkhachhang.add(rdbtnNewRadioButton_1);
+		bg.add(rdbtnNAM);bg.add(rdbtnNU);
+		pnl_thongtinkhachhang.add(rdbtnNAM);pnl_thongtinkhachhang.add(rdbtnNU);
 		// rad button
 		 
         JLabel lblNewLabel_1 = new JLabel("Số Điện Thoại");
@@ -232,20 +253,20 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
         lblNewLabel_1.setBounds(25, 171, 93, 14);
         pnl_thongtinkhachhang.add(lblNewLabel_1);
         
-        textField_1 = new JTextField();
-        textField_1.setBounds(25, 187, 236, 25);
-        pnl_thongtinkhachhang.add(textField_1);
-        textField_1.setColumns(10);
+        textFieldSDT = new JTextField();
+        textFieldSDT.setBounds(25, 187, 236, 25);
+        pnl_thongtinkhachhang.add(textFieldSDT);
+        textFieldSDT.setColumns(10);
         
-        textField_2 = new JTextField();
-        textField_2.setBounds(25, 238, 236, 25);
-        pnl_thongtinkhachhang.add(textField_2);
-        textField_2.setColumns(10);
+        textFieldCMND = new JTextField();
+        textFieldCMND.setBounds(25, 238, 236, 25);
+        pnl_thongtinkhachhang.add(textFieldCMND);
+        textFieldCMND.setColumns(10);
         
-        textField_3 = new JTextField();
-        textField_3.setBounds(25, 291, 236, 25);
-        pnl_thongtinkhachhang.add(textField_3);
-        textField_3.setColumns(10);
+        textFieldDiaChi = new JTextField();
+        textFieldDiaChi.setBounds(25, 291, 236, 25);
+        pnl_thongtinkhachhang.add(textFieldDiaChi);
+        textFieldDiaChi.setColumns(10);
         
         JLabel lblNewLabel_2 = new JLabel("CMND");
         lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -262,10 +283,10 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
         lblNewLabel_11.setBounds(25, 333, 109, 21);
         pnl_thongtinkhachhang.add(lblNewLabel_11);
         
-        textField_4 = new JTextField();
-        textField_4.setColumns(10);
-        textField_4.setBounds(150, 332, 79, 25);
-        pnl_thongtinkhachhang.add(textField_4);
+        textFieldSoLuongNguoi = new JTextField();
+        textFieldSoLuongNguoi.setColumns(10);
+        textFieldSoLuongNguoi.setBounds(150, 332, 111, 25);
+        pnl_thongtinkhachhang.add(textFieldSoLuongNguoi);
                
         
         //button thue phong
@@ -285,7 +306,10 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
 				GD_PhieuDatPhong phieuDatPhong = new GD_PhieuDatPhong();
 				phieuDatPhong.setVisible(true);
 				phieuDatPhong.setLocationRelativeTo(null);
+				
+				phieuDatPhong.loadPhieuDatPhongTuDuLieuNhap(maPhong, tenKH, sdt, cmnd, diaChi, songuoi, giaTien);
 	            dispose();
+	            
 			}
 		});
         // button huy thue phong
@@ -318,12 +342,13 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
 		contentPane.add(btndatphong1);
 		btndatphong1.setLayout(null);
 		
-		//Danh sach phong hat
-          
+
+
         testbutton.Buttontest btnthuephong = new testbutton.Buttontest();
         btnthuephong.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				
 			}
 		});
         btnthuephong.setBorder(null);
@@ -420,6 +445,13 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
 		lb_hinhnen.setIcon(new ImageIcon(GD_DatPhong.class.getResource("/Imgs/370.png")));
 		lb_hinhnen.setBounds(-40, -176, 1333, 957);
 		contentPane.add(lb_hinhnen);
+		
+//		String ten = textFieldTenKhach.getText();
+//		String sdt = textFieldDiaChi.getText();
+//		String cccd = textFieldCMND.getText();
+//		String dch = textFieldDiaChi.getText();
+		tenKH = textFieldTenKhach.getText();
+		System.out.print(maPhong+tenKH+sdt+cmnd+diaChi+songuoi);
 		
 	}
 	public void actionPerformed(ActionEvent e) {
@@ -535,14 +567,169 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
     		lbl_hinhanh.setHorizontalAlignment(SwingConstants.CENTER);
     		lbl_hinhanh.setBounds(50, 50, 88, 85);
     		pn_phonghat.add(lbl_hinhanh);
-    		lbl_hinhanh.setBorder(LineBorder.createBlackLineBorder());
+
     		
+    		LineBorder labelBorder = new LineBorder(Color.BLACK, 5);
+	        lbl_hinhanh.setBorder(labelBorder);
+    		lbl_hinhanh.addMouseListener(new MouseListener() {
+				
+				@Override
+				public void mouseReleased(MouseEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void mousePressed(MouseEvent e) {
+					// TODO Auto-generated method stub
+				}
+				
+				@Override
+				public void mouseExited(MouseEvent e) {
+					
+					
+				}
+				
+				@Override
+				public void mouseEntered(MouseEvent e) {
+									
+					
+				}
+				
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					// TODO Auto-generated method stub
+					maPhong =  ph.getMaPhong();
+					tenKH = textFieldTenKhach.getText();
+					sdt = textFieldSDT.getText();
+					cmnd = textFieldCMND.getText();
+					diaChi = textFieldDiaChi.getText();
+					songuoi = textFieldSoLuongNguoi.getText();
+					
+					if (ph.getLoaiPhong().getTenLoaiPhong().equals("Phòng Thường")) {
+						giaTien = 100000;
+					}
+					else {
+						giaTien = 180000;
+					}
+					String gt = "";
+					if(rdbtnNAM.isSelected()) {
+						gt = "Nam";
+					}
+					if(rdbtnNU.isSelected()) {
+						gt = "Nu";
+					}
+					btnthemActionPerformed(tenKH,sdt,cmnd,diaChi,gt);
+//					System.out.print(giaTien);
+//					System.out.print("GDThue"+maPhong);
+
+					
+					isSelected = !isSelected;
+					 if (isSelected) {
+					        LineBorder labelBorder = new LineBorder(Color.RED, 5);
+					        lbl_hinhanh.setBorder(labelBorder);
+					    } else {
+					    	 	LineBorder labelBorder = new LineBorder(Color.BLACK, 5);
+						        lbl_hinhanh.setBorder(labelBorder);
+					    }	
+				            
+					
+				}
+			}); 
+    
     		//phan loai phong
     		if(ph.getLoaiPhong().getTenLoaiPhong().equals("Phòng Thường")) {
     			lbl_hinhanh.setIcon(new ImageIcon(GD_PhongHat.class.getResource("/Imgs/micro.png")));
-    		}else {
+    		}
+    		
+    		else {
     			lbl_hinhanh.setIcon(new ImageIcon(GD_PhongHat.class.getResource("/Imgs/micro_with_crown.png")));
     		}
+    		
+    
     	}
+    	
+
 	}
+	
+	
+	
+	public void loadTrangThai(String trangthai) {
+
+        String url = "jdbc:sqlserver://localhost:1433;databasename=Karaoke4T";
+        String username = "sa";
+        String password = "123";
+
+        try {
+            // Kết nối đến cơ sở dữ liệu
+            Connection connection = DriverManager.getConnection(url, username, password);
+
+            // Truy vấn SQL để lấy dữ liệu
+            String sql = "select maTTP from TrangThaiPhong";
+            
+            
+            PreparedStatement statement = connection.prepareStatement(sql);
+       
+            ResultSet resultSet = statement.executeQuery();
+            // Lặp qua các dòng kết quả và thêm vào JComboBox
+            while (resultSet.next()) {
+                String columnName1 = resultSet.getString("maTTP");
+                trangthai = columnName1;
+//                System.out.print(trangthai);
+            }
+           
+    		
+            // Đóng các tài nguyên
+            resultSet.close();
+            statement.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+	}
+	protected void btnthemActionPerformed(String ten,String sdt,String cccd,String dch,String gt) {
+	  
+		 // Các biến dữ liệu đã được khai báo ở trên
+
+        // Thực hiện kết nối đến cơ sở dữ liệu
+        String jdbcUrl = "jdbc:sqlserver://localhost:1433;databasename=Karaoke4T"; // Thay đổi URL kết nối tùy thuộc vào loại cơ sở dữ liệu bạn đang sử dụng
+        String username = "sa";
+        String password = "123";
+
+        try (Connection connection = DriverManager.getConnection(jdbcUrl, username, password)) {
+            // Chuẩn bị câu lệnh SQL để chèn dữ liệu
+            String sql = "INSERT INTO KhachHang (maKH,gioiTinh,tenKH,SDT,CMND,diaChi) VALUES (?, ?, ?, ?, ?, ?)";
+
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            	 int maxMaKH = dskh.getMaxMaKH();
+ 			     maxMaKH++;
+ 			    			
+	 			JTextField matxt = new JTextField();
+	 			matxt.setText("KHAA" + String.format("%03d", maxMaKH));
+	 			String ma = matxt.getText().toString();
+			
+			
+				
+                preparedStatement.setString(1, ma);
+                preparedStatement.setString(2, gt);
+                preparedStatement.setString(3, ten);
+                preparedStatement.setString(4, sdt);
+                preparedStatement.setString(5, cccd);
+                preparedStatement.setString(6, dch);
+
+                // Thực hiện câu lệnh SQL chèn dữ liệu
+                int rowsAffected = preparedStatement.executeUpdate();
+
+                if (rowsAffected > 0) {
+                    System.out.println("Dữ liệu đã được chèn thành công!");
+                } else {
+                    System.out.println("Có lỗi xảy ra khi chèn dữ liệu.");
+                }
+            }
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        }
+	
+	}
+		
 }

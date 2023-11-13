@@ -50,22 +50,24 @@ import javax.swing.table.DefaultTableModel;
 import DAO.QLTK_DAO;
 import Entity.*;
 import connectDB.connectDB;
+//import test.CustomerCodeGenerator;
 import testbutton.Buttontest;
  
 
-public class GD_TaiKhoan extends JFrame implements ActionListener{
+public class aaa extends JFrame implements ActionListener{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField txtMaTK, txtmk, txtTaiKhoan, txtTenNV, txt_email;
+	private JTextField txtMaTK, txtmk, txtTaiKhoan, txtTenNV, txtEmail;
 	private JTable table;
 	DefaultTableModel model;
 	private JLabel lblClock;
 	private Timer timer;
 	private testbutton.Buttontest btnthem, btnxoa, btnlammoi, btnsua;
 	QLTK_DAO dstk = new QLTK_DAO();
+//	private JTextField textField;
 	/**
 	 * Launch the application.
 	 */
@@ -78,13 +80,13 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GD_TaiKhoan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(aaa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GD_TaiKhoan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(aaa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GD_TaiKhoan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(aaa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GD_TaiKhoan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(aaa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -92,7 +94,7 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					GD_TaiKhoan frame = new GD_TaiKhoan();
+					aaa frame = new aaa();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -103,7 +105,7 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 	/**
 	 * Create the frame.
 	 */
-	public GD_TaiKhoan() {
+	public aaa() {
 //		initComponents();
 		try {
 			connectDB.getInstance().connect();
@@ -318,21 +320,31 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 		
 		JLabel lbldiachi = new JLabel("Mật Khẩu");
 		lbldiachi.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lbldiachi.setBounds(281, 91, 145, 20);
+		lbldiachi.setBounds(520, 91, 145, 20);
 		panel.add(lbldiachi);
 		txtmk = new JTextField();
 		txtmk.setColumns(10);
-		txtmk.setBounds(281, 123, 241, 27);
+		txtmk.setBounds(520, 121, 241, 27);
 		panel.add(txtmk);
 		
 		JLabel lbltentk = new JLabel("Tên Tài Khoản");
 		lbltentk.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lbltentk.setBounds(287, 10, 159, 28);
+		lbltentk.setBounds(520, 10, 159, 28);
 		panel.add(lbltentk);
 		txtTaiKhoan = new JTextField();
 		txtTaiKhoan.setColumns(10);
-		txtTaiKhoan.setBounds(281, 37, 241, 27);
+		txtTaiKhoan.setBounds(520, 37, 241, 27);
 		panel.add(txtTaiKhoan);
+		
+		txtEmail = new JTextField();
+		txtEmail.setColumns(10);
+		txtEmail.setBounds(261, 76, 202, 27);
+		panel.add(txtEmail);
+		
+		JLabel lblEmail = new JLabel("Email");
+		lblEmail.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblEmail.setBounds(261, 44, 145, 23);
+		panel.add(lblEmail);
 		
 		//button them
 				btnthem = new testbutton.Buttontest();
@@ -408,16 +420,6 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 					}
 				});
 				panel.add(btnlammoi);
-				
-				JLabel TxtGmail = new JLabel("Email");
-				TxtGmail.setFont(new Font("Tahoma", Font.PLAIN, 16));
-				TxtGmail.setBounds(554, 10, 159, 28);
-				panel.add(TxtGmail);
-				
-				txt_email = new JTextField();
-				txt_email.setColumns(10);
-				txt_email.setBounds(554, 37, 241, 27);
-				panel.add(txt_email);
 		
 		table = new JTable();
 		table.addMouseListener(new MouseAdapter() {
@@ -428,7 +430,7 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 				txtTaiKhoan.setText(model.getValueAt(row, 1).toString());
 				txtmk.setText(model.getValueAt(row, 2).toString());
 				txtTenNV.setText(model.getValueAt(row, 3).toString());
-				txt_email.setText(model.getValueAt(row, 4).toString());
+				txtEmail.setText(model.getValueAt(row, 4).toString());
 			}
 		});
 		JScrollPane scrollPane = new JScrollPane(table);
@@ -441,11 +443,7 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 		model.addColumn("Mật khẩu");
 		model.addColumn("Tên nhân viên");
 		model.addColumn("Email");
-
-
 //		model.addColumn("Email");
-
-
 //		model.addColumn("Tên Tài Khoản");
 //		model.addColumn("Mật Khẩu");
 		// Add data to the table
@@ -465,11 +463,11 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 		lbltenql.setBounds(833, 6, 232, 80);
 		contentPane.add(lbltenql);
 		
-//		JLabel lblavatar = new JLabel("");
-//		lblavatar.setHorizontalAlignment(SwingConstants.CENTER);
-//		lblavatar.setIcon(new ImageIcon(GD_TaiKhoan.class.getResource("/Imgs/t1 1.png")));
-//		lblavatar.setBounds(90, -444, 1333, 957);
-//		contentPane.add(lblavatar);
+		JLabel lblavatar = new JLabel("");
+		lblavatar.setHorizontalAlignment(SwingConstants.CENTER);
+		lblavatar.setIcon(new ImageIcon(GD_TaiKhoan.class.getResource("/Imgs/t1 1.png")));
+		lblavatar.setBounds(90, -444, 1333, 957);
+		contentPane.add(lblavatar);
 	
 		JLabel lblhinhnen = new JLabel("");
 		lblhinhnen.setHorizontalAlignment(SwingConstants.CENTER);
@@ -496,12 +494,11 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 				table.setValueAt(txtTaiKhoan.getText(), row, 1);
 				table.setValueAt(txtmk.getText(), row, 2);
 				table.setValueAt(txtTenNV.getText(), row, 3);
-				table.setValueAt(txt_email.getText(), row, 4);
+				table.setValueAt(txtEmail.getText(), row, 4);
 				JOptionPane.showMessageDialog(this, "Sửa thông tin tài khoản nhân viên thành công!");
-//				table.setModel(model);
+				table.setModel(model);
 			}
 		}
-		
 		loadTable();
 	}
 	protected void btnxoaActionPerformed(ActionEvent e) {
@@ -529,7 +526,7 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 	    
 		TaiKhoanNhanVien tk = reverSPFromTextField();
 		if(dstk.create(tk)) {
-			Object [] rowData = {txtMaTK.getText(), txtTaiKhoan.getText(), txtmk.getText(), txtTenNV.getText(), txt_email.getText()};
+			Object [] rowData = {txtMaTK.getText(), txtTaiKhoan.getText(), txtmk.getText(), txtTenNV.getText(), txtEmail.getText()};
 			model.addRow(rowData);
 			JOptionPane.showMessageDialog(this, "Thêm Tài Khoản Thành Công");
 			lammoi();
@@ -575,7 +572,7 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 		String tentk = txtTaiKhoan.getText().toString();
 		String mk = txtmk.getText().toString();
 		String tennv = txtTenNV.getText().toString();
-		String email = txt_email.getText().toString();
+		String email = txtEmail.getText().toString();
 		return new TaiKhoanNhanVien(matk, tentk, mk, tennv,email);
 	}
 //    
@@ -607,43 +604,15 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 		txtTaiKhoan.setText(table.getValueAt(row,2).toString());
 		txtTenNV.setText(table.getValueAt(row, 3).toString());
 		txtmk.setText(table.getValueAt(row, 4).toString());
-		txt_email.setText(table.getValueAt(row, 5).toString());
+		txtEmail.setText(table.getValueAt(row, 5).toString());
 	}
 	public void lammoi() {
 		txtMaTK.setText("");
 		txtmk.setText("");
 		txtTaiKhoan.setText("");
 		txtTenNV.setText("");
-		txt_email.setText("");
+		txtEmail.setText("");
 		txtMaTK.requestFocus();
 	}
-	
-//	private void initComponents() {
-//
-//        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-//        addWindowListener(new java.awt.event.WindowAdapter() {
-//            public void windowClosing(java.awt.event.WindowEvent evt) {
-//                formWindowClosing(evt);
-//            }
-//        });
-//
-//        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-//        getContentPane().setLayout(layout);
-//        layout.setHorizontalGroup(
-//            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-//            .addGap(0, 400, Short.MAX_VALUE)
-//        );
-//        layout.setVerticalGroup(
-//            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-//            .addGap(0, 300, Short.MAX_VALUE)
-//        );
-//
-//        pack();
-//    }
-
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-         GD_Main_QL mainql=new GD_Main_QL();
-         mainql.setVisible(true);
-    }
 }
 
