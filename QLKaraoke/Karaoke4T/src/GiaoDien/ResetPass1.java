@@ -134,7 +134,11 @@ public class ResetPass1 extends JFrame{
 	    passNew.setBounds(44, 191, 240, 40);
 	    panel.add(passNew);
 	    passNew.setColumns(10);
+<<<<<<< Updated upstream
 
+=======
+	
+>>>>>>> Stashed changes
 	    JLabel lblNewLabel = new JLabel("");
 	    lblNewLabel.setIcon(new ImageIcon(ResetPass1.class.getResource("/Imgs/BG_login.jpg")));
 	    lblNewLabel.setBounds(0, 0, 728, 468);

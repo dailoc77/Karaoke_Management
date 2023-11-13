@@ -54,7 +54,7 @@ import test.CustomerCodeGenerator;
 import testbutton.Buttontest;
  
 
-public class GD_TaiKhoan extends JFrame implements ActionListener{
+public class aaa extends JFrame implements ActionListener{
 	/**
 	 * 
 	 */
@@ -67,6 +67,7 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 	private Timer timer;
 	private testbutton.Buttontest btnthem, btnxoa, btnlammoi, btnsua;
 	QLTK_DAO dstk = new QLTK_DAO();
+//	private JTextField textField;
 	/**
 	 * Launch the application.
 	 */
@@ -79,13 +80,13 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GD_TaiKhoan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(aaa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GD_TaiKhoan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(aaa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GD_TaiKhoan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(aaa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GD_TaiKhoan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(aaa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -93,7 +94,7 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					GD_TaiKhoan frame = new GD_TaiKhoan();
+					aaa frame = new aaa();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -104,8 +105,8 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 	/**
 	 * Create the frame.
 	 */
-	public GD_TaiKhoan() {
-		initComponents();
+	public aaa() {
+//		initComponents();
 		try {
 			connectDB.getInstance().connect();
 		} catch (Exception e) {
@@ -335,6 +336,16 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 		txtTaiKhoan.setBounds(520, 37, 241, 27);
 		panel.add(txtTaiKhoan);
 		
+		txtEmail = new JTextField();
+		txtEmail.setColumns(10);
+		txtEmail.setBounds(261, 76, 202, 27);
+		panel.add(txtEmail);
+		
+		JLabel lblEmail = new JLabel("Email");
+		lblEmail.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblEmail.setBounds(261, 44, 145, 23);
+		panel.add(lblEmail);
+		
 		//button them
 				btnthem = new testbutton.Buttontest();
 				btnthem.setText("Thêm");
@@ -485,11 +496,10 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 				table.setValueAt(txtTenNV.getText(), row, 3);
 				table.setValueAt(txtEmail.getText(), row, 4);
 				JOptionPane.showMessageDialog(this, "Sửa thông tin tài khoản nhân viên thành công!");
-//				table.setModel(model);
+				table.setModel(model);
 			}
 		}
-		
-		updateTableData();
+		loadTable();
 	}
 	protected void btnxoaActionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
@@ -604,33 +614,5 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 		txtEmail.setText("");
 		txtMaTK.requestFocus();
 	}
-	
-	private void initComponents() {
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                formWindowClosing(evt);
-            }
-        });
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
-
-        pack();
-    }
-
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-         GD_Main_QL mainql=new GD_Main_QL();
-         mainql.setVisible(true);
-    }
 }
 

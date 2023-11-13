@@ -29,7 +29,7 @@ public class QLNV_DAO {
 				String trangThaiLamViec = rs.getString(7);
 				String dc = rs.getString(8);
 				LoaiNhanVien loainv = new LoaiNhanVien(null, rs.getString(9));
-				TaiKhoanNhanVien maTK = new TaiKhoanNhanVien(rs.getString(10), null, null, null);
+				TaiKhoanNhanVien maTK = new TaiKhoanNhanVien(rs.getString(10), null, null, null, null);
 //				NhanVien nv = new NhanVien(ma,ten,gt,ngaySinh,cmnd,sdt,trangThaiLamViec,dc, loainv,maTK);
 				NhanVien nv = new NhanVien(ma,ten,gt,ngaySinh,cmnd,sdt,trangThaiLamViec,dc, loainv,maTK);
 				dsnv.add(nv);

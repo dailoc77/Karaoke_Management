@@ -7,6 +7,7 @@ public class TaiKhoanNhanVien {
 	private String tenTaiKhoan;
 	private String matKhau;	
 	private String tenNV;
+	private String email;
 
 	@Override
 	public boolean equals(Object obj) {
@@ -20,11 +21,12 @@ public class TaiKhoanNhanVien {
 		return Objects.equals(maTaiKhoan, other.maTaiKhoan);
 	}
 
-	public TaiKhoanNhanVien(String maTaiKhoan, String tenTaiKhoan, String matKhau, String tenNV) {
+	public TaiKhoanNhanVien(String maTaiKhoan, String tenTaiKhoan, String matKhau, String tenNV, String email) {
 		setMaTaiKhoan(maTaiKhoan);
 		setTenTaiKhoan(tenTaiKhoan);
 		setMatKhau(matKhau);
 		setTenNV(tenNV);
+		setEmail(email);
 	}
 
 	public String getMaTaiKhoan() {
@@ -58,6 +60,15 @@ public class TaiKhoanNhanVien {
 	public void setTenNV(String tenNV) {
 		this.tenNV = tenNV;
 	}
+	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(maTaiKhoan);
