@@ -470,7 +470,7 @@ public class GD_QLDichVu extends JFrame implements ActionListener{
 		txt_giaDV.setText("");
 		txt_soLuong.setText("");
 		txt_tenDV.setText("");
-		loadData();
+
 	}
 	
 	@Override

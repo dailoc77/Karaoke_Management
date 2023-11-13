@@ -6,9 +6,21 @@ public class DichVu {
 	private double giaDichVu;
 	private int soLuongDichVu;
 	
+	public DichVu() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	public DichVu(String maDichVu) {
 		super();
 		setMaDichVu(maDichVu);
+	}
+	
+	public DichVu(String maDichVu, String tenDichVu, double giaDichVu) {
+		super();
+		setMaDichVu(maDichVu);
+		setTenDichVu(tenDichVu);
+		setGiaDichVu(giaDichVu);
 	}
 	
 	public DichVu(String maDichVu,double giaDichVu , int soLuongDichVu , String tenDichVu) {
@@ -50,5 +62,11 @@ public class DichVu {
 	public void setSoLuongDichVu(int soLuongDichVu) {
 		this.soLuongDichVu = soLuongDichVu;
 	}
+
+	@Override
+	public String toString() {
+		return maDichVu;
+	}
+	
 	
 }

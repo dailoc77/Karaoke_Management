@@ -7,12 +7,14 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Desktop;
 import java.awt.EventQueue;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.BorderFactory;
+import javax.swing.DefaultCellEditor;
 import javax.swing.ImageIcon;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -32,12 +34,14 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import javax.swing.JScrollPane;
 
-import javax.swing.border.EtchedBorder;
+
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 
-import DAO.QLDV_DAO;
-import Entity.DichVu;
+import DAO.*;
+
+import Entity.*;
 import connectDB.connectDB;
 
 import javax.swing.ScrollPaneConstants;
@@ -47,6 +51,7 @@ import java.awt.GridLayout;
 import java.awt.Dimension;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.UIManager;
 
 public class GD_DatDichVu extends JFrame implements ActionListener{
@@ -57,10 +62,9 @@ public class GD_DatDichVu extends JFrame implements ActionListener{
 	private JPanel contentPane;
 	private JLabel lblClock;
 	private Timer timer;
-	private DefaultTableModel model;
-	private JTable table_1;
+
+	private JTable table;
 	private JComboBox<String> comboBox_chonPhong;
-	private QLDV_DAO dsdv = new QLDV_DAO();
 	/**
 	 * Launch the application.
 	 */
@@ -343,21 +347,24 @@ public class GD_DatDichVu extends JFrame implements ActionListener{
 
 		Right_DatDichVu.add(scrollPane_DSDVdadat);
 		
-		table_1 = new JTable();
-		table_1.setBorder(null);
-		table_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		table_1.setBackground(new Color(255, 255, 255));
-		scrollPane_DSDVdadat.setViewportView(table_1);
+		table = new JTable();
+		table.setBorder(null);
+		table.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		table.setBackground(new Color(255, 255, 255));
+		scrollPane_DSDVdadat.setViewportView(table);
 		DefaultTableModel model = new DefaultTableModel();
 		model.addColumn("Mã DV");
 		model.addColumn("Tên Dịch Vụ");
 		model.addColumn("Đơn Giá");
 		model.addColumn("Số Lượng");
-		model.addColumn("Thêm");
-		model.addColumn("Bớt");
+//		model.addColumn("Thêm");
+//		model.addColumn("Bớt");
 		model.addColumn("Xóa");
-		table_1.setModel(model);
-		
+
+		table.setModel(model);
+		table.getColumnModel().getColumn(4).setCellRenderer(new XoaRenderer());
+        table.getColumnModel().getColumn(4).setCellEditor(new XoaEditor(table));
+        
 		JLabel lblquanly = new JLabel("NV:");
 		lblquanly.setForeground(Color.WHITE);
 		lblquanly.setFont(new Font("Tahoma", Font.BOLD, 16));
@@ -528,17 +535,64 @@ public class GD_DatDichVu extends JFrame implements ActionListener{
     		lbl_hinhanh.setHorizontalAlignment(SwingConstants.CENTER);
     		lbl_hinhanh.setBounds(0, 0, 150, 150);
     		pnl_dichvu.add(lbl_hinhanh);
-    		
     		pnl_dichvu.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-//					txt_MaDV.setText(dv.getMaDichVu());
-//					txt_tenDV.setText(dv.getTenDichVu());
-//					txt_giaDV.setText(dv.getGiaDichVu()+"");
-//					txt_soLuong.setText(dv.getSoLuongDichVu()+"");
+				
+					String ma = dv.getMaDichVu();
+					updateTable(ma);
 				}
-			});
-    		
+
+			}); 		
 		}
 	}
+	
+	
+	private void updateTable(String maDV) {
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        QLDV_DAO dichVuDAO = new QLDV_DAO();
+        DichVu dichVu = dichVuDAO.layDichVuTheoMa(maDV);
+
+        if (dichVu != null) {
+            Object[] rowData = {dichVu.getMaDichVu(), dichVu.getTenDichVu(), dichVu.getGiaDichVu()};
+            model.addRow(rowData);
+        }
+	}
+	static class XoaRenderer extends JButton implements TableCellRenderer {
+        public XoaRenderer() {
+            setOpaque(true);
+            setIcon(new ImageIcon("delete.png"));
+            setToolTipText("Xóa");
+        }
+
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            return this;
+        }
+    }
+
+    static class XoaEditor extends DefaultCellEditor {
+        private JButton button;
+        private JTable table;
+
+        public XoaEditor(JTable table) {
+            super(new JCheckBox());
+            this.table = table;
+            button = new JButton(new ImageIcon("delete.png"));
+            button.setOpaque(true);
+            button.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    int row = table.getSelectedRow();
+                    if (row != -1) {
+                        ((DefaultTableModel) table.getModel()).removeRow(row);
+                    }
+                }
+            });
+        }
+
+        public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+            return button;
+        }
+    }
+		
 }

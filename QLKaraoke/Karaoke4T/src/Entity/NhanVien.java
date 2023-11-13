@@ -31,9 +31,8 @@ public class NhanVien
 	public void setMaTK(TaiKhoanNhanVien maTK) {
 		this.maTK = maTK;
 	}
-	public NhanVien(String maNV, String tenNV, String gioiTinh, String ngaySinh, String cMND, String sDT,
 
-			String trangThaiLamViec, String maDC, LoaiNhanVien LNV,TaiKhoanNhanVien maTK) {
+//	public NhanVien(String maNV, String tenNV, String gioiTinh, String ngaySinh, String cMND, String sDT, String trangThaiLamViec, String maDC, LoaiNhanVien LNV,TaiKhoanNhanVien maTK) {
 
 
 //			String trangThaiLamViec, String maDC, LoaiNhanVien LNV, TaiKhoanNhanVien maTK) {
@@ -46,6 +45,8 @@ public class NhanVien
 //			String trangThaiLamViec, String maDC, LoaiNhanVien LNV,TaiKhoanNhanVien maTK) {
 
 
+
+	public NhanVien(String maNV, String tenNV, String gioiTinh, String ngaySinh, String cMND, String sDT,String trangThaiLamViec, String maDC, LoaiNhanVien LNV, TaiKhoanNhanVien maTK) {
 		setMaNV(maNV);
 		setTenNV(tenNV);
 		setGioiTinh(gioiTinh);

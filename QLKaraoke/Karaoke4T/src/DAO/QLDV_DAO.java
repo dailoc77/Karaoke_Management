@@ -81,26 +81,6 @@ public class QLDV_DAO {
 		return dsdv.get(index);
 	}
 	
-	public boolean xoaDichVu(String madv) {
-		Connection con = connectDB.getInstance().getConnection();
-		PreparedStatement smt = null;
-		int n = 0;
-		try {
-		    smt = con.prepareStatement("DELETE from DichVu where maDV = ?");
-		    smt.setString(1,madv);
-		    n = smt.executeUpdate();
-		    if (n > 0) {
-		        JOptionPane.showMessageDialog(null, "Xoa thanh cong");
-		    } else {
-		        JOptionPane.showMessageDialog(null, "Khong tim thay DichVu co maDV = " + madv);
-		    }
-		} catch (Exception e) {
-		    e.printStackTrace();
-		    JOptionPane.showMessageDialog(null, "Xoa that bai: " + e.getMessage());
-		}
-		return n>0;
-	}
-	
 	public static void deleteDvbymaDV(String maDV) {
 	    try (Connection con = connectDB.getInstance().getConnection()) {
 	        String sql = "DELETE from DichVu where maDV = ?";
@@ -126,7 +106,7 @@ public class QLDV_DAO {
         ResultSet rs = null;
         try {
             conn = connectDB.getInstance().getConnection();
-            String query = "SELECT MAX(CONVERT(INT, SUBSTRING(maDV, 5, LEN(maDV)))) FROM DichVu";
+            String query = "SELECT MAX(CONVERT(INT, SUBSTRING(maDV, 3, LEN(maDV)))) FROM DichVu";
             pstmt = conn.prepareStatement(query);
             rs = pstmt.executeQuery();
 
@@ -140,6 +120,50 @@ public class QLDV_DAO {
     }
 	
 	public ArrayList<DichVu> getDs(){
+		return dsdv;
+	}
+	
+	 public DichVu layDichVuTheoMa(String maDV) {
+	        DichVu dichVu = null;
+	        String query = "Select maDV, tenDichVu, donGia from DichVu where maDV = ?";
+	        Connection con = connectDB.getInstance().getConnection();
+	        try (PreparedStatement preparedStatement = con.prepareStatement(query)) {
+	            preparedStatement.setString(1, maDV);
+
+	            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+	                if (resultSet.next()) {
+	                    String maDichVu = resultSet.getString("maDV");
+	                    String tenDichVu = resultSet.getString("tenDichVu");
+	                    double donGia = resultSet.getDouble("donGia");
+
+	                    dichVu = new DichVu(maDichVu, tenDichVu, donGia);
+	                }
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+
+	        return dichVu;
+	    }
+	public ArrayList<Entity.DichVu> detaiedDichVu(String madv){
+		Connection con = connectDB.getInstance().getConnection();
+		PreparedStatement stm = null;
+		try {
+			
+			String sql = "Select maDV, tenDichVu, donGia from DichVu where maDV = ?";
+			stm = con.prepareStatement(sql);
+			stm.setString(1, madv);
+			ResultSet rs = stm.executeQuery();
+			while(rs.next()) {
+				String ma = rs.getString(1);
+				String ten = rs.getString(2);
+				Double gia = rs.getDouble(3);
+				DichVu s = new DichVu(madv, ten, gia);
+				dsdv.add(s);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return dsdv;
 	}
 }

@@ -700,12 +700,6 @@ public class GD_PhongHat extends JFrame implements ActionListener {
     		}else {
     			lbl_hinhanh.setIcon(new ImageIcon(GD_PhongHat.class.getResource("/Imgs/micro_with_crown.png")));
     		}
-//    		if(ph.getTrangThaiPhong().getTenTrangThai().trim().equals("Phòng Trống")) {
-//    			lbl_hinhanh.setIcon(new ImageIcon(GD_PhongHat.class.getResource("/Imgs/micro.png")));
-//    		}else {
-//    			lbl_hinhanh.setIcon(new ImageIcon(GD_PhongHat.class.getResource("/Imgs/micro_gray.png")));
-//    		}
-    		
     		
     		pnl_phonghat.addMouseListener(new MouseAdapter() {
 				@Override
