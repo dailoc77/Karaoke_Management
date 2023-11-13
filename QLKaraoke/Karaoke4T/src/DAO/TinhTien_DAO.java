@@ -21,7 +21,7 @@ public class TinhTien_DAO {
 	public ArrayList<PhieuDatPhong> docbang(){
 		try {
 			Connection con = connectDB.getInstance().getConnection();
-			String sql = "Select kh.SDT , tenKH , tenNV,thoiGianNhanPhong,tenPhong from PhieuDatPhong pdp inner join KhachHang kh on pdp.maKH = kh.maKH inner join NhanVien nv on pdp.maNV = nv.maNV inner join Phong p on pdp.maPhong = p.maPhong";
+			String sql = "Select kh.SDT , tenKH , tenNV,thoiGianNhanPhong from PhieuDatPhong pdp inner join KhachHang kh on pdp.maKH = kh.maKH inner join NhanVien nv on pdp.maNV = nv.maNV";
 			Statement sta = con.createStatement();
 			ResultSet rs = sta.executeQuery(sql);
 			while(rs.next()) {
@@ -29,8 +29,7 @@ public class TinhTien_DAO {
 				KhachHang tenKH = new KhachHang(null, null, rs.getString(2), null, null, null);
 				NhanVien tenNV = new NhanVien(null, rs.getString(3), null, null, null, null, null, null, null, null);
 				String thoiGianNhanPhong = rs.getString(4);
-				Phong tenPhong = new Phong(rs.getString(5), null, null, null, null, null);
-				PhieuDatPhong pdp = new PhieuDatPhong(sdtKH, tenKH, tenNV,thoiGianNhanPhong, tenPhong);
+				PhieuDatPhong pdp = new PhieuDatPhong(sdtKH, tenKH, tenNV,thoiGianNhanPhong);
 				dsPDP.add(pdp);
 			}
 		}catch (Exception e) {

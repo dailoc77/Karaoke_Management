@@ -72,7 +72,7 @@ public class GD_TinhTien extends JFrame {
 		
 		lbl_tenPhongTT = new JLabel("");
 		lbl_tenPhongTT.setForeground(new Color(255, 255, 255));
-		lbl_tenPhongTT.setBounds(239, 23, 317, 49);
+		lbl_tenPhongTT.setBounds(239, 23, 330, 49);
 		pnl_txt_tinhTien.add(lbl_tenPhongTT);
 		lbl_tenPhongTT.setFont(new Font("Tahoma", Font.BOLD, 32));
 		
@@ -108,32 +108,32 @@ public class GD_TinhTien extends JFrame {
 		
 		JLabel lblNewLabel_1_4 = new JLabel("Giờ nhận phòng :");
 		lblNewLabel_1_4.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_1_4.setBounds(465, 141, 129, 20);
+		lblNewLabel_1_4.setBounds(415, 141, 129, 20);
 		contentPane.add(lblNewLabel_1_4);
 		
 		lbl_gioNhanPhong = new JLabel("17:30");
 		lbl_gioNhanPhong.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lbl_gioNhanPhong.setBounds(604, 141, 190, 20);
+		lbl_gioNhanPhong.setBounds(544, 141, 238, 20);
 		contentPane.add(lbl_gioNhanPhong);
 		
 		JLabel lblNewLabel_1_5 = new JLabel("Giờ trả phòng :");
 		lblNewLabel_1_5.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_1_5.setBounds(465, 186, 115, 20);
+		lblNewLabel_1_5.setBounds(415, 186, 121, 20);
 		contentPane.add(lblNewLabel_1_5);
 		
 		lbl_gioTraPhong = new JLabel("18:30");
 		lbl_gioTraPhong.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lbl_gioTraPhong.setBounds(604, 186, 190, 20);
+		lbl_gioTraPhong.setBounds(533, 186, 238, 20);
 		contentPane.add(lbl_gioTraPhong);
 		
 		JLabel lblNewLabel_1_6 = new JLabel("Tổng thời lượng :");
 		lblNewLabel_1_6.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_1_6.setBounds(465, 233, 129, 20);
+		lblNewLabel_1_6.setBounds(415, 233, 129, 20);
 		contentPane.add(lblNewLabel_1_6);
 		
 		lbl_tongThoiLuong = new JLabel("60 phút");
 		lbl_tongThoiLuong.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lbl_tongThoiLuong.setBounds(604, 233, 97, 20);
+		lbl_tongThoiLuong.setBounds(556, 233, 238, 20);
 		contentPane.add(lbl_tongThoiLuong);
 		
 		JLabel lblNewLabel_1_7 = new JLabel("Tiền dịch vụ :");

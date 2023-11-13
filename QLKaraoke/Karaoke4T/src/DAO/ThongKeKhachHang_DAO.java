@@ -34,7 +34,7 @@ public class ThongKeKhachHang_DAO {
 				KhachHang SDT = new KhachHang(null,null,null,rs.getString(3),null,null);
 				KhachHang CMND = new KhachHang(null,null,null,null,rs.getString(4),null);
 				KhachHang diaChi = new KhachHang(null,null,null,null,null,rs.getString(5));
-				PhieuDatPhong thoigianNhan = new PhieuDatPhong(null,null,rs.getString(6),null,null,null,null);
+				PhieuDatPhong thoigianNhan = new PhieuDatPhong(null,null,null,rs.getString(6));
 				ThongKeKhachHang tkkh = new ThongKeKhachHang(maKH,tenKH,SDT,CMND,diaChi,thoigianNhan);
 				dskh.add(tkkh);
 			}
@@ -67,7 +67,7 @@ public class ThongKeKhachHang_DAO {
 					KhachHang SDT = new KhachHang(null,null,null,rs.getString(3),null,null);
 					KhachHang CMND = new KhachHang(null,null,null,null,rs.getString(4),null);
 					KhachHang diaChi = new KhachHang(null,null,null,null,null,rs.getString(5));
-					PhieuDatPhong thoigianNhan = new PhieuDatPhong(null,null,rs.getString(6),null,null,null,null);
+					PhieuDatPhong thoigianNhan = new PhieuDatPhong(null,null,null,rs.getString(6));
 					ThongKeKhachHang tkkh = new ThongKeKhachHang(maKH,tenKH,SDT,CMND,diaChi,thoigianNhan);
 					dskh.add(tkkh);
 	            }
