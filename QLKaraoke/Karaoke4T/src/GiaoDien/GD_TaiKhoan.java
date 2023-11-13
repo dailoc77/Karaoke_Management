@@ -105,7 +105,7 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 	 * Create the frame.
 	 */
 	public GD_TaiKhoan() {
-//		initComponents();
+		initComponents();
 		try {
 			connectDB.getInstance().connect();
 		} catch (Exception e) {
@@ -335,16 +335,6 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 		txtTaiKhoan.setBounds(281, 37, 241, 27);
 		panel.add(txtTaiKhoan);
 		
-		txtEmail = new JTextField();
-		txtEmail.setColumns(10);
-		txtEmail.setBounds(261, 76, 202, 27);
-		panel.add(txtEmail);
-		
-		JLabel lblEmail = new JLabel("Email");
-		lblEmail.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblEmail.setBounds(261, 44, 145, 23);
-		panel.add(lblEmail);
-		
 		//button them
 				btnthem = new testbutton.Buttontest();
 				btnthem.setText("Thêm");
@@ -359,9 +349,9 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 				    public void actionPerformed(ActionEvent e) {
 				        String tennv = txtTenNV.getText();
 				        if (tennv.matches("[A-Z\\S]+$") == true) {
-				            JOptionPane.showMessageDialog(null, "Tên phải viết hoa và không chứa ký tự đặc biệt");
+				            JOptionPane.showMessageDialog(null, "Tên phải viết hoa có dấu cách và không chứa ký tự đặc biệt");
 				        } else {
-				            String email = txtEmail.getText();
+				            String email = txt_email.getText();
 				            if (isValidEmail(email)) {
 				                btnthemActionPerformed(e);
 				            } else {
@@ -374,20 +364,6 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 					    return email.matches(".+@gmail\\.com");
 					}
 				});
-
-				
-//				btnthem.addActionListener(new ActionListener() {
-//					public void actionPerformed(ActionEvent e) {
-//						String tennv = txtTenNV.getText();
-//						if (tennv.matches("[A-Z\\S]+$") == true) {
-//							JOptionPane.showMessageDialog(null,"Tên phải viết in có khoảng trắng và không dấu");
-//						}
-//						else {
-//							btnthemActionPerformed(e);							
-//						}
-//						
-//					}
-//				});
 				panel.add(btnthem);
 				
 				//button xoa
@@ -472,16 +448,6 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 		model.addColumn("Mật khẩu");
 		model.addColumn("Tên nhân viên");
 		model.addColumn("Email");
-
-
-//		model.addColumn("Email");
-
-
-//		model.addColumn("Tên Tài Khoản");
-//		model.addColumn("Mật Khẩu");
-		// Add data to the table
-//		model.addRow(new Object[]{"1", "Nguyễn Văn A", "09999999", "GD_TaiKhoanbb@gmail.com", "GD_TaiKhoana"});
-//		model.addRow(new Object[]{"", "", "", "", ""});
 		table.setModel(model);
 		
 		JLabel lblquanly = new JLabel("QL:");
@@ -496,11 +462,11 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 		lbltenql.setBounds(833, 6, 232, 80);
 		contentPane.add(lbltenql);
 		
-//		JLabel lblavatar = new JLabel("");
-//		lblavatar.setHorizontalAlignment(SwingConstants.CENTER);
-//		lblavatar.setIcon(new ImageIcon(GD_TaiKhoan.class.getResource("/Imgs/t1 1.png")));
-//		lblavatar.setBounds(90, -444, 1333, 957);
-//		contentPane.add(lblavatar);
+		JLabel lblavatar = new JLabel("");
+		lblavatar.setHorizontalAlignment(SwingConstants.CENTER);
+		lblavatar.setIcon(new ImageIcon(GD_TaiKhoan.class.getResource("/Imgs/t1 1.png")));
+		lblavatar.setBounds(90, -444, 1333, 957);
+		contentPane.add(lblavatar);
 	
 		JLabel lblhinhnen = new JLabel("");
 		lblhinhnen.setHorizontalAlignment(SwingConstants.CENTER);
@@ -532,10 +498,6 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 				table.setModel(model);
 			}
 		}
-<<<<<<< Updated upstream
-		
-=======
->>>>>>> Stashed changes
 		loadTable();
 	}
 	protected void btnxoaActionPerformed(ActionEvent e) {
@@ -651,36 +613,33 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 		txt_email.setText("");
 		txtMaTK.requestFocus();
 	}
-<<<<<<< Updated upstream
 	
-//	private void initComponents() {
-//
-//        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-//        addWindowListener(new java.awt.event.WindowAdapter() {
-//            public void windowClosing(java.awt.event.WindowEvent evt) {
-//                formWindowClosing(evt);
-//            }
-//        });
-//
-//        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-//        getContentPane().setLayout(layout);
-//        layout.setHorizontalGroup(
-//            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-//            .addGap(0, 400, Short.MAX_VALUE)
-//        );
-//        layout.setVerticalGroup(
-//            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-//            .addGap(0, 300, Short.MAX_VALUE)
-//        );
-//
-//        pack();
-//    }
+	private void initComponents() {
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+
+        pack();
+    }
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
          GD_Main_QL mainql=new GD_Main_QL();
          mainql.setVisible(true);
     }
-=======
->>>>>>> Stashed changes
 }
 

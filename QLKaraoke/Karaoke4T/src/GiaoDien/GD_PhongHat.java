@@ -109,7 +109,7 @@ public class GD_PhongHat extends JFrame implements ActionListener {
 	 * Create the frame.
 	 */
 	public GD_PhongHat() {
-//		initComponents();
+		initComponents();
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1175, 650);
 		setTitle("Giao Diện Phòng Hát");
@@ -134,6 +134,12 @@ public class GD_PhongHat extends JFrame implements ActionListener {
 		btnNewButton.setIcon(new ImageIcon(GD_Main_NV.class.getResource("/Imgs/iconHoTro.png")));
 		btnNewButton.setBounds(304, 10, 49, 50);
 		contentPane.add(btnNewButton);
+		
+		JLabel lblavatar = new JLabel("");
+		lblavatar.setHorizontalAlignment(SwingConstants.CENTER);
+		lblavatar.setIcon(new ImageIcon(GD_Main_QL.class.getResource("/Imgs/t1 1.png")));
+		lblavatar.setBounds(90, -444, 1333, 957);
+		contentPane.add(lblavatar);
 		
 		JLabel lblquanly = new JLabel("QL:");
 		lblquanly.setForeground(Color.WHITE);
@@ -346,12 +352,6 @@ public class GD_PhongHat extends JFrame implements ActionListener {
         txt_TinhTrang.setColumns(10);
         txt_TinhTrang.setBounds(25, 258, 236, 25);
         pnl_thongtinkhachhang.add(txt_TinhTrang);
-
-        JLabel lblavatar = new JLabel("");
-        lblavatar.setBounds(318, -591, 1149, 957);
-        pnl_thongtinkhachhang.add(lblavatar);
-        lblavatar.setHorizontalAlignment(SwingConstants.CENTER);
-        lblavatar.setIcon(new ImageIcon(GD_TaiKhoan.class.getResource("/Imgs/t1 1.png")));
         
         JLabel lblNewLabel_3 = new JLabel("Số người");
         lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -519,33 +519,33 @@ public class GD_PhongHat extends JFrame implements ActionListener {
 		
 	}
 	
-//	private void initComponents() {
-//
-//        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-//        addWindowListener(new java.awt.event.WindowAdapter() {
-//            public void windowClosing(java.awt.event.WindowEvent evt) {
-//                formWindowClosing(evt);
-//            }
-//        });
-//
-//        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-//        getContentPane().setLayout(layout);
-//        layout.setHorizontalGroup(
-//            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-//            .addGap(0, 400, Short.MAX_VALUE)
-//        );
-//        layout.setVerticalGroup(
-//            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-//            .addGap(0, 300, Short.MAX_VALUE)
-//        );
-//
-//        pack();
-//    }
-//
-//    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-//         GD_Main_QL mainql=new GD_Main_QL();
-//         mainql.setVisible(true);
-//    }
+	private void initComponents() {
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+
+        pack();
+    }
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+         GD_Main_QL mainql=new GD_Main_QL();
+         mainql.setVisible(true);
+    }
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == timer) {

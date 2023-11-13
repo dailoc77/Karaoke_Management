@@ -112,7 +112,7 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
 	 * Create the frame.
 	 */
 	public GD_ThuePhong (){
-//		initComponents();
+		initComponents();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Giao Diện Thuê Phòng");
 		setBounds(100, 100, 1175, 650);
@@ -342,13 +342,6 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
 		contentPane.add(btndatphong1);
 		btndatphong1.setLayout(null);
 		
-<<<<<<< Updated upstream
-
-
-=======
-		//Danh sach phong hat
-          
->>>>>>> Stashed changes
         testbutton.Buttontest btnthuephong = new testbutton.Buttontest();
         btnthuephong.addMouseListener(new MouseAdapter() {
 			@Override
@@ -492,26 +485,12 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
 	}
     
     private void initComponents() {
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
         });
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
-
-        pack();
     }
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -550,8 +529,7 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
     		pn_phonghat.setLayout(null);
     		pn_phonghat.setPreferredSize(new Dimension(200,200));
     		panel_dsph.add(pn_phonghat);
-//
-//    		
+
 //    		//load suc chua
     		JLabel lbl_succhua = new JLabel("Sức chứa : " + ph.getSoNguoi());
     		lbl_succhua.setHorizontalAlignment(SwingConstants.CENTER);
@@ -572,7 +550,6 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
     		lbl_hinhanh.setHorizontalAlignment(SwingConstants.CENTER);
     		lbl_hinhanh.setBounds(50, 50, 88, 85);
     		pn_phonghat.add(lbl_hinhanh);
-
     		
     		LineBorder labelBorder = new LineBorder(Color.BLACK, 5);
 	        lbl_hinhanh.setBorder(labelBorder);
@@ -590,15 +567,11 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
 				}
 				
 				@Override
-				public void mouseExited(MouseEvent e) {
-					
-					
+				public void mouseExited(MouseEvent e) {				
 				}
 				
 				@Override
-				public void mouseEntered(MouseEvent e) {
-									
-					
+				public void mouseEntered(MouseEvent e) {		
 				}
 				
 				@Override
@@ -628,7 +601,6 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
 //					System.out.print(giaTien);
 //					System.out.print("GDThue"+maPhong);
 
-					
 					isSelected = !isSelected;
 					 if (isSelected) {
 					        LineBorder labelBorder = new LineBorder(Color.RED, 5);
@@ -637,8 +609,6 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
 					    	 	LineBorder labelBorder = new LineBorder(Color.BLACK, 5);
 						        lbl_hinhanh.setBorder(labelBorder);
 					    }	
-				            
-					
 				}
 			}); 
     

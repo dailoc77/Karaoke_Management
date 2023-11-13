@@ -31,30 +31,13 @@ public class NhanVien
 	public void setMaTK(TaiKhoanNhanVien maTK) {
 		this.maTK = maTK;
 	}
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-
-
 
 //	public NhanVien(String maNV, String tenNV, String gioiTinh, String ngaySinh, String cMND, String sDT,
 //			String trangThaiLamViec, String maDC, LoaiNhanVien LNV, TaiKhoanNhanVien maTK) {
 
 
-	public NhanVien(String maNV, String tenNV, String gioiTinh, String ngaySinh, String cMND, String sDT,String trangThaiLamViec, String maDC, LoaiNhanVien LNV, TaiKhoanNhanVien maTK) {
-
-=======
-=======
->>>>>>> Stashed changes
 	public NhanVien(String maNV, String tenNV, String gioiTinh, String ngaySinh, String cMND, String sDT,
-
 			String trangThaiLamViec, String maDC, LoaiNhanVien LNV, TaiKhoanNhanVien maTK) {
-<<<<<<< Updated upstream
-
-//			String trangThaiLamViec, String maDC, LoaiNhanVien LNV,TaiKhoanNhanVien maTK) {
->>>>>>> Stashed changes
-
-=======
->>>>>>> Stashed changes
 		setMaNV(maNV);
 		setTenNV(tenNV);
 		setGioiTinh(gioiTinh);
