@@ -9,6 +9,8 @@ import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -60,7 +62,7 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
 	private JTextField textFieldDiaChi;
 	private JTextField textFieldSoLuongNguoi;
 	
-	private String soLuongNguoi;
+	private String soLuongNguoi,phone,ktraPhone,duLieu;
 	private String trangThaiPhong;
 	private  JRadioButton rdbtnNAM,rdbtnNU;
 	private boolean isSelected = false;
@@ -224,6 +226,8 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
         pnl_thongtinkhachhang.setLayout(null);
         
         textFieldTenKhach = new JTextField();
+        textFieldTenKhach.setEditable(false);
+        textFieldTenKhach.setEnabled(false);
         textFieldTenKhach.setBounds(25, 55, 236, 25);
         pnl_thongtinkhachhang.add(textFieldTenKhach);
         textFieldTenKhach.setColumns(10);
@@ -235,6 +239,7 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
         
         // rad button
         rdbtnNAM = new JRadioButton("Nam");
+        rdbtnNAM.setEnabled(false);
         rdbtnNAM.setBounds(25, 115, 109, 23);
         rdbtnNAM.setOpaque(false);
 		rdbtnNAM.setContentAreaFilled(false);
@@ -242,6 +247,7 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
         pnl_thongtinkhachhang.add(rdbtnNAM);
         
         rdbtnNU = new JRadioButton("Nữ");
+        rdbtnNU.setEnabled(false);
         rdbtnNU.setBounds(152, 115, 109, 23);
         rdbtnNU.setOpaque(false);
         pnl_thongtinkhachhang.add(rdbtnNU);
@@ -251,22 +257,65 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
 		pnl_thongtinkhachhang.add(rdbtnNAM);pnl_thongtinkhachhang.add(rdbtnNU);
 		// rad button
 		 
-        JLabel lblNewLabel_1 = new JLabel("Số Điện Thoại");
+        JLabel lblNewLabel_1 = new JLabel("Số điện thoại");
         lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 13));
-        lblNewLabel_1.setBounds(25, 171, 93, 14);
+        lblNewLabel_1.setBounds(25, 163, 93, 14);
         pnl_thongtinkhachhang.add(lblNewLabel_1);
         
         textFieldSDT = new JTextField();
         textFieldSDT.setBounds(25, 187, 236, 25);
         pnl_thongtinkhachhang.add(textFieldSDT);
         textFieldSDT.setColumns(10);
+        textFieldSDT.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				if(textFieldSDT.getText().equals("")) {
+					textFieldTenKhach.setText("");
+					textFieldCMND.setText("");
+					textFieldDiaChi.setText("");
+				}
+				else {
+					String a = "";
+				}
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
         
         textFieldCMND = new JTextField();
+        textFieldCMND.setEditable(false);
+        textFieldCMND.setEnabled(false);
         textFieldCMND.setBounds(25, 238, 236, 25);
         pnl_thongtinkhachhang.add(textFieldCMND);
         textFieldCMND.setColumns(10);
         
         textFieldDiaChi = new JTextField();
+        textFieldDiaChi.setEditable(false);
+        textFieldDiaChi.setEnabled(false);
         textFieldDiaChi.setBounds(25, 291, 236, 25);
         pnl_thongtinkhachhang.add(textFieldDiaChi);
         textFieldDiaChi.setColumns(10);
@@ -287,10 +336,44 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
         pnl_thongtinkhachhang.add(lblNewLabel_11);
         
         textFieldSoLuongNguoi = new JTextField();
+        textFieldSoLuongNguoi.setEnabled(false);
         textFieldSoLuongNguoi.setColumns(10);
         textFieldSoLuongNguoi.setBounds(150, 332, 111, 25);
         pnl_thongtinkhachhang.add(textFieldSoLuongNguoi);
-               
+        
+        textFieldSoLuongNguoi.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+				
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+			
+			}
+		});
         
         //button thue phong
         btnthuephong = new testbutton.Buttontest();
@@ -301,20 +384,19 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
         btnthuephong.setRippleColor(new Color(255, 255, 255));
         btnthuephong.setShadowColor(new Color(0,0,0));
         btnthuephong.setBounds(25, 410, 109, 43);
-        pnl_thongtinkhachhang.add(btnthuephong);
-        
-        btnthuephong.addMouseListener(new MouseAdapter() {
+        btnthuephong.setEnabled(false);
+        btnthuephong.addActionListener(new ActionListener() {
+        	
+        	
+			
 			@Override
-			public void mouseClicked(MouseEvent e) {
-				GD_PhieuDatPhong phieuDatPhong = new GD_PhieuDatPhong();
-				phieuDatPhong.setVisible(true);
-				phieuDatPhong.setLocationRelativeTo(null);
-				
-				phieuDatPhong.loadPhieuDatPhongTuDuLieuNhap(maPhong, tenKH, sdt, cmnd, diaChi, songuoi, giaTien);
-	            dispose();
-	            
+			public void actionPerformed(ActionEvent e) {
+				btnthemActionPerformed();
 			}
-		});
+        });
+			
+        
+        pnl_thongtinkhachhang.add(btnthuephong);
         // button huy thue phong
         btnhuyphong = new testbutton.Buttontest();
         btnhuyphong.setText("Hủy Phòng");
@@ -326,7 +408,78 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
         btnhuyphong.setShadowColor(new Color(0,0,0));
         pnl_thongtinkhachhang.add(btnhuyphong);
         
+        JButton btnTimKiemSDT = new JButton("");
+        btnTimKiemSDT.setIcon(new ImageIcon(GD_ThuePhong.class.getResource("/Imgs/search.jpg")));
+        btnTimKiemSDT.setBounds(271, 187, 53, 25);
+        pnl_thongtinkhachhang.add(btnTimKiemSDT);
+        
+        
+        
+        btnTimKiemSDT.addMouseListener(new MouseListener() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				if(textFieldSDT.getText().equals("")) {
+					textFieldTenKhach.setText("");
+					textFieldCMND.setText("");
+					textFieldDiaChi.setText("");
+					rdbtnNAM.setVisible(false);
+					rdbtnNU.setVisible(false);
+				}
+				else {
+					String a = "";
+				}
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+//				System.out.print(ktraPhone);
+				phone = textFieldSDT.getText();
+				if (phone.matches("^0[1-9]\\d{8}$") == false) {
+					  JOptionPane.showMessageDialog(null, "Số điện thoại di động bắt đầu bằng 09 cuối cùng là 7 chữ số.");
+				  }
+				else
+				{
+//					
+					  timSoDienThoai(phone);
+					  if (textFieldTenKhach.getText().equals("")) {
+						  JOptionPane.showMessageDialog(null, "Không tìm thấy khách hàng vui lòng thêm khách hàng");
+						  GD_QuanLyKhachHang kh = new GD_QuanLyKhachHang();
+						  	kh.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+						  	kh.setVisible(true);
+							dispose();
+					  }
+					  else {
+						  JOptionPane.showMessageDialog(null, "Tìm thấy khách hàng ");
+
+					  }
+				}
+			}
+		});
 		
+
+        
+        
         testbutton.Buttontest btndatphong1 = new testbutton.Buttontest();
         btndatphong1.addMouseListener(new MouseAdapter() {
 			@Override
@@ -437,23 +590,24 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
 		contentPane.add(btnthongke);
 		btnthongke.setLayout(null);
 		
-		JLabel lblavatar = new JLabel("");
-		lblavatar.setHorizontalAlignment(SwingConstants.CENTER);
-		lblavatar.setIcon(new ImageIcon(GD_Main_QL.class.getResource("/Imgs/t1 1.png")));
-		lblavatar.setBounds(90, -444, 1333, 957);
-		contentPane.add(lblavatar);
+//		JLabel lblavatar = new JLabel("");
+//		lblavatar.setHorizontalAlignment(SwingConstants.CENTER);
+//		lblavatar.setIcon(new ImageIcon(GD_Main_QL.class.getResource("/Imgs/t1 1.png")));
+//		lblavatar.setBounds(90, -444, 1333, 957);
+//		contentPane.add(lblavatar);
 		
 		JLabel lb_hinhnen = new JLabel("");
 		lb_hinhnen.setIcon(new ImageIcon(GD_DatPhong.class.getResource("/Imgs/370.png")));
-		lb_hinhnen.setBounds(-40, -176, 1333, 957);
+		lb_hinhnen.setBounds(-40, -182, 1333, 957);
 		contentPane.add(lb_hinhnen);
 		
 //		String ten = textFieldTenKhach.getText();
 //		String sdt = textFieldDiaChi.getText();
 //		String cccd = textFieldCMND.getText();
 //		String dch = textFieldDiaChi.getText();
-		tenKH = textFieldTenKhach.getText();
-		System.out.print(maPhong+tenKH+sdt+cmnd+diaChi+songuoi);
+//		tenKH = textFieldTenKhach.getText();
+//		System.out.print(maPhong+tenKH+sdt+cmnd+diaChi+songuoi);
+		
 		
 	}
 	public void actionPerformed(ActionEvent e) {
@@ -559,6 +713,7 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
 	        lbl_hinhanh.setBorder(labelBorder);
     		lbl_hinhanh.addMouseListener(new MouseListener() {
 				
+    			
 				@Override
 				public void mouseReleased(MouseEvent e) {
 					// TODO Auto-generated method stub
@@ -591,7 +746,7 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
 					cmnd = textFieldCMND.getText();
 					diaChi = textFieldDiaChi.getText();
 					songuoi = textFieldSoLuongNguoi.getText();
-//					System.out.print(maPhong);
+
 					
 					if (ph.getLoaiPhong().getTenLoaiPhong().equals("Phòng Thường")) {
 						giaTien = 100000;
@@ -607,20 +762,35 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
 						gt = "Nu";
 					}
 					
-					 btnthemActionPerformed(tenKH,sdt,cmnd,diaChi,gt);
-//					btnthemActionPerformed(tenKH,sdt,cmnd,diaChi,gt);
 					
-//					System.out.print(giaTien);
-//					System.out.print("GDThue"+maPhong);
+					
 
 					isSelected = !isSelected;
-					 if (isSelected) {
-					        LineBorder labelBorder = new LineBorder(Color.RED, 5);
-					        lbl_hinhanh.setBorder(labelBorder);
+					if (isSelected) {
+					    LineBorder labelBorder = new LineBorder(Color.RED, 5);
+					    lbl_hinhanh.setBorder(labelBorder);
+
+					    String duLieu = textFieldSoLuongNguoi.getText().trim();
+
+					    if (!duLieu.isEmpty()) {
+					        try {
+					            int soLuongNguoi = Integer.parseInt(duLieu);
+					            if (soLuongNguoi > Integer.parseInt(ph.getSoNguoi())) {
+					                JOptionPane.showMessageDialog(null, "Số lượng người vượt mức cho phép");
+					            } else {
+					            	JOptionPane.showMessageDialog(null, "Số lượng người phù hợp");
+					            }
+					        } catch (NumberFormatException e1) {
+//					            JOptionPane.showMessageDialog(null, "Invalid input. Please enter a valid number.");
+					        }
 					    } else {
-					    	 	LineBorder labelBorder = new LineBorder(Color.BLACK, 5);
-						        lbl_hinhanh.setBorder(labelBorder);
-					    }	
+//					        JOptionPane.showMessageDialog(null, "Input is empty. Please enter a valid number.");
+					    }
+					} else {
+					    LineBorder labelBorder = new LineBorder(Color.BLACK, 5);
+					    lbl_hinhanh.setBorder(labelBorder);
+					}
+
 
 				            
 					
@@ -636,7 +806,7 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
 	                    	 chitiet.loadChiTietPhong(maPhong);
 	     		            dispose();
 	     		            
-	     		           btnthemActionPerformed(tenKH,sdt,cmnd,diaChi,gt);
+	     		           
 	                    }
 
 	                    lastClickTime = clickTime;
@@ -660,10 +830,26 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
 
 	}
 	
+	public void btnthemActionPerformed() {
+		GD_PhieuDatPhong phieuDatPhong = new GD_PhieuDatPhong();
+		phieuDatPhong.setVisible(true);
+		phieuDatPhong.setLocationRelativeTo(null);
+		
+		phieuDatPhong.loadPhieuDatPhongTuDuLieuNhap(maPhong, tenKH, sdt, cmnd, diaChi, songuoi, giaTien);
+        dispose();
+	}
 	
 	
-	public void loadTrangThai(String trangthai) {
+	public void lammoi() {
+		if(textFieldSDT.getText().equals("")) {
+			textFieldTenKhach.setText("");
+			textFieldCMND.setText("");
+			textFieldDiaChi.setText("");
+		}
+	}
 
+    public void timSoDienThoai(String phone) {
+		// Thông tin kết nối đến cơ sở dữ liệu
         String url = "jdbc:sqlserver://localhost:1433;databasename=Karaoke4T";
         String username = "sa";
         String password = "123";
@@ -673,20 +859,47 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
             Connection connection = DriverManager.getConnection(url, username, password);
 
             // Truy vấn SQL để lấy dữ liệu
-            String sql = "select maTTP from TrangThaiPhong";
+            String sql = "select * from KhachHang\r\n"
+            			+ "where SDT = ? ";
             
             
             PreparedStatement statement = connection.prepareStatement(sql);
        
+            statement.setString(1, phone);
             ResultSet resultSet = statement.executeQuery();
             // Lặp qua các dòng kết quả và thêm vào JComboBox
             while (resultSet.next()) {
-                String columnName1 = resultSet.getString("maTTP");
-                trangthai = columnName1;
-//                System.out.print(trangthai);
+                String columnName1 = resultSet.getString("tenKH");
+                String columnName2 = resultSet.getString("gioiTinh");
+                String columnName3 = resultSet.getString("CMND");
+                String columnName4 = resultSet.getString("DiaChi");
+                String columnName5 = resultSet.getString("SDT");
+                
+                textFieldTenKhach.setText(columnName1);
+                textFieldTenKhach.setEnabled(true);
+                
+                textFieldCMND.setText(columnName3);
+                textFieldCMND.setEnabled(true);
+                
+                textFieldDiaChi.setText(columnName4);
+                textFieldDiaChi.setEnabled(true);
+                
+                if (columnName2.equals("Nam")) {
+                	rdbtnNAM.setEnabled(true);
+                	rdbtnNAM.setSelected(true);
+                }
+                else {
+                	rdbtnNU.setEnabled(true);
+                	rdbtnNU.setSelected(true);
+                }
+                	
+                textFieldSoLuongNguoi.setEnabled(true);               
+                          
+                
             }
-           
-    		
+
+            
+            
             // Đóng các tài nguyên
             resultSet.close();
             statement.close();
@@ -695,49 +908,4 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
             e.printStackTrace();
         }
 	}
-	protected void btnthemActionPerformed(String ten,String sdt,String cccd,String dch,String gt) {
-	  
-		 // Các biến dữ liệu đã được khai báo ở trên
-
-        // Thực hiện kết nối đến cơ sở dữ liệu
-        String jdbcUrl = "jdbc:sqlserver://localhost:1433;databasename=Karaoke4T"; // Thay đổi URL kết nối tùy thuộc vào loại cơ sở dữ liệu bạn đang sử dụng
-        String username = "sa";
-        String password = "123";
-
-        try (Connection connection = DriverManager.getConnection(jdbcUrl, username, password)) {
-            // Chuẩn bị câu lệnh SQL để chèn dữ liệu
-            String sql = "INSERT INTO KhachHang (maKH,gioiTinh,tenKH,SDT,CMND,diaChi) VALUES (?, ?, ?, ?, ?, ?)";
-
-            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            	 int maxMaKH = dskh.getMaxMaKH();
- 			     maxMaKH++;
- 			    			
-	 			JTextField matxt = new JTextField();
-	 			matxt.setText("KHAA" + String.format("%03d", maxMaKH));
-	 			String ma = matxt.getText().toString();
-			
-			
-				
-                preparedStatement.setString(1, ma);
-                preparedStatement.setString(2, gt);
-                preparedStatement.setString(3, ten);
-                preparedStatement.setString(4, sdt);
-                preparedStatement.setString(5, cccd);
-                preparedStatement.setString(6, dch);
-
-                // Thực hiện câu lệnh SQL chèn dữ liệu
-                int rowsAffected = preparedStatement.executeUpdate();
-
-                if (rowsAffected > 0) {
-                    System.out.println("Dữ liệu đã được chèn thành công!");
-                } else {
-                    System.out.println("Có lỗi xảy ra khi chèn dữ liệu.");
-                }
-            }
-        } catch (SQLException e1) {
-            e1.printStackTrace();
-        }
-	
-	}
-		
 }

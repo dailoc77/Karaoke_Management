@@ -16,7 +16,7 @@ public class QLNV_DAO {
 	public ArrayList<Entity.NhanVien> doctubang(){
 		try {
 			Connection con = connectDB.getInstance().getConnection();
-			String sql = "Select maNV,tenNV,gioiTinh,ngaySinh,CMND,SDT,trangThaiLamViec,diaChi,tenLNV , maTK from NhanVien nv inner join LoaiNhanVien lnv on nv.maLNV = lnv.maLNV";
+			String sql = "Select maNV,tenNV,gioiTinh,ngaySinh,CMND,SDT,trangThaiLamViec,diaChi,nv.maLNV , maTK from NhanVien nv inner join LoaiNhanVien lnv on nv.maLNV = lnv.maLNV";
 			Statement sta = con.createStatement();
 			ResultSet rs = sta.executeQuery(sql);
 			while(rs.next()) {
@@ -68,16 +68,17 @@ public class QLNV_DAO {
 		try {
 			smt = con.prepareStatement("UPDATE NhanVien SET tenNV = ?, gioiTinh = ?, ngaySinh = ?, CMND = ?, SDT = ?, trangThaiLamViec = ? , diaChi = ?, maLNV = ?, maTK = ? where maNV = ?");
 
-			smt.setString(1, nv.getMaNV());
-			smt.setString(2, nv.getTenNV());
-			smt.setString(3, nv.getGioiTinh());
-			smt.setString(4, nv.getNgaySinh());
-			smt.setString(5, nv.getCMND());
-			smt.setString(6, nv.getSDT());
-			smt.setString(7, nv.getTrangThaiLamViec());
-			smt.setString(8, nv.getMaDC());
-			smt.setString(9, nv.getLNV().getMaLNV());
-			smt.setString(10, nv.getMaTK().getMaTaiKhoan());
+
+			smt.setString(1, nv.getTenNV());
+			smt.setString(2, nv.getGioiTinh());
+			smt.setString(3, nv.getNgaySinh());
+			smt.setString(4, nv.getCMND());
+			smt.setString(5, nv.getSDT());
+			smt.setString(6, nv.getTrangThaiLamViec());
+			smt.setString(7, nv.getMaDC());
+			smt.setString(8, nv.getLNV().getMaLNV());
+			smt.setString(9, nv.getMaTK().getMaTaiKhoan());
+			smt.setString(10, nv.getMaNV());
 
 			n = smt.executeUpdate();
 		} catch (Exception e) {
@@ -124,25 +125,25 @@ public class QLNV_DAO {
         return maxMaNV;
     }
 	
-//	public int getMaxMaTK() {
-//        int maxMaTK = 0;
-//        Connection conn = null;
-//        PreparedStatement pstmt = null;
-//        ResultSet rs = null;
-//        try {
-//            conn = connectDB.getInstance().getConnection();
-//            String query = "SELECT MAX(CONVERT(INT, SUBSTRING(nv.maTK, 5, LEN(nv.maTK)))) FROM NhanVien nv inner join TaiKhoan tk on nv.maTK = tk.maTK";
-//            pstmt = conn.prepareStatement(query);
-//            rs = pstmt.executeQuery();
-//
-//            if (rs.next()) {
-//            	maxMaTK = rs.getInt(1);
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return maxMaTK;
-//    }
+	public int getMaxMaTK() {
+        int maxMaTK = 0;
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+            conn = connectDB.getInstance().getConnection();
+            String query = "SELECT MAX(CONVERT(INT, SUBSTRING(maTK, 3, LEN(maTK)))) FROM NhanVien";
+            pstmt = conn.prepareStatement(query);
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+            	maxMaTK = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return maxMaTK;
+    }
 	
 	public ArrayList<NhanVien> getnv(){
 		return dsnv;

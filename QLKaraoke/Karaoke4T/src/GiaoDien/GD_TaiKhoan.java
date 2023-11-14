@@ -344,8 +344,8 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 				btnthem.setRippleColor(new Color(255, 255, 255));
 				btnthem.setShadowColor(new Color(0,0,0));
 				btnthem.setBounds(822, 24, 128, 48);
-				
 				btnthem.addActionListener(new ActionListener() {
+					
 				    public void actionPerformed(ActionEvent e) {
 				        String tennv = txtTenNV.getText();
 				        if (tennv.matches("[A-Z\\S]+$") == true) {
@@ -363,6 +363,7 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 						// TODO Auto-generated method stub
 					    return email.matches(".+@gmail\\.com");
 					}
+					
 				});
 				panel.add(btnthem);
 				

@@ -75,7 +75,7 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 	private JComboBox<String> cbLoaiNhanVien;
 	private JComboBox<String> cbtrangthai;
 	private LoaiNhanVien_DAO dslnv;
-	QLNV_DAO ds = new QLNV_DAO();
+	QLNV_DAO dsnv = new QLNV_DAO();
 	QLTK_DAO dstk = new QLTK_DAO();
 	private JTextField txtMaNV;
 	private JTextField txt_maTK;
@@ -353,7 +353,7 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 		txtten.setColumns(10);
 		
 		//rad button
-		JRadioButton rdbtnNAM = new JRadioButton("Nam");
+		rdbtnNAM = new JRadioButton("Nam");
 		rdbtnNAM.setBounds(304, 37, 67, 23);
 		rdbtnNAM.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		rdbtnNAM.setOpaque(false);
@@ -362,7 +362,7 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 		panel.add(rdbtnNAM);
 	
 		
-		JRadioButton rdbtnNU = new JRadioButton("Nữ");
+		rdbtnNU = new JRadioButton("Nu");
 		rdbtnNU.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		rdbtnNU.setBounds(373, 37, 55, 23);
 		rdbtnNU.setOpaque(false);
@@ -494,6 +494,7 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 		
 		txtMaNV = new JTextField();
 		txtMaNV.setBounds(10, 123, 128, 24);
+		txtMaNV.setEnabled(false);
 		panel.add(txtMaNV);
 		txtMaNV.setColumns(10);
 		
@@ -504,6 +505,7 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 		
 		txt_maTK = new JTextField();
 		txt_maTK.setBounds(195, 37, 106, 27);
+		txt_maTK.setEnabled(false);
 		panel.add(txt_maTK);
 		txt_maTK.setColumns(10);
 		
@@ -527,6 +529,29 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 		table = new JTable();
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setBounds(0, 323, 1161, 290);
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				NhanVien nv = reverSPFromTextField();
+				int row = table.getSelectedRow();
+				txtMaNV.setText(model.getValueAt(row, 0).toString());
+				txtten.setText(model.getValueAt(row, 1).toString());
+				if(model.getValueAt(row, 2).equals("Nam")) {
+					rdbtnNAM.setSelected(true);
+				}
+				if(model.getValueAt(row, 2).equals("Nu")) {
+					rdbtnNU.setSelected(true);
+				}
+				nv.setGioiTinh(model.getValueAt(row, 2).toString());
+				txtns.setText(model.getValueAt(row, 3).toString());
+				txtcmnd.setText(model.getValueAt(row, 4).toString());
+				txtsdt.setText(model.getValueAt(row, 5).toString());
+				textFieldTrangThaiLamViec.setText(model.getValueAt(row, 6).toString());
+				txtdc.setText(model.getValueAt(row, 7).toString());
+				cbLoaiNhanVien.setSelectedItem(model.getValueAt(row, 8).toString());
+				txt_maTK.setText(model.getValueAt(row, 9).toString());
+			}
+		});
 		// Set the component orientation to RIGHT_TO_LEFT
 		
 		contentPane.add(scrollPane);
@@ -563,91 +588,12 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 		hinhnen.setIcon(new ImageIcon(GD_QLNhanVien.class.getResource("/Imgs/370.png")));
 
 		
-		connectDB.getInstance().connect();
+//		connectDB.getInstance().connect();
 		updateTableData();
 			
 		
 	}
 	
-//	private String layGioiTinh(Boolean rdbtnNam , Boolean rdbtnNu) {
-//		String gt = "";
-//		if(rdbtnNam.TRUE) {
-//			gt = "Nam";
-//		}
-//		if(rdbtnNu.TRUE) {
-//			gt = "Nữ";
-//		}
-//		
-//		return gt;
-//	}
-	
-	private NhanVien reverSPFromTextField() {
-		String maNV = txtMaNV.getText().toString();
-		String ten = txtten.getText().toString();
-		String gt = "";
-		String ngaySinh = txtns.getText().toString();
-		String cmnd = txtcmnd.getText().toString();
-		String sdt = txtsdt.getText().toString();
-		String trangThaiLamViec = textFieldTrangThaiLamViec.getText().toString();
-		String dc = txtdc.getText().toString();
-		LoaiNhanVien loainv = new LoaiNhanVien(cbLoaiNhanVien.getSelectedItem().toString(),"");
-		TaiKhoanNhanVien maTK = new TaiKhoanNhanVien(txt_maTK.getText().toString(), null, null, null,null);
-		return new NhanVien(maNV,ten,gt,ngaySinh,cmnd,sdt,trangThaiLamViec,dc,loainv,maTK);
-	}
-	
-	
-	
-	protected void btnsuaActionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	protected void btnxoaActionPerformed(ActionEvent e) {
-		QLNV_DAO dsnv = new QLNV_DAO();
-		int row = table.getSelectedRow();
-		if(row >= 0) {
-			String manv = (String) table.getValueAt(row, 0);
-			if(dsnv.delete(manv)) {
-				model.removeRow(row);
-				lammoi();
-			}
-		}
-		JOptionPane.showMessageDialog(this, "Xóa Tài Khoản Thành Công");
-		
-	}
-
-	protected void btnthemActionPerformed(ActionEvent e) {
-		QLNV_DAO dsnv = new QLNV_DAO();
-		int maxMaNV = dsnv.getMaxMaNV();
-//		int maxMaTK = dstk.getMaxMaTaiKhoan();
-		
-		maxMaNV++;
-//		maxMaTK++;
-
-		txtMaNV.setText("NVAA" + String.format("%04d", maxMaNV));
-		NhanVien nv = reverSPFromTextField();
-		String gt = "";
-		if(dsnv.create(nv)) {
-			if(rdbtnNAM.isSelected()) {
-				gt = "Nam";
-			}
-			if(rdbtnNU.isSelected()) {
-				gt = "Nữ";
-			}
-
-			Object [] rowData = {txtMaNV.getText(),txtten.getText(),gt,txtns.getText(),txtcmnd.getText(),txtsdt.getText(),textFieldTrangThaiLamViec.getText(),txtdc.getText(),nv.getLNV().getMaLNV(),nv.getMaTK().getMaTaiKhoan()};
-			model.addRow(rowData);
-			JOptionPane.showMessageDialog(this, "Thêm Nhân Viên Thành Công");
-			lammoi();
-		}
-//		table.setModel(model);
-//		updateTableData();
-		loadTable();
-	}
-
-
-	
-
 //	private void initComponents() {
 //
 //        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -675,7 +621,92 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 //         GD_Main_QL mainql=new GD_Main_QL();
 //         mainql.setVisible(true);
 //    }
+	private NhanVien reverSPFromTextField() {
+		String maNV = txtMaNV.getText().toString();
+		String ten = txtten.getText().toString();
+		String gt = "";
+		if (rdbtnNAM != null && rdbtnNAM.isSelected()) {
+			gt = rdbtnNAM.getText();
+	    }
+	    if (rdbtnNU != null && rdbtnNU.isSelected()) {
+	    	gt = rdbtnNU.getText();
+	    }
+		String ngaySinh = txtns.getText().toString();
+		String cmnd = txtcmnd.getText().toString();
+		String sdt = txtsdt.getText().toString();
+		String trangThaiLamViec = textFieldTrangThaiLamViec.getText().toString();
+		String dc = txtdc.getText().toString();
+		LoaiNhanVien loainv = new LoaiNhanVien(cbLoaiNhanVien.getSelectedItem().toString(),"");
+		TaiKhoanNhanVien maTK = new TaiKhoanNhanVien(txt_maTK.getText().toString(), null, null, null,null);
+		return new NhanVien(maNV,ten,gt,ngaySinh,cmnd,sdt,trangThaiLamViec,dc,loainv,maTK);
+	}
+	
+	
+	
+	protected void btnsuaActionPerformed(ActionEvent e) {
+		QLNV_DAO dsnv = new QLNV_DAO();
+		int row = table.getSelectedRow();
+		
+		if(row >= 0) {
+			NhanVien nv = reverSPFromTextField();
+			if(dsnv.update(nv)) {
 
+				table.setValueAt(txtten.getText(), row, 1);
+				table.setValueAt(nv.getGioiTinh(), row, 2);
+				table.setValueAt(txtns.getText(), row, 3);
+				table.setValueAt(txtcmnd.getText(), row, 4);
+				table.setValueAt(txtsdt.getText(), row, 5);
+				table.setValueAt(textFieldTrangThaiLamViec.getText(), row, 6);
+				table.setValueAt(txtdc.getText(), row, 7);
+				table.setValueAt(cbLoaiNhanVien.getSelectedItem().toString(), row, 8);
+				table.setValueAt(txt_maTK.getText(), row, 9);
+//				table.setValueAt(txtMaNV.getText(), row, 10);
+				JOptionPane.showMessageDialog(this, "Sửa thông tin nhân viên thành công!");
+				table.setModel(model);
+			}
+		}
+		loadTable();
+		
+	}
+
+	protected void btnxoaActionPerformed(ActionEvent e) {
+		QLNV_DAO dsnv = new QLNV_DAO();
+		int row = table.getSelectedRow();
+		if(row >= 0) {
+			String manv = (String) table.getValueAt(row, 0);
+			if(dsnv.delete(manv)) {
+				model.removeRow(row);
+				lammoi();
+			}
+		}
+		JOptionPane.showMessageDialog(this, "Xóa Tài Khoản Thành Công");
+		
+	}
+
+	protected void btnthemActionPerformed(ActionEvent e) {
+		QLNV_DAO dsnv = new QLNV_DAO();
+		int maxMaNV = dsnv.getMaxMaNV();
+		int maxMaTK_NV = dsnv.getMaxMaTK();
+		int maxMaTK = dstk.getMaxMaTaiKhoan();
+		var maTK_NV = "";		
+		maxMaNV++;
+		
+		txt_maTK.setText("TK" + String.format("%03d", maxMaTK));
+		txtMaNV.setText("NVAA" + String.format("%04d", maxMaNV));
+		maTK_NV = "TK" + String.format("%03d", maxMaTK_NV);
+		
+		NhanVien nv = reverSPFromTextField();
+		if(dsnv.create(nv) && !txt_maTK.getText().equals(maTK_NV)){
+		    Object [] rowData = {txtMaNV.getText(),txtten.getText(),nv.getGioiTinh(),txtns.getText(),txtcmnd.getText(),txtsdt.getText(),textFieldTrangThaiLamViec.getText(),txtdc.getText(),nv.getLNV().getMaLNV(),txt_maTK.getText()};
+			model.addRow(rowData);
+			JOptionPane.showMessageDialog(this, "Thêm Nhân Viên Thành Công");
+			lammoi();
+			loadTable();
+		}else {
+		    JOptionPane.showMessageDialog(this, "Mã tài khoản đã được sử dụng");
+		    lammoi();
+		}
+	}
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == timer) {
             // Cập nhật thời gian
@@ -715,9 +746,7 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 		QLNV_DAO ds = new QLNV_DAO();
 		ArrayList<NhanVien> ls = ds.doctubang();
 		for(NhanVien s : ls) {
-//			String [] rowData = {s.getMaNV(), s.getTenNV(),s.getGioiTinh(), s.getNgaySinh(), s.getCMND(),s.getSDT(), s.getTrangThaiLamViec() , s.getMaDC(),s.getLNV().getTenLNV(), s.getMaTK().getMaTaiKhoan()+""};
-			String [] rowData = {s.getMaNV(), s.getTenNV(),s.getGioiTinh(), s.getNgaySinh(), s.getCMND(),s.getSDT(), s.getTrangThaiLamViec() , s.getMaDC(),s.getLNV().getTenLNV(),s.getMaTK().getMaTaiKhoan()};
-
+			String [] rowData = {s.getMaNV(), s.getTenNV(),s.getGioiTinh(), s.getNgaySinh(), s.getCMND(),s.getSDT(), s.getTrangThaiLamViec() , s.getMaDC(),s.getLNV().getMaLNV(),s.getMaTK().getMaTaiKhoan()};
 			model.addRow(rowData);
 			table.setModel(model);
 		}
@@ -777,15 +806,18 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 //		r.setText(table.getValueAt(row, 3).toString());
 //		txtmk.setText(table.getValueAt(row, 4).toString());
 //	}
-	
+
 	
 	public void lammoi() {
+		txtMaNV.setText("");
+		txt_maTK.setText("");
 		txtcmnd.setText("");
 		txtten.setText("");
 		txtns.setText("");
 		txtsdt.setText("");
 		txtdc.setText("");
 		textFieldTrangThaiLamViec.setText("");
+		cbLoaiNhanVien.setSelectedIndex(1);
 		
 //		bg.clearSelection();
 
