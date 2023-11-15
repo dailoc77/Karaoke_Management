@@ -127,7 +127,7 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 		dslnv = new LoaiNhanVien_DAO();
 		
 
-//		initComponents();
+		initComponents();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1175, 650);
 		setResizable(false);
@@ -180,10 +180,11 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 		lblquanly.setBounds(878, -20, 232, 80);
 		contentPane.add(lblquanly);
 		
-		JLabel lbltenql = new JLabel("Nguyễn Văn A");
+		JLabel lbltenql = new JLabel();
 		lbltenql.setForeground(Color.WHITE);
 		lbltenql.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lbltenql.setBounds(833, 6, 232, 80);
+		lbltenql.setBounds(853, 6, 232, 80);
+		lbltenql.setText(UserInfo.getTenNhanVien());
 		contentPane.add(lbltenql);
 		
 		JButton jButton = new JButton("Đăng Xuất");
@@ -594,33 +595,33 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 		
 	}
 	
-//	private void initComponents() {
-//
-//        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-//        addWindowListener(new java.awt.event.WindowAdapter() {
-//            public void windowClosing(java.awt.event.WindowEvent evt) {
-//                formWindowClosing(evt);
-//            }
-//        });
-//
-//        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-//        getContentPane().setLayout(layout);
-//        layout.setHorizontalGroup(
-//            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-//            .addGap(0, 400, Short.MAX_VALUE)
-//        );
-//        layout.setVerticalGroup(
-//            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-//           .addGap(0, 300, Short.MAX_VALUE)
-//        );
-//
-//        pack();
-//    }
-//
-//    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-//         GD_Main_QL mainql=new GD_Main_QL();
-//         mainql.setVisible(true);
-//    }
+	private void initComponents() {
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+           .addGap(0, 300, Short.MAX_VALUE)
+        );
+
+        pack();
+    }
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+         GD_Main_QL mainql=new GD_Main_QL();
+         mainql.setVisible(true);
+    }
 	private NhanVien reverSPFromTextField() {
 		String maNV = txtMaNV.getText().toString();
 		String ten = txtten.getText().toString();

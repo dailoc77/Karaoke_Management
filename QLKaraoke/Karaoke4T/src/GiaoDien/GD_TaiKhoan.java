@@ -462,10 +462,11 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 		lblquanly.setBounds(878, -20, 232, 80);
 		contentPane.add(lblquanly);
 		
-		JLabel lbltenql = new JLabel("Nguyễn Văn A");
+		JLabel lbltenql = new JLabel();
 		lbltenql.setForeground(Color.WHITE);
 		lbltenql.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lbltenql.setBounds(833, 6, 232, 80);
+		lbltenql.setText(UserInfo.getTenNhanVien());
+		lbltenql.setBounds(853, 6, 232, 80);
 		contentPane.add(lbltenql);
 		
 		JLabel lblavatar = new JLabel("");
@@ -648,4 +649,3 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
          mainql.setVisible(true);
     }
 }
-

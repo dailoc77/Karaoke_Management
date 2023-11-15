@@ -10,6 +10,8 @@ import DAO.QLPH_DAO;
 import Entity.Phong;
 
 import java.awt.Color;
+import java.awt.Desktop;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
@@ -18,6 +20,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 
@@ -246,47 +249,13 @@ public class GD_TinhTien extends JFrame {
 	    btntstThanhTon.setBorder(null);
 	    btntstThanhTon.setBackground(new Color(255, 60, 60));
 	    btntstThanhTon.setBounds(544, 531, 115, 48);
-//	    btntstThanhTon.addActionListener(new ActionListener() {
-//			private void printToPDF() {
-//				// TODO Auto-generated method stub
-//				 Document document = new Document();
-//				    try {
-//				        // chon noi de save fild pdf
-//				        PdfWriter.getInstance(document, new FileOutputStream("HoaDonTinhTien_" + soLanThanhToan + ".pdf"));
-//				        document.open();
-//				        // set font
-//				        BaseFont unicodeFont = BaseFont.createFont("Tahoma Regular font.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
-//				        com.itextpdf.text.Font vietnameseFont = new com.itextpdf.text.Font(unicodeFont, 12, com.itextpdf.text.Font.BOLD);
-//				        // Add content to the PDF document
-//				        document.add(new Paragraph("THÔNG TIN TÍNH TIỀN", vietnameseFont));
-//				        document.add(new Paragraph(lbl_tenPhongTT.getText(), vietnameseFont));
-//				        document.add(new Paragraph("SĐT Khách: " + lbl_sdtKH.getText(), vietnameseFont));
-//				        document.add(new Paragraph("Họ tên KH: " + lbl_tenKH.getText(), vietnameseFont));
-//				        document.add(new Paragraph("Họ tên NV: " + lbl_tenNV.getText(), vietnameseFont));
-//				        document.add(new Paragraph("Giờ nhận phòng: " + lbl_gioNhanPhong.getText(), vietnameseFont));
-//				        document.add(new Paragraph("Giờ trả phòng: " +lbl_gioTraPhong.getText(), vietnameseFont));
-//				        document.add(new Paragraph("Tổng thời lượng: " + lbl_tongThoiLuong.getText(), vietnameseFont));
-//				        document.add(new Paragraph("Tiền dịch vụ: " + lbl_tienDichVu.getText(), vietnameseFont));
-//				        document.add(new Paragraph("Tiền phòng: " + lbl_tienPhong.getText(), vietnameseFont));
-//				        document.add(new Paragraph("TỔNG CỘNG: " + lbl_tongCong.getText(), vietnameseFont));
-//				        document.add(new Paragraph("Tiền nhận: " + txt_tienNhan.getText(), vietnameseFont));
-//				        document.add(new Paragraph("Tiền thừa: " + lbl_tienThua.getText(), vietnameseFont));
-//				        // Close the document
-//				        document.close();
-//				        // Display a message indicating successful PDF creation
-//				        JOptionPane.showMessageDialog(contentPane, "ĐÃ XUẤT FILE PDF!", "Success", JOptionPane.PLAIN_MESSAGE);
-//				    } catch (Exception e) {
-//				        e.printStackTrace();
-//				        JOptionPane.showMessageDialog(contentPane, "KHÔNG XUẤT ĐƯỢC FILE PDF!", "Error", JOptionPane.PLAIN_MESSAGE);
-//				    }
-//			}
 	    btntstThanhTon.addActionListener(new ActionListener() {
             private void printToPDF() {
             	Document document = new Document();
                 try {
                     // Sử dụng thời gian hiện tại để tạo tên file duy nhất
                     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmmss");
-                    String fileName = "HoaDon_" + dateFormat.format(new Date()) + ".pdf";
+                    String fileName = "PDF/HoaDon_" + dateFormat.format(new Date()) + ".pdf";
 
                     PdfWriter.getInstance(document, new FileOutputStream(fileName));
                     document.open();
@@ -301,6 +270,10 @@ public class GD_TinhTien extends JFrame {
 
                     // Close the document
                     document.close();
+                    
+                    // Mở file PDF sau khi đã lưu
+                    Desktop.getDesktop().open(new File(fileName));
+                    
                     // Display a message indicating successful PDF creation
                     JOptionPane.showMessageDialog(contentPane, "ĐÃ XUẤT FILE PDF!", "Success",
                             JOptionPane.PLAIN_MESSAGE);

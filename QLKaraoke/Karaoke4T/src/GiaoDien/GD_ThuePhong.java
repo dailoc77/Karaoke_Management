@@ -49,6 +49,7 @@ import DAO.QLKH_DAO;
 import DAO.QLPH_DAO;
 import Entity.KhachHang;
 import Entity.Phong;
+import Entity.UserInfo;
 import connectDB.connectDB;
 import testbutton.Buttontest;
 
@@ -160,10 +161,11 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
 		lblquanly.setBounds(878, -20, 232, 80);
 		contentPane.add(lblquanly);
 		
-		JLabel lbltenql = new JLabel("Nguyễn Văn C");
+		JLabel lbltenql = new JLabel();
 		lbltenql.setForeground(Color.WHITE);
 		lbltenql.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lbltenql.setBounds(833, 6, 232, 80);
+		lbltenql.setText(UserInfo.getTenNhanVien());
 		contentPane.add(lbltenql);
 		
 		JButton jButton = new JButton("Đăng Xuất");
@@ -274,10 +276,7 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
         textFieldSDT = new JTextField();
         textFieldSDT.setBounds(25, 187, 236, 25);
         textFieldSDT.setColumns(10);
-<<<<<<< Updated upstream
-=======
         pnl_thongtinkhachhang.add(textFieldSDT);
->>>>>>> Stashed changes
         textFieldSDT.addMouseListener(new MouseListener() {
 			
 			@Override
@@ -317,8 +316,6 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
 				
 			}
 		});
-<<<<<<< Updated upstream
-=======
 
         JButton btnTimKiemSDT = new JButton("");
         btnTimKiemSDT.setIcon(new ImageIcon(GD_ThuePhong.class.getResource("/Imgs/search.png")));
@@ -377,7 +374,6 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
 		});
 		
         
->>>>>>> Stashed changes
         
         textFieldCMND = new JTextField();
         textFieldCMND.setEditable(false);
@@ -413,43 +409,6 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
         textFieldSoLuongNguoi.setColumns(10);
         textFieldSoLuongNguoi.setBounds(150, 332, 111, 25);
         pnl_thongtinkhachhang.add(textFieldSoLuongNguoi);
-<<<<<<< Updated upstream
-        
-        textFieldSoLuongNguoi.addMouseListener(new MouseListener() {
-			
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void mousePressed(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-				
-			}
-			
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				// TODO Auto-generated method stub
-			
-			}
-		});
-=======
->>>>>>> Stashed changes
         
         
 //        BUTTON THUE PHONG
@@ -460,23 +419,6 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
         btnthuephong.setFont(new Font("Tahoma", Font.PLAIN, 13));
         btnthuephong.setRippleColor(new Color(255, 255, 255));
         btnthuephong.setShadowColor(new Color(0,0,0));
-<<<<<<< Updated upstream
-        btnthuephong.setBounds(25, 410, 109, 43);
-        btnthuephong.setEnabled(false);
-        btnthuephong.addActionListener(new ActionListener() {
-        	
-        	
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				btnthemActionPerformed();
-			}
-        });
-			
-        
-        pnl_thongtinkhachhang.add(btnthuephong);
-        // button huy thue phong
-=======
         btnthuephong.setBounds(25, 410, 109, 43);       
         btnthuephong.setEnabled(false);
         btnthuephong.addActionListener(new ActionListener() {
@@ -510,11 +452,16 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
         
         pnl_thongtinkhachhang.add(btnthuephong);
         
+		JLabel lblavatar = new JLabel("");
+		lblavatar.setHorizontalAlignment(SwingConstants.CENTER);
+		lblavatar.setIcon(new ImageIcon(GD_Main_NV.class.getResource("/Imgs/t1 1.png")));
+		lblavatar.setBounds(90, -444, 1333, 957);
+		contentPane.add(lblavatar);
+        
 //-------------------------------------------------------------------------
         
 // ------------------------------------------button huy thue phong 
         
->>>>>>> Stashed changes
         btnhuyphong = new testbutton.Buttontest();
         btnhuyphong.setText("Hủy Phòng");
         btnhuyphong.setForeground(new Color(245,245,245));
@@ -543,84 +490,9 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
 		});
         pnl_thongtinkhachhang.add(btnhuyphong);
         
-<<<<<<< Updated upstream
-        JButton btnTimKiemSDT = new JButton("");
-        btnTimKiemSDT.setIcon(new ImageIcon(GD_ThuePhong.class.getResource("/Imgs/search.jpg")));
-        btnTimKiemSDT.setBounds(271, 187, 53, 25);
-        pnl_thongtinkhachhang.add(btnTimKiemSDT);
-        
-        
-        
-        btnTimKiemSDT.addMouseListener(new MouseListener() {
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void mousePressed(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-				
-			}
-			
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				// TODO Auto-generated method stub
-				if(textFieldSDT.getText().equals("")) {
-					textFieldTenKhach.setText("");
-					textFieldCMND.setText("");
-					textFieldDiaChi.setText("");
-					rdbtnNAM.setVisible(false);
-					rdbtnNU.setVisible(false);
-				}
-				else {
-					String a = "";
-				}
-			}
-			
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				// TODO Auto-generated method stub
-//				System.out.print(ktraPhone);
-				phone = textFieldSDT.getText();
-				if (phone.matches("^0[1-9]\\d{8}$") == false) {
-					  JOptionPane.showMessageDialog(null, "Số điện thoại di động bắt đầu bằng 09 cuối cùng là 7 chữ số.");
-				  }
-				else
-				{
-//					
-					  timSoDienThoai(phone);
-					  if (textFieldTenKhach.getText().equals("")) {
-						  JOptionPane.showMessageDialog(null, "Không tìm thấy khách hàng vui lòng thêm khách hàng");
-						  GD_QuanLyKhachHang kh = new GD_QuanLyKhachHang();
-						  	kh.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-						  	kh.setVisible(true);
-							dispose();
-					  }
-					  else {
-						  JOptionPane.showMessageDialog(null, "Tìm thấy khách hàng ");
-
-					  }
-				}
-			}
-		});
-		
-
-        
-        
-=======
 
         
 //        -----------------------------------------MENU-------------------------------------------------------
->>>>>>> Stashed changes
         testbutton.Buttontest btndatphong1 = new testbutton.Buttontest();
         btndatphong1.addMouseListener(new MouseAdapter() {
 			@Override
@@ -730,16 +602,7 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
         btnthongke.setBounds(963, 70, 196, 87);
 		contentPane.add(btnthongke);
 		btnthongke.setLayout(null);
-<<<<<<< Updated upstream
-		
-//		JLabel lblavatar = new JLabel("");
-//		lblavatar.setHorizontalAlignment(SwingConstants.CENTER);
-//		lblavatar.setIcon(new ImageIcon(GD_Main_QL.class.getResource("/Imgs/t1 1.png")));
-//		lblavatar.setBounds(90, -444, 1333, 957);
-//		contentPane.add(lblavatar);
-=======
 
->>>>>>> Stashed changes
 		
 		JLabel lb_hinhnen = new JLabel("");
 		lb_hinhnen.setIcon(new ImageIcon(GD_DatPhong.class.getResource("/Imgs/370.png")));
@@ -747,16 +610,6 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
 		contentPane.add(lb_hinhnen);
 //----------------------------------------------------------------------------------------------------------		
 		
-<<<<<<< Updated upstream
-//		String ten = textFieldTenKhach.getText();
-//		String sdt = textFieldDiaChi.getText();
-//		String cccd = textFieldCMND.getText();
-//		String dch = textFieldDiaChi.getText();
-//		tenKH = textFieldTenKhach.getText();
-//		System.out.print(maPhong+tenKH+sdt+cmnd+diaChi+songuoi);
-		
-=======
->>>>>>> Stashed changes
 		
 	}
 	
@@ -862,29 +715,6 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
     		pn_phonghat.add(lbl_tenphong);
     		
     		
-<<<<<<< Updated upstream
-    		LineBorder labelBorder = new LineBorder(Color.BLACK, 5);
-	        lbl_hinhanh.setBorder(labelBorder);
-    		lbl_hinhanh.addMouseListener(new MouseListener() {
-				
-    			
-				@Override
-				public void mouseReleased(MouseEvent e) {
-					// TODO Auto-generated method stub
-					
-				}
-				
-				@Override
-				public void mousePressed(MouseEvent e) {
-					// TODO Auto-generated method stub
-				}
-				
-				@Override
-				public void mouseExited(MouseEvent e) {				
-				}
-				
-				@Override
-=======
     		
 //    		DANH SACH PHONG BAN
     		if (ph.getTrangThaiPhong().getMaTrangThai().equals("TTP001")) {
@@ -979,7 +809,6 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
 	    					 
 	
 	    				}
->>>>>>> Stashed changes
 
 						@Override
 						public void mousePressed(MouseEvent e) {
@@ -993,64 +822,6 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
 							
 						}
 
-<<<<<<< Updated upstream
-				}
-				
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					// TODO Auto-generated method stub
-					maPhong =  ph.getMaPhong();
-					tenKH = textFieldTenKhach.getText();
-					sdt = textFieldSDT.getText();
-					cmnd = textFieldCMND.getText();
-					diaChi = textFieldDiaChi.getText();
-					songuoi = textFieldSoLuongNguoi.getText();
-
-					
-					if (ph.getLoaiPhong().getTenLoaiPhong().equals("Phòng Thường")) {
-						giaTien = 100000;
-					}
-					else {
-						giaTien = 180000;
-					}
-					String gt = "";
-					if(rdbtnNAM.isSelected()) {
-						gt = "Nam";
-					}
-					if(rdbtnNU.isSelected()) {
-						gt = "Nu";
-					}
-					
-					
-					
-
-					isSelected = !isSelected;
-					if (isSelected) {
-					    LineBorder labelBorder = new LineBorder(Color.RED, 5);
-					    lbl_hinhanh.setBorder(labelBorder);
-
-					    String duLieu = textFieldSoLuongNguoi.getText().trim();
-
-					    if (!duLieu.isEmpty()) {
-					        try {
-					            int soLuongNguoi = Integer.parseInt(duLieu);
-					            if (soLuongNguoi > Integer.parseInt(ph.getSoNguoi())) {
-					                JOptionPane.showMessageDialog(null, "Số lượng người vượt mức cho phép");
-					            } else {
-					            	JOptionPane.showMessageDialog(null, "Số lượng người phù hợp");
-					            }
-					        } catch (NumberFormatException e1) {
-//					            JOptionPane.showMessageDialog(null, "Invalid input. Please enter a valid number.");
-					        }
-					    } else {
-//					        JOptionPane.showMessageDialog(null, "Input is empty. Please enter a valid number.");
-					    }
-					} else {
-					    LineBorder labelBorder = new LineBorder(Color.BLACK, 5);
-					    lbl_hinhanh.setBorder(labelBorder);
-					}
-
-=======
 						@Override
 						public void mouseEntered(MouseEvent e) {
 							// TODO Auto-generated method stub
@@ -1115,7 +886,6 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
     					
     					
     					
->>>>>>> Stashed changes
 
     					
     					btnhuyphong.setEnabled(false);    
@@ -1171,22 +941,12 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
 					  long clickTime = System.currentTimeMillis();
 
 	                    if (clickTime - lastClickTime <= 500) { // Check if the click interval is less than 500 milliseconds (adjust as needed)
-<<<<<<< Updated upstream
-	                    	 GD_ChiTietPhong chitiet = new GD_ChiTietPhong();
-	                    	 chitiet.setVisible(true);
-	                    	 chitiet.setLocationRelativeTo(null);
-	                    	 System.out.print(maPhong);
-	                    	 chitiet.loadChiTietPhong(maPhong);
-	     		            dispose();
-	     		            
-=======
 	                    	phone = textFieldSDT.getText();  	                    	
 	   	                    	 GD_ChiTietPhong chitiet = new GD_ChiTietPhong();
 	   	                    	 chitiet.setVisible(true);
 	   	                    	 chitiet.setLocationRelativeTo(null);
 	   	                    	 chitiet.loadChiTietPhong(maPhong);
 	   	     		            dispose();
->>>>>>> Stashed changes
 	     		           
 	                    }
 
@@ -1235,12 +995,8 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
 
 	}
 	
-<<<<<<< Updated upstream
-	public void btnthemActionPerformed() {
-=======
 //	LOAD PHIEU DAT PHONG
 	public void loadPhieuDatPhong(ActionEvent e) {
->>>>>>> Stashed changes
 		GD_PhieuDatPhong phieuDatPhong = new GD_PhieuDatPhong();
 		phieuDatPhong.setVisible(true);
 		phieuDatPhong.setLocationRelativeTo(null);
@@ -1249,28 +1005,18 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
         dispose();
 	}
 	
-<<<<<<< Updated upstream
-	
-=======
 // LÀM MỚI
->>>>>>> Stashed changes
 	public void lammoi() {
 		if(textFieldSDT.getText().equals("")) {
 			textFieldTenKhach.setText("");
 			textFieldCMND.setText("");
 			textFieldDiaChi.setText("");
-<<<<<<< Updated upstream
-		}
-	}
-
-=======
 			textFieldSoLuongNguoi.setText("");
 		}
 	}
 
 //	HÀM TÌM SỐ ĐIỆN THOẠI KH
 	
->>>>>>> Stashed changes
     public void timSoDienThoai(String phone) {
 		// Thông tin kết nối đến cơ sở dữ liệu
         String url = "jdbc:sqlserver://localhost:1433;databasename=Karaoke4T";
@@ -1297,11 +1043,8 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
                 String columnName3 = resultSet.getString("CMND");
                 String columnName4 = resultSet.getString("DiaChi");
                 String columnName5 = resultSet.getString("SDT");
-<<<<<<< Updated upstream
-=======
                 String columnName6 = resultSet.getString("maKH");
                 
->>>>>>> Stashed changes
                 
                 textFieldTenKhach.setText(columnName1);
                 textFieldTenKhach.setEnabled(true);
@@ -1324,17 +1067,10 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
                 textFieldSoLuongNguoi.setEnabled(true);               
                           
                 
-<<<<<<< Updated upstream
-            }
-
-            
-            
-=======
                 maKhachHang = columnName6;
             }
 
             
->>>>>>> Stashed changes
             // Đóng các tài nguyên
             resultSet.close();
             statement.close();
@@ -1343,8 +1079,6 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
             e.printStackTrace();
         }
 	}
-<<<<<<< Updated upstream
-=======
     
     
  // HÀM CHUYỀN TRẠNG THÁI TRỐNG -> BẬN 
@@ -1499,5 +1233,4 @@ public class GD_ThuePhong extends JFrame implements ActionListener {
            e.printStackTrace();
        }
     }
->>>>>>> Stashed changes
 }

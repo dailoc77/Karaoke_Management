@@ -12,7 +12,6 @@ import java.awt.Graphics;
 import java.awt.Color;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -48,34 +47,7 @@ public class ResetPass1 extends JFrame{
 		initComponents();
 	}
 	private void initComponents() {
-		
-		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                formWindowClosing(evt);
-            }
-
-			private void formWindowClosing(WindowEvent evt) {
-				// TODO Auto-generated method stub
-			       GD_Login login=new GD_Login();
-			         login.setVisible(true);
-			}
-        });
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
-
-        pack();
-		
-	    setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    setTitle("Đặt lại mật khẩu");
 	    setBounds(100, 100, 734, 505);
 	    contentPane = new JPanel();

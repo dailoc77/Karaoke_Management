@@ -29,6 +29,11 @@ import javax.swing.Timer;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -53,7 +58,7 @@ public class GD_QLDichVu extends JFrame implements ActionListener{
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane, panel;
-	private JLabel lblClock;
+	private JLabel lblClock, lbltenql;
 	private Timer timer;
 	private JButton jButton;
 	private JTextField txt_MaDV;
@@ -61,6 +66,10 @@ public class GD_QLDichVu extends JFrame implements ActionListener{
 	private JTextField txt_giaDV;
 	private JTextField txt_soLuong;
 	private QLDV_DAO ds_dv = new QLDV_DAO();
+	Connection con = null;
+	ResultSet rs = null;
+	PreparedStatement pst = null;
+	String quanly;
 	/**
 	 * Launch the application.
 	 */
@@ -97,6 +106,7 @@ public class GD_QLDichVu extends JFrame implements ActionListener{
 	 */
 	public GD_QLDichVu() {
 		initComponents();
+		String tenuser = layThongTinTen();
 		setBackground(Color.WHITE);
 		setTitle("Giao Diện Quản Lý Dịch Vụ");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -406,10 +416,11 @@ public class GD_QLDichVu extends JFrame implements ActionListener{
 		lblquanly.setBounds(878, -20, 232, 80);
 		contentPane.add(lblquanly);
 		
-		JLabel lbltenql = new JLabel("Nguyễn Văn A");
+		lbltenql = new JLabel();
 		lbltenql.setForeground(Color.WHITE);
 		lbltenql.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lbltenql.setBounds(833, 6, 232, 80);
+		lbltenql.setBounds(853, 6, 232, 80);
+		lbltenql.setText(tenuser);
 		contentPane.add(lbltenql);
 		
 		JLabel lblavatar = new JLabel("");
@@ -423,6 +434,22 @@ public class GD_QLDichVu extends JFrame implements ActionListener{
 		lblhinhnen.setIcon(new ImageIcon(GD_Main_NV.class.getResource("/Imgs/370.png")));
 		lblhinhnen.setBounds(-95, -176, 1333, 957);
 		contentPane.add(lblhinhnen);
+	}
+	
+	private String layThongTinTen() {
+	    String query = "SELECT tenNV FROM TaiKhoan WHERE maTK = ?";
+	    try {
+            con = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=Karaoke4T;user=sa;password=123");
+	        pst = con.prepareStatement(query);
+	        pst.setString(1, "TK001"); // Điền điều kiện truy vấn của bạn
+	        rs = pst.executeQuery();
+	        if (rs.next()) {
+	            return rs.getString("tenNV");
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return null;
 	}
 	
 	private DichVu reverSPFromTextField() {

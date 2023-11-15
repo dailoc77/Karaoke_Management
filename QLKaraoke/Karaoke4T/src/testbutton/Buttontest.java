@@ -1,7 +1,6 @@
 package testbutton;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Insets;
@@ -9,9 +8,6 @@ import java.awt.RenderingHints;
 import java.awt.geom.Area;
 import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
-
-import javax.accessibility.AccessibleContext;
-import javax.accessibility.AccessibleState;
 import javax.swing.JButton;
 import javax.swing.border.EmptyBorder;
 import swing.shadow.ShadowRenderer;
@@ -114,24 +110,4 @@ public class Buttontest extends JButton {
             return null;
         }
     }
-<<<<<<< Updated upstream
-
-	@Override
-=======
-    
-    @Override
->>>>>>> Stashed changes
-	public void setEnabled(boolean b) {
-		// TODO Auto-generated method stub
-		super.setEnabled(b);
-	}
-<<<<<<< Updated upstream
-
-	
-
-    
-    
-    
-=======
->>>>>>> Stashed changes
 }

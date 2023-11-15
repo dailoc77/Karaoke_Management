@@ -4,6 +4,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import Entity.TaiKhoanNhanVien;
+import Entity.UserInfo;
+
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
@@ -43,12 +46,14 @@ public class GD_Login extends JFrame implements ActionListener{
 	Connection con = null;
 	ResultSet rs = null;
 	PreparedStatement pst = null;
+	String quanly;
 	/**
 	 * Launch the application.
 	 */
 	/**
 	 * Create the frame.
 	 */
+	
 	public GD_Login() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Đăng nhập");
@@ -94,7 +99,7 @@ public class GD_Login extends JFrame implements ActionListener{
 		            return; // Exit the method if fields are empty
 		        }
 
-		        String query = "select * from TaiKhoan where tenTK = ? and MK = ?";
+		        String query = "select * from TaiKhoan where maTK = ? and MK = ?";
 		        try {
 		            con = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=Karaoke4T;user=sa;password=123");
 		            pst = con.prepareStatement(query);
@@ -103,25 +108,30 @@ public class GD_Login extends JFrame implements ActionListener{
 		            rs = pst.executeQuery();
 
 		            if (rs.next()) {
-		                JOptionPane.showMessageDialog(null, "Đăng nhập thành công");
-
-		                // Kiểm tra xem tài khoản có phải là admin hay không
+		            	JOptionPane.showMessageDialog(null, "Đăng nhập thành công");
+		                // Lấy tên người dùng từ cơ sở dữ liệu
+		                quanly = rs.getString("tenNV");
+		                UserInfo.setTenNhanVien(quanly);
+//		                String nhanvien = rs.getString("tenNV");
 		                if (isAdmin(txtUser.getText())) {
-		                    // Nếu là admin, mở giao diện quản lý
-		                    openAdminMain();
+			                GD_Main_QL mainQL = new GD_Main_QL();
+			                mainQL.setVisible(true);
+			                dispose();
 		                } else {
-		                    // Nếu không phải admin, mở giao diện nhân viên
-		                    openEmployeeMain();
+			                GD_Main_NV mainNV = new GD_Main_NV();
+			                mainNV.setVisible(true);
+			                dispose();
 		                }
 		            } else {
 		                JOptionPane.showMessageDialog(null, "Tên tài khoản hoặc mật khẩu sai");
 		            }
 		        } catch (SQLException ex) {
-		            java.util.logging.Logger.getLogger(GD_Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+		            ex.printStackTrace();
 		        }
 		    }
 		});
 
+		
 		btnDangNhap.setBounds(44, 274, 239, 40);
 		panel.add(btnDangNhap);
 		btnDangNhap.setForeground(Color.WHITE);
@@ -161,12 +171,14 @@ public class GD_Login extends JFrame implements ActionListener{
 		passMk.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		passMk.setBounds(44, 190, 240, 40);
 		panel.add(passMk);
+		passMk.setText("123");
 		
 		txtUser = new JTextField();
 		txtUser.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		txtUser.setBounds(44, 124, 240, 40);
 		panel.add(txtUser);
 		txtUser.setColumns(10);
+		txtUser.setText("TK001");
 		
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(GD_Login.class.getResource("/Imgs/BG_login.jpg")));
@@ -174,22 +186,33 @@ public class GD_Login extends JFrame implements ActionListener{
 		contentPane.add(lblNewLabel);
 		
 	}
-	protected void openEmployeeMain() {
-		// TODO Auto-generated method stub
-		GD_Main_NV employeeMain = new GD_Main_NV();
-	    employeeMain.setVisible(true);
-	    dispose(); // Đóng cửa sổ đăng nhập sau khi đăng nhập thành công
-	}
-	protected void openAdminMain() {
-		// TODO Auto-generated method stub
-		GD_Main_QL adminMain = new GD_Main_QL();
-	    adminMain.setVisible(true);
-	    dispose(); // Đóng cửa sổ đăng nhập sau khi đăng nhập thành công
-	}
-	private boolean isAdmin(String text) {
-		// TODO Auto-generated method stub
-		return text.equals("admin");
-	}
+//	private boolean isAdmin(String text) {
+//		// TODO Auto-generated method stub
+//		return text.equals("TK001");
+//	}
+	
+	 private boolean isAdmin(String username) {
+	        // Query the database to check if the user is an admin
+	        String query = "SELECT tenNV FROM TaiKhoan WHERE maTK = ?";
+	        try {
+	            con = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=Karaoke4T;user=sa;password=123");
+	            pst = con.prepareStatement(query);
+	            pst.setString(1, username);
+	            rs = pst.executeQuery();
+
+	            if (rs.next()) {
+	                // Check if the user has the admin role
+	                return "TK001".equalsIgnoreCase(username);
+	            }
+	        } catch (SQLException ex) {
+	            ex.printStackTrace();
+	        } finally {
+	            // Close resources
+	            // ...
+	        }
+	        return false;
+	    }
+	
 	public static void main(String[] args) {
 		try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -213,7 +236,6 @@ public class GD_Login extends JFrame implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		
 	}
 
 }
