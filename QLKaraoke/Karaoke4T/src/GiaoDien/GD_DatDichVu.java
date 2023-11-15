@@ -333,7 +333,8 @@ public class GD_DatDichVu extends JFrame implements ActionListener{
 		btnDatDV.setShadowColor(new Color(0,0,0));
 		btnDatDV.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				btnDatDVActionPerformed(e);
+//				btnDatDVActionPerformed(e);
+				JOptionPane.showMessageDialog(null,"Đặt dịch vụ thành công");
 			}
 		});
 		Right_DatDichVu.add(btnDatDV);

@@ -114,16 +114,24 @@ public class Buttontest extends JButton {
             return null;
         }
     }
+<<<<<<< Updated upstream
 
 	@Override
+=======
+    
+    @Override
+>>>>>>> Stashed changes
 	public void setEnabled(boolean b) {
 		// TODO Auto-generated method stub
 		super.setEnabled(b);
 	}
+<<<<<<< Updated upstream
 
 	
 
     
     
     
+=======
+>>>>>>> Stashed changes
 }

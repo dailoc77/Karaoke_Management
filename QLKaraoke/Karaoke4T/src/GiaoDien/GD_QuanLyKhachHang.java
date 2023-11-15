@@ -450,7 +450,11 @@ public class GD_QuanLyKhachHang extends JFrame implements ActionListener {
 					  JOptionPane.showMessageDialog(null, "Giới tính không được để trống");
 				  }
 				  else {
-					  btnthemActionPerformed(e);					  
+					  btnthemActionPerformed(e);
+					  GD_ThuePhong tp = new GD_ThuePhong();
+					  tp.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+					  tp.setVisible(true);
+						dispose();
 				  }
 			}
 		});

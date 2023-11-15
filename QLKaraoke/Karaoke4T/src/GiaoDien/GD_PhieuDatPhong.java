@@ -176,7 +176,9 @@ public class GD_PhieuDatPhong extends JFrame {
                 lbl_DiaChi.setText( "Địa chỉ: " + columnName5);
                 lbl_SoNguoi.setText("Số lượng người: " + columnName6);
                 lbl_GiaTien.setText( "Giá tiền: " + columnName7);
-
+                
+                GD_ThuePhong tp = new GD_ThuePhong();
+                tp.capNhatTrangThaiTrongThanhBan(maPhong);
 	}
 
 }

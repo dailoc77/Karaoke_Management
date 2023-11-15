@@ -60,7 +60,8 @@ public class SendEmail1 extends JFrame implements ActionListener{
 	String[] to = {"maiqtruong2403@gmail.com", "truongdailoc2003@gmail.com", "thachgpt@gmail.com", "duongphan1912@gmail.com"};
 	
 	public SendEmail1() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		initComponents();
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setTitle("Đăng nhập");
 		setBounds(100, 100, 734, 505);
 		contentPane = new JPanel();
@@ -243,6 +244,32 @@ public class SendEmail1 extends JFrame implements ActionListener{
 			return false;
 		}
 	}	
+	
+	private void initComponents() {
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+
+        pack();
+    }
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+         GD_Login login=new GD_Login();
+         login.setVisible(true);
+    }
 	
 	public static void main(String[] args) {
 		String[] to = {"maiqtruong2403@gmail.com", "truongdailoc2003@gmail.com", "thachgpt@gmail.com", "duongphan1912@gmail.com"};
