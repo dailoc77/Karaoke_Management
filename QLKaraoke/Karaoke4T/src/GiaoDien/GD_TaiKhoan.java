@@ -36,6 +36,11 @@ import javax.swing.GroupLayout.Alignment;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.Clock;
 import java.util.ArrayList;
@@ -62,10 +67,14 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 	private JTextField txtMaTK, txtmk, txtTaiKhoan, txtTenNV, txt_email;
 	private JTable table;
 	DefaultTableModel model;
-	private JLabel lblClock;
+	private JLabel lblClock, lbltenql;
 	private Timer timer;
 	private testbutton.Buttontest btnthem, btnxoa, btnlammoi, btnsua;
 	QLTK_DAO dstk = new QLTK_DAO();
+	Connection con = null;
+	ResultSet rs = null;
+	PreparedStatement pst = null;
+	String quanly;
 //	private JTextField textField;
 	/**
 	 * Launch the application.
@@ -106,6 +115,7 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 	 */
 	public GD_TaiKhoan() {
 		initComponents();
+		String tenuser = layThongTinTen();
 		try {
 			connectDB.getInstance().connect();
 		} catch (Exception e) {
@@ -449,11 +459,6 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 		model.addColumn("Mật khẩu");
 		model.addColumn("Tên nhân viên");
 		model.addColumn("Email");
-
-
-
-
-
 		table.setModel(model);
 		
 		JLabel lblquanly = new JLabel("QL:");
@@ -462,10 +467,11 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
 		lblquanly.setBounds(878, -20, 232, 80);
 		contentPane.add(lblquanly);
 		
-		JLabel lbltenql = new JLabel("Nguyễn Văn A");
+		lbltenql = new JLabel();
 		lbltenql.setForeground(Color.WHITE);
 		lbltenql.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lbltenql.setBounds(833, 6, 232, 80);
+		lbltenql.setBounds(853, 6, 232, 80);
+		lbltenql.setText(tenuser);
 		contentPane.add(lbltenql);
 		
 		JLabel lblavatar = new JLabel("");
@@ -647,5 +653,21 @@ public class GD_TaiKhoan extends JFrame implements ActionListener{
          GD_Main_QL mainql=new GD_Main_QL();
          mainql.setVisible(true);
     }
+    
+	private String layThongTinTen() {
+	    String query = "SELECT tenNV FROM TaiKhoan WHERE maTK = ?";
+	    try {
+            con = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=Karaoke4T;user=sa;password=123");
+	        pst = con.prepareStatement(query);
+	        pst.setString(1, "TK001"); // Điền điều kiện truy vấn của bạn
+	        rs = pst.executeQuery();
+	        if (rs.next()) {
+	            return rs.getString("tenNV");
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return null;
+	}
 }
 

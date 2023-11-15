@@ -111,10 +111,11 @@ public class GD_DatPhong extends JFrame implements ActionListener {
 		lblquanly.setBounds(878, -20, 232, 80);
 		contentPane.add(lblquanly);
 		
-		JLabel lbltenql = new JLabel("Nguyễn Văn C");
+		JLabel lbltenql = new JLabel();
 		lbltenql.setForeground(Color.WHITE);
 		lbltenql.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lbltenql.setBounds(833, 6, 232, 80);
+		lbltenql.setText(UserInfo.getTenNhanVien());
 		contentPane.add(lbltenql);
 		
 		JButton jButton = new JButton("Đăng Xuất");

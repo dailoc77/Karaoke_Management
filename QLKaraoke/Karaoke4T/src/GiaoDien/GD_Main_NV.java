@@ -20,19 +20,30 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
+import Entity.TaiKhoanNhanVien;
+import Entity.UserInfo;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Calendar;
-
 public class GD_Main_NV extends JFrame implements ActionListener{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JLabel lblClock;
+	private JLabel lblClock, lbltennv;
 	private Timer timer;
+	Connection con = null;
+	ResultSet rs = null;
+	PreparedStatement pst = null;
+//	static String quanly;
 	/**
 	 * Launch the application.
 	 */
@@ -102,10 +113,11 @@ public class GD_Main_NV extends JFrame implements ActionListener{
 		lblnhanvien.setBounds(878, -20, 232, 80);
 		contentPane.add(lblnhanvien);
 		
-		JLabel lbltennv = new JLabel("Nguyễn Văn C");
+		lbltennv = new JLabel();
 		lbltennv.setForeground(Color.WHITE);
 		lbltennv.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lbltennv.setBounds(833, 6, 232, 80);
+		lbltennv.setText(UserInfo.getTenNhanVien());
 		contentPane.add(lbltennv);
 		
 		JButton jButton = new JButton("Đăng Xuất");
@@ -347,4 +359,5 @@ public class GD_Main_NV extends JFrame implements ActionListener{
         String time = String.format("%02d:%02d:%02d %s  %04d/%02d/%02d", hour, minute, second, ampm, year, month, day);
         lblClock.setText(time);
     }
+    
 }

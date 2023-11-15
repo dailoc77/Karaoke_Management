@@ -163,10 +163,11 @@ public class GD_QuanLyKhachHang extends JFrame implements ActionListener {
 		lblquanly.setFont(new Font("Tahoma", Font.BOLD, 16));
 		contentPane.add(lblquanly);
 		
-		JLabel lbltenql = new JLabel("Nguyễn Văn C");
+		JLabel lbltenql = new JLabel();
 		lbltenql.setBounds(833, 6, 232, 80);
 		lbltenql.setForeground(Color.WHITE);
 		lbltenql.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lbltenql.setText(UserInfo.getTenNhanVien());
 		contentPane.add(lbltenql);
 		
 		JButton jButton = new JButton("Đăng Xuất");

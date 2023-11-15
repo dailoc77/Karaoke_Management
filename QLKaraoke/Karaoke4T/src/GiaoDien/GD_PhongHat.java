@@ -59,7 +59,7 @@ import javax.swing.ScrollPaneConstants;
 public class GD_PhongHat extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JLabel lblClock;
+	private JLabel lblClock, lbltenql;
 	private Timer timer;
 	private JTextField txtMaPhong, txt_TinhTrang;
 	private JTextField txtTenPhong;
@@ -76,6 +76,10 @@ public class GD_PhongHat extends JFrame implements ActionListener {
 	JPanel pnl_danhsachphonghat = new JPanel();
 	private JTextField txt_soNguoi;
 	private final Action action_1 = new SwingAction_1();
+	Connection con = null;
+	ResultSet rs = null;
+	PreparedStatement pst = null;
+	String quanly;
 
 	/**
 	 * Launch the application.
@@ -113,7 +117,8 @@ public class GD_PhongHat extends JFrame implements ActionListener {
 	 * Create the frame.
 	 */
 	public GD_PhongHat() {
-//		initComponents();
+		initComponents();
+		String tenuser = layThongTinTen();
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1175, 650);
 		setTitle("Giao Diện Phòng Hát");
@@ -139,16 +144,23 @@ public class GD_PhongHat extends JFrame implements ActionListener {
 		btnNewButton.setBounds(304, 10, 49, 50);
 		contentPane.add(btnNewButton);
 		
+		JLabel lblavatar = new JLabel("");
+		lblavatar.setHorizontalAlignment(SwingConstants.CENTER);
+		lblavatar.setIcon(new ImageIcon(GD_Main_QL.class.getResource("/Imgs/t1 1.png")));
+		lblavatar.setBounds(90, -444, 1333, 957);
+		contentPane.add(lblavatar);
+		
 		JLabel lblquanly = new JLabel("QL:");
 		lblquanly.setForeground(Color.WHITE);
 		lblquanly.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblquanly.setBounds(878, -20, 232, 80);
 		contentPane.add(lblquanly);
 		
-		JLabel lbltenql = new JLabel("Nguyễn Văn A");
+		lbltenql = new JLabel();
 		lbltenql.setForeground(Color.WHITE);
 		lbltenql.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lbltenql.setBounds(833, 6, 232, 80);
+		lbltenql.setBounds(853, 6, 232, 80);
+		lbltenql.setText(tenuser);
 		contentPane.add(lbltenql);
 		
 		JButton jButton = new JButton("Đăng Xuất");
@@ -359,12 +371,6 @@ public class GD_PhongHat extends JFrame implements ActionListener {
         txt_TinhTrang.setColumns(10);
         txt_TinhTrang.setBounds(25, 258, 236, 25);
         pnl_thongtinkhachhang.add(txt_TinhTrang);
-
-        JLabel lblavatar = new JLabel("");
-        lblavatar.setBounds(318, -591, 1149, 957);
-        pnl_thongtinkhachhang.add(lblavatar);
-        lblavatar.setHorizontalAlignment(SwingConstants.CENTER);
-        lblavatar.setIcon(new ImageIcon(GD_TaiKhoan.class.getResource("/Imgs/t1 1.png")));
         
         JLabel lblNewLabel_3 = new JLabel("Số người");
         lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -538,33 +544,33 @@ public class GD_PhongHat extends JFrame implements ActionListener {
 		
 	}
 	
-//	private void initComponents() {
-//
-//        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-//        addWindowListener(new java.awt.event.WindowAdapter() {
-//            public void windowClosing(java.awt.event.WindowEvent evt) {
-//                formWindowClosing(evt);
-//            }
-//        });
-//
-//        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-//        getContentPane().setLayout(layout);
-//        layout.setHorizontalGroup(
-//            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-//            .addGap(0, 400, Short.MAX_VALUE)
-//        );
-//        layout.setVerticalGroup(
-//            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-//            .addGap(0, 300, Short.MAX_VALUE)
-//        );
-//
-//        pack();
-//    }
-//
-//    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-//         GD_Main_QL mainql=new GD_Main_QL();
-//         mainql.setVisible(true);
-//    }
+	private void initComponents() {
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+
+        pack();
+    }
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+         GD_Main_QL mainql=new GD_Main_QL();
+         mainql.setVisible(true);
+    }
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == timer) {
@@ -767,5 +773,21 @@ public class GD_PhongHat extends JFrame implements ActionListener {
 		}
 		public void actionPerformed(ActionEvent e) {
 		}
+	}
+	
+	private String layThongTinTen() {
+	    String query = "SELECT tenNV FROM TaiKhoan WHERE maTK = ?";
+	    try {
+            con = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=Karaoke4T;user=sa;password=123");
+	        pst = con.prepareStatement(query);
+	        pst.setString(1, "TK001"); // Điền điều kiện truy vấn của bạn
+	        rs = pst.executeQuery();
+	        if (rs.next()) {
+	            return rs.getString("tenNV");
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return null;
 	}
 }

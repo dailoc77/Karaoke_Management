@@ -22,7 +22,7 @@ public class QLTK_DAO {
     public static boolean checkLogin(String username, String password) {
         try {
             Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-            String query = "SELECT * FROM TaiKhoan WHERE tenTK = ? AND MK = ?";
+            String query = "SELECT * FROM TaiKhoan WHERE maTK = ? AND MK = ?";
             try (PreparedStatement statement = connection.prepareStatement(query)) {
                 statement.setString(1, username);
                 statement.setString(2, password);
@@ -138,9 +138,11 @@ public class QLTK_DAO {
 		}
 		return n>0;
 	}
+    
     public ArrayList<TaiKhoanNhanVien> getDs(){
 		return dstk;
 	}
+    
     public int getMaxMaTaiKhoan() {
         int maxMaTK = 0;
         Connection conn = null;

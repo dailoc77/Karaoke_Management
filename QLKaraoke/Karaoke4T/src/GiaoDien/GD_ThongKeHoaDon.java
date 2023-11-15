@@ -70,7 +70,7 @@ public class GD_ThongKeHoaDon extends JFrame implements ActionListener {
 	private JPanel contentPane;
 	private JTable table;
 	DefaultTableModel model;
-	private JLabel lblClock;
+	private JLabel lblClock, lbltenql;
 	private Timer timer;
 	private JTextField textFieldTongSoKhachHang;
 	private JTextField textFieldTongDoanhThu;
@@ -80,6 +80,10 @@ public class GD_ThongKeHoaDon extends JFrame implements ActionListener {
 	private int selectedValueNam = 0;
 	private String thang [] = {"1","2","3","4","5","6","7","8","9","10","11","12"};
 	private JComboBox comboBoxThang = new JComboBox<>(thang);
+	Connection con = null;
+	ResultSet rs = null;
+	PreparedStatement pst = null;
+	String quanly;
 	
 //	private JComboBox comboBoxThang;
 	ThongKeHoaDon_DAO dstk = new ThongKeHoaDon_DAO();
@@ -123,6 +127,7 @@ public class GD_ThongKeHoaDon extends JFrame implements ActionListener {
 	 */
 	public GD_ThongKeHoaDon() {
 		initComponents();
+		String tenuser = layThongTinTen();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1175, 650);
 		contentPane = new JPanel();
@@ -176,10 +181,11 @@ public class GD_ThongKeHoaDon extends JFrame implements ActionListener {
 		lblquanly.setBounds(878, -20, 232, 80);
 		contentPane.add(lblquanly);
 		
-		JLabel lbltenql = new JLabel("Nguyễn Văn A");
+		lbltenql = new JLabel();
 		lbltenql.setForeground(Color.WHITE);
 		lbltenql.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lbltenql.setBounds(833, 6, 232, 80);
+		lbltenql.setBounds(853, 6, 232, 80);
+		lbltenql.setText(tenuser);
 		contentPane.add(lbltenql);
 		
 		JButton jButton = new JButton("Đăng Xuất");
@@ -698,5 +704,19 @@ public class GD_ThongKeHoaDon extends JFrame implements ActionListener {
         }
     }
 
-    
+	private String layThongTinTen() {
+	    String query = "SELECT tenNV FROM TaiKhoan WHERE maTK = ?";
+	    try {
+            con = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=Karaoke4T;user=sa;password=123");
+	        pst = con.prepareStatement(query);
+	        pst.setString(1, "TK001"); // Điền điều kiện truy vấn của bạn
+	        rs = pst.executeQuery();
+	        if (rs.next()) {
+	            return rs.getString("tenNV");
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return null;
+	}
 }

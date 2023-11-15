@@ -25,23 +25,27 @@ import javax.swing.Timer;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Calendar;
 
 import javax.swing.border.LineBorder;
 
 
 public class GD_Main_QL extends JFrame implements ActionListener{
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JLabel lblClock;
+	private JLabel lblClock, lbltenql;
 	private Timer timer;
 	private JButton jButton;
-	/**
-	 * Launch the application.
-	 */
+	Connection con = null;
+	ResultSet rs = null;
+	PreparedStatement pst = null;
+	String quanly;
+	
 	public static void main(String[] args) {
 		try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -70,22 +74,18 @@ public class GD_Main_QL extends JFrame implements ActionListener{
 			}
 		});
 	}
-	/**
-	 * Create the frame.
-	 */
+
 	public GD_Main_QL() {
 		initComponents();
+		String tenuser = layThongTinTen();
 		setBackground(Color.WHITE);
 		setTitle("Giao Diện Quản Lý");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 1175, 650);
-		
 		contentPane = new JPanel();
 		contentPane.setBorder(null);
-
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
 //		 Ho tro -----------------------
 		JButton btnNewButton = new JButton("");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -99,9 +99,7 @@ public class GD_Main_QL extends JFrame implements ActionListener{
 		btnNewButton.setIcon(new ImageIcon(GD_Main_NV.class.getResource("/Imgs/iconHoTro.png")));
 		btnNewButton.setBounds(304, 10, 49, 50);
 		contentPane.add(btnNewButton);
-		
 //		------------------------------------------
-		
 		JLabel lblavatar = new JLabel("");
 		lblavatar.setHorizontalAlignment(SwingConstants.CENTER);
 		lblavatar.setIcon(new ImageIcon(GD_Main_QL.class.getResource("/Imgs/t1 1.png")));
@@ -114,47 +112,44 @@ public class GD_Main_QL extends JFrame implements ActionListener{
 		lblquanly.setBounds(878, -20, 232, 80);
 		contentPane.add(lblquanly);
 		
-		JLabel lbltenql = new JLabel("Nguyễn Văn A");
+		lbltenql = new JLabel();
 		lbltenql.setForeground(Color.WHITE);
 		lbltenql.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lbltenql.setBounds(833, 6, 232, 80);
+		lbltenql.setBounds(853, 6, 252, 80);
+		lbltenql.setText(tenuser);
 		contentPane.add(lbltenql);
-		
+
 		JButton jButton_1 = new JButton("Đăng Xuất");
 		jButton_1.setBounds(990, 10, 150, 50);
 		jButton_1.setFont(new Font("Tahoma ", Font.BOLD, 14));
 		jButton_1.setBackground(new Color(255, 0, 0));
 		jButton_1.setForeground(Color.WHITE);
-		
-			jButton_1.setBorder(BorderFactory.createLineBorder(Color.RED, 2, true));
-			jButton_1.setBorder(BorderFactory.createLineBorder(Color.RED, 2, true));
-			jButton_1.setContentAreaFilled(false);
-			jButton_1.setFocusPainted(false);
-			jButton_1.setOpaque(true);
-			contentPane.add(jButton_1);
-			
-					jButton_1.addMouseListener(new MouseAdapter() {
-					    @Override
-					    public void mouseEntered(MouseEvent e) {
-					        jButton_1.setBackground(Color.BLACK);
-					    }
-			
-					    @Override
-					    public void mouseExited(MouseEvent e) {
-					        jButton_1.setBackground(new Color(255, 0, 0));
-					    }
-					});
-					
-							jButton_1.addActionListener(new ActionListener() {
-							    public void actionPerformed(ActionEvent e) {
-							        if (JOptionPane.showConfirmDialog(null, "Bạn có muốn đăng xuất!", null, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-							            GD_Login lg = new GD_Login();
-							            lg.setVisible(true);
-							            lg.setLocationRelativeTo(null);
-							            dispose();
-							        }
-							    }
-							});
+		jButton_1.setBorder(BorderFactory.createLineBorder(Color.RED, 2, true));
+		jButton_1.setBorder(BorderFactory.createLineBorder(Color.RED, 2, true));
+		jButton_1.setContentAreaFilled(false);
+		jButton_1.setFocusPainted(false);
+		jButton_1.setOpaque(true);
+		contentPane.add(jButton_1);
+		jButton_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				jButton_1.setBackground(Color.BLACK);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				jButton_1.setBackground(new Color(255, 0, 0));
+			}
+		});
+		jButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (JOptionPane.showConfirmDialog(null, "Bạn có muốn đăng xuất!", null, JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+					GD_Login lg = new GD_Login();
+					lg.setVisible(true);
+					lg.setLocationRelativeTo(null);
+					dispose();
+					}
+				}
+		});
 
 		JPanel box_clock = new JPanel();
         box_clock.setBounds(34, 10, 260, 50);
@@ -182,6 +177,7 @@ public class GD_Main_QL extends JFrame implements ActionListener{
 				dispose();
 			}
 		});
+        
         btnphonghat.setBorder(null);
         btnphonghat.setText("Phòng Hát");
         btnphonghat.setForeground(Color.WHITE);
@@ -275,6 +271,22 @@ public class GD_Main_QL extends JFrame implements ActionListener{
 		lblNewLabel.setBounds(-95, -176, 1333, 957);
 		contentPane.add(lblNewLabel);
 		
+	}
+	
+	private String layThongTinTen() {
+	    String query = "SELECT tenNV FROM TaiKhoan WHERE maTK = ?";
+	    try {
+            con = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=Karaoke4T;user=sa;password=123");
+	        pst = con.prepareStatement(query);
+	        pst.setString(1, "TK001"); // Điền điều kiện truy vấn của bạn
+	        rs = pst.executeQuery();
+	        if (rs.next()) {
+	            return rs.getString("tenNV");
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return null;
 	}
 	
 	private void initComponents() {

@@ -79,6 +79,11 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 	QLTK_DAO dstk = new QLTK_DAO();
 	private JTextField txtMaNV;
 	private JTextField txt_maTK;
+	Connection con = null;
+	ResultSet rs = null;
+	PreparedStatement pst = null;
+	String quanly;
+	private JLabel lbltenql;
 
 	public static void main(String[] args) {
 		try {
@@ -127,7 +132,8 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 		dslnv = new LoaiNhanVien_DAO();
 		
 
-//		initComponents();
+		initComponents();
+		String tenuser = layThongTinTen();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1175, 650);
 		setResizable(false);
@@ -180,10 +186,11 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 		lblquanly.setBounds(878, -20, 232, 80);
 		contentPane.add(lblquanly);
 		
-		JLabel lbltenql = new JLabel("Nguyễn Văn A");
+		lbltenql = new JLabel();
 		lbltenql.setForeground(Color.WHITE);
 		lbltenql.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lbltenql.setBounds(833, 6, 232, 80);
+		lbltenql.setBounds(853, 6, 232, 80);
+		lbltenql.setText(tenuser);
 		contentPane.add(lbltenql);
 		
 		JButton jButton = new JButton("Đăng Xuất");
@@ -594,6 +601,7 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 		
 	}
 	
+<<<<<<< Updated upstream
 //	private void initComponents() {
 //
 //        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -621,16 +629,33 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 //         GD_Main_QL mainql=new GD_Main_QL();
 //         mainql.setVisible(true);
 //    }
+=======
+//	private String layGioiTinh(Boolean rdbtnNam , Boolean rdbtnNu) {
+//		String gt = "";
+//		if(rdbtnNam.TRUE) {
+//			gt = "Nam";
+//		}
+//		if(rdbtnNu.TRUE) {
+//			gt = "Nữ";
+//		}
+//		
+//		return gt;
+//	}
+	
+>>>>>>> Stashed changes
 	private NhanVien reverSPFromTextField() {
 		String maNV = txtMaNV.getText().toString();
 		String ten = txtten.getText().toString();
 		String gt = "";
+<<<<<<< Updated upstream
 		if (rdbtnNAM != null && rdbtnNAM.isSelected()) {
 			gt = rdbtnNAM.getText();
 	    }
 	    if (rdbtnNU != null && rdbtnNU.isSelected()) {
 	    	gt = rdbtnNU.getText();
 	    }
+=======
+>>>>>>> Stashed changes
 		String ngaySinh = txtns.getText().toString();
 		String cmnd = txtcmnd.getText().toString();
 		String sdt = txtsdt.getText().toString();
@@ -644,12 +669,89 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 	
 	
 	protected void btnsuaActionPerformed(ActionEvent e) {
+<<<<<<< Updated upstream
 		QLNV_DAO dsnv = new QLNV_DAO();
 		int row = table.getSelectedRow();
 		
 		if(row >= 0) {
 			NhanVien nv = reverSPFromTextField();
 			if(dsnv.update(nv)) {
+=======
+		// TODO Auto-generated method stub
+		
+	}
+
+	protected void btnxoaActionPerformed(ActionEvent e) {
+		QLNV_DAO dsnv = new QLNV_DAO();
+		int row = table.getSelectedRow();
+		if(row >= 0) {
+			String manv = (String) table.getValueAt(row, 0);
+			if(dsnv.delete(manv)) {
+				model.removeRow(row);
+				lammoi();
+			}
+		}
+		JOptionPane.showMessageDialog(this, "Xóa Tài Khoản Thành Công");
+		
+	}
+
+	protected void btnthemActionPerformed(ActionEvent e) {
+		QLNV_DAO dsnv = new QLNV_DAO();
+		int maxMaNV = dsnv.getMaxMaNV();
+//		int maxMaTK = dstk.getMaxMaTaiKhoan();
+		
+		maxMaNV++;
+//		maxMaTK++;
+
+		txtMaNV.setText("NVAA" + String.format("%04d", maxMaNV));
+		NhanVien nv = reverSPFromTextField();
+		String gt = "";
+		if(dsnv.create(nv)) {
+			if(rdbtnNAM.isSelected()) {
+				gt = "Nam";
+			}
+			if(rdbtnNU.isSelected()) {
+				gt = "Nữ";
+			}
+
+			Object [] rowData = {txtMaNV.getText(),txtten.getText(),gt,txtns.getText(),txtcmnd.getText(),txtsdt.getText(),textFieldTrangThaiLamViec.getText(),txtdc.getText(),nv.getLNV().getMaLNV(),nv.getMaTK().getMaTaiKhoan()};
+			model.addRow(rowData);
+			JOptionPane.showMessageDialog(this, "Thêm Nhân Viên Thành Công");
+			lammoi();
+		}
+//		table.setModel(model);
+//		updateTableData();
+		loadTable();
+	}
+
+	private void initComponents() {
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+           .addGap(0, 300, Short.MAX_VALUE)
+        );
+
+        pack();
+    }
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+         GD_Main_QL mainql=new GD_Main_QL();
+         mainql.setVisible(true);
+    }
+>>>>>>> Stashed changes
 
 				table.setValueAt(txtten.getText(), row, 1);
 				table.setValueAt(nv.getGioiTinh(), row, 2);
@@ -740,7 +842,21 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
         lblClock.setText(time);
     }
 
-	
+	private String layThongTinTen() {
+	    String query = "SELECT tenNV FROM TaiKhoan WHERE maTK = ?";
+	    try {
+            con = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databasename=Karaoke4T;user=sa;password=123");
+	        pst = con.prepareStatement(query);
+	        pst.setString(1, "TK001"); // Điền điều kiện truy vấn của bạn
+	        rs = pst.executeQuery();
+	        if (rs.next()) {
+	            return rs.getString("tenNV");
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return null;
+	}
 	
 	private void updateTableData() {
 		QLNV_DAO ds = new QLNV_DAO();
@@ -753,7 +869,6 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 		
 	}
 	
-
 	public void loadComBoBox() {
 
 		// Thông tin kết nối đến cơ sở dữ liệu
@@ -785,7 +900,6 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
         }
 	}
 	
-	
 	public void loadTable() {
 		QLNV_DAO dsnv = new QLNV_DAO();
 		model.setRowCount(0);
@@ -806,7 +920,10 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 //		r.setText(table.getValueAt(row, 3).toString());
 //		txtmk.setText(table.getValueAt(row, 4).toString());
 //	}
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 	
 	public void lammoi() {
 		txtMaNV.setText("");
@@ -817,9 +934,11 @@ public class GD_QLNhanVien extends JFrame implements ActionListener {
 		txtsdt.setText("");
 		txtdc.setText("");
 		textFieldTrangThaiLamViec.setText("");
+<<<<<<< Updated upstream
 		cbLoaiNhanVien.setSelectedIndex(1);
 		
+=======
+>>>>>>> Stashed changes
 //		bg.clearSelection();
-
 	}
 }
