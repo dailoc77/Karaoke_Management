@@ -171,7 +171,11 @@ public class GD_Login extends JFrame implements ActionListener{
 		passMk.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		passMk.setBounds(44, 190, 240, 40);
 		panel.add(passMk);
+<<<<<<< HEAD
 		passMk.setText("123");
+=======
+		passMk.setText("admin2403");
+>>>>>>> 0c0c40764ffbcfeda707a92e08e1e4b597474bf7
 		
 		txtUser = new JTextField();
 		txtUser.setFont(new Font("Tahoma", Font.PLAIN, 20));
